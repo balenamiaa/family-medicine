@@ -5,3 +5,5 @@ export { ProgressRing } from "./ProgressRing";
 export { StreakCounter } from "./StreakCounter";
 export { RetentionAid } from "./RetentionAid";
 export { ExplanationPanel } from "./ExplanationPanel";
+export { QuestionNavigator } from "./QuestionNavigator";
+export { ModeSwitcher } from "./ModeSwitcher";

@@ -6,6 +6,8 @@ import {
   ThemeToggle,
   ProgressRing,
   StreakCounter,
+  QuestionNavigator,
+  ModeSwitcher,
 } from "@/components/ui";
 import { useQuiz } from "@/hooks/useQuiz";
 import { QuestionBank, QuestionType, Difficulty, QUESTION_TYPE_LABELS, DIFFICULTY_LABELS } from "@/types";
@@ -17,7 +19,7 @@ const questions = (questionsData as QuestionBank).questions;
 const QUESTION_TYPES: QuestionType[] = ["mcq_single", "mcq_multi", "true_false", "emq", "cloze"];
 const DIFFICULTIES: Difficulty[] = [1, 2, 3, 4, 5];
 
-export default function QuizPage() {
+export default function PracticePage() {
   // Filter state
   const [filterTypes, setFilterTypes] = useState<QuestionType[]>([]);
   const [filterDifficulty, setFilterDifficulty] = useState<Difficulty[]>([]);
@@ -33,6 +35,8 @@ export default function QuizPage() {
     correctCount,
     streak,
     maxStreak,
+    answeredIndices,
+    correctIndices,
     isAnswered,
     isCorrect,
     answerQuestion,
@@ -60,9 +64,6 @@ export default function QuizPage() {
     );
   };
 
-  // Accuracy calculation
-  const accuracy = answeredCount > 0 ? (correctCount / answeredCount) * 100 : 0;
-
   // Question type counts
   const typeCounts = useMemo(() => {
     const counts: Record<QuestionType, number> = {
@@ -80,7 +81,7 @@ export default function QuizPage() {
     <div className="min-h-screen bg-[var(--bg-primary)]">
       {/* Header */}
       <header className="sticky top-0 z-50 glass border-b border-[var(--border-subtle)]">
-        <div className="max-w-5xl mx-auto px-4 py-4">
+        <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between gap-4">
             {/* Logo */}
             <div className="flex items-center gap-3">
@@ -89,7 +90,7 @@ export default function QuizPage() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
               </div>
-              <div>
+              <div className="hidden sm:block">
                 <h1 className="font-display text-xl font-semibold text-[var(--text-primary)]">
                   MedCram
                 </h1>
@@ -97,13 +98,16 @@ export default function QuizPage() {
               </div>
             </div>
 
+            {/* Mode Switcher */}
+            <ModeSwitcher />
+
             {/* Theme toggle */}
             <ThemeToggle />
           </div>
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-4 py-8">
+      <main className="max-w-6xl mx-auto px-4 py-8">
         <div className="grid gap-8 lg:grid-cols-[1fr,320px]">
           {/* Main content */}
           <div className="space-y-6">
@@ -255,42 +259,13 @@ export default function QuizPage() {
 
             {/* Question navigator */}
             {totalQuestions > 0 && (
-              <div className="card p-4">
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-sm font-medium text-[var(--text-muted)]">
-                    Quick Navigation
-                  </span>
-                  <span className="text-xs text-[var(--text-muted)]">
-                    {answeredCount} of {totalQuestions} answered
-                  </span>
-                </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {Array.from({ length: Math.min(totalQuestions, 50) }).map((_, i) => {
-                    const state = i === currentIndex ? "current" : undefined;
-                    const answered = i < answeredCount;
-
-                    return (
-                      <button
-                        key={i}
-                        onClick={() => goToQuestion(i)}
-                        className={cn(
-                          "w-8 h-8 rounded-lg text-xs font-medium transition-all",
-                          state === "current" && "bg-[var(--bg-accent)] text-[var(--text-inverse)] ring-2 ring-[var(--border-accent)] ring-offset-2 ring-offset-[var(--bg-card)]",
-                          !state && answered && "bg-[var(--success-bg)] text-[var(--success-text)] border border-[var(--success-border)]/30",
-                          !state && !answered && "bg-[var(--bg-secondary)] text-[var(--text-muted)] hover:bg-[var(--bg-card-hover)]"
-                        )}
-                      >
-                        {i + 1}
-                      </button>
-                    );
-                  })}
-                  {totalQuestions > 50 && (
-                    <span className="flex items-center px-2 text-xs text-[var(--text-muted)]">
-                      +{totalQuestions - 50} more
-                    </span>
-                  )}
-                </div>
-              </div>
+              <QuestionNavigator
+                totalQuestions={totalQuestions}
+                currentIndex={currentIndex}
+                answeredIndices={answeredIndices}
+                correctIndices={correctIndices}
+                onNavigate={goToQuestion}
+              />
             )}
           </div>
 
@@ -348,7 +323,7 @@ export default function QuizPage() {
 
       {/* Footer */}
       <footer className="mt-16 py-8 border-t border-[var(--border-subtle)]">
-        <div className="max-w-5xl mx-auto px-4 text-center">
+        <div className="max-w-6xl mx-auto px-4 text-center">
           <p className="text-sm text-[var(--text-muted)]">
             Built for effective exam preparation. Good luck with your studies!
           </p>
