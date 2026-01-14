@@ -992,6 +992,566 @@
             "difficulty": 1,
             "retention_aid": "Metformin First. Always (unless GFR <30).",
             "explanation": "### Core Concept\nFirst-line therapy for T2DM.\n\n### Correct Answer Explained\n**Metformin** is the universal first-line agent due to high efficacy, low cost, weight neutrality, and cardiovascular safety.\n\n### Why Other Options Are Wrong\n- **Insulin:** Usually for symptomatic patients or A1c > 9-10%.\n- **Gliclazide/Sitagliptin:** Second-line agents added if Metformin is insufficient or contraindicated."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 28-year-old lactating mother complains of cracked nipples and pain during feeding. She considers switching to formula. Observation reveals the baby sucks on the nipple rather than the areola. Which criterion of 'Good Attachment' is visibly missing?",
+            "options": [
+                "Baby's mouth is wide open",
+                "Baby's chin is touching the breast",
+                "More areola is visible below the baby's mouth than above it",
+                "Baby's lower lip is turned outwards"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "CALM: Chin touching, Areola (more above), Lip out, Mouth wide.",
+            "explanation": "### Core Concept\nGood attachment is crucial to prevent nipple trauma and ensure effective milk transfer. The four signs are:\n1.  Chin touching breast.\n2.  Mouth wide open.\n3.  Lower lip turned outwards.\n4.  **More areola visible ABOVE the baby's mouth than below.**\n\n### Correct Answer Explained\nThe correct sign of good attachment is seeing **more areola ABOVE the top lip** than below the bottom lip. If the baby is attached only to the nipple (shallow latch), feeding is painful and ineffective.\n\n### Why Other Options Are Wrong\n- The other options (Mouth wide open, Chin touching, Lip turned out) are indeed signs of *good* attachment. The distractor \"More areola visible below\" describes *poor* attachment (the baby should cover the bottom part of the areola with the lower jaw)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 5-month-old infant on exclusive breastfeeding is brought in. The mother needs to return to work and plans to express milk. She asks about storage. How long can she safely keep expressed breast milk in the freezer compartment of a refrigerator?",
+            "options": [
+                "24 hours",
+                "1 week",
+                "3-6 months",
+                "1 year"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "Rule of 3-6: Room=Hours, Fridge=Days, Freezer=Months.",
+            "explanation": "### Core Concept\nBreast milk storage guidelines ensure safety and nutrient preservation.\n\n### Correct Answer Explained\nIn a standard **freezer** (specifically -18°C), breast milk can be stored for **3 to 6 months**.\n\n### Why Other Options Are Wrong\n- **24 hours:** Too short for a freezer (this is closer to cooler bag limits).\n- **1 week:** This is the upper limit for a *refrigerator* (4°C).\n- **1 year:** Only in deep freeze units (-20°C or colder), not standard fridge freezers."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 3-year-old child presents with diarrhea for 16 days. The child looks wasted but alert. There is no blood in the stool. Current diet consists largely of cow's milk. In addition to Zinc, what specific dietary modification is recommended for Persistent Diarrhea?",
+            "options": [
+                "Stop all food for 24 hours to rest the gut",
+                "Switch to a clear liquid diet (water and tea) only",
+                "Replace milk with fermented milk products (yoghurt) or decrease milk volume by half",
+                "Start elemental formula immediately"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "Persistent Diarrhea = Lactose Intolerance is likely. Use Yoghurt (fermented) or Mix milk with food.",
+            "explanation": "### Core Concept\nIn persistent diarrhea (>14 days), the gut mucosa is damaged, leading to secondary lactase deficiency.\n\n### Correct Answer Explained\nThe IMCI guideline for **Persistent Diarrhea** (non-severe) recommends replacing animal milk with **fermented milk products (like yoghurt)** which have less lactose and beneficial bacteria, or replacing half the milk with nutrient-rich semisolid food to reduce lactose load.\n\n### Why Other Options Are Wrong\n- **Stop food:** Never starve a child with diarrhea; it worsens malnutrition.\n- **Clear liquids:** Provides no calories/protein; leads to starvation.\n- **Elemental formula:** Expensive and usually reserved for hospital management of severe malnutrition/malabsorption failure."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 1-year-old child with pneumonia is prescribed Amoxicillin. The mother asks what she should do if the child vomits immediately after taking the medicine. What is the correct advice?",
+            "options": [
+                "Wait until the next scheduled dose",
+                "Give half the dose again",
+                "Give another full dose immediately",
+                "Switch to injectable antibiotics"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "Vomit immediately = Dose lost. Replace it completely.",
+            "explanation": "### Core Concept\nEnsuring adherence and effective dosing in pediatrics.\n\n### Correct Answer Explained\nIf a child vomits **within 30 minutes** of taking a dose, the medication has not been absorbed. The caregiver should **give another full dose immediately**.\n\n### Why Other Options Are Wrong\n- **Wait:** Leads to under-dosing and potential treatment failure.\n- **Half dose:** Incorrect; you cannot estimate how much was lost, so full replacement is standard.\n- **Injectable:** Only indicated if the child *persistently* vomits (Danger sign: \"Vomits everything\") or cannot tolerate oral intake."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 4-year-old child presents with a wheeze and respiratory rate of 50/min. You administer a bronchodilator trial. After 30 minutes, the wheeze has disappeared, and the respiratory rate has dropped to 30/min. What is the correct classification?",
+            "options": [
+                "Pneumonia",
+                "Severe Pneumonia",
+                "Cough or Cold (Asthma/Viral Wheeze)",
+                "Bronchiolitis"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "Response to Bronchodilator: Rate drops = Asthma/Viral. Rate stays high = Pneumonia.",
+            "explanation": "### Core Concept\nDistinguishing obstruction (reversible) from consolidation (pneumonia).\n\n### Correct Answer Explained\nSince the fast breathing resolved after bronchodilation, the tachypnea was likely due to airway obstruction (bronchospasm). The classification is **Cough or Cold** (no pneumonia). Treatment involves home care and bronchodilators if wheezing recurs.\n\n### Why Other Options Are Wrong\n- **Pneumonia:** Diagnosed only if fast breathing *persists* after the trial.\n- **Severe Pneumonia:** Requires danger signs or chest indrawing (which persists).\n- **Bronchiolitis:** Typically affects infants <2 years; in a 4-year-old, this response suggests asthma."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 50-year-old smoker is prescribed Varenicline (Chantix) for smoking cessation. Which common side effect should you specifically counsel him about?",
+            "options": [
+                "Weight loss and anorexia",
+                "Hypertension and tachycardia",
+                "Nausea and abnormal/vivid dreams",
+                "Dry mouth and urinary retention"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "Varenicline = Vivid dreams + Vomiting sensation (Nausea).",
+            "explanation": "### Core Concept\nVarenicline is a partial nicotine agonist.\n\n### Correct Answer Explained\nThe most common adverse events are **nausea** (up to 30%) and **insomnia/vivid dreams**. Taking the medication with food and water helps the nausea.\n\n### Why Other Options Are Wrong\n- **Weight loss:** Not a typical side effect (cessation usually causes gain).\n- **HTN/Tachycardia:** More associated with NRT or Bupropion (sympathomimetic effects).\n- **Dry mouth/Retention:** Anticholinergic side effects (e.g., Tricyclics), not Varenicline."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 35-year-old female smoker wants to quit but is worried about post-cessation weight gain. Which pharmacotherapy helps delay weight gain and would be most appropriate?",
+            "options": [
+                "Nicotine Patches",
+                "Bupropion SR",
+                "Clonidine",
+                "Nortriptyline"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "Bupropion Buffers Body weight.",
+            "explanation": "### Core Concept\nSmoking cessation slows metabolism. Some drugs act as appetite suppressants.\n\n### Correct Answer Explained\n**Bupropion SR** and Nicotine Gum/Lozenge (oral NRT) have been shown to delay weight gain associated with quitting. Bupropion is particularly noted for this benefit.\n\n### Why Other Options Are Wrong\n- **Nicotine Patch:** Provides steady nicotine but less effective at suppressing the oral cravings/weight gain compared to oral forms or Bupropion.\n- **Clonidine:** Second-line; side effects include sedation/dry mouth, neutral/variable weight effect."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 45-year-old diabetic male has a lipid profile showing: Cholesterol 220, LDL 110, HDL 35, and Triglycerides 550 mg/dL. He complains of abdominal pain. What is the immediate priority in lipid management?",
+            "options": [
+                "Start High-Intensity Statin to lower LDL",
+                "Start Fibrate (e.g., Fenofibrate) to lower Triglycerides",
+                "Start Ezetimibe",
+                "Lifestyle changes only"
+            ],
+            "correct_index": 1,
+            "difficulty": 4,
+            "retention_aid": "TG > 500 = Pancreatitis Risk. Treat TG first (Fibrates).",
+            "explanation": "### Core Concept\nWhile LDL is the primary target for CVD, **Triglycerides > 500 mg/dL** pose an immediate risk of **acute pancreatitis**.\n\n### Correct Answer Explained\nThe priority is to lower Triglycerides to prevent pancreatitis. **Fibrates** are the drug of choice for severe hypertriglyceridemia. Once TG < 500, statins can be added/prioritized for CVD risk.\n\n### Why Other Options Are Wrong\n- **Statin:** First line for CVD, but pancreatitis is the acute threat here.\n- **Ezetimibe:** Weak effect on TG.\n- **Lifestyle:** Insufficient for TG > 500 with symptoms."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 60-year-old male with hypertension and dyslipidemia presents for follow-up. He takes Simvastatin 40mg. Routine labs show ALT 120 U/L (Normal <40). He is asymptomatic. What is the best course of action?",
+            "options": [
+                "Continue Statin and recheck in 1 year",
+                "Stop Statin immediately and assess for other causes of liver injury",
+                "Add Ezetimibe",
+                "Switch to Atorvastatin 80mg"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "Liver Enzyme Rule: >3x Upper Limit = STOP Statin.",
+            "explanation": "### Core Concept\nStatins can cause transaminitis. \n\n### Correct Answer Explained\nIf **ALT/AST levels rise >3 times the upper limit of normal** (120 is 3x 40), the recommendation is to **stop the statin** and evaluate for hepatotoxicity or other causes. Re-challenge may be possible later at a lower dose or different agent once normalized.\n\n### Why Other Options Are Wrong\n- **Continue:** Unsafe with >3x elevation.\n- **Switch to high dose:** Would worsen toxicity.\n- **Add Ezetimibe:** Irrelevant to the acute liver injury."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 50-year-old male complains of chronic fatigue and daytime sleepiness. His partner reports he snores loudly and gasps for air at night. He has a collar size of 18 inches and BMI of 34. What is the gold standard diagnostic test for his condition?",
+            "options": [
+                "Home Pulse Oximetry",
+                "Polysomnography (Sleep Study)",
+                "Thyroid Function Tests",
+                "Epworth Sleepiness Scale"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Snoring + Tired + Fat Neck = Sleep Apnea. Dx = Polysomnography.",
+            "explanation": "### Core Concept\nObstructive Sleep Apnea (OSA) is a major organic cause of fatigue in obese patients.\n\n### Correct Answer Explained\n**Polysomnography** (overnight sleep study) is the gold standard to quantify apneic events (AHI score) and diagnose OSA.\n\n### Why Other Options Are Wrong\n- **Pulse Oximetry:** Screening tool, lacks specificity.\n- **Epworth Scale:** Subjective screening questionnaire, not diagnostic.\n- **TSH:** Rules out hypothyroid, but the clinical picture (snoring/gasps) points specifically to airway obstruction."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A patient with fatigue, hypotension, and hyperpigmentation of the skin should be screened for:",
+            "options": [
+                "Cushing's Syndrome",
+                "Addison's Disease (Adrenal Insufficiency)",
+                "Hypothyroidism",
+                "Diabetes Mellitus"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Addison's = Add color (Pigment) + Subtract BP (Hypotension).",
+            "explanation": "### Core Concept\nEndocrine causes of fatigue have distinct phenotypes.\n\n### Correct Answer Explained\n**Addison's Disease** (Primary Adrenal Insufficiency) leads to low cortisol/aldosterone (causing hypotension/fatigue) and high ACTH (causing hyperpigmentation via MSH similarity).\n\n### Why Other Options Are Wrong\n- **Cushing's:** Hypertension, weight gain, striae.\n- **Hypothyroid:** Weight gain, pale/dry skin, diastoloic hypertension.\n- **Diabetes:** Polyuria, polydipsia."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 40-year-old male with a BMI of 38 kg/m2 asks about Bariatric Surgery. Which of the following meets the standard criteria for surgical referral?",
+            "options": [
+                "BMI ≥ 30 with no comorbidities",
+                "BMI ≥ 35 with obesity-related comorbidities (e.g., HTN, Diabetes)",
+                "BMI ≥ 40 only if diet failed for 5 years",
+                "Any BMI if the patient pays out of pocket"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "Surgery Cutoffs: 40 (anyone) OR 35 (+Comorbidity).",
+            "explanation": "### Core Concept\nIndications for bariatric surgery are strict due to operative risks.\n\n### Correct Answer Explained\nThe criteria are **BMI ≥ 40** (regardless of comorbidities) OR **BMI ≥ 35 with significant comorbidities** (Type 2 DM, HTN, OSA) after failure of conservative management.\n\n### Why Other Options Are Wrong\n- **BMI ≥ 30:** Indication for medication/lifestyle, not surgery (unless recent lower thresholds for Asians/uncontrolled DM emerge, but 35/40 is standard exam answer).\n- **Diet failure 5 years:** Duration isn't the primary strict criterion, usually \"failure of nonsurgical attempts\" is sufficient."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A patient taking Liraglutide (GLP-1 agonist) for obesity presents with severe, persistent mid-epigastric pain radiating to the back. What serious adverse effect must be ruled out?",
+            "options": [
+                "Peptic Ulcer Disease",
+                "Acute Pancreatitis",
+                "Renal Colic",
+                "Appendicitis"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "GLP-1 = Pancreas stimulation -> Risk of Pancreatitis.",
+            "explanation": "### Core Concept\nGLP-1 agonists stimulate insulin secretion and can stress the pancreas.\n\n### Correct Answer Explained\n**Acute Pancreatitis** is a rare but known serious side effect of GLP-1 agonists (and DPP-4 inhibitors). The presentation (pain radiating to back) is classic.\n\n### Why Other Options Are Wrong\n- **Peptic Ulcer:** Unrelated to GLP-1 mechanism.\n- **Renal Colic:** Flank pain, hematuria.\n- **Appendicitis:** RLQ pain."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 25-year-old female with a history of Migraine with Aura requests oral contraceptives. Which method is CONTRAINDICATED due to stroke risk?",
+            "options": [
+                "Combined Oral Contraceptive Pill (Estrogen + Progesterone)",
+                "Progesterone-only Pill (Mini-pill)",
+                "Copper IUD",
+                "Levonorgestrel IUD (Mirena)"
+            ],
+            "correct_index": 0,
+            "difficulty": 3,
+            "retention_aid": "Migraine with Aura + Estrogen = Stroke Risk -> STOP the combined pill.",
+            "explanation": "### Core Concept\nMigraine with Aura increases ischemic stroke risk. Estrogen increases thrombotic risk. Combining them is dangerous.\n\n### Correct Answer Explained\n**Combined Oral Contraceptives (containing Estrogen)** are absolutely contraindicated (WHO Category 4) in patients with Migraine *with* Aura due to the multiplicative risk of ischemic stroke.\n\n### Why Other Options Are Wrong\n- **Progesterone-only/IUDs:** Do not carry the same stroke risk and are safe alternatives."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 30-year-old male describes 'band-like' bilateral headaches that occur 3 times a week, usually towards the end of the work day. He has no nausea or photophobia. He takes Ibuprofen daily. What is the most appropriate prophylactic medication for this condition?",
+            "options": [
+                "Propranolol",
+                "Verapamil",
+                "Amitriptyline",
+                "Sumatriptan"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "Tension Prophylaxis = TCA (Amitriptyline). Migraine = Beta Blocker. Cluster = Verapamil.",
+            "explanation": "### Core Concept\nThis is **Frequent Episodic/Chronic Tension-Type Headache**. \n\n### Correct Answer Explained\n**Amitriptyline** (a Tricyclic Antidepressant) is the first-line prophylactic agent for chronic tension-type headaches.\n\n### Why Other Options Are Wrong\n- **Propranolol:** First-line prophylaxis for *Migraine*.\n- **Verapamil:** First-line prophylaxis for *Cluster Headache*.\n- **Sumatriptan:** Abortive for Migraine/Cluster; not effective for Tension."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 45-year-old patient presents with a unilateral headache and jaw claudication (pain when chewing). The ESR is 80 mm/hr. What is the immediate management step to prevent blindness?",
+            "options": [
+                "Wait for Temporal Artery Biopsy results",
+                "Start High-Dose Systemic Corticosteroids (e.g., Prednisone 60mg)",
+                "Start Indomethacin",
+                "Refer for CT Head"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "GCA = Blindness Risk. Shoot first (Steroids), ask questions (Biopsy) later.",
+            "explanation": "### Core Concept\n**Giant Cell Arteritis (Temporal Arteritis)** affects the ophthalmic artery. Ischemia leads to permanent blindness.\n\n### Correct Answer Explained\nImmediate initiation of **High-Dose Corticosteroids** is mandatory upon clinical suspicion to prevent vision loss. Biopsy confirms diagnosis but should *not* delay treatment (pathology remains positive for weeks).\n\n### Why Other Options Are Wrong\n- **Wait for Biopsy:** Unacceptable delay; vision could be lost in the interim.\n- **Indomethacin:** Treating 'Carotidynia' or simple inflammation is insufficient for vasculitis."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 30-year-old female is diagnosed with Hypertension. She plans to conceive soon. Which antihypertensive medication is safe to use in pregnancy?",
+            "options": [
+                "Lisinopril",
+                "Valsartan",
+                "Labetalol",
+                "Amlodipine"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "Pregnant Moms Love Nifedipine (Propranolol/Labetalol), Methyldopa.",
+            "explanation": "### Core Concept\nRAAS inhibitors are teratogenic.\n\n### Correct Answer Explained\n**Labetalol**, **Methyldopa**, and **Nifedipine** are the standard safe choices for chronic hypertension in pregnancy.\n\n### Why Other Options Are Wrong\n- **Lisinopril (ACEi) / Valsartan (ARB):** Cause fetal renal failure, oligohydramnios, and skull hypoplasia (fetopathy). Absolute contraindication."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A patient with hypertension remains uncontrolled (150/95) despite being on optimal doses of Amlodipine, Lisinopril, and Indapamide. Adherence is confirmed. What is the definition of this condition?",
+            "options": [
+                "Hypertensive Urgency",
+                "Resistant Hypertension",
+                "Secondary Hypertension",
+                "White Coat Hypertension"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Resistant = 3 drugs (inc. diuretic) and still high. Or 4 drugs to control.",
+            "explanation": "### Core Concept\nDefinition of treatment failure.\n\n### Correct Answer Explained\n**Resistant Hypertension** is defined as BP above target despite concurrent use of **3 antihypertensive agents** of different classes (one of which must be a **diuretic**) at optimal doses.\n\n### Why Other Options Are Wrong\n- **Secondary HTN:** A cause, not the definition of the clinical state (though Resistant HTN warrants a search for Secondary causes).\n- **Urgency:** Refers to the *level* (>180/120) without damage, not the number of drugs."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 65-year-old male with Type 2 Diabetes and Heart Failure (HFrEF) requires additional glucose control. Which class of antidiabetic medication is specifically indicated to reduce hospitalization for heart failure?",
+            "options": [
+                "Sulfonylureas (e.g., Glimepiride)",
+                "Thiazolidinediones (e.g., Pioglitazone)",
+                "SGLT-2 Inhibitors (e.g., Empagliflozin)",
+                "DPP-4 Inhibitors (e.g., Sitagliptin)"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "SGLT-2i = Save The 2 (Heart & Kidney). Gliflozins are good for Failure.",
+            "explanation": "### Core Concept\nCardiovascular Outcome Trials (CVOTs) have changed diabetes guidelines.\n\n### Correct Answer Explained\n**SGLT-2 Inhibitors (Empagliflozin/Dapagliflozin)** have robust evidence for reducing **Heart Failure hospitalizations** and cardiovascular death, independent of glucose lowering. They are now a pillar of HF treatment.\n\n### Why Other Options Are Wrong\n- **Thiazolidinediones (Pioglitazone):** Cause fluid retention and are **contraindicated** in Heart Failure.\n- **Sulfonylureas/DPP-4:** Neutral effect on HF (Saxagliptin may even increase risk)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A diabetic patient presents with a new foot ulcer. You perform the Monofilament test (10g) to screen for loss of protective sensation. How many sites on the foot should be tested?",
+            "options": [
+                "1 site (Big toe)",
+                "3-4 sites (plantar aspect)",
+                "10 sites",
+                "Only areas with callus"
+            ],
+            "correct_index": 2,
+            "difficulty": 4,
+            "retention_aid": "Monofilament = 10g force at 10 sites.",
+            "explanation": "### Core Concept\nDiabetic neuropathy screening requires systematic testing.\n\n### Correct Answer Explained\nThe standard screening involves testing **10 sites** on the foot (toes, metatarsal heads, heel, dorsal) to map sensation loss. (Note: Some simplified guidelines suggest 3-4 sites, but 10 is the classic comprehensive exam answer).\n\n### Why Other Options Are Wrong\n- **Callus:** Never test over callus; the skin is too thick to feel."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 70-year-old male presents with sudden onset weakness of the right arm and aphasia. His BP is 220/120 mmHg. He is diagnosed with Ischemic Stroke and is eligible for thrombolysis. What is the immediate blood pressure management?",
+            "options": [
+                "Lower BP to < 140/90 immediately",
+                "Lower BP to < 185/110 before giving tPA",
+                "Do not lower BP unless > 220/120",
+                "Start oral Nifedipine sublingual"
+            ],
+            "correct_index": 1,
+            "difficulty": 4,
+            "retention_aid": "Stroke + Thrombolysis = BP must be <185/110. No Thrombolysis = Permissive HTN (up to 220/120).",
+            "explanation": "### Core Concept\nBP management in acute stroke depends on reperfusion therapy.\n\n### Correct Answer Explained\nIf **thrombolysis (tPA)** is planned, BP must be lowered to **< 185/110 mmHg** to reduce the risk of hemorrhagic transformation. \n\n### Why Other Options Are Wrong\n- **Do not lower:** This applies only if tPA is *not* given (permissive hypertension to maintain perfusion).\n- **<140/90:** Dropping BP too low/fast can infarct the penumbra (salvageable brain tissue).\n- **Sublingual Nifedipine:** Dangerous, unpredictable drops in BP; contraindicated in stroke."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 55-year-old diabetic patient has a creatinine of 1.8 mg/dL and eGFR of 25 ml/min/1.73m2. Which antidiabetic medication must be stopped or dose-adjusted due to the risk of Lactic Acidosis?",
+            "options": [
+                "Insulin",
+                "Metformin",
+                "Linagliptin",
+                "Pioglitazone"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "Metformin Renal Cutoff: Stop if GFR < 30. Caution 30-45.",
+            "explanation": "### Core Concept\nMetformin is renally cleared. Accumulation leads to Lactic Acidosis.\n\n### Correct Answer Explained\n**Metformin** is contraindicated when **eGFR < 30 mL/min**. \n\n### Why Other Options Are Wrong\n- **Linagliptin:** Unique DPP-4 inhibitor that is hepatically cleared; safe in renal failure without dose adjustment.\n- **Insulin:** Safe, but requirements may drop as kidneys clear insulin less effectively.\n- **Pioglitazone:** Hepatically metabolized."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 4-year-old child presents with a high fever and sore throat. He is drooling and sitting in a 'tripod' position (leaning forward). He has inspiratory stridor. You suspect Epiglottitis. What is the most crucial 'DO NOT' in the management?",
+            "options": [
+                "Do not start antibiotics",
+                "Do not administer oxygen",
+                "Do not examine the throat with a tongue depressor",
+                "Do not allow the parent to hold the child"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "Epiglottitis = Do NOT agitate. No tongue depressor -> Laryngospasm -> Death.",
+            "explanation": "### Core Concept\nEpiglottitis causes a swollen, cherry-red epiglottis that can fully occlude the airway if irritated.\n\n### Correct Answer Explained\n**Do not examine the throat** (specifically with a spatula/tongue depressor) or agitate the child. This can trigger fatal laryngospasm. Airway security by anesthesia/ENT in a controlled setting is priority #1.\n\n### Why Other Options Are Wrong\n- Antibiotics and Oxygen *are* needed, but airway safety comes first."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Which of the following scenarios in an infant < 2 months represents a 'General Danger Sign' requiring urgent admission?",
+            "options": [
+                "Yellow stool",
+                "Respiratory Rate 55/min",
+                "History of convulsions during the illness",
+                "Mild jaundice on the face"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "Convulsions = Danger. Always.",
+            "explanation": "### Core Concept\nGeneral danger signs apply to all children.\n\n### Correct Answer Explained\nA **history of convulsions** is a specific danger sign indicating severe disease (meningitis, hypoglycemia, severe hypoxemia).\n\n### Why Other Options Are Wrong\n- **RR 55:** Normal for <2 months (cutoff is 60).\n- **Yellow stool:** Normal for breastfed babies.\n- **Mild jaundice:** Common physiological jaundice (unless it appears <24 hours or extends to palms/soles)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 16-year-old presents with sore throat, fatigue, and posterior cervical lymphadenopathy. A Rapid Strep test is negative. You prescribe Amoxicillin empirically. Three days later, he develops a diffuse maculopapular rash. What is the diagnosis?",
+            "options": [
+                "Penicillin Allergy",
+                "Scarlet Fever",
+                "Infectious Mononucleosis (EBV)",
+                "Measles"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "Mono + Amoxicillin = Rash (Not allergy).",
+            "explanation": "### Core Concept\nEpstein-Barr Virus (Mono) interacts with Aminopenicillins.\n\n### Correct Answer Explained\nThe clinical triad (Fatigue + Posterior nodes + Negative Strep) suggests **Infectious Mononucleosis**. Administration of Ampicillin/Amoxicillin causes a non-allergic rash in >90% of Mono patients.\n\n### Why Other Options Are Wrong\n- **Penicillin Allergy:** Usually urticarial/anaphylactic, not a delayed maculopapular rash (though hard to distinguish, the context points to Mono).\n- **Scarlet Fever:** Rash is 'sandpaper' like, usually concurrent with fever/strep signs, not triggered by the drug days later."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A patient with hypertension and benign prostatic hyperplasia (BPH) needs a new blood pressure medication. Which agent would treat both conditions?",
+            "options": [
+                "Propranolol",
+                "Doxazosin (Alpha-blocker)",
+                "Lisinopril",
+                "Hydrochlorothiazide"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Alpha-blockers (zosin) open vessels AND the prostate.",
+            "explanation": "### Core Concept\nAlpha-1 blockers relax smooth muscle in vessels (lowering BP) and the prostate bladder neck (improving urinary flow).\n\n### Correct Answer Explained\n**Doxazosin** is an alpha-blocker used for HTN and BPH.\n\n### Why Other Options Are Wrong\n- **Propranolol/Lisinopril:** No effect on prostate."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 35-year-old female presents with episodic headaches characterized by a 'throbbing' sensation on one side of the head, nausea, and sensitivity to light. These attacks last 24 hours. She has asthma. Which abortive medication is CONTRAINDICATED or should be used with caution?",
+            "options": [
+                "Paracetamol",
+                "Ibuprofen",
+                "Sumatriptan",
+                "Opioids"
+            ],
+            "correct_index": 1,
+            "difficulty": 4,
+            "retention_aid": "Asthma + NSAIDs = Bronchospasm risk (Samter's Triad context).",
+            "explanation": "### Core Concept\nIdentifying aspirin/NSAID-exacerbated respiratory disease (AERD).\n\n### Correct Answer Explained\nWhile **Ibuprofen** is a standard abortive for migraine, in patients with **Asthma**, NSAIDs can trigger severe bronchospasm (Aspirin-sensitive asthma). It's a key history point to check.\n\n### Why Other Options Are Wrong\n- **Sumatriptan:** Contraindicated in *vascular* disease (CAD), generally safe in asthma.\n- **Paracetamol:** Safe."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 55-year-old male with a history of alcohol use disorder presents with Hypertension. Which physical sign would suggest 'Secondary Hypertension' due to Cushing's Syndrome?",
+            "options": [
+                "Abdominal bruits",
+                "Radio-femoral delay",
+                "Proximal muscle weakness and purple striae",
+                "Enlarged kidneys on palpation"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "Cushing's = Cortisol -> Muscle waste (weakness) + Thin skin (Striae).",
+            "explanation": "### Core Concept\nPhysical exam clues for secondary HTN.\n\n### Correct Answer Explained\n**Proximal muscle weakness** (difficulty standing from chair) and **purple abdominal striae** are specific signs of Cushing's syndrome (excess cortisol).\n\n### Why Other Options Are Wrong\n- **Bruits:** Renal Artery Stenosis.\n- **Radio-femoral delay:** Coarctation of the Aorta.\n- **Enlarged kidneys:** Polycystic Kidney Disease."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Regarding metabolic syndrome, which waist circumference cutoff is used to define central obesity in MEN according to most guidelines (e.g., NCEP ATP III/IDF for Europids)?",
+            "options": [
+                "> 102 cm (40 inches)",
+                "> 94 cm (37 inches)",
+                "> 88 cm (35 inches)",
+                "> 80 cm (31 inches)"
+            ],
+            "correct_index": 0,
+            "difficulty": 3,
+            "retention_aid": "Men > 102cm (40 inch). Women > 88cm (35 inch).",
+            "explanation": "### Core Concept\nCentral adiposity is a key component of metabolic risk.\n\n### Correct Answer Explained\nFor men, the cutoff is typically **> 102 cm**. (Note: IDF has tighter ethnic specific cutoffs like >94cm for Europeans/Asians, but >102 is the classic ATP III number often tested).\n\n### Why Other Options Are Wrong\n- **>88:** Cutoff for Women."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A patient on Warfarin for atrial fibrillation is diagnosed with Dyslipidemia. Which lipid-lowering agent significantly interacts with Warfarin, increasing the risk of bleeding (INR elevation)?",
+            "options": [
+                "Ezetimibe",
+                "Fibrates (e.g., Fenofibrate)",
+                "Bile Acid Sequestrants",
+                "PCSK9 Inhibitors"
+            ],
+            "correct_index": 1,
+            "difficulty": 4,
+            "retention_aid": "Fibrates Fight for albumin. Displace Warfarin -> Bleeding.",
+            "explanation": "### Core Concept\nDrug-drug interactions in cardio-metabolic medicine.\n\n### Correct Answer Explained\n**Fibrates** displace Warfarin from protein binding sites, potentiating its anticoagulant effect and raising INR. Close monitoring is required.\n\n### Why Other Options Are Wrong\n- **Bile Acid Sequestrants:** Reduce absorption of Warfarin (lowering INR), but Fibrates are the classic 'bleeding risk' interaction."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 12-year-old child presents with obesity, intellectual disability, and short stature. The parents report he has an insatiable appetite. What is the likely genetic syndrome?",
+            "options": [
+                "Down Syndrome",
+                "Prader-Willi Syndrome",
+                "Turner Syndrome",
+                "Klinefelter Syndrome"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Prader-Willi = Paternal deletion = Polyphagia (Insatiable eating).",
+            "explanation": "### Core Concept\nGenetic causes of obesity (Secondary Obesity).\n\n### Correct Answer Explained\n**Prader-Willi Syndrome** is characterized by hyperphagia (uncontrollable eating), obesity, short stature, and hypogonadism.\n\n### Why Other Options Are Wrong\n- **Down/Turner:** Associated with obesity risk but hyperphagia is not the hallmark defining feature."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A patient presenting with acute gout is already on Allopurinol. What should be done with the Allopurinol dosage during the acute attack?",
+            "options": [
+                "Stop Allopurinol immediately",
+                "Double the dose",
+                "Continue the same dose",
+                "Switch to Febuxostat"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "Acute Gout? Don't Stop, Don't Start. Maintain Status Quo.",
+            "explanation": "### Core Concept\nChanging uric acid levels rapidly (up or down) prolongs the attack.\n\n### Correct Answer Explained\nIf the patient is *already* on Allopurinol, **continue the same dose**. Stopping it precipitates further fluctuations in uric acid.\n\n### Why Other Options Are Wrong\n- **Stop:** Causes rebound hyperuricemia.\n- **Start/Change:** Never *start* allopurinol during an acute attack (wait 2 weeks), but if *already* on it, keep going."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 45-year-old male with Type 2 Diabetes is found to have Microalbuminuria (ACR 45 mg/g). His BP is 128/78. Which medication should be initiated for renal protection?",
+            "options": [
+                "No medication needed as BP is controlled",
+                "ACE Inhibitor (e.g., Lisinopril)",
+                "Loop Diuretic (Furosemide)",
+                "Beta Blocker"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "Albuminuria = ACEi/ARB. Even if BP is normal.",
+            "explanation": "### Core Concept\nRenoprotection vs Antihypertensive effect.\n\n### Correct Answer Explained\nIn diabetics with **Albuminuria** (ACR > 30), **ACE Inhibitors or ARBs** are indicated *regardless* of blood pressure status (provided the patient isn't hypotensive) to delay progression of nephropathy.\n\n### Why Other Options Are Wrong\n- **No meds:** Missed opportunity to save the kidney."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 30-year-old female presents with a headache described as 'pressure' on the top of her head. It has been present daily for 3 months. She takes 6 tablets of Ibuprofen and 4 tablets of Paracetamol/Codeine daily. The headache initially improves with meds but returns worse. What is the diagnosis?",
+            "options": [
+                "Chronic Migraine",
+                "Medication Overuse Headache",
+                "Brain Tumor",
+                "Chronic Tension Headache"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Analgesics > 15 days/month (or Codeine >10) = Medication Overuse Headache.",
+            "explanation": "### Core Concept\nRebound headache caused by frequent analgesic use.\n\n### Correct Answer Explained\n**Medication Overuse Headache** (MOH) occurs when analgesics are used frequently (>10-15 days/month). The hallmark is the cycle of relief followed by worsening pain. Treatment involves withdrawal of the offending agent.\n\n### Why Other Options Are Wrong\n- **Tension:** Underlying cause might be tension, but the *current* daily pattern is driven by the meds."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A patient with Hypothyroidism is started on Levothyroxine. How long should you wait before rechecking TSH levels to adjust the dose?",
+            "options": [
+                "1 week",
+                "2 weeks",
+                "6-8 weeks",
+                "6 months"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "Thyroxine has a long half-life (7 days). Steady state takes 6 weeks.",
+            "explanation": "### Core Concept\nPharmacokinetics of T4.\n\n### Correct Answer Explained\nIt takes about **6-8 weeks** for TSH levels to stabilize after starting or changing the dose of Levothyroxine due to its long half-life. Checking sooner gives misleading results.\n\n### Why Other Options Are Wrong\n- **1-2 weeks:** Too soon; TSH lag time."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 55-year-old male presents with severe pain and redness in his first metatarsophalangeal joint (Podagra). Which lifestyle factor is most likely to have precipitated this?",
+            "options": [
+                "Drinking copious water",
+                "Vegetarian diet",
+                "Excessive Alcohol consumption and Red Meat",
+                "High Vitamin C intake"
+            ],
+            "correct_index": 2,
+            "difficulty": 1,
+            "retention_aid": "Gout Triggers: Beer, Beef, and Bad luck (genetics).",
+            "explanation": "### Core Concept\nGout triggers involve purine load or dehydration.\n\n### Correct Answer Explained\n**Alcohol** (decreases urate excretion) and **Red Meat/Shellfish** (high purine load) are classic triggers for gout.\n\n### Why Other Options Are Wrong\n- **Vitamin C / Water:** These are actually protective (uricosuric/hydration)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "When assessing a patient for Hypertension, you find a significant difference in blood pressure between the arms (>20 mmHg) and delayed femoral pulses. What is the likely secondary cause?",
+            "options": [
+                "Renal Artery Stenosis",
+                "Coarctation of the Aorta",
+                "Pheochromocytoma",
+                "Conn's Syndrome"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Radio-Femoral Delay = Coarctation. (Blockage after the arms, before the legs).",
+            "explanation": "### Core Concept\nStructural cardiovascular causes of HTN.\n\n### Correct Answer Explained\n**Coarctation of the Aorta** creates a narrowing usually distal to the subclavian artery, causing high BP in the arms/head and low BP/delayed pulses in the legs (femoral).\n\n### Why Other Options Are Wrong\n- **Renal Artery Stenosis:** Causes abdominal bruit.\n- **Pheochromocytoma:** Episodic HTN, palpitations."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 60-year-old diabetic female presents with 'tingling and burning' in her feet that keeps her awake at night. Examination shows reduced sensation to monofilament. What is the first-line pharmacologic treatment for painful diabetic neuropathy?",
+            "options": [
+                "Tramadol",
+                "Pregabalin or Gabapentin",
+                "Ibuprofen",
+                "Vitamin B12 injections"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Nerve pain needs Nerve drugs (Calcium channel alpha-2-delta ligands).",
+            "explanation": "### Core Concept\nNeuropathic pain does not respond well to standard analgesics.\n\n### Correct Answer Explained\n**Pregabalin**, **Gabapentin**, or **Duloxetine** (SNRI) are first-line agents for neuropathic pain.\n\n### Why Other Options Are Wrong\n- **Ibuprofen:** Ineffective for nerve pain; renal risk in diabetes.\n- **B12:** Only helps if there is B12 deficiency (uncommon unless on Metformin long-term, but not the symptomatic analgesic choice)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A patient with a BMI of 32 has tried diet and exercise for 6 months without success. You prescribe Liraglutide. How does this medication primarily aid weight loss?",
+            "options": [
+                "Inhibits fat absorption in the gut",
+                "Increases metabolic rate via thyroid stimulation",
+                "Delays gastric emptying and promotes satiety (GLP-1 agonist)",
+                "Blocks serotonin reuptake"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "GLP-1 = 'Gastric Lag' (Slows stomach) + Satiety (Brain).",
+            "explanation": "### Core Concept\nMechanism of modern obesity drugs.\n\n### Correct Answer Explained\n**Liraglutide** is a GLP-1 receptor agonist. It acts centrally on appetite centers to increase satiety and peripherally to **slow gastric emptying**, making patients feel full longer.\n\n### Why Other Options Are Wrong\n- **Inhibits fat:** Orlistat.\n- **Metabolic rate:** Sympathomimetics (Phentermine)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 6-month-old infant is introduced to solid foods. The mother gives cow's milk as the main drink instead of breast milk or formula. What is the primary health risk associated with this practice?",
+            "options": [
+                "Obesity due to high fat",
+                "Iron Deficiency Anemia (Micro-hemorrhages)",
+                "Hypercalcemia",
+                "Dental caries"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "Cow's milk for Cows. Humans get Anemia (low iron, gut bleeding).",
+            "explanation": "### Core Concept\nCow's milk is inappropriate as a *main* drink before 1 year.\n\n### Correct Answer Explained\nCow's milk is low in iron, inhibits iron absorption from other foods, and can cause **occult intestinal blood loss** (micro-hemorrhages) in young infants, leading to severe **Iron Deficiency Anemia**.\n\n### Why Other Options Are Wrong\n- **Hypercalcemia:** Rare.\n- **Obesity:** Possible, but anemia is the more immediate specific pathology cited in guidelines."
         }
     ]
 }
