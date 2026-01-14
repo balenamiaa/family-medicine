@@ -73,7 +73,7 @@ export function KeyboardHints({ className, compact = false }: KeyboardHintsProps
               <kbd className="px-1.5 py-0.5 bg-[var(--bg-card)] border border-[var(--border-subtle)] rounded text-xs font-mono">
                 Enter
               </kbd>
-              <span className="text-[var(--text-secondary)]">Submit/Next</span>
+              <span className="text-[var(--text-secondary)]">Submit</span>
             </div>
             <div className="flex items-center gap-2">
               <kbd className="px-1.5 py-0.5 bg-[var(--bg-card)] border border-[var(--border-subtle)] rounded text-xs font-mono">

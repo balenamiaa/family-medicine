@@ -96,16 +96,14 @@ export function useKeyboardShortcuts({
       }
     }
 
-    // Enter to submit
+    // Enter to submit (only before answering - after answering, use arrow keys to navigate)
     if (e.key === "Enter" && !e.shiftKey && !e.ctrlKey && !e.metaKey) {
-      e.preventDefault();
       if (!config.isAnswered && config.canSubmit && config.onSubmit) {
+        e.preventDefault();
         playSoundIfEnabled("click");
         config.onSubmit();
-      } else if (config.isAnswered && config.canGoNext && config.onNext) {
-        playSoundIfEnabled("navigate");
-        config.onNext();
       }
+      // Don't auto-advance on Enter after answering - let user read the explanation
       return;
     }
 
