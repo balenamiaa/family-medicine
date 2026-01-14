@@ -1,0 +1,997 @@
+{
+    "questions": [
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 4-month-old infant is brought to the clinic for a routine check-up. The mother asks for advice regarding feeding. According to standard Infant Feeding recommendations, which of the following is the most appropriate counseling?",
+            "options": [
+                "Introduce iron-fortified cereals starting at 4 months",
+                "Breastfeed as often as the child wants, at least 8 times in 24 hours, with no other foods or fluids",
+                "Give water in small amounts if the weather is very hot",
+                "Introduce fruit juices diluted with water to get the infant used to new tastes"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "0-6 Months: Exclusive Breastfeeding (Zero water, Zero food).",
+            "explanation": "### Core Concept\nFor infants aged **0–6 months**, the gold standard is **exclusive breastfeeding**. This means breast milk is the sole source of nutrition and hydration.\n\n### Correct Answer Explained\nThe recommendation is to breastfeed as often as the child wants (on demand), both day and night, amounting to at least **8 times in 24 hours**. No other foods or fluids (including water) should be given before 6 months.\n\n### Why Other Options Are Wrong\n- **Cereals at 4 months:** Complementary feeding should start at **6 months**. Early introduction increases the risk of infection and allergies.\n- **Water:** Breast milk contains sufficient water even in hot climates. Supplementing water can introduce pathogens and decrease the infant's intake of nutrient-rich breast milk.\n- **Fruit juices:** Not recommended for infants under 1 year (and definitely not under 6 months) as they displace breast milk and offer no nutritional advantage."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A mother is starting complementary feeding for her 7-month-old son. Which of the following instructions regarding the frequency and type of food is correct?",
+            "options": [
+                "Give 1 cup of food 5 times a day",
+                "Give 1-2 teaspoons of mashed food twice a day",
+                "Offer the food before breastfeeding to ensure he is hungry",
+                "Avoid meat and eggs until the child is 1 year old"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "Start Low, Go Slow: 6-8 months = 2-3 times/day (small amounts). Breastfeed FIRST.",
+            "explanation": "### Core Concept\nComplementary feeding is a gradual transition. The stomach capacity of a child is small.\n\n### Correct Answer Explained\nFor the age group **6–8 months**, the recommendation is to start with **1–2 teaspoons twice a day**. The food should be mashed and soft.\n\n### Why Other Options Are Wrong\n- **1 cup 5 times a day:** This volume (250ml per cup) is for children aged 12 months to 5 years. A 7-month-old cannot tolerate this volume.\n- **Food before breast milk:** The guideline explicitly states: \"The feeding should **not** be before breastfeeding.\" Breast milk remains the primary source of nutrition.\n- **Avoid meat/eggs:** Meat, eggs, and beans are iron-rich foods and *should* be introduced from 6 months to prevent iron deficiency anemia."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 3-year-old child is brought to the clinic with watery diarrhea for 2 days. On examination, the child is irritable, has sunken eyes, and drinks eagerly when offered water. The skin pinch goes back slowly (less than 2 seconds). How should this child be classified and managed?",
+            "options": [
+                "Severe Dehydration: Start IV Ringer Lactate immediately",
+                "No Dehydration: Send home with Plan A (extra fluids and Zinc)",
+                "Some Dehydration: Administer ORS (Plan B) in the clinic",
+                "Severe Dysentery: Start oral Ciprofloxacin"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "Two Signs for Diagnosis: Irritable + Drink Eagerly + Sunken Eyes = SOME Dehydration (Plan B). Lethargic + Unable to drink = SEVERE (Plan C).",
+            "explanation": "### Core Concept\nIMCI dehydration classification relies on: General Condition, Eyes, Thirst, and Skin Pinch.\n\n### Correct Answer Explained\nThe child has **Some Dehydration**. The criteria met are: **Irritable/Restless**, **Sunken eyes**, and **Drinks eagerly/thirsty**. The skin pinch going back slowly supports this. The management is **Plan B**: Oral Rehydration Solution (ORS) given in the clinic over 4 hours (75ml/kg).\n\n### Why Other Options Are Wrong\n- **Severe Dehydration:** Requires the child to be **lethargic/unconscious** or **unable to drink**. The skin pinch would go back *very* slowly (>2 seconds).\n- **No Dehydration:** The child clearly exhibits signs of fluid loss (sunken eyes, thirst).\n- **Dysentery:** There is no mention of blood in the stool."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 10-month-old infant presents with acute watery diarrhea. Which of the following is the correct dosage and duration of Zinc supplementation for this patient?",
+            "options": [
+                "10 mg daily for 10 days",
+                "20 mg daily for 10-14 days",
+                "10 mg daily for 5 days",
+                "20 mg daily for 5 days"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Zinc Rule: <6 months = 10mg. >6 months = 20mg. Always for 2 weeks (14 days).",
+            "explanation": "### Core Concept\nZinc supplementation reduces the duration and severity of diarrhea and prevents future episodes for up to 3 months.\n\n### Correct Answer Explained\nFor children **≥ 6 months**, the dose is **20 mg** daily. For children **< 6 months**, the dose is **10 mg**. The duration is **14 days**.\n\n### Why Other Options Are Wrong\n- **10 mg:** This is the dose for infants under 6 months.\n- **5 days:** The recommended duration is 10-14 days to replenish stores and support gut mucosal recovery."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 4-year-old child presents with bloody diarrhea (dysentery). The child is alert and drinking normally. What is the most appropriate first-line antibiotic treatment according to IMCI guidelines?",
+            "options": [
+                "Metronidazole",
+                "Amoxicillin",
+                "Ciprofloxacin",
+                "Ceftriaxone"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "Dysentery = Blood = Ciprofloxacin (3 days).",
+            "explanation": "### Core Concept\nDysentery (bloody diarrhea) in children is most commonly caused by *Shigella*. Routine antibiotics are not recommended for watery diarrhea, but they *are* indicated for dysentery.\n\n### Correct Answer Explained\nThe guideline treatment for dysentery is **Ciprofloxacin** for 3 days. \n\n### Why Other Options Are Wrong\n- **Metronidazole:** Reserved for proven amoebic dysentery (E. histolytica), which is rare in children (<5%) compared to bacterial dysentery.\n- **Amoxicillin:** Not effective against *Shigella* due to resistance.\n- **Ceftriaxone:** Second-line or for severe hospitalized cases/systemic infection, not outpatient uncomplicated dysentery."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 9-month-old infant is brought to the PHC with a cough for 3 days. On examination, the respiratory rate is 55 breaths/minute, and there is no chest indrawing or stridor. The child is alert and feeding well. How should this child be classified and treated?",
+            "options": [
+                "Severe Pneumonia: Refer urgently to hospital",
+                "Pneumonia: Prescribe oral Amoxicillin for 5 days",
+                "Cough or Cold: Soothe the throat and home care",
+                "Bronchiolitis: Nebulize with Salbutamol immediately"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "Fast Breathing Cutoffs: <2m = 60, 2-12m = 50, 1-5y = 40. Fast breathing only = Pneumonia (Yellow). Chest indrawing = Severe (Red).",
+            "explanation": "### Core Concept\nIMCI Respiratory classification depends on RR thresholds and danger signs.\n*   **2–12 months:** Fast breathing is **≥ 50 breaths/min**.\n*   **12 months – 5 years:** Fast breathing is **≥ 40 breaths/min**.\n\n### Correct Answer Explained\nThe child is 9 months old with a RR of **55** (Fast breathing). There are no danger signs (stridor, indrawing, lethargy). Classification is **Pneumonia**. Treatment is **oral Amoxicillin** for 5 days.\n\n### Why Other Options Are Wrong\n- **Severe Pneumonia:** Requires chest indrawing or general danger signs.\n- **Cough or Cold:** Would require a normal respiratory rate (<50 in this age).\n- **Bronchiolitis:** While a clinical possibility, IMCI protocols emphasize antibiotic treatment for fast breathing to cover bacterial pneumonia in resource-limited settings unless strict wheeze protocols are applied (and wheeze isn't mentioned here)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "In the IMCI management of a child with wheeze and fast breathing, what is the immediate step before classifying the illness?",
+            "options": [
+                "Administer a trial of rapid-acting bronchodilator",
+                "Order a chest X-ray",
+                "Administer intramuscular Ceftriaxone",
+                "Start oral Amoxicillin immediately"
+            ],
+            "correct_index": 0,
+            "difficulty": 3,
+            "retention_aid": "Wheeze + Fast Breathing? DILATE first. If rate normalizes = Asthma/Viral. If rate stays high = Pneumonia.",
+            "explanation": "### Core Concept\nWheezing can cause tachypnea (fast breathing) due to obstruction, mimicking pneumonia.\n\n### Correct Answer Explained\nIf a child has wheeze and fast breathing, give a trial of **inhaled/nebulized bronchodilator (Salbutamol)** for up to 3 cycles. Reassess after 30 minutes. If the fast breathing disappears, classify as *Cough or Cold* (asthma/viral wheeze). If fast breathing persists, classify as *Pneumonia*.\n\n### Why Other Options Are Wrong\n- **Antibiotics (Amoxicillin/Ceftriaxone):** Should be reserved until after the bronchodilator trial confirms persistent tachypnea.\n- **CXR:** Not part of the immediate IMCI outpatient assessment."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "You are assessing a 3-year-old child. Which finding would classify the child's respiratory illness as 'Very Severe Disease' requiring urgent referral?",
+            "options": [
+                "Respiratory rate of 45 breaths/minute",
+                "Temperature of 38.5°C",
+                "Inability to drink or breastfeed",
+                "Audible wheeze"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "General Danger Signs: 1. Can't drink/feed 2. Vomits everything 3. Convulsions 4. Lethargic/Unconscious.",
+            "explanation": "### Core Concept\n**General Danger Signs** in IMCI automatically categorize a child as having **Very Severe Disease**, regardless of the specific system involved.\n\n### Correct Answer Explained\n**Inability to drink or breastfeed** is a general danger sign indicating severe compromise. The child requires urgent pre-referral treatment (e.g., first dose of antibiotics, oxygen, sugar prevention) and immediate hospital referral.\n\n### Why Other Options Are Wrong\n- **RR 45:** This is fast breathing for a 3-year-old (cutoff is 40), classifying as Pneumonia (Yellow row), treated at home with antibiotics.\n- **Fever:** Common in simple URI or Pneumonia; not an automatic danger sign unless accompanied by stiff neck or other severe signs.\n- **Wheeze:** Managed initially with bronchodilators."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 55-year-old smoker wishes to quit smoking. He has a history of seizure disorder. Which pharmacotherapy is CONTRAINDICATED?",
+            "options": [
+                "Nicotine Patches",
+                "Varenicline",
+                "Bupropion",
+                "Nicotine Gum"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "Bupropion lowers seizure threshold. Seizure Hx = NO Bupropion.",
+            "explanation": "### Core Concept\n**Bupropion (Zyban)** is an antidepressant used for smoking cessation. Its primary side effect mechanism involves lowering the seizure threshold.\n\n### Correct Answer Explained\nBupropion is absolutely **contraindicated** in patients with a history of **seizure disorder** or eating disorders (anorexia/bulimia), as it increases the risk of seizures.\n\n### Why Other Options Are Wrong\n- **Nicotine Replacement Therapy (Patch/Gum):** Safe in seizure disorders. Caution is needed in acute cardiovascular events (recent MI).\n- **Varenicline:** Contraindications focus more on neuropsychiatric stability, though recent evidence suggests it is safer than previously thought. It does not lower the seizure threshold significantly compared to Bupropion."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "In the '5 A’s' approach to smoking cessation, which step involves determining if the patient is willing to make a quit attempt within the next 30 days?",
+            "options": [
+                "Ask",
+                "Advise",
+                "Assess",
+                "Assist"
+            ],
+            "correct_index": 2,
+            "difficulty": 1,
+            "retention_aid": "Ask (Do you?), Advise (You should), ASSESS (Will you?), Assist (Here's how), Arrange (Follow-up).",
+            "explanation": "### Core Concept\nThe 5 A's are the framework for tobacco intervention:\n1.  **Ask:** Identify use.\n2.  **Advise:** Urge to quit.\n3.  **Assess:** Determine willingness to quit *now*.\n4.  **Assist:** Help with a plan/meds.\n5.  **Arrange:** Follow-up.\n\n### Correct Answer Explained\n**Assess** is the step where the clinician evaluates the patient's readiness to quit (e.g., \"Are you willing to try quitting in the next month?\").\n\n### Why Other Options Are Wrong\n- **Ask:** Just documentation of status.\n- **Advise:** The doctor's statement of medical necessity.\n- **Assist:** The action plan (counseling/medication)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 45-year-old man with Type 2 Diabetes is found to have an LDL cholesterol of 130 mg/dL. According to lipid management guidelines, what is the appropriate statin therapy recommendation?",
+            "options": [
+                "Lifestyle modification only; recheck in 6 months",
+                "Start a moderate-to-high intensity Statin regardless of 10-year CVD risk score",
+                "Start a Statin only if his 10-year CVD risk is >20%",
+                "Start Fibrates first"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "Diabetes (Age 40-75) = Statin. No calculator needed if LDL >70.",
+            "explanation": "### Core Concept\nDiabetes is a \"risk equivalent\" or major risk enhancer. \n\n### Correct Answer Explained\nPatients aged **40–75 with Diabetes** and LDL ≥ 70 mg/dL are indicated for **moderate-intensity statin** therapy *without* needing to calculate the 10-year ASCVD risk score. The goal is often an LDL reduction of 30-50% or LDL < 70 (depending on specific guideline stringency, but \"Start Statin\" is the universal answer).\n\n### Why Other Options Are Wrong\n- **Lifestyle only:** Diabetes confers high enough risk that pharmacotherapy is indicated alongside lifestyle.\n- **Risk >20%:** This threshold applies to primary prevention in non-diabetics; diabetics are treated more aggressively.\n- **Fibrates:** Indicated for high triglycerides, not as first-line for LDL reduction."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A patient on Simvastatin complains of muscle aches (myalgia). Which laboratory test is essential to rule out myositis/rhabdomyolysis?",
+            "options": [
+                "Serum Creatinine",
+                "Creatine Kinase (CK)",
+                "Alanine Aminotransferase (ALT)",
+                "ESR"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Muscle pain + Statin = Check CK. Liver toxicity = Check ALT/AST.",
+            "explanation": "### Core Concept\nStatins can cause muscle toxicity ranging from mild myalgia to severe rhabdomyolysis.\n\n### Correct Answer Explained\n**Creatine Kinase (CK)** is the marker for muscle injury. If CK is significantly elevated (>10x upper limit of normal), the statin must be stopped to prevent kidney failure from rhabdomyolysis.\n\n### Why Other Options Are Wrong\n- **ALT:** Checks for liver toxicity (another side effect, but unrelated to muscle pain).\n- **Creatinine:** Checks kidney function (consequence of rhabdo, but not the direct marker of muscle breakdown).\n- **ESR:** Marker of inflammation (polymyalgia rheumatica), not statin toxicity."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Which of the following describes the correct diagnostic criteria for Type 2 Diabetes Mellitus?",
+            "options": [
+                "Fasting Plasma Glucose ≥ 110 mg/dL",
+                "HbA1c ≥ 6.5%",
+                "Random Plasma Glucose ≥ 180 mg/dL with symptoms",
+                "2-hour post-prandial glucose ≥ 140 mg/dL"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "Diabetes Cutoffs: Fasting ≥126, Random/2hr ≥200, A1c ≥6.5%.",
+            "explanation": "### Core Concept\nDiagnosis of DM requires hitting specific thresholds on standard tests.\n\n### Correct Answer Explained\n**HbA1c ≥ 6.5%** is a diagnostic criterion for diabetes.\n\n### Why Other Options Are Wrong\n- **FPG ≥ 110:** This is in the *prediabetes* (Impaired Fasting Glucose) range (100–125 mg/dL). Diabetes is ≥ 126.\n- **Random Glucose ≥ 180:** The cutoff is **≥ 200 mg/dL** combined with classic symptoms (polyuria, polydipsia, weight loss).\n- **2h PG ≥ 140:** This is *Impaired Glucose Tolerance* (140–199). Diabetes is ≥ 200 mg/dL."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 45-year-old obese female is diagnosed with Type 2 Diabetes. What is the first-line pharmacologic therapy alongside lifestyle modification, assuming no contraindications?",
+            "options": [
+                "Gliclazide (Sulfonylurea)",
+                "Sitagliptin (DPP-4 inhibitor)",
+                "Metformin (Biguanide)",
+                "Insulin Glargine"
+            ],
+            "correct_index": 2,
+            "difficulty": 1,
+            "retention_aid": "Metformin is Mandatory (unless kidney failure).",
+            "explanation": "### Core Concept\nGlobal guidelines (ADA, EASD) universally recommend **Metformin** as first-line therapy due to its efficacy, weight neutrality/loss, low hypoglycemia risk, and cost-effectiveness.\n\n### Correct Answer Explained\n**Metformin** is the standard of care upon diagnosis.\n\n### Why Other Options Are Wrong\n- **Sulfonylureas (Gliclazide):** Cause weight gain and hypoglycemia; usually 2nd line.\n- **Insulin:** Usually reserved for severe hyperglycemia (HbA1c > 10% or symptomatic) or failure of oral agents.\n- **DPP-4 inhibitors:** Second or third-line add-on agents."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 24-year-old male presents with a severe, unilateral headache localized around his right eye. He describes the pain as 'boring' and rates it 10/10. It occurs daily at the same time and lasts 45 minutes. He has associated tearing and nasal congestion on the right side. What is the most likely diagnosis?",
+            "options": [
+                "Migraine without aura",
+                "Tension-type headache",
+                "Cluster headache",
+                "Giant Cell Arteritis"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "Cluster = Clockwork (same time), Unilateral Eye Pain, Autonomic sx (tearing/stuffy nose), Suicide headache.",
+            "explanation": "### Core Concept\nHeadache phenotypes are distinct:\n*   **Migraine:** Unilateral, throbbing, photophobia, nausea, longer duration (4-72h).\n*   **Tension:** Bilateral, band-like, mild-moderate.\n*   **Cluster:** Unilateral orbital, severe, autonomic symptoms, short duration (15m-3h).\n\n### Correct Answer Explained\nThe clinical picture fits **Cluster Headache** perfectly: severe unilateral orbital pain, autonomic features (lacrimation, rhinorrhea), short duration (<3 hours), and periodicity (same time daily).\n\n### Why Other Options Are Wrong\n- **Migraine:** Usually lasts longer (>4 hours) and lacks the prominent autonomic features like ptosis/lacrimation; patient prefers dark/quiet (cluster patients pace around).\n- **Giant Cell Arteritis:** Affects older adults (>50), presents with temporal tenderness and jaw claudication."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Regarding 'Red Flags' for headache (SNOOP mnemonic), what does the 'P' stand for that necessitates immediate neuroimaging?",
+            "options": [
+                "Photophobia",
+                "Papilledema",
+                "Pulsatile quality",
+                "Previous family history"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "SNOOP: Systemic, Neuro, Onset, Older, Papilledema/Pattern change.",
+            "explanation": "### Core Concept\nRed flags indicate secondary headaches (tumor, bleed, meningitis).\n\n### Correct Answer Explained\n**Papilledema** (swelling of the optic disc) indicates raised intracranial pressure, suggesting a mass lesion, idiopathic intracranial hypertension, or cerebral venous sinus thrombosis. This is a critical 'P'. Other Ps include: Pattern change, Precipitated by Valsalva, Pregnancy.\n\n### Why Other Options Are Wrong\n- **Photophobia:** Typical of migraine (primary headache).\n- **Pulsatile:** Typical of migraine.\n- **Family history:** Common in migraine."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 50-year-old male has an office blood pressure of 150/95 mmHg. He has no history of hypertension. What is the most appropriate next step to confirm the diagnosis?",
+            "options": [
+                "Start Amlodipine 5mg immediately",
+                "Ambulatory Blood Pressure Monitoring (ABPM) or Home BP monitoring",
+                "Admit for hypertensive urgency",
+                "Recheck in 1 year"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "One reading isn't enough (unless severe >180/110). Confirm with Out-of-Office readings (ABPM) to rule out White Coat HTN.",
+            "explanation": "### Core Concept\nHypertension diagnosis requires confirmation to rule out 'White Coat Hypertension', unless the initial reading is very high (e.g., >180/110) or there is end-organ damage.\n\n### Correct Answer Explained\n**ABPM (or home monitoring)** is the gold standard for diagnosis to assess true average BP and nocturnal dipping status.\n\n### Why Other Options Are Wrong\n- **Start meds:** Premature without confirmation (unless end-organ damage is present).\n- **Admit:** 150/95 is Grade 1-2 hypertension, not an emergency.\n- **Recheck in 1 year:** Too long; needs follow-up within weeks."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 22-year-old student complains of a sore throat. He has a fever of 39°C, tender anterior cervical lymphadenopathy, and tonsillar exudates. He has NO cough. Using the Centor criteria, what is the management plan?",
+            "options": [
+                "Viral pharyngitis: Symptomatic relief only",
+                "High probability of Group A Strep: Perform Rapid Antigen Test or Throat Culture",
+                "Prescribe Azithromycin immediately",
+                "Order a neck CT scan"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "Centor Score: Fever (+1), Exudates (+1), Nodes (+1), No Cough (+1). Score 3-4 = Test and Treat.",
+            "explanation": "### Core Concept\nThe Centor criteria estimate the probability of Group A Beta-Hemolytic Streptococcus (GABHS) infection.\n*   Fever (+1)\n*   Exudates (+1)\n*   Tender Anterior Nodes (+1)\n*   Absence of Cough (+1)\n\n### Correct Answer Explained\nThis patient has a score of **4** (Fever, Nodes, Exudates, No cough). The risk of Strep is >50%. Guidelines recommend **confirming with a Rapid Test or Culture** before starting antibiotics (or empirical treatment depending on local protocol strictness, but Testing is the most academically correct 'next step').\n\n### Why Other Options Are Wrong\n- **Symptomatic only:** The score is too high to dismiss as viral without testing.\n- **CT scan:** Reserved for deep neck space infections (quinsy/retropharyngeal abscess), not uncomplicated pharyngitis."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A patient presents with 'hot potato' voice, trismus (difficulty opening mouth), and the uvula deviated to the left. What is the most likely diagnosis?",
+            "options": [
+                "Viral Pharyngitis",
+                "Epiglottitis",
+                "Right Peritonsillar Abscess (Quinsy)",
+                "Retropharyngeal Abscess"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "Quinsy Triad: Trismus + Hot Potato Voice + Deviated Uvula (away from abscess).",
+            "explanation": "### Core Concept\nPeritonsillar abscess is a collection of pus between the tonsil capsule and pharyngeal muscles.\n\n### Correct Answer Explained\nThe combination of **trismus**, **muffled voice**, and **uvula deviation** (to the contralateral side) is pathognomonic for a **Peritonsillar Abscess** (on the right, pushing uvula to left).\n\n### Why Other Options Are Wrong\n- **Epiglottitis:** Presents with drooling, stridor, and 'tripod' position; usually no trismus.\n- **Viral Pharyngitis:** Diffuse erythema, no deviation or severe trismus.\n- **Retropharyngeal Abscess:** More common in children; presents with neck stiffness/extension, not typically uvula deviation."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Which of the following is a 'Secondary' cause of Obesity that must be ruled out during clinical assessment?",
+            "options": [
+                "Hyperthyroidism",
+                "Addison's Disease",
+                "Cushing's Syndrome",
+                "Type 1 Diabetes"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "Secondary Obesity: Cortisol up (Cushing's), Thyroid down (Hypo).",
+            "explanation": "### Core Concept\nWhile most obesity is exogenous (caloric excess), hormonal causes exist.\n\n### Correct Answer Explained\n**Cushing's Syndrome** (excess cortisol) causes central obesity, moon face, and buffalo hump.\n\n### Why Other Options Are Wrong\n- **Hyperthyroidism:** Causes weight *loss*.\n- **Addison's Disease:** Adrenal insufficiency typically causes weight *loss*.\n- **Type 1 Diabetes:** Untreated T1DM causes weight *loss* (catabolic state)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "What is the recommended weight loss goal for the initial treatment of obesity over a 6-month period?",
+            "options": [
+                "25% of body weight",
+                "5-10% of body weight",
+                "Reaching a BMI of 25 immediately",
+                "1-2 kg per week"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "10% is the magic number. Sustainable and clinically significant.",
+            "explanation": "### Core Concept\nDrastic weight loss is often unsustainable. Clinical benefits (BP reduction, glucose control) appear with modest loss.\n\n### Correct Answer Explained\nGuidelines recommend a target of **5–10% weight loss** over 3–6 months. This amount significantly improves metabolic markers.\n\n### Why Other Options Are Wrong\n- **25%:** Unrealistic and potentially unsafe in a short period without surgery.\n- **1-2 kg/week:** The safe recommended rate is **0.5 – 1 kg/week**. 2kg/week is too fast for standard conservation management."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 35-year-old female presents with fatigue for 8 months. She reports sleep disturbances, diffuse muscle pain, and 'brain fog'. Physical exam and basic labs (CBC, TSH, Glucose) are normal. What is the most likely diagnosis?",
+            "options": [
+                "Chronic Fatigue Syndrome / Fibromyalgia",
+                "Hypothyroidism",
+                "Iron Deficiency Anemia",
+                "Addison's Disease"
+            ],
+            "correct_index": 0,
+            "difficulty": 3,
+            "retention_aid": "Fatigue > 6 months + Pain + Normal Labs = Chronic Fatigue/Fibromyalgia.",
+            "explanation": "### Core Concept\nFatigue is classified as physiological, organic, or psychological/functional.\n\n### Correct Answer Explained\nThe chronicity (>6 months), associated somatic symptoms (pain, sleep, cognitive fog), and **normal organic workup** point strongly towards a functional syndrome like **Chronic Fatigue Syndrome (ME/CFS)** or **Fibromyalgia**.\n\n### Why Other Options Are Wrong\n- **Hypothyroidism:** TSH would be elevated.\n- **Anemia:** CBC would show low Hb.\n- **Addison's:** Would likely show electrolyte abnormalities (high K, low Na) or hypotension/hyperpigmentation."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 60-year-old male with hypertension and a history of gout presents with a swollen, painful big toe. He takes Hydrochlorothiazide for his BP. Which antihypertensive medication would be most appropriate to switch him to, as it has uricosuric (lowers uric acid) properties?",
+            "options": [
+                "Lisinopril",
+                "Losartan",
+                "Amlodipine",
+                "Metoprolol"
+            ],
+            "correct_index": 1,
+            "difficulty": 4,
+            "retention_aid": "Losartan Lowers Uric Acid. (L-L). Thiazides raise it.",
+            "explanation": "### Core Concept\nThiazide diuretics can raise uric acid and precipitate gout. ARBs are good alternatives, but one specifically helps gout.\n\n### Correct Answer Explained\n**Losartan** is unique among ARBs because it has a **uricosuric effect** (increases uric acid excretion), making it the drug of choice for hypertensive patients with gout.\n\n### Why Other Options Are Wrong\n- **Lisinopril/Amlodipine/Metoprolol:** Are uric acid neutral (or have negligible effect), but do not provide the specific benefit Losartan does."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "In a patient with suspected 'White Coat Hypertension', which diagnostic method is preferred to confirm the diagnosis?",
+            "options": [
+                "Repeated office measurements by the nurse",
+                "Ambulatory Blood Pressure Monitoring (ABPM)",
+                "Checking BP immediately after exercise",
+                "Fundoscopy"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "White Coat = High in Office, Normal Outside. Need ABPM to prove the 'Outside' part.",
+            "explanation": "### Core Concept\nWhite Coat HTN is elevated BP in the clinic but normal BP in daily life.\n\n### Correct Answer Explained\n**ABPM** (24-hour monitoring) is the gold standard. It measures BP during daily activities and sleep, proving whether the BP is truly elevated or just reactive to the clinical setting.\n\n### Why Other Options Are Wrong\n- **Repeated office measurements:** Will likely still be high if the patient is anxious in the medical setting.\n- **Fundoscopy:** Checks for end-organ damage (chronic HTN) but doesn't rule out white coat effect primarily."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 50-year-old male with a 10-year cardiovascular risk score of 12% (High Risk) is found to have an LDL of 145 mg/dL. He has no history of diabetes. What is the recommended management?",
+            "options": [
+                "Lifestyle changes only",
+                "Start high-intensity Statin immediately",
+                "Start moderate-intensity Statin and lifestyle changes",
+                "Start Ezetimibe"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "Risk > 7.5% or >10% = Statin. Moderate intensity is standard start; High intensity for >20% risk or secondary prevention.",
+            "explanation": "### Core Concept\nPrimary prevention guidelines use risk scores (Framingham/ASCVD Risk). \n*   Low risk: Lifestyle.\n*   Intermediate/High risk (>7.5-10%): Statin + Lifestyle.\n\n### Correct Answer Explained\nWith a risk >10%, pharmacotherapy is indicated. A **moderate-intensity statin** (e.g., Atorvastatin 10-20mg) is the standard recommendation for primary prevention in this risk category.\n\n### Why Other Options Are Wrong\n- **Lifestyle only:** Risk is too high; delay in treatment increases event probability.\n- **High-intensity:** Usually reserved for risk >20% or secondary prevention (post-MI/Stroke).\n- **Ezetimibe:** Add-on therapy, not first-line."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Which of the following infants requires a referral for 'Possible Serious Bacterial Infection' according to IMCI guidelines?",
+            "options": [
+                "A 4-month-old with a respiratory rate of 45/min",
+                "A 1-month-old with severe chest indrawing",
+                "A 3-year-old with a fever of 38.5°C",
+                "A 6-month-old with diarrhea and no dehydration"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "Young Infant (<2m) + Chest Indrawing = SEVERE. (Older kids require general danger signs for 'Very Severe', but <2m are fragile).",
+            "explanation": "### Core Concept\nIMCI has a separate chart for **Young Infants (<2 months)**. Their signs are more subtle, and deterioration is rapid.\n\n### Correct Answer Explained\nIn a young infant (<2 months), **Severe Chest Indrawing** is a sign of Possible Serious Bacterial Infection (PSBI) or severe pneumonia and requires urgent referral and antibiotics.\n\n### Why Other Options Are Wrong\n- **4-month-old RR 45:** Normal (cutoff is 50).\n- **3-year-old fever:** Simple fever ( Malaria/Measles/Other) protocol, not automatic severe disease referral unless danger signs present.\n- **6-month-old diarrhea:** Managed at home (Plan A)."
+        },
+        {
+            "question_type": "true_false",
+            "question_text": "Orlistat helps in weight loss by acting centrally on the hypothalamus to suppress appetite.",
+            "is_correct_true": false,
+            "difficulty": 2,
+            "retention_aid": "Orli-FAT. Orlistat stops FAT absorption in the GUT.",
+            "explanation": "### Core Concept\nWeight loss drugs have different mechanisms. \n- **Orlistat:** Lipase inhibitor (gut).\n- **Phentermine/GLP-1s:** Appetite suppression (central/hormonal).\n\n### Correct Answer Explained\n**False.** Orlistat inhibits **pancreatic and gastric lipases** in the GI tract, preventing the hydrolysis and absorption of dietary fats (approx 30%). It does *not* act on the brain."
+        },
+        {
+            "question_type": "true_false",
+            "question_text": "In a patient with severe dehydration from diarrhea, the presence of palpable pulses and mental alertness allows for oral rehydration (Plan B) initially.",
+            "is_correct_true": false,
+            "difficulty": 3,
+            "retention_aid": "Severe Dehydration = Plan C (IV). If you can't do IV, use NG tube. Oral is for Some/No dehydration.",
+            "explanation": "### Core Concept\nDehydration plans:\n- Plan A: Home.\n- Plan B: ORS in clinic.\n- Plan C: IV fluids.\n\n### Correct Answer Explained\n**False.** While alertness suggests the shock isn't profound *yet*, severe dehydration (defined by signs like skin pinch >2s, lethargy, sunken eyes) requires rapid volume expansion via **IV fluids (Plan C)**. If the patient is categorized as *Severe*, Plan B is insufficient."
+        },
+        {
+            "question_type": "mcq_multi",
+            "question_text": "Select TWO antibiotic regimens suitable for the treatment of Group A Streptococcal Pharyngitis in a patient with no drug allergies.",
+            "options": [
+                "Oral Penicillin V for 10 days",
+                "Single dose of Intramuscular Benzathine Penicillin G",
+                "Oral Ciprofloxacin for 5 days",
+                "Oral Doxycycline for 7 days"
+            ],
+            "correct_indices": [
+                0,
+                1
+            ],
+            "difficulty": 3,
+            "retention_aid": "Strep Throat = Penicillin (Oral x10 days OR IM x1 shot).",
+            "explanation": "### Core Concept\nGroup A Strep is universally sensitive to Penicillin. The goal is to prevent Rheumatic Fever.\n\n### Correct Answers Explained\n- **Oral Penicillin V:** The standard treatment. Must be taken for 10 days to eradicate the bacteria.\n- **IM Benzathine Penicillin G:** A single dose provides adequate levels for >10 days. Excellent for compliance issues.\n\n### Why Other Options Are Wrong\n- **Ciprofloxacin (Fluoroquinolone):** Not first-line for Strep; broad spectrum with side effects.\n- **Doxycycline (Tetracycline):** High rates of resistance in Strep pyogenes; generally contraindicated in young children (teeth staining)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A mother is concerned because her 5-month-old baby has not been given water during the summer heat. She is exclusively breastfeeding. What is the correct advice?",
+            "options": [
+                "Advise her to give 30ml of boiled water after each feed",
+                "Reassure her that breast milk provides adequate hydration even in hot weather",
+                "Advise her to switch to formula during the hot hours of the day",
+                "Prescribe oral rehydration salts to be given daily as prophylaxis"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Breast milk is 88% water. It's a drink and a meal.",
+            "explanation": "### Core Concept\nExclusive breastfeeding means *only* breast milk.\n\n### Correct Answer Explained\nBreast milk (foremilk) is watery and thirst-quenching. Supplemental water puts the infant at risk of infection (contaminated water) and malnutrition (filling the stomach with zero calories). **Reassure the mother.**\n\n### Why Other Options Are Wrong\n- **Give water:** Increases diarrhea risk.\n- **Switch to formula:** Unnecessary and reduces breast milk supply.\n- **ORS prophylaxis:** ORS is for *treatment* of dehydration, not prophylaxis in healthy infants."
+        },
+        {
+            "question_type": "emq",
+            "instructions": "Match the headache description to the most likely diagnosis.",
+            "premises": [
+                "Severe, unilateral, throbbing headache with photophobia and nausea, lasting 12 hours.",
+                "Bilateral, band-like pressure, mild-to-moderate intensity, no nausea.",
+                "Severe, unilateral orbital pain occurring daily at 2 AM for the last week, associated with a tearing eye.",
+                "New onset headache in a 70-year-old with scalp tenderness and jaw claudication."
+            ],
+            "options": [
+                "Tension-Type Headache",
+                "Migraine",
+                "Cluster Headache",
+                "Giant Cell Arteritis",
+                "Trigeminal Neuralgia"
+            ],
+            "matches": [
+                [
+                    0,
+                    1
+                ],
+                [
+                    1,
+                    0
+                ],
+                [
+                    2,
+                    2
+                ],
+                [
+                    3,
+                    3
+                ]
+            ],
+            "difficulty": 3,
+            "retention_aid": "Migraine=Sick/Throbbing. Tension=Tight Band. Cluster=Clockwork Eye Pain. GCA=Old/Jaw Pain.",
+            "explanation": "### Explanations\n1.  **Migraine:** Classic features are Unilateral, Pulsating, disabling intensity, associated with Nausea/Photophobia (POUND mnemonic).\n2.  **Tension:** The 'hatband' headache. Non-pulsating, bilateral, usually no vomiting.\n3.  **Cluster:** Key features are the *timing* (nocturnal/daily periodicity), *location* (orbital), and *autonomic signs* (lacrimation/rhinorrhea).\n4.  **Giant Cell Arteritis:** A medical emergency (risk of blindness). Suspect in elderly with temporal/scalp tenderness and jaw pain when chewing."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Which of the following is an absolute contraindication for the use of ACE Inhibitors (e.g., Lisinopril) in hypertension?",
+            "options": [
+                "Diabetes Mellitus",
+                "Bilateral Renal Artery Stenosis",
+                "Chronic Kidney Disease Stage 3",
+                "Heart Failure"
+            ],
+            "correct_index": 1,
+            "difficulty": 4,
+            "retention_aid": "Renal Artery Stenosis needs Angiotensin II to keep the kidney working. Block it (ACEi) -> Renal Failure.",
+            "explanation": "### Core Concept\nACE inhibitors reduce GFR by dilating the efferent arteriole.\n\n### Correct Answer Explained\nIn **Bilateral Renal Artery Stenosis**, the kidneys rely on efferent arteriolar constriction (driven by Angiotensin II) to maintain glomerular filtration pressure. ACE inhibitors remove this constriction, leading to acute renal failure. Pregnancy is the other major absolute contraindication.\n\n### Why Other Options Are Wrong\n- **Diabetes/CKD/Heart Failure:** ACE inhibitors are actually *preferred* / indicated in these conditions due to their renal-protective and remodeling benefits (unless potassium is dangerously high)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 28-year-old female presents with fatigue, weight gain, cold intolerance, and constipation. On exam, she has dry skin and delayed relaxation of deep tendon reflexes. Which lab test is the most appropriate initial step?",
+            "options": [
+                "Morning Cortisol",
+                "Hemoglobin A1c",
+                "Thyroid Stimulating Hormone (TSH)",
+                "Epstein-Barr Virus Serology"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "Slow metabolism (Fat, Cold, Slow, Dry) = Hypothyroidism = Check TSH.",
+            "explanation": "### Core Concept\nFatigue differential diagnosis involves screening for common metabolic disorders.\n\n### Correct Answer Explained\nThe symptoms (weight gain, cold intolerance, constipation, dry skin) are classic for **Hypothyroidism**. **TSH** is the sensitive first-line screening test.\n\n### Why Other Options Are Wrong\n- **Cortisol:** For Addison's/Cushing's (symptoms don't match—Addison's has weight loss).\n- **HbA1c:** For Diabetes (symptoms are polyuria/polydipsia).\n- **EBV:** For Mononucleosis (presents with fever, sore throat, lymphadenopathy)."
+        },
+        {
+            "question_type": "cloze",
+            "question_text": "In the IMCI classification for a child aged 2 months to 5 years: \n1. Fast breathing alone classifies as {1}. \n2. Chest indrawing classifies as {2}. \n3. General danger signs classify as {3}.",
+            "answers": [
+                "Pneumonia",
+                "Severe Pneumonia",
+                "Very Severe Disease"
+            ],
+            "difficulty": 3,
+            "retention_aid": "Fast=Pneumonia (Antibiotics). Indrawing=Severe (Referral). Danger Signs=Very Severe (Urgent Referral).",
+            "explanation": "### Core Concept\nIMCI color-coded triage:\n1.  **Yellow (Pneumonia):** Fast breathing only. Rx: Oral Amoxicillin at home.\n2.  **Red (Severe Pneumonia):** Chest indrawing (or Stridor in calm child). Rx: 1st dose antibiotic + Refer.\n3.  **Red (Very Severe Disease):** General danger signs (Vomiting, Convulsions, Lethargy, Not drinking). Rx: Stabilize + Refer."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 50-year-old male with a history of Peptic Ulcer Disease presents with acute gouty arthritis. Which medication should be AVOIDED for pain management?",
+            "options": [
+                "Colchicine",
+                "Indomethacin (NSAID)",
+                "Prednisolone",
+                "Paracetamol"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "NSAIDs burn the stomach. Ulcer = No NSAIDs.",
+            "explanation": "### Core Concept\nTreatment of acute inflammation must respect comorbidities.\n\n### Correct Answer Explained\n**Indomethacin** is a strong NSAID. NSAIDs are contraindicated in active or recent **Peptic Ulcer Disease** due to the risk of GI bleeding/perforation.\n\n### Why Other Options Are Wrong\n- **Colchicine/Prednisolone:** Are viable alternatives for acute gout when NSAIDs are contraindicated.\n- **Paracetamol:** Safe for the stomach but usually ineffective for the severe pain of gout."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "According to the 'Rule of Halves' in Hypertension epidemiology, approximately what percentage of the total hypertensive population is effectively controlled?",
+            "options": [
+                "50%",
+                "25%",
+                "12.5%",
+                "6%"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "Half diagnosed, Half treated, Half controlled. 1/2 * 1/2 * 1/2 = 1/8 (12.5%).",
+            "explanation": "### Core Concept\nThe Rule of Halves illustrates the poor management of HTN globally.\n1.  Only half of hypertensives are **diagnosed**.\n2.  Only half of those diagnosed are **treated**.\n3.  Only half of those treated are **controlled**.\n\n### Correct Answer Explained\n50% x 50% x 50% = **12.5%** of the total hypertensive population is adequately controlled.\n\n### Why Other Options Are Wrong\nThey represent the other steps (50% diagnosed, 25% treated)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A mother asks when she can stop breastfeeding. According to WHO/UNICEF recommendations, breastfeeding should continue for:",
+            "options": [
+                "6 months",
+                "12 months",
+                "Up to 2 years or beyond",
+                "Until the child has teeth"
+            ],
+            "correct_index": 2,
+            "difficulty": 1,
+            "retention_aid": "Breastfeed: Exclusive to 6m, Continued to 2y+.",
+            "explanation": "### Core Concept\nGlobal infant feeding standards.\n\n### Correct Answer Explained\nThe recommendation is **exclusive breastfeeding for 6 months**, followed by complementary feeding with **continued breastfeeding up to 2 years of age or beyond**.\n\n### Why Other Options Are Wrong\n- **6 months:** This is the end of *exclusive* breastfeeding, not total breastfeeding.\n- **12 months:** Common in some Western cultures, but global health advice is 2 years."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 16-year-old female presents with obesity (BMI 32), acne, and irregular periods (oligomenorrhea). Which condition should be screened for as a secondary cause of her obesity?",
+            "options": [
+                "Polycystic Ovary Syndrome (PCOS)",
+                "Hypothyroidism",
+                "Cushing's Syndrome",
+                "Growth Hormone Deficiency"
+            ],
+            "correct_index": 0,
+            "difficulty": 2,
+            "retention_aid": "PCOS Triad: Obesity + Acne/Hirsutism + Irregular Periods.",
+            "explanation": "### Core Concept\nObesity combined with signs of hyperandrogenism (acne, hirsutism) and anovulation (irregular periods) is the classic presentation of **PCOS**.\n\n### Correct Answer Explained\n**PCOS** is a common endocrine disorder in women of reproductive age associated with insulin resistance and obesity.\n\n### Why Other Options Are Wrong\n- **Hypothyroidism:** Would cause cold intolerance/dry skin, not typically acne.\n- **Cushing's:** Associated with striae, bruising, and proximal muscle weakness."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Which of the following foods is the best source of iron for a 7-month-old infant starting solids?",
+            "options": [
+                "Cow's milk",
+                "Spinach broth",
+                "Pureed meat or chicken liver",
+                "Fruit juice"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "Iron: Meat > Plants. Milk blocks iron.",
+            "explanation": "### Core Concept\nInfant iron stores deplete by 6 months. Heme iron (animal source) is best absorbed.\n\n### Correct Answer Explained\n**Meat (especially liver)** is an excellent source of heme iron, which has high bioavailability. It should be cooked and mashed/pureed.\n\n### Why Other Options Are Wrong\n- **Cow's milk:** Poor source of iron and can cause micro-bleeding in the gut; contraindicated as a main drink before 1 year.\n- **Spinach broth:** Contains non-heme iron (poorly absorbed) and phytates/oxalates that inhibit absorption.\n- **Fruit juice:** Vitamin C helps iron absorption, but the juice itself is not a high-iron food."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 30-year-old male smoker with a family history of premature heart disease asks about lipid screening. According to guidelines, when should screening for dyslipidemia typically begin for high-risk men?",
+            "options": [
+                "Age 45",
+                "Age 35",
+                "Age 20-25",
+                "Age 50"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "Screen early if risk exists (20-25). General population men: 35. Women: 45.",
+            "explanation": "### Core Concept\nScreening guidelines vary, but risk factors lower the age threshold.\n\n### Correct Answer Explained\nFor men with **risk factors** (smoking, hypertension, family history), screening often begins at **age 20–25**. For low-risk men, it typically starts at 35.\n\n### Why Other Options Are Wrong\n- **Age 35:** Start age for *low risk* men.\n- **Age 45:** Start age for *low risk* women.\n- **Age 50:** Too late; missed opportunity for prevention."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Which class of antihypertensive medication is preferred for a patient with Diabetic Nephropathy (Microalbuminuria)?",
+            "options": [
+                "Beta-Blockers (e.g., Atenolol)",
+                "Calcium Channel Blockers (e.g., Amlodipine)",
+                "ACE Inhibitors (e.g., Lisinopril) or ARBs",
+                "Thiazide Diuretics (e.g., Hydrochlorothiazide)"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "Diabetes + Kidney = ACE/ARB. (Protects the nephron).",
+            "explanation": "### Core Concept\nRenal protection in diabetes is crucial.\n\n### Correct Answer Explained\n**ACE Inhibitors and ARBs** reduce intraglomerular pressure (by dilating the efferent arteriole) and have been proven to reduce proteinuria and slow the progression of diabetic nephropathy independent of their BP-lowering effect.\n\n### Why Other Options Are Wrong\n- **CCBs/Thiazides:** Effective for BP control but lack the specific antiproteinuric benefit of RAAS blockade."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A patient presents with sudden onset of 'the worst headache of my life' (Thunderclap headache). Which condition must be ruled out immediately?",
+            "options": [
+                "Acute Migraine",
+                "Subarachnoid Hemorrhage",
+                "Tension Headache",
+                "Sinusitis"
+            ],
+            "correct_index": 1,
+            "difficulty": 1,
+            "retention_aid": "Thunderclap = Bleed (SAH). Emergency.",
+            "explanation": "### Core Concept\nSudden onset, maximal intensity headache is a Red Flag.\n\n### Correct Answer Explained\n**Subarachnoid Hemorrhage (SAH)** typically presents as a thunderclap headache. It is a life-threatening emergency (ruptured aneurysm).\n\n### Why Other Options Are Wrong\n- **Migraine/Tension:** Onset is gradual (minutes to hours), not instantaneous 'thunderclap'.\n- **Sinusitis:** Associated with congestion, fever, and facial pressure, not sudden severe pain."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "In the management of Type 2 Diabetes, what is the primary mechanism of action of Sulfonylureas (e.g., Gliclazide)?",
+            "options": [
+                "Decreases hepatic glucose production",
+                "Increases insulin secretion from pancreatic beta cells",
+                "Increases urinary glucose excretion",
+                "Increases insulin sensitivity in muscle"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Sulfonylureas Squeeze the Pancreas (Secretagogues).",
+            "explanation": "### Core Concept\nUnderstanding drug classes:\n- Metformin: Sensitizer/Liver.\n- Sulfonylureas: Secretagogues.\n- SGLT2i: Kidney excretion.\n\n### Correct Answer Explained\n**Sulfonylureas** stimulate the pancreatic beta cells to release more insulin (independent of glucose levels), which is why they carry a risk of hypoglycemia.\n\n### Why Other Options Are Wrong\n- **Hepatic glucose:** Metformin.\n- **Urinary excretion:** SGLT-2 inhibitors (Empagliflozin).\n- **Insulin sensitivity:** Metformin/TZDs."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A mother reports that her 2-week-old newborn breastfeeds for 5 minutes on one breast and then falls asleep. She is worried he is not getting enough. What is the most appropriate advice?",
+            "options": [
+                "Supplement with formula after breastfeeding",
+                "Switch to bottle feeding to measure intake",
+                "Encourage her to wake the baby and offer the other breast to ensure he gets the hindmilk",
+                "Start solids"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "Foremilk = Water (Thirst). Hindmilk = Fat (Fullness/Growth). Empty the breast!",
+            "explanation": "### Core Concept\nBreast milk composition changes during a feed. Initial milk (foremilk) is watery; later milk (hindmilk) is fat-rich.\n\n### Correct Answer Explained\nShort feeds may mean the baby only gets foremilk (high lactose, low fat), leading to hunger soon after and poor weight gain. **Keeping the baby awake to finish the breast** ensures he gets the calorie-rich **hindmilk**.\n\n### Why Other Options Are Wrong\n- **Formula/Solids:** Unnecessary supplementation interferes with supply-demand milk production.\n- **Bottle:** Nipple confusion risk."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 5-year-old child presents with fever, sore throat, and a 'sandpaper-like' rash on the trunk. The tongue is red and swollen ('strawberry tongue'). What is the most likely diagnosis?",
+            "options": [
+                "Kawasaki Disease",
+                "Scarlet Fever",
+                "Measles",
+                "Infectious Mononucleosis"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "Scarlet Fever = Strep Throat + Sandpaper Rash + Strawberry Tongue.",
+            "explanation": "### Core Concept\nSpecific strains of Group A Strep produce an erythrogenic toxin causing a rash.\n\n### Correct Answer Explained\n**Scarlet Fever** is a complication of Streptococcal pharyngitis characterized by a rough 'sandpaper' rash, circumoral pallor, and strawberry tongue.\n\n### Why Other Options Are Wrong\n- **Kawasaki:** Prolonged fever (>5 days), conjunctivitis, cracked lips, extremity edema. (Strawberry tongue is seen here too, but the rash/clinical picture differs).\n- **Measles:** Cough, Coryza, Conjunctivitis, Koplik spots, maculopapular rash (not sandpaper).\n- **Mono:** Fatigue, splenomegaly, posterior cervical nodes."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "You are counseling a patient with obesity. He asks about the side effects of Orlistat. What is the most common adverse effect you should warn him about?",
+            "options": [
+                "Hypoglycemia",
+                "Steatorrhea and fecal urgency",
+                "Insomnia",
+                "Hypertension"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Orlistat blocks fat -> Fat comes out (Oily stool).",
+            "explanation": "### Core Concept\nOrlistat blocks fat absorption. Unabsorbed fat passes through the GI tract.\n\n### Correct Answer Explained\n**Steatorrhea** (oily/fatty stool), fecal urgency, and flatus with discharge are the direct consequences of fat malabsorption caused by Orlistat.\n\n### Why Other Options Are Wrong\n- **Hypoglycemia:** Associated with insulin/sulfonylureas.\n- **Insomnia/HTN:** Associated with sympathomimetic weight loss drugs (e.g., Phentermine)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Which of the following lipid profiles fits the typical pattern of 'Diabetic Dyslipidemia'?",
+            "options": [
+                "High LDL, High HDL, Low Triglycerides",
+                "High Triglycerides, Low HDL, Small dense LDL",
+                "High HDL, Low LDL, Low Triglycerides",
+                "Normal Lipid Profile"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "Diabetic Triad: High TG, Low HDL, Bad LDL (small/dense).",
+            "explanation": "### Core Concept\nInsulin resistance alters lipid metabolism, increasing VLDL secretion and reducing HDL.\n\n### Correct Answer Explained\n**High Triglycerides, Low HDL, and small dense LDL** particles (which are more atherogenic even if total LDL quantity isn't massively elevated) constitute the atherogenic dyslipidemia of metabolic syndrome/diabetes.\n\n### Why Other Options Are Wrong\n- **High HDL:** Rare in diabetes (insulin resistance usually lowers HDL)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 12-month-old child has had diarrhea for 16 days. He is alert and drinking. There is no blood in the stool. How is this illness classified in IMCI?",
+            "options": [
+                "Severe Persistent Diarrhea",
+                "Persistent Diarrhea",
+                "Acute Watery Diarrhea",
+                "Dysentery"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Persistent = >14 days. Severe Persistent = >14 days + Dehydration.",
+            "explanation": "### Core Concept\nDefinition of Persistent Diarrhea is duration **≥ 14 days**.\n\n### Correct Answer Explained\nThe duration is 16 days, so it is Persistent. Since there is no dehydration (alert, drinking), it is classified as **Persistent Diarrhea** (Yellow). If dehydration were present, it would be *Severe Persistent Diarrhea* (Red).\n\n### Why Other Options Are Wrong\n- **Acute:** Lasts <14 days.\n- **Dysentery:** Requires blood."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Regarding breastfeeding storage, how long can expressed breast milk be safely stored in a refrigerator (not freezer)?",
+            "options": [
+                "4 hours",
+                "Up to 6 days",
+                "24 hours",
+                "2 weeks"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Room: 8 hours. Fridge: 6 days. Freezer: 6 months.",
+            "explanation": "### Core Concept\nBreast milk has anti-infective properties allowing decent storage times.\n\n### Correct Answer Explained\nIn a standard refrigerator (4°C), breast milk is safe for **up to 6 days** (some sources say 3-5, but the provided text specifies \"up to 6 days\").\n\n### Why Other Options Are Wrong\n- **8 hours:** Room temperature limit.\n- **6 months:** Freezer limit."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A patient with hypertension is started on an ACE Inhibitor. A few weeks later, he develops a dry, persistent cough. What is the mechanism behind this side effect?",
+            "options": [
+                "Accumulation of Bradykinin",
+                "Angioedema of the larynx",
+                "Fluid overload in the lungs",
+                "Direct irritation of the bronchial mucosa"
+            ],
+            "correct_index": 0,
+            "difficulty": 2,
+            "retention_aid": "ACE breaks down Bradykinin. No ACE = High Bradykinin = Cough.",
+            "explanation": "### Core Concept\nAngiotensin Converting Enzyme (ACE) breaks down Bradykinin. Inhibiting ACE leads to higher Bradykinin levels.\n\n### Correct Answer Explained\n**Accumulation of Bradykinin** in the lungs causes the characteristic dry cough associated with ACE inhibitors. Switching to an ARB solves this.\n\n### Why Other Options Are Wrong\n- **Fluid overload:** Would suggest heart failure/drug failure, but the cough is usually productive or positional.\n- **Angioedema:** A rare, severe allergic reaction (swelling), distinct from the common side effect cough."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 2-month-old infant is brought for a checkup. The IMCI assessment reveals the infant has Fast Breathing (65/min) but no chest indrawing and no general danger signs. What is the classification and treatment?",
+            "options": [
+                "Severe Pneumonia: Refer",
+                "Pneumonia: Oral Amoxicillin",
+                "Cough/Cold: Home care",
+                "Severe Disease: Refer"
+            ],
+            "correct_index": 0,
+            "difficulty": 4,
+            "retention_aid": "Infants < 2 months are DIFFERENT. Fast breathing alone = Severe Pneumonia/PSBI -> Refer. (Unlike older kids where Fast breathing = Home antibiotics).",
+            "explanation": "### Core Concept\n**Age matters.** The protocol for a young infant (<2 months) is stricter than for a child (2m–5y).\n\n### Correct Answer Explained\nIn a young infant (<2 months), **Fast Breathing** (≥60) is classified as **Serious Bacterial Infection / Severe Pneumonia** and requires referral (or hospitalization/injection antibiotics if referral is impossible). In an *older* child, this would be simple Pneumonia treated at home.\n\n### Why Other Options Are Wrong\n- **Pneumonia (Home Rx):** Only applies to children >2 months."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Which of the following is considered a 'Modifiable' risk factor for cardiovascular disease?",
+            "options": [
+                "Age",
+                "Gender",
+                "Hypertension",
+                "Family History"
+            ],
+            "correct_index": 2,
+            "difficulty": 1,
+            "retention_aid": "You can change your BP, you can't change your Dad.",
+            "explanation": "### Core Concept\nRisk factors are Modifiable (lifestyle/drugs can change them) vs Non-modifiable (genetic/biological).\n\n### Correct Answer Explained\n**Hypertension** can be treated with diet, exercise, and medication.\n\n### Why Other Options Are Wrong\n- Age, Gender, and Genetics cannot be changed."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 65-year-old male with diabetes should have a target blood pressure of:",
+            "options": [
+                "< 120/80 mmHg",
+                "< 130/80 mmHg",
+                "< 140/90 mmHg",
+                "< 150/90 mmHg"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "Diabetes = High Risk = Strict Target (<130/80).",
+            "explanation": "### Core Concept\nGuidelines (ACC/AHA/ADA) generally recommend tighter control for high-risk groups like diabetics to prevent renal and cardiovascular complications.\n\n### Correct Answer Explained\nThe consensus target for patients with Diabetes is **< 130/80 mmHg**.\n\n### Why Other Options Are Wrong\n- **<140/90:** Old target (JNC-8), now considered too lax for high-risk patients.\n- **<120/80:** Intensive target, may increase risk of falls/hypotension in older adults unless tolerated well, but 130/80 is the standard guideline answer."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "What is the primary danger of administering antibiotics to a patient with Infectious Mononucleosis (caused by EBV) who was misdiagnosed as having Strep throat?",
+            "options": [
+                "Anaphylaxis",
+                "Development of a generalized maculopapular rash",
+                "Renal Failure",
+                "Liver Failure"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Mono + Ampicillin = Rash.",
+            "explanation": "### Core Concept\nInfectious Mononucleosis (EBV) can mimic Strep throat (exudates, nodes). \n\n### Correct Answer Explained\nIf a patient with Mono is given Ampicillin or Amoxicillin, they very commonly develop a **generalized maculopapular rash** (not a true allergy, but a reaction). This is a classic board exam association.\n\n### Why Other Options Are Wrong\n- **Anaphylaxis:** This is IgE mediated allergy.\n- **Renal/Liver failure:** Not the specific reaction associated with this drug-virus interaction."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 30-year-old female presents with fatigue. She has heavy menstrual periods. Which lab result would confirm Iron Deficiency Anemia?",
+            "options": [
+                "Low Hb, High MCV, High Ferritin",
+                "Low Hb, Low MCV, Low Ferritin",
+                "Normal Hb, Low MCV, High Ferritin",
+                "Low Hb, Normal MCV, Normal Ferritin"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Iron Deficiency = Microcytic (Small/Low MCV) and Empty Stores (Low Ferritin).",
+            "explanation": "### Core Concept\nIron deficiency leads to a lack of hemoglobin production.\n\n### Correct Answer Explained\n**Low Hb** (Anemia) + **Low MCV** (Microcytic) + **Low Ferritin** (Low stores) is the hallmark of Iron Deficiency Anemia.\n\n### Why Other Options Are Wrong\n- **High MCV:** B12/Folate deficiency.\n- **High Ferritin:** Anemia of Chronic Disease (Ferritin is an acute phase reactant)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Which of the following interventions has the strongest evidence for reducing blood pressure in hypertensive patients?",
+            "options": [
+                "Weight loss",
+                "Stress reduction",
+                "Calcium supplementation",
+                "Reducing caffeine"
+            ],
+            "correct_index": 0,
+            "difficulty": 2,
+            "retention_aid": "Weight loss is King. ~1 mmHg drop per 1 kg lost.",
+            "explanation": "### Core Concept\nLifestyle modifications have varying impacts.\n\n### Correct Answer Explained\n**Weight loss** is the most effective lifestyle measure. Expect about 5-20 mmHg reduction per 10kg weight loss. DASH diet and Sodium restriction are also very strong.\n\n### Why Other Options Are Wrong\n- **Caffeine/Stress:** Have smaller, transient effects compared to the sustained drop from weight loss."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A mother is HIV positive. According to WHO guidelines for resource-limited settings (where formula is not safe/affordable), what is the recommendation regarding breastfeeding?",
+            "options": [
+                "Do not breastfeed at all",
+                "Mixed feeding (Breast milk + Formula)",
+                "Exclusive breastfeeding for 6 months while mother takes ART",
+                "Wet nursing only"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "HIV on ART = Breastfeed is Okay (in developing world). Mixed feeding is the Enemy.",
+            "explanation": "### Core Concept\nTransmission risk vs. Mortality risk from diarrhea/malnutrition.\n\n### Correct Answer Explained\nIn settings where formula is unsafe (water contamination), **Exclusive Breastfeeding** is recommended *provided* the mother is adherent to **Antiretroviral Therapy (ART)** to minimize viral load. \n\n### Why Other Options Are Wrong\n- **Mixed feeding:** The worst option. It damages the gut lining (from formula/solids) allowing the virus (from breast milk) to enter the bloodstream more easily.\n- **Do not breastfeed:** In resource-poor settings, this leads to death from starvation or dysentery."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 55-year-old male with Diabetes and Hypertension is currently on Metformin and Lisinopril. His BP is 135/85. His urine shows Microalbuminuria. What is the best course of action?",
+            "options": [
+                "Stop Lisinopril as it causes kidney damage",
+                "Switch Lisinopril to Amlodipine",
+                "Increase Lisinopril dose or add an ARB",
+                "Continue current therapy and monitor"
+            ],
+            "correct_index": 2,
+            "difficulty": 4,
+            "retention_aid": "Albuminuria = Maximize RAAS blockade (ACEi/ARB).",
+            "explanation": "### Core Concept\nMicroalbuminuria indicates early nephropathy. \n\n### Correct Answer Explained\nACE inhibitors (Lisinopril) reduce proteinuria. If BP is not at the strict diabetic target (<130/80) and albuminuria is present, **optimizing the ACE inhibitor dose** is beneficial for renal protection.\n\n### Why Other Options Are Wrong\n- **Stop Lisinopril:** Incorrect; ACEi is *protective* here.\n- **Switch to Amlodipine:** CCBs don't offer the same antiproteinuric benefit.\n- **Continue:** BP is above target (135/85 > 130/80), so intensification is needed."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Which condition is characterized by a 'Band-like' pressure headache that is bilateral and not aggravated by physical activity?",
+            "options": [
+                "Migraine",
+                "Cluster Headache",
+                "Tension-Type Headache",
+                "Sinus Headache"
+            ],
+            "correct_index": 2,
+            "difficulty": 1,
+            "retention_aid": "Tension = Tight Band. Non-pulsating. No nausea.",
+            "explanation": "### Core Concept\nHeadache semiology.\n\n### Correct Answer Explained\n**Tension-Type Headache** is classically described as a tight band or pressing quality, bilateral, mild-moderate, and lacks the aggravating features (movement, light, sound) of migraine.\n\n### Why Other Options Are Wrong\n- **Migraine:** Unilateral, throbbing, aggravated by movement.\n- **Cluster:** Unilateral, severe, orbital."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 6-month-old child has acute diarrhea. The mother is breastfeeding. What is the specific advice regarding breastfeeding during the illness?",
+            "options": [
+                "Stop breastfeeding for 24 hours to rest the gut",
+                "Breastfeed more frequently and for longer than usual",
+                "Switch to lactose-free formula",
+                "Dilute breast milk with water"
+            ],
+            "correct_index": 1,
+            "difficulty": 1,
+            "retention_aid": "Diarrhea = Feed MORE. Never stop breastfeeding.",
+            "explanation": "### Core Concept\nfluid loss requires fluid replacement.\n\n### Correct Answer Explained\nDuring diarrhea, **breastfeeding frequency and duration should be increased** to replace fluid loss and provide nutrition/antibodies.\n\n### Why Other Options Are Wrong\n- **Stop breastfeeding:** Dangerous advice; leads to dehydration and malnutrition.\n- **Lactose-free:** Usually not necessary for acute diarrhea in breastfed infants (breast milk has lactase enzymes and growth factors)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 4-month-old female infant is brought to the clinic for a well-baby check. She is exclusively breastfed and growing well along the 50th percentile. Her mother asks if she can start giving her 'a little bit of cereal' or water because the weather is becoming hot. According to WHO and IMCI guidelines, what is the most appropriate response?",
+            "options": [
+                "Start iron-fortified rice cereal once daily but avoid water.",
+                "Continue exclusive breastfeeding with no additional food or water until 6 months.",
+                "Give small amounts of boiled water after breastfeeds to prevent dehydration.",
+                "Introduce fruit juice diluted with water to expose her to new flavors."
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "0-6 Months = Breast milk ONLY. (No water, no solids).",
+            "explanation": "### Core Concept\n**Exclusive Breastfeeding** is recommended for the first 6 months of life. Breast milk provides all necessary nutrients and hydration (it is ~88% water), even in hot climates.\n\n### Correct Answer Explained\nThe correct counseling is to **continue exclusive breastfeeding until 6 months**. Introducing solids or fluids earlier displaces breast milk intake, reduces the mother's milk supply, and increases the risk of gastrointestinal infections.\n\n### Why Other Options Are Wrong\n- **Start cereal:** Complementary feeding should start at **6 months**. The gut is not mature enough at 4 months, increasing allergy/infection risks.\n- **Give water:** Unnecessary and dangerous (pathogen exposure). Breast milk has enough water.\n- **Fruit juice:** Not recommended for infants (high sugar, low nutrient density compared to milk)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 3-year-old boy is brought to the outpatient clinic with a cough and fever for 3 days. On examination, he is alert and drinking well. His respiratory rate is 46 breaths/minute. There is no audible stridor and no chest indrawing. Auscultation reveals bilateral crackles. According to IMCI guidelines, what is the correct classification and management?",
+            "options": [
+                "Severe Pneumonia: Refer urgently to the hospital.",
+                "Pneumonia: Prescribe oral Amoxicillin for 5 days and home care advice.",
+                "Cough or Cold: Prescribe a cough suppressant and soothe the throat.",
+                "Very Severe Disease: Administer IM Ceftriaxone and refer."
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "Age 1-5y: RR > 40 is Fast Breathing. Fast Breathing + No Indrawing = Pneumonia (Home Antibiotics).",
+            "explanation": "### Core Concept\nIMCI Respiratory Classification for a child 12 months–5 years:\n*   **Fast Breathing:** ≥ 40 breaths/min.\n*   **Classification:**\n    *   **Pneumonia (Yellow):** Fast breathing only.\n    *   **Severe Pneumonia (Red):** Chest indrawing or Stridor.\n\n### Correct Answer Explained\nThe child has a respiratory rate of **46** (which is >40), classifying him as having Fast Breathing. With no danger signs (indrawing/stridor/vomiting), the classification is **Pneumonia**. The standard treatment is **oral Amoxicillin** treated at home.\n\n### Why Other Options Are Wrong\n- **Severe Pneumonia:** Requires chest indrawing or stridor.\n- **Cough or Cold:** Would require a respiratory rate <40.\n- **Cough suppressants:** Generally not recommended/harmful in young children."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 52-year-old male with a history of Hypertension and frequent Gout attacks presents for a follow-up. His current blood pressure is 150/95 mmHg on Amlodipine 5mg. You decide to add a second agent. Which antihypertensive medication is the best choice for this specific patient?",
+            "options": [
+                "Hydrochlorothiazide",
+                "Losartan",
+                "Furosemide",
+                "Ramipril"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "Losartan Lowers Uric Acid. Thiazides raise it.",
+            "explanation": "### Core Concept\nComorbidities dictate antihypertensive choice. \n*   **Gout:** Avoid Thiazides/Loop diuretics (they increase uric acid).\n*   **Beneficial Agent:** Losartan (ARB) has a unique uricosuric effect.\n\n### Correct Answer Explained\n**Losartan** is the ideal choice because it helps lower blood pressure *and* lowers uric acid levels, reducing the risk of future gout flares. \n\n### Why Other Options Are Wrong\n- **Hydrochlorothiazide:** Strongly associated with hyperuricemia and precipitating gout.\n- **Furosemide:** Can also raise uric acid.\n- **Ramipril:** Good for HTN, but Losartan is superior specifically for the gout comorbidity."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 10-month-old infant presents with diarrhea for 3 days. On examination, the child is irritable, has sunken eyes, and the skin pinch returns slowly (< 2 seconds). The child drinks eagerly from a cup. Which treatment plan is indicated?",
+            "options": [
+                "Plan A: Home fluids and Zinc",
+                "Plan B: Oral Rehydration Solution (ORS) 75ml/kg over 4 hours in the clinic",
+                "Plan C: IV Ringer Lactate 100ml/kg immediately",
+                "Antibiotics: Ciprofloxacin for 3 days"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Irritable + Sunken Eyes + Thirsty = SOME Dehydration = Plan B (ORS).",
+            "explanation": "### Core Concept\nDehydration Classification:\n1.  **No Dehydration:** No signs. (Plan A)\n2.  **Some Dehydration:** Irritable, Sunken Eyes, Thirsty, Skin pinch slow. (Plan B)\n3.  **Severe Dehydration:** Lethargic, Unable to drink, Skin pinch *very* slow. (Plan C)\n\n### Correct Answer Explained\nThe child meets the criteria for **Some Dehydration** (Irritable, Sunken eyes, Drinks eagerly). Management is **Plan B** (ORS in clinic). \n\n### Why Other Options Are Wrong\n- **Plan C (IV):** Reserved for Severe Dehydration (Lethargic/Unable to drink).\n- **Antibiotics:** Only for dysentery (blood in stool) or cholera (severe dehydration)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 45-year-old female presents with fatigue, weight gain, and constipation. She has a BMI of 33. On examination, her pulse is 58 bpm and her skin is dry. Which of the following is the most appropriate initial investigation to exclude a secondary cause of her condition?",
+            "options": [
+                "Serum Cortisol",
+                "Thyroid Stimulating Hormone (TSH)",
+                "Echocardiogram",
+                "Sleep Study"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Fat + Slow + Cold + Dry = Hypothyroid. Check TSH.",
+            "explanation": "### Core Concept\nCommon secondary causes of obesity and fatigue include Hypothyroidism, Cushing's, and Depression.\n\n### Correct Answer Explained\nThe constellation of **bradycardia, dry skin, constipation, and weight gain** is classic for **Hypothyroidism**. TSH is the first-line screening test.\n\n### Why Other Options Are Wrong\n- **Cortisol:** Cushing's causes central obesity but usually hypertension and thin skin/striae, not bradycardia/dry skin.\n- **Echocardiogram:** Heart failure can cause fatigue/edema, but the metabolic symptoms point to thyroid first.\n- **Sleep Study:** For sleep apnea (snoring/daytime somnolence), but TSH rules out a metabolic root cause first."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 22-year-old university student presents with a sore throat and fever of 39°C. He has tender anterior cervical lymphadenopathy and tonsillar exudates but NO cough. Based on the Centor Criteria, what is the best management step?",
+            "options": [
+                "Reassure and send home with analgesics (Viral pharyngitis)",
+                "Start empirical antiviral therapy",
+                "Perform a Rapid Antigen Detection Test (RADT) or Throat Culture",
+                "Immediate referral to ENT for tonsillectomy"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "Centor 3-4 Points: High likelihood of Strep -> Test first, then Treat.",
+            "explanation": "### Core Concept\n**Centor Criteria** for Group A Strep:\n1.  Fever > 38°C\n2.  Tender Anterior Cervical Nodes\n3.  Tonsillar Exudates\n4.  Absence of Cough\n\n### Correct Answer Explained\nThis patient scores **4 points** (Fever, Nodes, Exudates, No cough). The probability of Strep is high (>50%). Guidelines recommend **confirmation** (Rapid Test/Culture) before antibiotics to prevent resistance.\n\n### Why Other Options Are Wrong\n- **Reassure:** Score is too high to dismiss as viral without testing.\n- **Antiviral:** Not indicated; likely bacterial.\n- **Tonsillectomy:** Only for recurrent chronic tonsillitis (e.g., >7 episodes/year)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 50-year-old heavy smoker presents with a new onset headache. He describes it as persistent, worsening over the last month, and associated with a new morning cough. He has lost 5kg unintentionally. Neurological exam reveals mild left-sided weakness. What is the most critical condition to rule out?",
+            "options": [
+                "Tension-Type Headache associated with stress",
+                "Brain Metastasis from Lung Cancer",
+                "Cluster Headache",
+                "Migraine with Aura"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Headache + Weight Loss + smoker = Cancer until proven otherwise.",
+            "explanation": "### Core Concept\n**Red Flags (SNOOP):** Systemic symptoms (weight loss), Neurologic signs (weakness), Onset (progressive).\n\n### Correct Answer Explained\nThe combination of **heavy smoking, weight loss, progressive headache, and focal neurological signs** strongly suggests a malignancy (Lung Cancer) with **Brain Metastasis**. This is a secondary headache requiring urgent neuroimaging.\n\n### Why Other Options Are Wrong\n- **Tension/Migraine/Cluster:** These are primary headaches. They do not cause weight loss or focal weakness.\n- **Cluster:** Episodic, severe eye pain, not progressive/constant."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 55-year-old male with Type 2 Diabetes has an LDL cholesterol of 140 mg/dL. He has no history of heart attack or stroke. According to guidelines, what is the appropriate lipid management?",
+            "options": [
+                "Diet and exercise only",
+                "Start a moderate-intensity Statin (e.g., Atorvastatin 20mg)",
+                "Start a Fibrate",
+                "Start Niacin"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Diabetic aged 40-75? Start a Statin. (Regardless of calculator).",
+            "explanation": "### Core Concept\nDiabetes is a major risk enhancer. \n\n### Correct Answer Explained\nPatients aged **40–75 with Diabetes** are recommended to start **moderate-intensity statin therapy** regardless of their 10-year risk score, especially if LDL > 70 mg/dL.\n\n### Why Other Options Are Wrong\n- **Diet only:** Insufficient for the high cardiovascular risk associated with diabetes.\n- **Fibrate/Niacin:** Not first-line for LDL reduction; used for high triglycerides or add-on (though Niacin is rarely used now)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 35-year-old man who smokes 20 cigarettes a day wants to quit. He has a medical history of Epilepsy (seizures). Which pharmacotherapy is CONTRAINDICATED?",
+            "options": [
+                "Nicotine Patch",
+                "Nicotine Gum",
+                "Bupropion (Zyban)",
+                "Varenicline (Chantix)"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "Bupropion causes Seizures. Epilepsy = Contraindication.",
+            "explanation": "### Core Concept\nSelecting smoking cessation drugs based on safety profile.\n\n### Correct Answer Explained\n**Bupropion** lowers the seizure threshold. It is absolutely **contraindicated** in patients with a history of **seizures** or eating disorders.\n\n### Why Other Options Are Wrong\n- **Nicotine Replacement (Patch/Gum):** Safe.\n- **Varenicline:** Generally safe regarding seizures (primary concerns are neuropsychiatric, though these warnings have been relaxed)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 45-year-old female is diagnosed with Type 2 Diabetes. Her HbA1c is 7.8%. She has normal kidney function. What is the first-line medication to initiate alongside lifestyle changes?",
+            "options": [
+                "Insulin Glargine",
+                "Sitagliptin",
+                "Metformin",
+                "Gliclazide"
+            ],
+            "correct_index": 2,
+            "difficulty": 1,
+            "retention_aid": "Metformin First. Always (unless GFR <30).",
+            "explanation": "### Core Concept\nFirst-line therapy for T2DM.\n\n### Correct Answer Explained\n**Metformin** is the universal first-line agent due to high efficacy, low cost, weight neutrality, and cardiovascular safety.\n\n### Why Other Options Are Wrong\n- **Insulin:** Usually for symptomatic patients or A1c > 9-10%.\n- **Gliclazide/Sitagliptin:** Second-line agents added if Metformin is insufficient or contraindicated."
+        }
+    ]
+}
