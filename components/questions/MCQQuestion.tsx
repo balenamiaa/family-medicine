@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback, useImperativeHandle, forwardRef } from "react";
 import { MCQSingleQuestion, MCQMultiQuestion } from "@/types";
 import { OptionButton } from "./OptionButton";
+import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 import { cn } from "@/lib/utils";
 
 interface MCQQuestionProps {
@@ -11,7 +12,15 @@ interface MCQQuestionProps {
   answered: boolean;
 }
 
-export function MCQQuestion({ question, onAnswer, answered }: MCQQuestionProps) {
+export interface MCQQuestionRef {
+  selectOption: (index: number) => void;
+  submit: () => void;
+}
+
+export const MCQQuestion = forwardRef<MCQQuestionRef, MCQQuestionProps>(function MCQQuestion(
+  { question, onAnswer, answered },
+  ref
+) {
   const isMulti = question.question_type === "mcq_multi";
   const correctIndices = isMulti
     ? (question as MCQMultiQuestion).correct_indices
@@ -19,7 +28,7 @@ export function MCQQuestion({ question, onAnswer, answered }: MCQQuestionProps) 
 
   const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
 
-  const handleSelect = (index: number) => {
+  const handleSelect = useCallback((index: number) => {
     if (answered) return;
 
     if (isMulti) {
@@ -31,9 +40,9 @@ export function MCQQuestion({ question, onAnswer, answered }: MCQQuestionProps) 
     } else {
       setSelectedIndices([index]);
     }
-  };
+  }, [answered, isMulti]);
 
-  const handleSubmit = () => {
+  const handleSubmit = useCallback(() => {
     if (selectedIndices.length === 0) return;
 
     const isCorrect = isMulti
@@ -42,7 +51,22 @@ export function MCQQuestion({ question, onAnswer, answered }: MCQQuestionProps) 
       : selectedIndices[0] === correctIndices[0];
 
     onAnswer(isCorrect, isMulti ? selectedIndices : selectedIndices[0]);
-  };
+  }, [selectedIndices, isMulti, correctIndices, onAnswer]);
+
+  // Expose methods to parent via ref
+  useImperativeHandle(ref, () => ({
+    selectOption: handleSelect,
+    submit: handleSubmit,
+  }), [handleSelect, handleSubmit]);
+
+  // Keyboard shortcuts
+  useKeyboardShortcuts({
+    onSelectOption: handleSelect,
+    onSubmit: handleSubmit,
+    optionCount: question.options.length,
+    isAnswered: answered,
+    canSubmit: selectedIndices.length > 0,
+  });
 
   const getOptionState = (index: number): boolean | null => {
     if (!answered) return null;
@@ -94,8 +118,9 @@ export function MCQQuestion({ question, onAnswer, answered }: MCQQuestionProps) 
           {isMulti
             ? `Submit (${selectedIndices.length} selected)`
             : "Check Answer"}
+          <span className="ml-2 text-xs opacity-70 hidden sm:inline">(Enter)</span>
         </button>
       )}
     </div>
   );
-}
+});

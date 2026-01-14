@@ -1552,6 +1552,1070 @@
             "difficulty": 3,
             "retention_aid": "Cow's milk for Cows. Humans get Anemia (low iron, gut bleeding).",
             "explanation": "### Core Concept\nCow's milk is inappropriate as a *main* drink before 1 year.\n\n### Correct Answer Explained\nCow's milk is low in iron, inhibits iron absorption from other foods, and can cause **occult intestinal blood loss** (micro-hemorrhages) in young infants, leading to severe **Iron Deficiency Anemia**.\n\n### Why Other Options Are Wrong\n- **Hypercalcemia:** Rare.\n- **Obesity:** Possible, but anemia is the more immediate specific pathology cited in guidelines."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 48-year-old obese woman with a BMI of 34 kg/m² presents for a routine health check. She has a family history of type 2 diabetes in her mother and sister. Her fasting plasma glucose is 118 mg/dL on two separate occasions. Which of the following best describes her current glycemic status?",
+            "options": [
+                "Normal glucose tolerance",
+                "Impaired fasting glucose",
+                "Diabetes mellitus",
+                "Impaired glucose tolerance"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "IFG = 'In-between Fasting Glucose' → 100-125 mg/dL is the gray zone between normal (<100) and diabetic (≥126). Think of it as glucose being 'impaired' but not yet 'imprisoned' in diabetes territory.",
+            "explanation": "**Core Concept & Mechanism:**\nPrediabetes represents an intermediate state of hyperglycemia with glycemic parameters above normal but below diabetes thresholds. It indicates insulin resistance or relative insulin deficiency without complete metabolic decompensation. Impaired fasting glucose (IFG) specifically reflects hepatic insulin resistance affecting overnight glucose production, while impaired glucose tolerance (IGT) reflects peripheral insulin resistance affecting postprandial glucose disposal.\n\n**Correct Answer Explained:**\nThe patient's fasting plasma glucose of 118 mg/dL falls within the IFG range of 100-125 mg/dL according to ADA criteria. Two separate measurements confirm this is not a laboratory error. She has multiple risk factors (obesity, family history) making this finding clinically significant.\n\n**Why Other Options Are Wrong:**\n- Normal glucose tolerance: Requires FPG <100 mg/dL; her value of 118 mg/dL exceeds this threshold\n- Diabetes mellitus: Requires FPG ≥126 mg/dL on two occasions; 118 mg/dL does not meet this criterion\n- Impaired glucose tolerance: This diagnosis requires an OGTT with 2-hour glucose of 140-199 mg/dL; it cannot be diagnosed by FPG alone\n\n**Next Steps & Clinical Pearls:**\nRecommend therapeutic lifestyle changes (TLC) as first-line intervention. Consider metformin for diabetes prevention if she has additional risk factors. Repeat testing every 3 years. Lifestyle modification can reduce diabetes risk by 50% or more.\n\n**Variations & Exam Traps:**\nIf the question had shown FPG of 126 mg/dL on one occasion only, the answer would still not be diabetes (requires two occasions or symptoms + random glucose ≥200). HbA1c 5.7-6.4% also indicates prediabetes."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 52-year-old man with type 2 diabetes mellitus diagnosed 6 months ago presents for follow-up. His current HbA1c is 8.2% despite maximum-dose metformin therapy. He has a history of heart failure with reduced ejection fraction (EF 35%). Which antidiabetic agent would be most appropriate to add to his regimen?",
+            "options": [
+                "Glibenclamide",
+                "Pioglitazone",
+                "Empagliflozin",
+                "Sitagliptin"
+            ],
+            "correct_index": 2,
+            "difficulty": 4,
+            "retention_aid": "SGLT-2 inhibitors = 'Sugar Goes Lower Through 2 kidneys' AND 'Save the Failing Heart' → They have proven cardiovascular AND heart failure benefits. The '-gliflozin' suffix is your clue!",
+            "explanation": "**Core Concept & Mechanism:**\nSGLT-2 inhibitors (empagliflozin, canagliflozin, dapagliflozin) block sodium-glucose cotransporter-2 in the proximal renal tubule, decreasing glucose reabsorption and increasing urinary glucose excretion. Beyond glycemic control, they provide cardioprotective and renoprotective benefits independent of glucose lowering through mechanisms including reduced preload, decreased blood pressure, improved cardiac energetics, and reduced inflammation.\n\n**Correct Answer Explained:**\nEmpagliflozin (an SGLT-2 inhibitor) is the ideal choice because it provides dual benefits: glycemic control AND proven reduction in heart failure hospitalizations and cardiovascular death (EMPA-REG OUTCOME trial). It is specifically indicated in patients with heart failure regardless of diabetes status.\n\n**Why Other Options Are Wrong:**\n- Glibenclamide: This sulfonylurea increases insulin secretion but carries risk of hypoglycemia and weight gain. Among sulfonylureas, glibenclamide specifically has been associated with increased cardiovascular risk and should be avoided in heart failure\n- Pioglitazone: Thiazolidinediones cause fluid retention and are CONTRAINDICATED in heart failure (NYHA Class III-IV). They increase edema and can precipitate or worsen heart failure\n- Sitagliptin: DPP-4 inhibitors are weight-neutral and have modest efficacy but are NOT cardioprotective and provide no heart failure benefit. Some (saxagliptin) may even increase HF hospitalizations\n\n**Next Steps & Clinical Pearls:**\nMonitor for SGLT-2 inhibitor side effects including genital mycotic infections, UTIs, and euglycemic DKA. Ensure adequate hydration. Check renal function periodically.\n\n**Variations & Exam Traps:**\nIf the patient had chronic kidney disease with eGFR <30, SGLT-2 inhibitors would have limited glucose-lowering efficacy but may still provide cardio-renal protection. GLP-1 agonists are another excellent choice for CV protection but don't have the same HF mortality benefit."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 42-year-old newly diagnosed diabetic patient presents for baseline investigations. When should screening for diabetic nephropathy begin in this patient with type 2 diabetes mellitus?",
+            "options": [
+                "5 years after diagnosis",
+                "10 years after diagnosis",
+                "At the time of diagnosis",
+                "When symptoms of nephropathy appear"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "T2DM nephropathy screening = 'AT diagnosis' (because T2DM often exists for years before detection). T1DM = '5 years AFTER' diagnosis. Remember: Type 2 = '2'ime of diagnosis!",
+            "explanation": "**Core Concept & Mechanism:**\nDiabetic nephropathy develops through progressive stages: hyperfiltration → microalbuminuria → overt proteinuria → declining GFR → end-stage renal disease. The key screening marker is urinary albumin (microalbuminuria or albumin-to-creatinine ratio). Type 2 diabetes often exists for years before clinical diagnosis, meaning nephropathy may already be present at diagnosis.\n\n**Correct Answer Explained:**\nIn type 2 diabetes, screening for nephropathy should begin at the time of diagnosis because the disease typically has an insidious onset and may have been present for many years before detection. Up to 7% of patients with newly diagnosed T2DM already have microalbuminuria.\n\n**Why Other Options Are Wrong:**\n- 5 years after diagnosis: This timing applies to TYPE 1 diabetes, where the onset is acute and well-defined\n- 10 years after diagnosis: Too late for either type; nephropathy may be advanced by then\n- When symptoms appear: Diabetic nephropathy is asymptomatic in early stages; waiting for symptoms means missing the window for intervention\n\n**Next Steps & Clinical Pearls:**\nScreen using urinary albumin excretion or albumin-to-creatinine ratio. Treatment of early nephropathy includes tight glycemic control, BP control (<140/90), and ACE inhibitors or ARBs (even without HTN). Annual screening thereafter.\n\n**Variations & Exam Traps:**\nFor retinopathy screening, the same principle applies: T2DM at diagnosis, T1DM after 5 years. However, retinopathy cannot be treated/prevented except by BP and glycemic control, while nephropathy progression can be slowed with RAAS blockade."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 58-year-old man with type 2 diabetes and chronic kidney disease (eGFR 42 mL/min/1.73m²) comes for medication review. He is currently on metformin 1000 mg twice daily. His latest HbA1c is 7.8%. Which statement regarding his metformin therapy is most accurate?",
+            "options": [
+                "Metformin should be immediately discontinued",
+                "Metformin dose should be reduced and renal function monitored closely",
+                "Metformin can be continued at the current dose without modification",
+                "Metformin should be switched to a sulfonylurea"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "Metformin and GFR: 'RULE of 30-45-60' → GFR >60: full dose; GFR 45-60: use cautiously; GFR 30-45: reduce dose; GFR <30: STOP. His eGFR of 42 = reduce and watch!",
+            "explanation": "**Core Concept & Mechanism:**\nMetformin is renally excreted and accumulation in renal impairment increases the risk of lactic acidosis. However, complete contraindication at eGFR <60 has been relaxed based on evidence. Current FDA guidelines allow metformin use with dose adjustment based on eGFR: contraindicated if eGFR <30, dose reduction if eGFR 30-45, and reassessment if eGFR 45-60.\n\n**Correct Answer Explained:**\nWith an eGFR of 42 mL/min/1.73m² (CKD Stage 3b), metformin should be dose-reduced rather than discontinued. The maximum recommended dose at this GFR level is typically 1000 mg daily (reduced from his current 2000 mg). Close monitoring of renal function is essential.\n\n**Why Other Options Are Wrong:**\n- Immediately discontinued: Discontinuation is warranted at eGFR <30, not 42. Abrupt cessation may worsen glycemic control\n- Continue at current dose: The current dose of 2000 mg daily is excessive for his renal function and increases lactic acidosis risk\n- Switch to sulfonylurea: Sulfonylureas also require caution in renal impairment (prolonged half-life, hypoglycemia risk). This would not be the first step\n\n**Next Steps & Clinical Pearls:**\nReduce metformin to 500 mg twice daily or 1000 mg once daily. Recheck renal function in 3 months. Hold metformin before contrast procedures. Consider adding an SGLT-2 inhibitor for renoprotection if not contraindicated.\n\n**Variations & Exam Traps:**\nIf eGFR were 28 mL/min, metformin would be contraindicated. If the patient needed contrast imaging, metformin should be held 48 hours before and after."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 45-year-old woman with type 2 diabetes presents with numbness and tingling in both feet. On examination, she has decreased vibration sense at the big toes bilaterally. Which statement best describes the recommended frequency of diabetic foot examination?",
+            "options": [
+                "Only when symptoms develop",
+                "Annually",
+                "At each clinic visit",
+                "Every 5 years"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "Diabetic Foot = 'EVERY VISIT' because feet are the foundation that supports the whole body, so check them EVERY time! Diabetes is the #1 cause of non-traumatic amputations.",
+            "explanation": "**Core Concept & Mechanism:**\nDiabetic neuropathy affects sensory, motor, and autonomic nerve fibers. Sensory loss leads to unrecognized trauma, motor neuropathy causes foot deformities (claw toes, Charcot joint), and autonomic dysfunction causes dry skin prone to cracking. Combined with peripheral arterial disease, these create high amputation risk. Diabetes is the number one cause of non-traumatic lower limb amputation.\n\n**Correct Answer Explained:**\nDiabetic foot examination should be performed at EACH clinic visit according to standard guidelines. This includes inspection (skin integrity, calluses, deformities, ulcers), palpation (pulses, temperature), and neurological assessment (vibration, monofilament, reflexes). Early detection of problems prevents amputation.\n\n**Why Other Options Are Wrong:**\n- Only when symptoms develop: Neuropathy causes loss of protective sensation, so patients may not feel injuries. Waiting for symptoms misses critical intervention windows\n- Annually: While comprehensive annual foot exams are minimum standard, brief foot checks should occur at every visit, especially in patients like this with established neuropathy\n- Every 5 years: Far too infrequent given the rapid progression of diabetic foot complications\n\n**Next Steps & Clinical Pearls:**\nCounsel on proper footwear (even at home), daily self-inspection, avoid cutting nail angles, keep feet dry, and report any wounds immediately. Refer to podiatry if abnormalities found.\n\n**Variations & Exam Traps:**\nUlcer locations differ by etiology: neuropathic ulcers occur on plantar surfaces/pressure points; arterial ulcers occur on tips of toes/dorsum; venous ulcers occur at malleoli. Charcot neuroarthropathy presents with warm, swollen foot often mistaken for cellulitis or gout."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Which combination of vaccines should be administered to all patients with diabetes mellitus?",
+            "options": [
+                "Hepatitis A and varicella",
+                "Hepatitis B, influenza, and pneumococcal",
+                "HPV and meningococcal",
+                "BCG and typhoid"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Diabetic Vaccines = 'HIP' → Hepatitis B (3 doses), Influenza (annually), Pneumococcal (once). Diabetics are immunocompromised and need extra 'HIP' protection!",
+            "explanation": "**Core Concept & Mechanism:**\nDiabetes mellitus causes immune dysfunction including impaired neutrophil function, reduced T-cell response, and poor wound healing. This increases susceptibility to infections, particularly respiratory infections and hepatitis B (due to frequent blood glucose monitoring). Vaccinations are crucial preventive measures.\n\n**Correct Answer Explained:**\nThe three vaccines specifically recommended for ALL diabetic patients are: Hepatitis B (3-dose series), Influenza (annual), and Pneumococcal (at least one dose). These target the infections most dangerous to diabetics.\n\n**Why Other Options Are Wrong:**\n- Hepatitis A and varicella: Not specifically indicated for diabetes; recommended based on other risk factors (travel, occupational exposure)\n- HPV and meningococcal: HPV is age-based (up to 45 years); meningococcal is for specific risk groups (asplenia, complement deficiency, college students)\n- BCG and typhoid: BCG is for TB exposure risk; typhoid is for travel to endemic areas. Neither is diabetes-specific\n\n**Next Steps & Clinical Pearls:**\nHepatitis B: 0, 1, 6-month schedule (3 doses). Check anti-HBs titer 1-2 months after series completion. Influenza: annual injection before flu season. Pneumococcal: PPSV23 for all diabetics; PCV13 may be added for those >65 years.\n\n**Variations & Exam Traps:**\nCOVID-19 vaccination is now also strongly recommended for diabetics (increased severe disease risk). Zoster vaccine (Shingrix) is recommended for diabetics aged ≥50 years."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 60-year-old man with newly diagnosed type 2 diabetes has the following results: HbA1c 9.2%, FPG 245 mg/dL. According to current guidelines, what is the most appropriate initial treatment approach?",
+            "options": [
+                "Lifestyle modification alone for 3 months",
+                "Start metformin monotherapy",
+                "Start combination therapy (metformin plus another agent) or insulin",
+                "Start insulin only"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "HbA1c ≥9% or FPG >300 = 'TOO HIGH for SINGLE therapy!' Think: if your sugar is over 9 or 300, you need DOUBLE the ammunition to fight it!",
+            "explanation": "**Core Concept & Mechanism:**\nInitial diabetes therapy should be matched to the degree of hyperglycemia. Severely elevated HbA1c (≥9%) or FPG (≥300 mg/dL) indicates significant insulin deficiency or resistance that monotherapy is unlikely to control. Early intensive therapy achieves better long-term glycemic control through 'metabolic memory.'\n\n**Correct Answer Explained:**\nWith HbA1c 9.2% and FPG 245 mg/dL, this patient has severe hyperglycemia requiring combination therapy from the outset. Guidelines recommend starting metformin plus a second agent (or insulin if symptomatic/catabolic). Delaying intensification allows glucotoxicity to worsen beta-cell function.\n\n**Why Other Options Are Wrong:**\n- Lifestyle modification alone: Only appropriate for mild hyperglycemia (HbA1c <7% or close to target). Would be inadequate here\n- Metformin monotherapy: Monotherapy is first-line for HbA1c <9%. With his severe hyperglycemia, monotherapy would take months to achieve control, exposing him to prolonged hyperglycemic complications\n- Insulin only: While insulin is an option, combination with metformin is preferred unless contraindicated, as metformin provides additional benefits (weight neutrality, cardiovascular protection)\n\n**Next Steps & Clinical Pearls:**\nOptions for combination include metformin plus: SGLT-2 inhibitor (if CVD/HF/CKD), GLP-1 agonist (if obesity/CVD), or insulin (if catabolic symptoms). Reassess HbA1c in 3 months.\n\n**Variations & Exam Traps:**\nIf the patient presented with weight loss, polyuria, and polydipsia (catabolic symptoms), insulin would be preferred initially. If HbA1c were 7.5%, metformin monotherapy would be appropriate."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 55-year-old woman taking glyburide (glibenclamide) for type 2 diabetes presents with confusion, diaphoresis, and tremors. Her blood glucose is 42 mg/dL. Which characteristic of this medication makes it particularly concerning in this clinical scenario?",
+            "options": [
+                "Short duration of action",
+                "Minimal hepatic metabolism",
+                "Long half-life with active metabolites",
+                "Renal-independent elimination"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "Glyburide = 'GLORY-buride has a LONG glory' → Long half-life + active metabolites = prolonged hypoglycemia risk. Among sulfonylureas, it's the MOST dangerous for hypoglycemia and the ONLY one linked to increased heart disease!",
+            "explanation": "**Core Concept & Mechanism:**\nSulfonylureas stimulate insulin secretion by binding to SUR1 receptors on pancreatic beta cells, closing K-ATP channels, and depolarizing the cell. Glibenclamide (glyburide) has the longest half-life among sulfonylureas and produces active metabolites that accumulate, especially in renal impairment. This causes prolonged, severe hypoglycemia.\n\n**Correct Answer Explained:**\nGlibenclamide's long half-life (10-16 hours) combined with active metabolites makes hypoglycemia episodes prolonged and difficult to treat. Patients may require hospital admission for glucose monitoring for 24-48 hours because recurrent hypoglycemia is common even after initial treatment.\n\n**Why Other Options Are Wrong:**\n- Short duration of action: Glibenclamide has LONG duration, which is the problem. Short-acting secretagogues (repaglinide, nateglinide) cause less prolonged hypoglycemia\n- Minimal hepatic metabolism: Glibenclamide undergoes extensive hepatic metabolism to active metabolites that contribute to hypoglycemia\n- Renal-independent elimination: Glibenclamide metabolites are renally excreted, accumulating in renal impairment and worsening hypoglycemia risk\n\n**Next Steps & Clinical Pearls:**\nImmediate treatment: IV dextrose. Admit for observation due to risk of recurrent hypoglycemia. Consider switching to a safer sulfonylurea (glimepiride, gliclazide) or different class. Glibenclamide is also the only sulfonylurea associated with increased cardiovascular risk.\n\n**Variations & Exam Traps:**\nMeglitinides (repaglinide, nateglinide) are 'rapid-onset, short-acting' alternatives with lower hypoglycemia risk - useful for postprandial control and irregular meal patterns."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 50-year-old man with type 2 diabetes and a history of heart failure asks about pioglitazone. Which statement regarding thiazolidinediones is correct?",
+            "options": [
+                "They are safe to use in NYHA Class III-IV heart failure",
+                "They improve insulin sensitivity by acting on PPAR-gamma receptors",
+                "They are first-line agents after metformin failure",
+                "They have no effect on fluid retention"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "Thiazolidinediones (TZDs/Glitazones) = 'PPAR-gamma activators' that make you 'Pudgy' (weight gain) and 'Puffy' (edema). Contraindicated in Heart Failure because they cause fluid retention!",
+            "explanation": "**Core Concept & Mechanism:**\nThiazolidinediones (pioglitazone, rosiglitazone) are PPAR-gamma agonists that increase insulin sensitivity in adipose tissue, liver, and skeletal muscle. They redistribute fat from visceral to subcutaneous depots and improve adiponectin levels. However, they also cause fluid retention through renal sodium reabsorption.\n\n**Correct Answer Explained:**\nTZDs work by activating PPAR-gamma (peroxisome proliferator-activated receptor gamma) nuclear receptors, primarily in adipocytes. This increases insulin sensitivity and improves glucose uptake. They also have anti-inflammatory and anti-atherogenic effects.\n\n**Why Other Options Are Wrong:**\n- Safe in NYHA Class III-IV HF: TZDs are CONTRAINDICATED in symptomatic heart failure (NYHA III-IV) due to fluid retention that can precipitate or worsen HF\n- First-line after metformin: Not first-line due to side effects (edema, weight gain, fractures, bladder cancer concern). SGLT-2 inhibitors or GLP-1 agonists are preferred second-line agents, especially with CVD\n- No effect on fluid retention: TZDs cause significant fluid retention, leading to peripheral edema and weight gain\n\n**Next Steps & Clinical Pearls:**\nTZDs can be useful for PCOS (improve ovulation) and have good hepatic safety. Monitor for edema, weight gain, and fractures (especially in women). Consider bone density in long-term users.\n\n**Variations & Exam Traps:**\nPioglitazone may have cardiovascular benefits (PROACTIVE trial) unlike rosiglitazone. Side effect profile: hepatotoxicity (rare, monitor LFTs), bladder cancer (controversial), macular edema, fractures."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Which oral glucose tolerance test (OGTT) preparation requirement is correct?",
+            "options": [
+                "Restricted carbohydrate diet for 3 days prior",
+                "Fasting for 4 hours before the test",
+                "Unrestricted carbohydrate diet for 3 days, fasting for 8 hours, rest for 30 minutes",
+                "No specific preparation is required"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "OGTT Prep = '3-8-30 Rule' → 3 days of unrestricted carbs, 8 hours fasting, 30 minutes rest. If carbs are restricted beforehand, you'll get FALSE positive results!",
+            "explanation": "**Core Concept & Mechanism:**\nThe OGTT measures the body's ability to handle a glucose load. Proper preparation ensures accurate results. Carbohydrate restriction before the test can cause glucose intolerance (false positive) because beta cells are 'unprepared' for the sudden glucose load. Adequate fasting ensures baseline glucose measurement.\n\n**Correct Answer Explained:**\nCorrect OGTT preparation includes: (1) Unrestricted carbohydrate diet (>150g/day) for 3 days - maintains beta cell responsiveness; (2) Overnight fasting for 8 hours; (3) Rest for 30 minutes before and during test; (4) Water allowed, no coffee or smoking; (5) 75g oral glucose load; (6) Measure glucose at 0 and 2 hours.\n\n**Why Other Options Are Wrong:**\n- Restricted carbohydrate diet: WRONG - carb restriction causes paradoxical glucose intolerance and false positives\n- Fasting for 4 hours: Insufficient - requires 8-hour overnight fast for proper baseline\n- No specific preparation: Incorrect - standardized preparation is essential for valid results\n\n**Next Steps & Clinical Pearls:**\nOGTT indications: (1) Impaired fasting glucose requiring further evaluation; (2) Gestational diabetes screening/diagnosis; (3) Postpartum screening in women with prior GDM. 2-hour glucose ≥200 mg/dL = diabetes; 140-199 = IGT.\n\n**Variations & Exam Traps:**\nGestational diabetes screening uses 50g glucose challenge test (non-fasting) as initial screen, followed by 75g or 100g OGTT if positive. Cut-offs differ for pregnancy."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 54-year-old man presents for cardiovascular risk assessment. His fasting lipid profile shows: Total cholesterol 245 mg/dL, LDL 165 mg/dL, HDL 32 mg/dL, Triglycerides 240 mg/dL. He has no history of cardiovascular disease. Which investigation should be routinely performed to exclude a common secondary cause of dyslipidemia?",
+            "options": [
+                "Liver biopsy",
+                "Thyroid stimulating hormone (TSH)",
+                "Cortisol level",
+                "Growth hormone level"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "TSH = 'Thyroid Screening for High cholesterol' - Hypothyroidism is the most common TREATABLE secondary cause of dyslipidemia. Fix the thyroid, fix the lipids!",
+            "explanation": "**Core Concept & Mechanism:**\nSecondary dyslipidemia occurs when lipid abnormalities result from underlying conditions rather than primary metabolic defects. Hypothyroidism is the most common reversible cause, affecting up to 13% of dyslipidemic patients. Thyroid hormone normally increases LDL receptor expression; its deficiency causes LDL accumulation.\n\n**Correct Answer Explained:**\nTSH is a routine investigation for all patients with newly diagnosed hypercholesterolemia. Hypothyroidism causes elevated LDL and total cholesterol (and sometimes triglycerides). Treating the hypothyroidism often normalizes lipids without needing lipid-lowering drugs.\n\n**Why Other Options Are Wrong:**\n- Liver biopsy: Invasive and not indicated for dyslipidemia workup. LFTs suffice for hepatic assessment\n- Cortisol level: Cushing's syndrome can cause dyslipidemia but is rare. Not routine screening\n- Growth hormone level: GH deficiency can affect lipids but is not a common secondary cause requiring routine screening\n\n**Next Steps & Clinical Pearls:**\nOther secondary causes to consider: Diabetes mellitus, nephrotic syndrome, chronic kidney disease, obstructive liver disease, alcohol abuse, medications (thiazides, beta-blockers, estrogen/progestin, corticosteroids, isotretinoin, cyclosporine, protease inhibitors).\n\n**Variations & Exam Traps:**\nDrugs that worsen lipids: Beta-blockers and thiazides increase triglycerides; metoprolol specifically can cause hypertriglyceridemia. Pregnancy is a physiological cause of elevated lipids - statins are contraindicated in pregnancy."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 60-year-old man with established coronary artery disease and LDL cholesterol of 145 mg/dL is started on atorvastatin. According to European guidelines, what is his LDL-C target?",
+            "options": [
+                "Less than 116 mg/dL (3.0 mmol/L)",
+                "Less than 100 mg/dL (2.6 mmol/L)",
+                "Less than 70 mg/dL (1.8 mmol/L)",
+                "Less than 55 mg/dL (1.4 mmol/L)"
+            ],
+            "correct_index": 3,
+            "difficulty": 3,
+            "retention_aid": "LDL targets follow risk: Very high risk (established CVD) = <55 mg/dL ('Fifty-Five for those who've had events'). High risk = <70. Moderate = <100. Low = <116. Remember: the higher your risk, the LOWER your target!",
+            "explanation": "**Core Concept & Mechanism:**\nLDL-C goals are determined by cardiovascular risk category. Higher risk patients require more aggressive lipid lowering because the absolute benefit of reducing LDL increases with baseline risk. Each 39 mg/dL (1 mmol/L) reduction in LDL-C reduces major cardiovascular events by approximately 22%.\n\n**Correct Answer Explained:**\nPatients with established atherosclerotic cardiovascular disease (ASCVD) including CAD are classified as 'very high risk.' European guidelines recommend LDL-C <55 mg/dL (1.4 mmol/L) AND at least 50% reduction from baseline for very high-risk patients.\n\n**Why Other Options Are Wrong:**\n- Less than 116 mg/dL: Target for LOW-risk patients (SCORE <1%)\n- Less than 100 mg/dL: Target for MODERATE-risk patients\n- Less than 70 mg/dL: Target for HIGH-risk patients (without established ASCVD but with significant risk factors)\n\n**Next Steps & Clinical Pearls:**\nHigh-intensity statin therapy (atorvastatin 40-80 mg or rosuvastatin 20-40 mg) is required. If target not achieved, add ezetimibe, then PCSK9 inhibitor. Always combine with lifestyle modification.\n\n**Variations & Exam Traps:**\nVery high risk includes: Established ASCVD, DM with target organ damage, severe CKD (eGFR <30), SCORE ≥10%, familial hypercholesterolemia with ASCVD. A second CV event within 2 years indicates 'extreme risk' with LDL target <40 mg/dL."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 55-year-old woman on simvastatin 40 mg daily reports new onset muscle aches. Her creatine kinase (CK) level is 1,800 U/L (normal <170 U/L). What is the most appropriate management?",
+            "options": [
+                "Continue statin and recheck CK in 2 weeks",
+                "Stop the statin immediately",
+                "Add coenzyme Q10 supplementation",
+                "Switch to a higher dose of statin"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "Statin and CK: 'TEN times = TIME to STOP!' If CK rises >10× upper normal limit (170 × 10 = 1,700), stop the statin immediately to prevent rhabdomyolysis and renal failure.",
+            "explanation": "**Core Concept & Mechanism:**\nStatin-associated muscle symptoms (SAMS) range from myalgia (pain without CK elevation) to myositis (pain with CK elevation) to rhabdomyolysis (severe myonecrosis with CK >10× normal). Statins may cause mitochondrial dysfunction in muscle through CoQ10 depletion and altered membrane cholesterol.\n\n**Correct Answer Explained:**\nHer CK is >10 times the upper limit of normal (1,800/170 ≈ 10.6×), indicating significant myopathy requiring immediate statin discontinuation. Continuing could lead to rhabdomyolysis, myoglobinuria, and acute kidney injury.\n\n**Why Other Options Are Wrong:**\n- Continue and recheck: Appropriate only for mild CK elevations (<3-5× normal) or myalgia without CK rise. Her level is dangerous\n- Add CoQ10: No proven benefit in treatment of established statin myopathy. Does not address the acute elevation\n- Switch to higher dose: Would worsen the myopathy. Never increase statin in the setting of significant CK elevation\n\n**Next Steps & Clinical Pearls:**\nMonitor CK and creatinine until normalized. After washout (several weeks), may rechallenge with a different statin at low dose, or try alternate-day dosing with rosuvastatin or pravastatin (less myotoxic). If LDL goal not met, consider non-statin therapy.\n\n**Variations & Exam Traps:**\nDrug interactions increasing myopathy risk: macrolides, azole antifungals, cyclosporine, grapefruit juice, amiodarone, fibrates (especially gemfibrozil). Hepatotoxicity threshold: Stop if AST/ALT >3× upper normal limit."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 48-year-old man with dyslipidemia is found to have triglycerides of 380 mg/dL and LDL of 85 mg/dL. Which lipid-lowering agent is most appropriate as primary therapy?",
+            "options": [
+                "High-intensity statin",
+                "Fibrate (fenofibrate)",
+                "Ezetimibe",
+                "Bile acid sequestrant"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "High TG + Low/Normal LDL = 'Fibrate FIRST!' Statins are LDL-champions, Fibrates are TG-champions. Remember: 'FIBRates FIX TRI-glycerides!'",
+            "explanation": "**Core Concept & Mechanism:**\nFibrates (fenofibrate, gemfibrozil) are PPAR-alpha agonists that increase lipoprotein lipase activity, enhance hepatic fatty acid oxidation, and decrease VLDL production. They reduce triglycerides by 30-50% while modestly raising HDL. They are first-line for isolated hypertriglyceridemia.\n\n**Correct Answer Explained:**\nWith triglycerides of 380 mg/dL (>150 mg/dL = elevated) and LDL already at goal (<100 mg/dL), the primary problem is hypertriglyceridemia. Fibrates are the preferred treatment for isolated or predominant hypertriglyceridemia. Very high TG (>500) also risks acute pancreatitis.\n\n**Why Other Options Are Wrong:**\n- High-intensity statin: Statins primarily lower LDL. They have modest TG-lowering effect (7-30%) but are not first-choice for isolated hypertriglyceridemia with normal LDL\n- Ezetimibe: Inhibits intestinal cholesterol absorption; primarily lowers LDL with minimal TG effect\n- Bile acid sequestrant: Can actually INCREASE triglycerides and are contraindicated in hypertriglyceridemia (TG >300-500)\n\n**Next Steps & Clinical Pearls:**\nFenofibrate is preferred over gemfibrozil when combination with statin is needed (lower myopathy risk). Address secondary causes: diabetes, alcohol, obesity. Severe hypertriglyceridemia (>1000) requires urgent treatment to prevent pancreatitis.\n\n**Variations & Exam Traps:**\nOmega-3 fatty acids (fish oil, 2-4g/day) also reduce triglycerides and may be used as add-on therapy. Niacin (nicotinic acid) reduces TG and raises HDL but has more side effects."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Which of the following is a contraindication to statin therapy?",
+            "options": [
+                "History of myocardial infarction",
+                "Chronic kidney disease stage 3",
+                "Active liver disease",
+                "Age over 75 years"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "Statin Contraindications = 'PALL' → Pregnancy, Active liver disease, Lactation, Live (active) hepatitis. Statins are hepatically metabolized, so active liver problems = STOP!",
+            "explanation": "**Core Concept & Mechanism:**\nStatins undergo extensive first-pass hepatic metabolism and can cause dose-dependent elevation in transaminases. Active liver disease increases the risk of hepatotoxicity. Statins also are teratogenic (inhibit cholesterol synthesis needed for fetal development).\n\n**Correct Answer Explained:**\nActive liver disease (acute hepatitis, decompensated cirrhosis, unexplained persistent transaminase elevation >3× ULN) is a contraindication to statin therapy due to hepatotoxicity risk. However, compensated chronic liver disease (e.g., NAFLD, stable cirrhosis) is NOT a contraindication.\n\n**Why Other Options Are Wrong:**\n- History of MI: INDICATION not contraindication! Secondary prevention with statins is strongly recommended post-MI\n- CKD stage 3: Not contraindicated. Statins are beneficial in CKD (slow progression). Dose adjustment may be needed for some statins\n- Age >75: Not a contraindication. Statins benefit older adults for secondary prevention. Primary prevention over 75 is individualized but not contraindicated\n\n**Next Steps & Clinical Pearls:**\nOther contraindications: pregnancy, breastfeeding. Relative cautions: concurrent medications increasing myopathy risk, history of statin intolerance. Monitor LFTs at baseline and if clinically indicated (not routine periodic monitoring).\n\n**Variations & Exam Traps:**\nNAFLD/NASH is actually an indication for statins (cardiovascular benefit in metabolic syndrome patients). Statins may even improve liver histology. Don't confuse 'fatty liver' with 'active liver disease.'"
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 62-year-old man is reviewed in a hypertension clinic. His blood pressure readings over 3 visits are: 148/94, 152/96, and 150/95 mmHg. According to standard classification, what grade of hypertension does he have?",
+            "options": [
+                "High normal",
+                "Grade 1 hypertension",
+                "Grade 2 hypertension",
+                "Grade 3 hypertension"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "HTN Grades by 20s: Grade 1 = 140-159/90-99 (just crossed the line), Grade 2 = 160-179/100-109 (twenty more), Grade 3 = ≥180/≥110 (crisis territory). His readings are in the 140s/90s = Grade 1!",
+            "explanation": "**Core Concept & Mechanism:**\nHypertension is classified by severity to guide urgency of treatment and intensity of intervention. Higher grades are associated with increased cardiovascular risk and target organ damage. Persistent elevation on multiple occasions confirms the diagnosis.\n\n**Correct Answer Explained:**\nHis blood pressure readings (148-152/94-96 mmHg) consistently fall within the Grade 1 hypertension range: systolic 140-159 mmHg and/or diastolic 90-99 mmHg. Three readings over multiple visits confirm sustained hypertension.\n\n**Why Other Options Are Wrong:**\n- High normal: BP 130-139/85-89 mmHg; his readings exceed this range\n- Grade 2 hypertension: Requires systolic 160-179 and/or diastolic 100-109 mmHg; his readings don't reach this level\n- Grade 3 hypertension: Requires systolic ≥180 and/or diastolic ≥110 mmHg; significantly higher than his values\n\n**Next Steps & Clinical Pearls:**\nFor Grade 1 HTN with low-moderate cardiovascular risk: start with lifestyle modification for 3-6 months. If uncontrolled, add drug therapy. For Grade 1 with high/very high risk: immediate drug therapy plus lifestyle changes.\n\n**Variations & Exam Traps:**\nSingle reading of ≥180/110 OR ≥160/110 with end-organ damage warrants immediate treatment regardless of number of readings. Home BP thresholds are lower: ≥135/85 = hypertension (patient is more relaxed at home)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 45-year-old woman has elevated blood pressure readings in the clinic (155/95 mmHg) but normal readings at home (125/80 mmHg). Which pattern of blood pressure does this represent?",
+            "options": [
+                "Sustained hypertension",
+                "Masked hypertension",
+                "White coat hypertension",
+                "Resistant hypertension"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "White Coat HTN = 'HIGH in the clinic, LOW at home' (the white coat scares the BP up!). Masked HTN = opposite: 'LOW in clinic, HIGH at home' (the real problem is MASKED from the doctor).",
+            "explanation": "**Core Concept & Mechanism:**\nWhite coat hypertension (WCH) occurs due to anxiety or alerting response in medical settings. The sympathetic activation raises BP in clinic but not in relaxed environments. While WCH has lower cardiovascular risk than sustained HTN, it may progress to sustained HTN and requires monitoring.\n\n**Correct Answer Explained:**\nHer pattern of elevated clinic BP (155/95) with normal home/ambulatory BP (125/80) is classic white coat hypertension. The clinic environment triggers a stress response that normalizes outside healthcare settings.\n\n**Why Other Options Are Wrong:**\n- Sustained hypertension: BP elevated both in clinic AND at home/ambulatory monitoring\n- Masked hypertension: OPPOSITE pattern - normal in clinic, elevated at home. Associated with long-term CVD risk similar to sustained HTN\n- Resistant hypertension: BP uncontrolled despite optimal doses of ≥3 antihypertensive drugs including a diuretic\n\n**Next Steps & Clinical Pearls:**\nConfirm with 24-hour ambulatory BP monitoring (gold standard). No immediate drug therapy needed for WCH, but recommend lifestyle modification and regular monitoring (annual). May progress to sustained HTN in 1-5% per year.\n\n**Variations & Exam Traps:**\nAmbulatry/home BP thresholds differ from office: Daytime ambulatory/Home ≥135/85 = hypertension; 24-hour mean ≥130/80 = hypertension. Masked HTN requires treatment as it carries full cardiovascular risk."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 35-year-old man is found to have persistent hypertension (165/105 mmHg). He has no family history of hypertension. Which feature most strongly suggests secondary hypertension requiring further investigation?",
+            "options": [
+                "Obesity",
+                "Age of onset less than 30 years or greater than 60 years",
+                "Sedentary lifestyle",
+                "High sodium diet"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "Secondary HTN suspects = 'Young or Old, no Family told' → Age <30 or >60, no family history, rapid onset. These patients deserve a workup for renal artery stenosis, pheochromocytoma, or Conn's syndrome!",
+            "explanation": "**Core Concept & Mechanism:**\nSecondary hypertension accounts for 5-10% of hypertension cases and has identifiable, often treatable causes. Age extremes suggest secondary causes: young patients may have renal artery dysplasia, coarctation, or pheochromocytoma; older patients may have atherosclerotic renal artery stenosis.\n\n**Correct Answer Explained:**\nOnset <30 years or >60 years is a red flag for secondary hypertension. Essential hypertension typically develops between ages 30-55 with gradual onset and family history. His age of 35 is borderline, but combined with absence of family history, investigation is warranted.\n\n**Why Other Options Are Wrong:**\n- Obesity: Associated with essential hypertension (increased sympathetic activity, RAAS activation) - a risk factor but not a red flag for secondary HTN\n- Sedentary lifestyle: Contributing factor to essential HTN, not a marker of secondary causes\n- High sodium diet: Exacerbates essential HTN but doesn't suggest secondary cause\n\n**Next Steps & Clinical Pearls:**\nOther secondary HTN red flags: rapid renal deterioration after ACEi/ARB (renal artery stenosis), hypokalemia (hyperaldosteronism), episodic HTN with headache/palpitations (pheochromocytoma), abdominal bruit. 50% of secondary HTN is renal (renal parenchymal or renovascular).\n\n**Variations & Exam Traps:**\nDrugs causing HTN: NSAIDs, oral contraceptives, corticosteroids, decongestants, cyclosporine, erythropoietin. Obstructive sleep apnea is an increasingly recognized cause of resistant HTN."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 58-year-old diabetic man with hypertension needs to start antihypertensive therapy. Which drug class is preferred as first-line treatment for this patient?",
+            "options": [
+                "Beta-blocker",
+                "Thiazide diuretic",
+                "ACE inhibitor or ARB",
+                "Alpha-blocker"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "Diabetes + HTN = 'ACE is ACE!' ACE inhibitors/ARBs protect kidneys (slow nephropathy) AND heart. They're the FIRST choice for diabetics with hypertension!",
+            "explanation": "**Core Concept & Mechanism:**\nACE inhibitors and ARBs reduce systemic blood pressure while also decreasing intraglomerular pressure through efferent arteriole dilation. This provides renal protection beyond BP lowering. They slow progression of diabetic nephropathy even in normotensive patients with microalbuminuria.\n\n**Correct Answer Explained:**\nACE inhibitors or ARBs are first-line for hypertensive diabetics because they provide dual benefit: blood pressure control AND renoprotection. They reduce proteinuria and slow CKD progression, which is particularly important given diabetes is the leading cause of ESRD.\n\n**Why Other Options Are Wrong:**\n- Beta-blocker: Can mask hypoglycemia symptoms, worsen glycemic control, and are not first-line for uncomplicated hypertension. Reserved for specific indications (CAD, HF, arrhythmias)\n- Thiazide diuretic: Can worsen glucose tolerance and cause hypokalemia. Acceptable as add-on but not first choice in diabetes\n- Alpha-blocker: Not first-line for any hypertension type. Reserved for BPH or as add-on in resistant HTN\n\n**Next Steps & Clinical Pearls:**\nTarget BP in diabetes: <140/90 mmHg (some guidelines suggest <130/80 for high-risk patients). Monitor potassium and creatinine after starting ACEi/ARB. Expect up to 30% creatinine rise initially (acceptable).\n\n**Variations & Exam Traps:**\nComorbidity-specific choices: Migraine→BB; CAD→BB+CCB+RAS blocker; AF→BB; PAD→vasodilator (CCB); Asthma→BB & ACEi are relatively contraindicated (BB for bronchoconstriction, ACEi for cough)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 65-year-old woman on lisinopril for 2 months develops a persistent dry cough. Her blood pressure is well controlled. What is the most appropriate next step?",
+            "options": [
+                "Reduce lisinopril dose",
+                "Add a cough suppressant",
+                "Switch to an ARB (e.g., losartan)",
+                "Stop antihypertensive therapy"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "ACEi Cough → ARB Switch! 'ACE makes you hack (cough), ARB takes the slack!' ARBs block angiotensin receptors WITHOUT increasing bradykinin (the cough culprit).",
+            "explanation": "**Core Concept & Mechanism:**\nACE inhibitors prevent breakdown of bradykinin by inhibiting ACE (kininase II). Accumulated bradykinin stimulates sensory nerve endings in the airways, causing a dry, nonproductive cough in 5-20% of patients (more common in women and Asians). ARBs don't affect bradykinin metabolism.\n\n**Correct Answer Explained:**\nSwitching from ACEi to ARB is the appropriate management. ARBs provide similar cardiovascular and renal benefits without the bradykinin-related cough. The cough typically resolves within 1-4 weeks after discontinuation.\n\n**Why Other Options Are Wrong:**\n- Reduce dose: ACEi cough is not dose-dependent. Reducing the dose won't eliminate the cough\n- Add cough suppressant: Doesn't address the underlying mechanism and adds unnecessary medication. The cough will persist\n- Stop antihypertensive therapy: Inappropriate - she needs BP control. Alternative agents are available\n\n**Next Steps & Clinical Pearls:**\nOther ACEi side effects: angioedema (rare but serious - absolute contraindication to rechallenge), hyperkalemia, hypotension, acute kidney injury in bilateral renal artery stenosis. All ACEi/ARB are contraindicated in pregnancy.\n\n**Variations & Exam Traps:**\nIf the patient developed angioedema on ACEi, do NOT switch to ARB (small cross-reactivity risk). Use alternative class entirely. Hyperkalemia risk increases with concurrent potassium-sparing diuretics, NSAIDs, or renal impairment."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Which antihypertensive drug class is most commonly associated with peripheral edema as a side effect?",
+            "options": [
+                "ACE inhibitors",
+                "Dihydropyridine calcium channel blockers",
+                "Thiazide diuretics",
+                "Beta-blockers"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Amlodipine = 'A SWOLLEN ankle medicine!' Dihydropyridine CCBs (amlodipine, nifedipine) cause peripheral EDEMA because they dilate arterioles MORE than venules, increasing capillary pressure.",
+            "explanation": "**Core Concept & Mechanism:**\nDihydropyridine CCBs (amlodipine, nifedipine, felodipine) cause preferential arteriolar vasodilation while venous capacitance vessels are less affected. This increases capillary hydrostatic pressure, leading to fluid extravasation and dependent edema. It is not related to fluid retention or heart failure.\n\n**Correct Answer Explained:**\nDihydropyridine CCBs cause ankle edema in up to 10-30% of patients (dose-dependent). Amlodipine and nifedipine are most commonly implicated. The edema is typically bilateral, pitting, and worsens with prolonged standing.\n\n**Why Other Options Are Wrong:**\n- ACE inhibitors: Cause cough, angioedema (lip/tongue swelling, not peripheral), hyperkalemia. NOT peripheral leg edema\n- Thiazide diuretics: Actually reduce edema through natriuresis. Common side effects are hypokalemia, hyperuricemia, hyperglycemia\n- Beta-blockers: May rarely cause cold extremities, fatigue, bradycardia, bronchospasm. Not typically peripheral edema\n\n**Next Steps & Clinical Pearls:**\nManagement options: reduce dose, add ACEi/ARB (causes venodilation, reduces edema), switch to non-dihydropyridine CCB (verapamil/diltiazem - less edema), or change class entirely.\n\n**Variations & Exam Traps:**\nNon-dihydropyridine CCBs (verapamil, diltiazem) cause less peripheral edema but more cardiac effects (bradycardia, AV block, constipation with verapamil). They're preferred for rate control in AF."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 70-year-old woman has isolated systolic hypertension with blood pressure 168/78 mmHg. Which statement about isolated systolic hypertension is most accurate?",
+            "options": [
+                "It represents little risk to elderly patients",
+                "It does not increase stroke risk",
+                "It is more dangerous to elderly patients than elevated diastolic pressure",
+                "It should not be treated in patients over 65 years"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "Isolated Systolic HTN in elderly = 'Stiff pipes, big pressure waves!' Arterial stiffening causes high systolic but normal diastolic pressure. It's MORE dangerous than diastolic HTN in the elderly - increases stroke and MI risk significantly!",
+            "explanation": "**Core Concept & Mechanism:**\nIsolated systolic hypertension (ISH) occurs due to age-related arterial stiffening (arteriosclerosis). Loss of arterial compliance increases systolic pressure (peak of pulse wave) while diastolic remains normal or low. This increases pulse pressure, which is a strong predictor of cardiovascular events in the elderly.\n\n**Correct Answer Explained:**\nISH is more dangerous to elderly patients than diastolic hypertension. It significantly increases risk of stroke, myocardial infarction, heart failure, and mortality. Treatment reduces these risks substantially (SHEP, Syst-Eur trials).\n\n**Why Other Options Are Wrong:**\n- Little risk: FALSE - ISH carries substantial cardiovascular risk, equal to or greater than combined systolic-diastolic HTN\n- Does not increase stroke risk: FALSE - ISH is a major risk factor for stroke, particularly in the elderly\n- Should not be treated: FALSE - multiple trials demonstrate treatment benefit in older adults. Treat to SBP <150 mmHg initially, potentially <140 if tolerated\n\n**Next Steps & Clinical Pearls:**\nTreat ISH with lifestyle modification plus pharmacotherapy. First-line: thiazide-like diuretics, CCBs, or ACEi/ARB. Start low, go slow in elderly. Avoid excessive diastolic lowering (<60-70 mmHg may impair coronary perfusion).\n\n**Variations & Exam Traps:**\nDefinition of ISH: SBP ≥140 mmHg with DBP <90 mmHg. Wide pulse pressure (>60 mmHg) is an independent cardiovascular risk factor. Non-pharmacological treatment alone is insufficient for ISH."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Which dietary approach is specifically recommended for hypertension management?",
+            "options": [
+                "High protein, low carbohydrate diet",
+                "Mediterranean diet",
+                "DASH diet",
+                "Ketogenic diet"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "DASH = 'Dietary Approaches to Stop Hypertension' - it's literally in the name! Rich in fruits, vegetables, low-fat dairy, and LOW in sodium and saturated fat.",
+            "explanation": "**Core Concept & Mechanism:**\nThe DASH diet was specifically designed and tested for blood pressure reduction. It emphasizes potassium, calcium, and magnesium (which promote vasodilation and natriuresis) while limiting sodium and saturated fat (which promote vasoconstriction and fluid retention). It can reduce SBP by 8-14 mmHg.\n\n**Correct Answer Explained:**\nThe DASH (Dietary Approaches to Stop Hypertension) diet is the evidence-based dietary intervention specifically developed for hypertension. Key components: high fruits, vegetables, whole grains, low-fat dairy; low saturated fat, red meat, sweets; sodium <2.4 g/day.\n\n**Why Other Options Are Wrong:**\n- High protein, low carbohydrate: Not specifically designed for HTN. May have variable effects on BP\n- Mediterranean diet: Has cardiovascular benefits and may lower BP modestly, but not specifically designed for HTN like DASH\n- Ketogenic diet: Primarily used for weight loss and seizure control. Not validated for HTN management; high fat content may have adverse effects\n\n**Next Steps & Clinical Pearls:**\nDASH diet components: fruits and vegetables (4-5 servings each/day), low-fat dairy (2-3 servings/day), lean meats, nuts, legumes. Sodium restriction to <2.4 g/day enhances effect. Combine with regular exercise (30-45 min, 3-5 days/week), weight reduction, alcohol limitation, and smoking cessation.\n\n**Variations & Exam Traps:**\nLifestyle modification alone effectively controls BP in about 10% of patients. Even if medications are needed, lifestyle changes enhance their efficacy and may allow lower doses. DASH + sodium restriction is more effective than either alone."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "What is the definition of the postpartum period?",
+            "options": [
+                "First 24 hours after delivery",
+                "First 6 weeks after delivery",
+                "First 12 weeks after delivery of the placenta",
+                "First 6 months after delivery"
+            ],
+            "correct_index": 2,
+            "difficulty": 1,
+            "retention_aid": "Postpartum = '12 weeks after the PLACENTA' - not the baby! Think: PP = Placenta to 12-week Period. The body needs 12 weeks (~3 months) to return to pre-pregnancy state.",
+            "explanation": "**Core Concept & Mechanism:**\nThe postpartum period begins immediately after delivery of the placenta and extends for approximately 12 weeks (sometimes called the 'fourth trimester'). During this time, maternal physiological changes of pregnancy gradually reverse: uterine involution, lochia resolution, hormonal normalization, and lactation establishment.\n\n**Correct Answer Explained:**\nThe postpartum period is defined as the time starting after delivery of the placenta and lasting for 12 weeks. This represents the time required for most pregnancy-related anatomical and physiological changes to resolve.\n\n**Why Other Options Are Wrong:**\n- First 24 hours: This is the immediate postpartum period only, critical for monitoring hemorrhage and early complications\n- First 6 weeks: This is a commonly used clinical milestone (6-week postpartum visit) but not the full definition\n- First 6 months: Extends beyond the accepted definition of postpartum\n\n**Next Steps & Clinical Pearls:**\nPostpartum care goals: early ambulation, healthy diet, perineal/bladder care, bowel regimen, address postpartum blues, and breastfeeding support. Key visits: 1 week (wound check, vitals) and 6 weeks (comprehensive evaluation, contraception, mental health screening).\n\n**Variations & Exam Traps:**\nLate postpartum hemorrhage occurs between 24 hours and 12 weeks; postpartum depression can begin within 4 weeks and extend up to 1 year. Some define 'puerperium' as the first 6 weeks specifically."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 28-year-old woman, 2 hours post vaginal delivery, has estimated blood loss of 650 mL. Her uterus feels soft and boggy on palpation. What is the most likely cause of her bleeding?",
+            "options": [
+                "Cervical laceration",
+                "Retained placental tissue",
+                "Uterine atony",
+                "Coagulation disorder"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "The '4 T's of PPH: Tone (atony - #1 cause, 70%), Trauma (lacerations), Tissue (retained placenta), Thrombin (coagulopathy). A 'BOGGY' uterus = TONE problem = Atony!",
+            "explanation": "**Core Concept & Mechanism:**\nPostpartum hemorrhage (PPH) is defined as blood loss >500 mL after vaginal delivery or >1000 mL after cesarean section. Uterine atony (failure of myometrial contraction) is the most common cause (70-80%). The contracted uterus compresses spiral arteries at the placental site; without contraction, hemorrhage continues.\n\n**Correct Answer Explained:**\nThe 'soft and boggy' uterus on palpation is the classic finding of uterine atony. Risk factors include prolonged labor, overdistention (macrosomia, polyhydramnios, multiple gestation), high parity, and oxytocin use. Blood loss of 650 mL meets PPH criteria (>500 mL for vaginal delivery).\n\n**Why Other Options Are Wrong:**\n- Cervical laceration: Would present with continued bleeding despite a firm, contracted uterus. Requires speculum examination to identify\n- Retained placenta: Would show a firm uterus but incomplete placenta on inspection. Ultrasound confirms tissue\n- Coagulation disorder: Would cause diffuse bleeding from multiple sites, not just uterine. Check PT, aPTT, fibrinogen\n\n**Next Steps & Clinical Pearls:**\nManagement: Bimanual uterine massage, uterotonics (oxytocin, methylergonovine, carboprost, misoprostol), Foley catheter to decompress bladder. If medical management fails: uterine compression sutures, balloon tamponade, arterial ligation, or hysterectomy.\n\n**Variations & Exam Traps:**\nEarly PPH: within 24 hours (usually atony, trauma, retained tissue). Late/secondary PPH: 24 hours to 12 weeks (usually retained products, endometritis, subinvolution). Always examine the placenta after delivery for completeness."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 30-year-old woman is 5 days postpartum after vaginal delivery. She presents with fever (38.5°C), uterine tenderness, and foul-smelling lochia. What is the most likely diagnosis?",
+            "options": [
+                "Mastitis",
+                "Endometritis",
+                "Urinary tract infection",
+                "Wound infection"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Postpartum Fever + Tender Uterus + Foul Lochia = 'The Uterus is INFECTED!' = ENDOMETRITIS. Remember: 'ENDO-metritis = infection INside the uterus.'",
+            "explanation": "**Core Concept & Mechanism:**\nPostpartum endometritis is polymicrobial infection of the endometrial lining, occurring in 1-3% of vaginal deliveries and up to 10% of cesarean deliveries. Bacteria ascend from the lower genital tract. Risk factors include prolonged labor, multiple vaginal examinations, cesarean delivery, prolonged rupture of membranes.\n\n**Correct Answer Explained:**\nThe classic triad of postpartum endometritis is: fever, uterine tenderness, and foul-smelling (purulent) lochia. Onset is typically 2-10 days postpartum. This patient has all three features.\n\n**Why Other Options Are Wrong:**\n- Mastitis: Presents with breast engorgement, erythema, induration, and tenderness - not uterine symptoms or foul lochia\n- UTI: Would present with dysuria, frequency, suprapubic pain. No uterine tenderness or foul lochia. Common after catheterization\n- Wound infection: Would show erythema, induration, discharge at incision/episiotomy site. Not uterine tenderness or foul lochia\n\n**Next Steps & Clinical Pearls:**\nTreatment: IV broad-spectrum antibiotics (clindamycin + gentamicin is classic regimen). Blood and endometrial cultures if severe. Continue antibiotics until afebrile for 24-48 hours. Failure to respond suggests abscess, septic pelvic thrombophlebitis, or resistant organisms.\n\n**Variations & Exam Traps:**\nOther causes of postpartum fever (by timing): Atelectasis (0-24 hours, earliest), UTI (days 1-3), Endometritis (days 2-10), Wound infection (days 4-7), Septic thrombophlebitis (days 7-14). Breast engorgement on day 3-4 can also cause low-grade fever."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 26-year-old first-time mother is 7 days postpartum. Her husband reports she has been tearful, has mood swings, and feels overwhelmed. She denies suicidal thoughts and has no hallucinations. She is caring for her baby appropriately. What is the most likely diagnosis?",
+            "options": [
+                "Postpartum depression",
+                "Postpartum psychosis",
+                "Maternity blues",
+                "Generalized anxiety disorder"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "Maternity Blues = 'Baby Blues' = MILD, TRANSIENT mood changes in the first 1-10 days. Affects 30-70% of mothers. If symptoms persist >2 weeks or are severe → think Postpartum DEPRESSION!",
+            "explanation": "**Core Concept & Mechanism:**\nMaternity blues ('baby blues') is a transient mood disturbance occurring in 30-70% of postpartum women within the first 1-10 days. It results from rapid hormonal changes (estrogen and progesterone drop), sleep deprivation, stress, and adjustment to new role. It is self-limiting and does not impair functioning.\n\n**Correct Answer Explained:**\nThis patient's presentation is classic maternity blues: onset within 10 days postpartum, tearfulness, mood swings, emotional lability, but able to care for her baby and no psychotic features. The timing (day 7) and mild, transient nature are key.\n\n**Why Other Options Are Wrong:**\n- Postpartum depression: Onset typically within 4 weeks, lasting beyond 2 weeks. More severe symptoms (sleep disturbance, appetite changes, anhedonia, guilt, poor concentration). She's functioning well\n- Postpartum psychosis: Psychiatric emergency with delusions, hallucinations, disorganized behavior, risk of infanticide. Usually onset within first 2 weeks. She denies psychotic symptoms\n- Generalized anxiety disorder: Would have chronic anxiety symptoms predating pregnancy, excessive worry about multiple domains\n\n**Next Steps & Clinical Pearls:**\nReassurance and support are usually sufficient for maternity blues. Symptoms typically resolve within 2 weeks. If symptoms persist beyond 2 weeks or worsen, screen for postpartum depression using Edinburgh Postnatal Depression Scale.\n\n**Variations & Exam Traps:**\nPostpartum depression: 10-20% incidence, onset within 4 weeks to 1 year, 50% begin before delivery. Treatment: supportive psychotherapy, SSRIs (safe in breastfeeding). Postpartum psychosis: 0.1% incidence, psychiatric emergency requiring hospitalization and possible mother-infant separation."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 29-year-old first-time mother at her 6-week postpartum visit reports persistent sadness, difficulty sleeping even when the baby sleeps, loss of appetite, and trouble bonding with her infant. She denies suicidal thoughts or thoughts of harming her baby. Which treatment is most appropriate?",
+            "options": [
+                "Reassurance that symptoms will resolve spontaneously",
+                "Selective serotonin reuptake inhibitor (SSRI) and close follow-up",
+                "Immediate psychiatric hospitalization",
+                "Electroconvulsive therapy"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "Postpartum Depression = 'PPD needs an SSRI!' SSRIs are first-line, safe in breastfeeding. Hospitalization only if psychotic, suicidal, or risk to baby. Reassurance alone is NOT enough for PPD!",
+            "explanation": "**Core Concept & Mechanism:**\nPostpartum depression (PPD) is a major depressive episode occurring within 4 weeks to 1 year after delivery, affecting 10-20% of mothers. Hormonal shifts, sleep deprivation, psychosocial stress, and personal/family history of depression are risk factors. Unlike maternity blues, PPD requires active treatment.\n\n**Correct Answer Explained:**\nThis patient has classic PPD: persistent depressive symptoms beyond 2 weeks, functional impairment (difficulty bonding), and neurovegetative symptoms (insomnia, anorexia). SSRIs are first-line treatment - they are effective, well-tolerated, and compatible with breastfeeding. Close follow-up is essential.\n\n**Why Other Options Are Wrong:**\n- Reassurance alone: Inappropriate for PPD. This is not maternity blues - symptoms have persisted and cause impairment. Without treatment, PPD may worsen or persist for months\n- Immediate hospitalization: Reserved for postpartum psychosis, suicidal ideation with plan, or risk of harm to infant. She denies these\n- ECT: Reserved for severe, treatment-resistant depression or when rapid response needed (severe psychosis, catatonia, imminent suicide risk)\n\n**Next Steps & Clinical Pearls:**\nTreatment: SSRI (sertraline, paroxetine have lowest breast milk transfer) + supportive psychotherapy. Screen for suicidal ideation and thoughts of harming infant at each visit. Include partner in care. Duration: 6-12 months after symptom remission to prevent relapse.\n\n**Variations & Exam Traps:**\nPPD screening should extend to 6 months postpartum (or up to 1 year). Edinburgh Postnatal Depression Scale (EPDS) is validated screening tool. History of PPD increases recurrence risk in future pregnancies by 25-50%."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Which of the following is an absolute contraindication to breastfeeding?",
+            "options": [
+                "Maternal hepatitis B infection",
+                "Maternal HIV infection",
+                "Mastitis",
+                "Inverted nipples"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "HIV = 'High Infant Vulnerability' to transmission through breastmilk. In resource-rich settings where safe formula is available, HIV+ mothers should NOT breastfeed. Also: Active TB, Chemotherapy, illicit drug use.",
+            "explanation": "**Core Concept & Mechanism:**\nHIV can be transmitted through breastmilk, with transmission rates of 5-20% without intervention. In high-income countries where safe water and formula are available, the risk of HIV transmission outweighs breastfeeding benefits. However, in resource-limited settings, WHO recommends breastfeeding with antiretroviral therapy due to higher infant mortality from formula-related infections.\n\n**Correct Answer Explained:**\nMaternal HIV infection is a contraindication to breastfeeding in resource-rich settings where safe alternatives exist. Other absolute contraindications include active tuberculosis, chemotherapy, and abuse of certain drugs (cocaine, heroin, PCP).\n\n**Why Other Options Are Wrong:**\n- Hepatitis B: NOT a contraindication if the infant receives HBV vaccine and hepatitis B immunoglobulin at birth. Breastfeeding is safe after immunoprophylaxis\n- Mastitis: Breastfeeding should CONTINUE during mastitis (helps resolution). Discontinuing increases abscess risk. Milk is safe for the infant\n- Inverted nipples: A mechanical challenge, not a contraindication. Nipple shields, breast pumps, and lactation support can help\n\n**Next Steps & Clinical Pearls:**\nOther contraindications: galactosemia in infant (cannot metabolize lactose), active herpes lesions on breast (can feed from unaffected breast), certain medications (antimetabolites, radioactive isotopes), active untreated varicella. Hepatitis C is NOT a contraindication unless nipples are cracked and bleeding.\n\n**Variations & Exam Traps:**\nWith proper antiretroviral therapy, HIV transmission through breastfeeding can be reduced to <1% - hence WHO recommends breastfeeding with ART in resource-limited settings. Context matters in exam questions!"
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Human breast milk provides approximately how many kilocalories per 100 mL?",
+            "options": [
+                "35-45 kcal",
+                "65-75 kcal",
+                "100-120 kcal",
+                "150-200 kcal"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Breast milk = '67 kcal' (easy to remember: 6+7=13, like 1-3 months of exclusive breastfeeding!). Close to 70 kcal/100mL = 70 kcal/dL. Formula is designed to match this.",
+            "explanation": "**Core Concept & Mechanism:**\nHuman breast milk is a complete nutrition source for infants, containing optimal proportions of carbohydrates (lactose), proteins (whey and casein), fats (essential fatty acids), vitamins, minerals, and immunoglobulins. Its caloric density is perfectly calibrated for infant growth and development.\n\n**Correct Answer Explained:**\nBreast milk provides approximately 65-75 kcal per 100 mL (or 20 kcal per ounce). This is relatively consistent across mothers, though hindmilk (end of feeding) has higher fat content than foremilk. Infant formula is designed to match this caloric density.\n\n**Why Other Options Are Wrong:**\n- 35-45 kcal: Too low - would result in inadequate caloric intake for infant growth\n- 100-120 kcal: Too high - this approaches the density of some concentrated formulas used for preterm infants\n- 150-200 kcal: Far too high - would provide excessive calories\n\n**Next Steps & Clinical Pearls:**\nBreast milk composition: Fats 3-5%, Protein 0.8-0.9%, Carbohydrates (lactose) 7%. Colostrum (first few days) is yellow, rich in IgA, proteins, and minerals. Mature milk transitions by 2 weeks. Benefits include ideal nutrition, passive immunity, bonding, and reduced allergies.\n\n**Variations & Exam Traps:**\nPreterm infants may need fortified breast milk (additional calories, protein, minerals). Special formulas for medical conditions: hydrolyzed protein for allergies, MCT-enriched for malabsorption, amino acid-based for severe allergies."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A breastfeeding mother presents with a painful, cracked nipple. Which management approach is most appropriate?",
+            "options": [
+                "Discontinue breastfeeding until healed",
+                "Apply topical vitamin E cream to nipples",
+                "Ensure proper latch, alternate positions, and apply lanolin",
+                "Switch to exclusive formula feeding"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "Cracked Nipples = 'LATCH and LANOLIN!' Poor latch is the #1 cause. Fix the latch, change positions, apply lanolin or breast milk to heal. DON'T stop breastfeeding - it can continue!",
+            "explanation": "**Core Concept & Mechanism:**\nSore and cracked nipples are common breastfeeding complications, usually caused by improper infant latch or positioning. Correct latch involves the infant taking the entire areola (not just nipple), with lips flanged outward and chin touching the breast. Poor latch causes friction trauma.\n\n**Correct Answer Explained:**\nManagement includes: ensuring proper latch-on technique, frequent position changes (alternating breasts), nipple shields if needed, keeping nipples clean and dry between feedings, and applying lanolin or expressed breast milk as a healing salve. Breastfeeding should continue.\n\n**Why Other Options Are Wrong:**\n- Discontinue breastfeeding: Usually unnecessary and counterproductive. Continued emptying prevents engorgement and mastitis\n- Topical vitamin E: Should be AVOIDED due to risk of infant ingestion and potential toxicity. Also may cause contact dermatitis\n- Switch to formula: Overly drastic for a treatable problem. Would deny infant benefits of breastfeeding\n\n**Next Steps & Clinical Pearls:**\nRed flags requiring further evaluation: persistent pain despite correction (rule out thrush), fever/chills (mastitis), spreading erythema (abscess). Nipple shields can help temporarily but should not be long-term solution. Lactation consultant referral is valuable.\n\n**Variations & Exam Traps:**\nCandidal infection of nipples (thrush) presents with burning pain, shiny/pink nipples, and often concurrent oral thrush in infant. Treatment: topical antifungals to both mother's nipples and infant's mouth."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "At a 6-week postpartum visit, which contraceptive method is safe to initiate in a breastfeeding woman?",
+            "options": [
+                "Combined oral contraceptive pills",
+                "Progestin-only pill",
+                "Estrogen patch",
+                "Combined vaginal ring"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Breastfeeding + Contraception = 'Progestin is PREFERRED!' Estrogen decreases milk supply. Use the 'mini-pill' (progestin-only), Depo-Provera, or IUD. No estrogen while nursing!",
+            "explanation": "**Core Concept & Mechanism:**\nEstrogen-containing contraceptives can decrease breast milk production by inhibiting prolactin. Additionally, combined hormonal contraceptives increase thromboembolic risk in the early postpartum period. Progestin-only methods are safe during breastfeeding and do not affect milk supply.\n\n**Correct Answer Explained:**\nThe progestin-only pill (POP/'mini-pill') is safe during breastfeeding. It does not decrease milk supply, has minimal transfer to breast milk, and can be started at any time postpartum. Other safe options: Depo-Provera (can start at 6 weeks), progestin IUD (can place at 6 weeks), copper IUD.\n\n**Why Other Options Are Wrong:**\n- Combined oral contraceptives: Estrogen decreases milk production. Should avoid until breastfeeding well-established (typically 6 weeks for non-breastfeeding women, but recommend delay until 6 months for breastfeeding)\n- Estrogen patch: Same estrogen-related concerns as combined pills\n- Combined vaginal ring: Contains estrogen; same restrictions apply\n\n**Next Steps & Clinical Pearls:**\nNon-breastfeeding women: avoid combined hormonal contraceptives for first 3 weeks postpartum (thromboembolism risk). Lactational amenorrhea method (LAM) provides 98% contraception if: exclusive breastfeeding, amenorrheic, and <6 months postpartum - all three criteria required.\n\n**Variations & Exam Traps:**\nIUD (hormonal or copper) can be placed at 6-week visit. The Depo-Provera injection can also be used safely. Barrier methods (condoms, diaphragm) have no hormonal effects and are always safe."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "What exercise should be counseled at the 6-week postpartum visit to strengthen pelvic floor muscles?",
+            "options": [
+                "Ankle rotation exercises",
+                "Kegel exercises",
+                "Deep knee bends",
+                "Arm strengthening exercises"
+            ],
+            "correct_index": 1,
+            "difficulty": 1,
+            "retention_aid": "KEGEL = 'Keep Every Genital Elevated Longer!' Kegel exercises strengthen the pelvic floor (pubococcygeus muscle) to prevent urinary incontinence and pelvic organ prolapse after childbirth.",
+            "explanation": "**Core Concept & Mechanism:**\nPregnancy and vaginal delivery stretch and weaken pelvic floor muscles (levator ani complex), leading to urinary incontinence, fecal incontinence, and pelvic organ prolapse. Kegel exercises strengthen these muscles through repeated voluntary contraction of the pubococcygeus muscle.\n\n**Correct Answer Explained:**\nKegel exercises are specifically designed to strengthen pelvic floor muscles. Technique: tighten muscles used to stop urine flow, hold for 3-5 seconds, relax for 3-5 seconds. Repeat 10 times, 3 times daily. Should not actually practice stopping urine mid-stream regularly (can cause UTI).\n\n**Why Other Options Are Wrong:**\n- Ankle rotation exercises: For DVT prevention during bed rest, not pelvic floor\n- Deep knee bends: General exercise, doesn't target pelvic floor specifically\n- Arm strengthening: No effect on pelvic floor muscles\n\n**Next Steps & Clinical Pearls:**\nKegel exercises can be started immediately postpartum. Benefits include reduced urinary incontinence, improved sexual function, and prevention of pelvic organ prolapse. Women having difficulty isolating pelvic muscles may benefit from biofeedback or physical therapy referral.\n\n**Variations & Exam Traps:**\nPelvic floor exercises are also beneficial during pregnancy to prepare for delivery and reduce incontinence. Severe pelvic floor dysfunction may require specialized physiotherapy, pessary use, or surgical repair."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "At what gestational age should the first antenatal visit ideally occur?",
+            "options": [
+                "As soon as pregnancy is confirmed",
+                "At 20 weeks",
+                "At 28 weeks",
+                "At 36 weeks"
+            ],
+            "correct_index": 0,
+            "difficulty": 1,
+            "retention_aid": "First ANC visit = 'As Soon As Positive!' Early booking allows early screening (infections, anomalies), accurate dating, folic acid supplementation, and identification of high-risk pregnancies.",
+            "explanation": "**Core Concept & Mechanism:**\nEarly antenatal care allows identification of risk factors, accurate pregnancy dating, initiation of appropriate supplementation (folic acid for neural tube defect prevention), screening for infections (HIV, hepatitis B, syphilis, rubella), and establishment of baseline parameters. First trimester is ideal for dating ultrasound.\n\n**Correct Answer Explained:**\nThe first antenatal visit should occur as soon as pregnancy is confirmed, ideally in the first trimester. This allows: accurate dating (most accurate by ultrasound <14 weeks), first trimester screening for chromosomal anomalies, early identification of high-risk conditions, and timely interventions.\n\n**Why Other Options Are Wrong:**\n- 20 weeks: This is second trimester - too late for accurate dating and first trimester screening\n- 28 weeks: Third trimester - missed critical early interventions\n- 36 weeks: Near term - virtually no opportunity for preventive care\n\n**Next Steps & Clinical Pearls:**\nFirst visit components: Complete history (menstrual, obstetric, medical, surgical, family), physical examination, baseline investigations (CBC, blood type/Rh, urinalysis, infectious disease screen), dating ultrasound, genetic screening discussion, supplement prescription (folic acid, iron).\n\n**Variations & Exam Traps:**\nWHO recommends minimum 4 ANC visits; NICE guidelines recommend more frequent visits. Schedule: Every 4 weeks until 28 weeks, every 2 weeks until 36 weeks, then weekly until delivery. High-risk pregnancies need more frequent monitoring."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "How is the expected date of delivery (EDD) calculated using Naegele's rule for a woman with a regular 28-day menstrual cycle?",
+            "options": [
+                "LMP + 40 weeks",
+                "LMP + 7 days + 9 months",
+                "LMP + 280 days",
+                "LMP minus 3 months plus 7 days",
+                "All of the above methods give the same result"
+            ],
+            "correct_index": 4,
+            "difficulty": 2,
+            "retention_aid": "Naegele's Rule = 'LMP + 9 months + 7 days' OR 'LMP - 3 months + 7 days + 1 year' OR 'LMP + 280 days' OR 'LMP + 40 weeks'. All give the SAME date! Works for 28-day cycles.",
+            "explanation": "**Core Concept & Mechanism:**\nNaegele's rule estimates EDD based on the assumption that conception occurs 14 days after LMP (day 14 of a 28-day cycle) and pregnancy lasts 266 days from conception (280 days from LMP = 40 weeks). Various mathematical expressions yield the same result.\n\n**Correct Answer Explained:**\nAll listed methods are mathematically equivalent ways of expressing Naegele's rule:\n- LMP + 40 weeks = 280 days\n- LMP + 7 days + 9 months = same calculation\n- LMP + 280 days = 40 weeks\n- LMP - 3 months + 7 days = subtracting 3 months and adding 7 days to current year\n\n**Why Other Options Are Wrong:**\nAll individual options are correct and equivalent, making 'all of the above' the best answer.\n\n**Next Steps & Clinical Pearls:**\nFor irregular cycles, adjust: 21-day cycle: LMP + 9 months; 35-day cycle: LMP + 9 months + 14 days. First trimester ultrasound (crown-rump length) is most accurate for dating and should be used if discrepancy with LMP >5-7 days.\n\n**Variations & Exam Traps:**\nNaegele's rule assumes a 28-day cycle with ovulation on day 14. Variations exist for different cycle lengths. Ultrasound dating is preferred when LMP is uncertain. EDD is an estimate - only 5% of women deliver on their exact EDD."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Which routine investigation is NOT typically performed at the first antenatal visit?",
+            "options": [
+                "Complete blood count",
+                "Blood type and Rh factor",
+                "Glucose tolerance test",
+                "Urinalysis"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "Glucose tolerance test = SECOND trimester (24-28 weeks), NOT first visit! First visit = 'CBS-GU-Rh' (CBC, Blood type, Syphilis screen, GUE, Rh status). Save GTT for later!",
+            "explanation": "**Core Concept & Mechanism:**\nFirst trimester investigations aim to establish baseline health status, detect pre-existing conditions, screen for infections that could affect the fetus, and determine blood type for potential transfusion or Rh prophylaxis. Gestational diabetes screening is done at 24-28 weeks when placental hormones (hPL) create maximum insulin resistance.\n\n**Correct Answer Explained:**\nGlucose tolerance test is typically performed at 24-28 weeks gestation, not at the first visit. This timing captures gestational diabetes that develops due to increasing placental hormone levels in the second half of pregnancy.\n\n**Why Other Options Are Wrong:**\n- CBC: First visit routine - screens for anemia, thrombocytopenia\n- Blood type and Rh: Essential for Rh prophylaxis planning and potential transfusion needs\n- Urinalysis: First visit routine - screens for UTI, proteinuria, glucosuria\n\n**Next Steps & Clinical Pearls:**\nFirst visit tests: CBC, blood type/Rh, urinalysis/culture, rubella antibodies, VDRL/RPR, HBsAg, HIV (with consent), Pap smear if due. Second trimester: quadruple screen (15-18 weeks), glucose challenge (24-28 weeks). Third trimester: GBS culture (35-37 weeks), repeat hemoglobin.\n\n**Variations & Exam Traps:**\nEarly glucose screening (first trimester) IS recommended for high-risk women: prior GDM, family history of DM, obesity, PCOS, previous macrosomic infant. If first trimester screen is positive, treat as pre-existing DM; if negative, repeat at 24-28 weeks."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "At what gestational age should all pregnant women be screened for Group B Streptococcus (GBS)?",
+            "options": [
+                "12-14 weeks",
+                "24-28 weeks",
+                "35-37 weeks",
+                "40 weeks"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "GBS screening = '35-37 weeks' - close to delivery to predict colonization at birth. Remember: 'GBS = Great Big Swab' at 35-37 weeks (vaginal and rectal swab).",
+            "explanation": "**Core Concept & Mechanism:**\nGroup B Streptococcus colonizes the vagina and rectum of 10-30% of pregnant women. During delivery, vertical transmission can cause neonatal sepsis, pneumonia, and meningitis with significant mortality. Late gestation screening identifies carriers who need intrapartum antibiotic prophylaxis.\n\n**Correct Answer Explained:**\nGBS screening is performed at 35-37 weeks gestation by vaginal and rectal swab. This timing is late enough to predict colonization at delivery (within 5 weeks) but early enough to have results available before labor.\n\n**Why Other Options Are Wrong:**\n- 12-14 weeks: Too early - colonization status can change by delivery\n- 24-28 weeks: Too early - colonization status doesn't predict delivery\n- 40 weeks: At term/past due - results may not be available before delivery\n\n**Next Steps & Clinical Pearls:**\nGBS-positive women receive intrapartum IV penicillin (or ampicillin) at least 4 hours before delivery. Also treat women with: previous GBS+ infant, GBS bacteriuria during pregnancy, unknown GBS status with risk factors (preterm <37 weeks, ROM >18 hours, fever).\n\n**Variations & Exam Traps:**\nIf GBS status unknown at delivery: treat if risk factors present. GBS bacteriuria during pregnancy = treat during pregnancy AND give intrapartum prophylaxis (no need for 35-37 week culture). Penicillin allergy: use cefazolin (low risk) or vancomycin/clindamycin (high risk)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Which of the following is the recommended timing for the triple or quadruple screening test for fetal chromosomal abnormalities?",
+            "options": [
+                "8-10 weeks",
+                "15-18 weeks",
+                "24-28 weeks",
+                "32-34 weeks"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Quad Screen = 'Quad = 4 analytes at 15-18 weeks' (4 tests, second trimester). Triple screen at same timing. Remember: QUAD sounds like 'quarter' = second quarter of pregnancy!",
+            "explanation": "**Core Concept & Mechanism:**\nSecond trimester serum screening measures analytes that are altered in chromosomal abnormalities. Triple screen: AFP, hCG, estriol. Quadruple screen adds inhibin A. In Down syndrome: AFP↓, estriol↓, hCG↑, inhibin A↑. In neural tube defects: AFP↑. Optimal performance requires accurate gestational dating.\n\n**Correct Answer Explained:**\nTriple and quadruple screening are performed at 15-18 weeks (second trimester). This timing optimizes detection rates for the analytes measured. Earlier or later testing reduces accuracy.\n\n**Why Other Options Are Wrong:**\n- 8-10 weeks: First trimester screening uses different markers (PAPP-A, free β-hCG, nuchal translucency)\n- 24-28 weeks: Too late for these markers; glucose screening timing\n- 32-34 weeks: Third trimester - not used for aneuploidy screening\n\n**Next Steps & Clinical Pearls:**\nPositive screen → genetic counseling → offer diagnostic testing (amniocentesis). Detection rates: triple screen ~70% for Down syndrome, quad screen ~80%. Combined first trimester screening (11-14 weeks) uses nuchal translucency + PAPP-A + free β-hCG. Cell-free fetal DNA (NIPT) is most sensitive but not diagnostic.\n\n**Variations & Exam Traps:**\nIntegrated screening combines first and second trimester markers for highest detection (~95%). Neural tube defect screening uses elevated AFP (second trimester). Amniocentesis is diagnostic (karyotype) but carries ~0.1-0.3% miscarriage risk."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "An Rh-negative pregnant woman has a negative indirect Coombs test at 28 weeks. What is the appropriate management?",
+            "options": [
+                "No intervention needed",
+                "Repeat indirect Coombs test in 4 weeks",
+                "Administer anti-D immunoglobulin",
+                "Plan for immediate delivery"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "Rh-negative + Negative Coombs = 'Give the Shot!' Anti-D immunoglobulin at 28 weeks AND within 72 hours after delivery prevents Rh sensitization. If Coombs is POSITIVE, it's too late - don't give anti-D!",
+            "explanation": "**Core Concept & Mechanism:**\nRh-negative mothers carrying Rh-positive fetuses risk developing anti-D antibodies if fetal RBCs enter maternal circulation (sensitization). Once sensitized, subsequent Rh-positive pregnancies are at risk for hemolytic disease of the newborn. Anti-D immunoglobulin (RhoGAM) binds and clears fetal RBCs before maternal immune response.\n\n**Correct Answer Explained:**\nA negative indirect Coombs test indicates the mother is NOT yet sensitized. Anti-D immunoglobulin should be administered at 28 weeks (prevents third-trimester sensitization) and within 72 hours after delivery if the newborn is Rh-positive.\n\n**Why Other Options Are Wrong:**\n- No intervention: Missed opportunity for prevention - sensitization during this pregnancy would affect future pregnancies\n- Repeat Coombs in 4 weeks: Delays prophylaxis unnecessarily. Even if repeated and still negative at 32 weeks, you've lost the optimal prophylaxis window\n- Immediate delivery: No indication - negative Coombs means no current problem\n\n**Next Steps & Clinical Pearls:**\nAlso give anti-D after: miscarriage, ectopic pregnancy, amniocentesis, chorionic villus sampling, abdominal trauma, antepartum bleeding, external cephalic version. If indirect Coombs is positive (already sensitized), anti-D is useless - monitor with serial antibody titers and fetal surveillance.\n\n**Variations & Exam Traps:**\nKleihauer-Betke test quantifies fetomaternal hemorrhage to determine if additional anti-D doses are needed (standard dose covers 30 mL fetal blood). If father is Rh-negative or fetus confirmed Rh-negative by cell-free DNA, anti-D is not needed."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A pregnant woman at 24 weeks reports decreased fetal movement over the past day. What is the most appropriate first step?",
+            "options": [
+                "Reassure her that this is normal",
+                "Perform a non-stress test",
+                "Schedule elective cesarean section",
+                "Wait one more week before evaluation"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "Decreased Fetal Movement = 'Don't Dismiss, Do NST!' Reduced fetal movement is a warning sign that requires evaluation. Non-stress test assesses fetal heart rate reactivity and wellbeing.",
+            "explanation": "**Core Concept & Mechanism:**\nFetal movement reflects neurological integrity and wellbeing. Decreased fetal movement (DFM) can indicate fetal compromise from placental insufficiency, cord compression, or other pathology. It may precede stillbirth by 24-48 hours, making timely evaluation critical.\n\n**Correct Answer Explained:**\nDecreased fetal movement warrants prompt evaluation. A non-stress test (NST) is the appropriate first step - it monitors fetal heart rate patterns for accelerations with movement, indicating a healthy, non-acidotic fetus. Further testing (biophysical profile, Doppler) follows if NST is non-reactive.\n\n**Why Other Options Are Wrong:**\n- Reassure: Inappropriate - DFM is a recognized warning sign associated with adverse outcomes. Requires evaluation\n- Elective cesarean: Premature decision without establishing fetal status first. NST may be reactive (reassuring)\n- Wait one week: Dangerous delay - fetal demise could occur. Evaluate promptly\n\n**Next Steps & Clinical Pearls:**\nOther warning symptoms requiring urgent evaluation: vaginal spotting/bleeding, severe headache, epigastric pain, blurred vision, severe vomiting. Kick count instructions: 10 movements in 2 hours is normal. If <10 movements or significant change from baseline, seek evaluation.\n\n**Variations & Exam Traps:**\nNST interpretation: Reactive = ≥2 accelerations (≥15 bpm for ≥15 seconds) in 20 minutes. Non-reactive NST → extended monitoring, vibroacoustic stimulation, or biophysical profile. BPP combines NST with ultrasound assessment (movement, tone, breathing, amniotic fluid)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Which of the following is considered a high-risk pregnancy factor?",
+            "options": [
+                "Age 25 years",
+                "Gravida 2, Para 1",
+                "Body mass index of 22 kg/m²",
+                "Maternal age greater than 35 years at delivery"
+            ],
+            "correct_index": 3,
+            "difficulty": 2,
+            "retention_aid": "High-risk Age = 'AMA = Advanced Maternal Age' = 35+ years. Increases risk of chromosomal abnormalities (Down syndrome), gestational diabetes, hypertensive disorders, and cesarean delivery.",
+            "explanation": "**Core Concept & Mechanism:**\nAdvanced maternal age (AMA), defined as ≥35 years at delivery, is associated with increased chromosomal abnormalities (non-disjunction risk increases with age), pregnancy complications (gestational diabetes, preeclampsia), and delivery complications (cesarean section, postpartum hemorrhage).\n\n**Correct Answer Explained:**\nMaternal age ≥35 years at estimated delivery date is a recognized high-risk factor. The risk of Down syndrome increases from ~1:1,000 at age 25 to ~1:350 at age 35 and ~1:100 at age 40. Enhanced surveillance and screening are indicated.\n\n**Why Other Options Are Wrong:**\n- Age 25 years: Optimal childbearing age range - not high-risk\n- G2P1: Normal parity - neither nulliparous (slightly higher risk) nor grand multipara (≥5 deliveries - higher risk)\n- BMI 22: Normal weight - not a risk factor. BMI >30 (obesity) or <18.5 (underweight) would be concerning\n\n**Next Steps & Clinical Pearls:**\nOther high-risk factors: Extremes of age (<18 or >35), grand multiparity (≥5), previous obstetric complications (preterm birth, stillbirth), medical conditions (DM, HTN, renal disease), obesity (BMI >30), short stature (<150 cm), multiple gestation, abnormal placentation.\n\n**Variations & Exam Traps:**\nVery young mothers (<18) also face increased risks (preeclampsia, anemia, preterm birth, low birth weight). Grand multiparity increases risk of uterine atony, placenta previa, and abnormal presentations."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A pregnant woman at her first antenatal visit is found to be hepatitis B surface antigen (HBsAg) positive. What is the appropriate management for the newborn at delivery?",
+            "options": [
+                "No specific intervention is needed",
+                "Cesarean section delivery",
+                "Hepatitis B vaccine and hepatitis B immunoglobulin (HBIG) within 12 hours of birth",
+                "Contraindicate breastfeeding"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "HBsAg+ mother = 'GIVE BOTH!' at birth: HBV vaccine + HBIG within 12 hours. Together they prevent >95% of vertical transmission. Breastfeeding is SAFE after immunoprophylaxis!",
+            "explanation": "**Core Concept & Mechanism:**\nVertical transmission of hepatitis B occurs primarily during delivery (exposure to maternal blood/secretions). Without prophylaxis, 70-90% of infants born to HBeAg-positive mothers become chronically infected. Combined active (vaccine) and passive (HBIG) immunization is >95% effective in preventing transmission.\n\n**Correct Answer Explained:**\nInfants born to HBsAg-positive mothers should receive hepatitis B vaccine AND hepatitis B immunoglobulin (HBIG) within 12 hours of birth - the sooner, the better. This combined immunoprophylaxis prevents perinatal transmission in >95% of cases.\n\n**Why Other Options Are Wrong:**\n- No intervention: Unacceptable - without prophylaxis, high risk of chronic HBV infection in infant, leading to cirrhosis and hepatocellular carcinoma\n- Cesarean section: Not recommended solely for HBV status. Vaginal delivery is acceptable with immunoprophylaxis\n- Contraindicate breastfeeding: INCORRECT - breastfeeding is safe after immunoprophylaxis has been given\n\n**Next Steps & Clinical Pearls:**\nComplete the 3-dose HBV vaccine series (0, 1, 6 months). Check HBsAg and anti-HBs at 9-12 months to confirm protection. If still HBsAg-negative with anti-HBs ≥10 mIU/mL, protected. Mothers with high viral load (>200,000 IU/mL) may benefit from third trimester antivirals.\n\n**Variations & Exam Traps:**\nFor HIV-positive mothers in resource-rich settings: avoid breastfeeding. For HCV-positive mothers: breastfeeding is safe unless nipples are cracked/bleeding. Different viruses, different rules!"
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Which physiological change during pregnancy explains the apparent drop in hemoglobin concentration?",
+            "options": [
+                "Decreased red blood cell production",
+                "Increased red blood cell destruction",
+                "Plasma volume increases more than red cell mass (hemodilution)",
+                "Iron malabsorption"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "Pregnancy Anemia = 'DILUTIONAL, not Destruction!' Plasma volume increases by ~50%, RBC mass by only ~20%. The mismatch causes hemodilution - Hb drops by ~2 g/dL but total RBCs are actually INCREASED.",
+            "explanation": "**Core Concept & Mechanism:**\nDuring pregnancy, plasma volume increases by approximately 50% while red blood cell mass increases by only 20-30%. This disproportionate expansion creates hemodilution - a relative decrease in hemoglobin concentration despite increased total hemoglobin mass. This is physiological, not pathological anemia.\n\n**Correct Answer Explained:**\nThe 'anemia of pregnancy' is primarily due to hemodilution. Plasma volume expansion serves important functions: increased uteroplacental perfusion, meeting metabolic demands, and creating reserve for delivery blood loss. Hemoglobin typically drops by 1-2 g/dL.\n\n**Why Other Options Are Wrong:**\n- Decreased RBC production: Actually, erythropoiesis is INCREASED during pregnancy (elevated erythropoietin)\n- Increased RBC destruction: Hemolysis does not occur in normal pregnancy. Would suggest HELLP syndrome or other pathology\n- Iron malabsorption: Actually, iron absorption increases during pregnancy to meet increased demands\n\n**Next Steps & Clinical Pearls:**\nNormal pregnancy hemoglobin: >11 g/dL (first trimester), >10.5 g/dL (second trimester). True anemia requires investigation (iron studies, MCV). Iron supplementation is routine. Other hematologic changes: mild leukocytosis, hypercoagulability (↑ clotting factors).\n\n**Variations & Exam Traps:**\nGFR also increases ~50% during pregnancy (increased renal blood flow), leading to lower creatinine levels. A 'normal' creatinine of 1.0 mg/dL may actually indicate renal impairment in pregnancy. Know the physiological changes!"
+        },
+        {
+            "question_type": "mcq_multi",
+            "question_text": "Which of the following are correct targets for a patient with diabetes mellitus according to standard guidelines? (Select all that apply)",
+            "options": [
+                "HbA1c less than 7%",
+                "Fasting plasma glucose less than 130 mg/dL",
+                "Postprandial glucose less than 180 mg/dL",
+                "Blood pressure less than 120/70 mmHg",
+                "LDL cholesterol less than 100 mg/dL"
+            ],
+            "correct_indices": [
+                0,
+                1,
+                2,
+                4
+            ],
+            "difficulty": 3,
+            "retention_aid": "DM Targets = '7-130-180-140/90-100': HbA1c <7%, FPG <130, PPG <180, BP <140/90, LDL <100. Notice 120/70 is TOO aggressive for most diabetics!",
+            "explanation": "**Core Concept & Mechanism:**\nGlycemic, blood pressure, and lipid targets in diabetes are designed to prevent micro- and macrovascular complications while balancing the risks of aggressive treatment (hypoglycemia, hypotension). Targets may be individualized based on age, comorbidities, and life expectancy.\n\n**Correct Answer Explained:**\nThe correct targets are:\n- HbA1c <7%: Reduces microvascular complications\n- FPG (pre-prandial) <130 mg/dL: Indicates overnight glucose control\n- PPG <180 mg/dL: Limits postprandial excursions\n- LDL <100 mg/dL: Standard target; <70 mg/dL if established ASCVD\n\n**Why Other Options Are Wrong:**\n- BP <120/70: Too aggressive. Standard target is <140/90 mmHg (some guidelines suggest <130/80 for high-risk patients, but not 120/70)\n\n**Next Steps & Clinical Pearls:**\nTargets should be individualized: tighter control (HbA1c <6.5%) for young patients with long life expectancy, looser targets (HbA1c <8%) for elderly or those with frequent hypoglycemia/limited life expectancy. TG target: <150 mg/dL. Total cholesterol: <200 mg/dL.\n\n**Variations & Exam Traps:**\nADA vs ESC guidelines have slight variations. In patients with established CVD, LDL target is <70 mg/dL (or <55 mg/dL per ESC very high-risk). Glycemic targets in pregnancy are stricter: FPG <95, 1-hour PPG <140, 2-hour PPG <120."
+        },
+        {
+            "question_type": "true_false",
+            "question_text": "In patients taking statins, creatine kinase (CK) levels should be monitored routinely at each follow-up visit regardless of symptoms.",
+            "is_correct_true": false,
+            "difficulty": 3,
+            "retention_aid": "Statin CK monitoring = 'Only if SYMPTOMATIC!' Routine CK monitoring is NOT recommended because asymptomatic mild elevations are common and don't predict myopathy. Check CK only if muscle symptoms develop.",
+            "explanation": "**Core Concept & Mechanism:**\nStatin-associated muscle symptoms occur in 5-10% of patients, but routine CK monitoring has poor predictive value for clinically significant myopathy. Asymptomatic CK elevations are common and don't necessarily indicate muscle damage requiring intervention. Symptom-driven monitoring is more appropriate.\n\n**Correct Answer Explained:**\nFALSE. Routine CK monitoring is NOT recommended in asymptomatic patients. Guidelines recommend checking CK at baseline and only when muscle symptoms (pain, weakness, tenderness) develop. This avoids unnecessary testing and patient anxiety from asymptomatic elevations.\n\n**Why Other Options Are Wrong:**\nN/A for true/false format.\n\n**Next Steps & Clinical Pearls:**\nWhat to monitor routinely: LFTs at baseline and as clinically indicated (not routine periodic monitoring); lipid panel at baseline, 4-12 weeks after starting therapy, then annually. Symptoms prompting CK check: myalgia, weakness, cramping, tenderness.\n\n**Variations & Exam Traps:**\nBaseline CK is important to establish reference for comparison if symptoms develop later. Athletes and individuals with high muscle mass may have elevated baseline CK. Drug interactions increasing myopathy risk (macrolides, azoles, fibrates) may warrant closer monitoring."
+        },
+        {
+            "question_type": "true_false",
+            "question_text": "Lifestyle modification alone effectively controls blood pressure in approximately 50% of hypertensive patients.",
+            "is_correct_true": false,
+            "difficulty": 2,
+            "retention_aid": "Lifestyle modification controls HTN in only ~10% of patients. Remember: 'TEN percent with TLC' - most hypertensives eventually need medications despite lifestyle changes.",
+            "explanation": "**Core Concept & Mechanism:**\nLifestyle modifications (DASH diet, weight loss, exercise, sodium restriction, alcohol limitation, smoking cessation) are effective adjuncts to pharmacotherapy and may be sufficient as monotherapy in some patients with mild hypertension. However, most patients require medications for adequate BP control.\n\n**Correct Answer Explained:**\nFALSE. Lifestyle modification alone effectively controls BP in approximately 10% of hypertensive patients, not 50%. The majority require pharmacological therapy, though lifestyle changes enhance drug efficacy and may reduce medication requirements.\n\n**Why Other Options Are Wrong:**\nN/A for true/false format.\n\n**Next Steps & Clinical Pearls:**\nLifestyle modifications reduce SBP by: DASH diet (8-14 mmHg), weight loss (5-20 mmHg per 10 kg), sodium restriction (2-8 mmHg), physical activity (4-9 mmHg), alcohol moderation (2-4 mmHg). These effects are additive but usually insufficient as sole therapy.\n\n**Variations & Exam Traps:**\nFor Grade 1 HTN with low-moderate risk, a 3-6 month trial of lifestyle modification alone is appropriate before medications. Higher grades or higher risk require immediate pharmacotherapy WITH lifestyle changes."
+        },
+        {
+            "question_type": "written",
+            "question_text": "A 32-year-old woman presents to the emergency department 10 days after vaginal delivery with heavy vaginal bleeding and passage of clots. Her uterus is enlarged and tender. What is the most likely diagnosis and what investigation should be performed to confirm it?",
+            "correct_answer": "Late (secondary) postpartum hemorrhage due to retained placental tissue. Pelvic ultrasound should be performed to confirm the presence of retained products of conception.",
+            "difficulty": 3,
+            "retention_aid": "Late PPH (24hr-12wks) + Enlarged uterus + Heavy bleeding = RETAINED TISSUE until proven otherwise! 'TISSUE = US' - Ultrasound detects retained placental pieces.",
+            "explanation": "**Core Concept & Mechanism:**\nLate (secondary) postpartum hemorrhage occurs between 24 hours and 12 weeks after delivery. The most common cause is retained placental tissue (retained products of conception - RPOC). Retained tissue prevents normal uterine involution and provides a focus for infection and continued bleeding.\n\n**Correct Answer Explained:**\nThe diagnosis is late/secondary postpartum hemorrhage, most likely due to retained placental tissue. Key clues: timing (10 days postpartum = late PPH), heavy bleeding with clots, enlarged tender uterus (failure to involute). Pelvic ultrasound is the confirmatory test to visualize echogenic material in the uterine cavity.\n\n**Why Other Options Are Wrong:**\nOther causes of late PPH include: endometritis (would have fever, purulent discharge), subinvolution of placental site, coagulopathy (less likely without history). However, the clinical picture points most strongly to retained tissue.\n\n**Next Steps & Clinical Pearls:**\nManagement: If RPOC confirmed, surgical evacuation (suction curettage) is indicated. Administer uterotonics (oxytocin, misoprostol), antibiotics (to cover infection). Monitor hemoglobin, transfuse if needed. Histopathology of evacuated tissue confirms retained products.\n\n**Variations & Exam Traps:**\nSubinvolution of the placental site (incomplete involution of spiral arteries) can also cause late PPH but typically shows normal-appearing uterine cavity on ultrasound. Treatment is uterotonics rather than surgical evacuation."
+        },
+        {
+            "question_type": "cloze",
+            "question_text": "In type 2 diabetes screening for children and adolescents, testing should begin at age {1} years or at onset of {2}, whichever comes first. Testing should be repeated every {3} years. Risk factors include family history of T2DM in {4} degree relatives, obesity, and signs of insulin resistance such as {5}.",
+            "answers": [
+                "10",
+                "puberty",
+                "3",
+                "1st or 2nd",
+                "acanthosis nigricans"
+            ],
+            "difficulty": 3,
+            "retention_aid": "Pediatric T2DM screening = '10-Puberty-3-Family-Acanthosis' → Age 10 OR puberty, every 3 years, 1st/2nd degree relatives, look for acanthosis nigricans (dark velvety skin = insulin resistance).",
+            "explanation": "**Core Concept & Mechanism:**\nType 2 diabetes in children and adolescents is increasing with rising obesity rates. Screening criteria target those at highest risk based on age (10 years or puberty - when insulin resistance peaks), family history (genetic predisposition), and clinical signs of insulin resistance.\n\n**Correct Answer Explained:**\n1. Age 10 years - standard age to begin screening\n2. Puberty - hormonal changes increase insulin resistance; screen if puberty begins before age 10\n3. Every 3 years - recommended screening interval for at-risk youth\n4. 1st or 2nd degree relatives - indicates genetic risk (parents, siblings, grandparents, aunts/uncles)\n5. Acanthosis nigricans - dark, velvety skin in body folds (neck, axillae) indicating hyperinsulinemia\n\n**Why Other Options Are Wrong:**\nN/A for cloze format.\n\n**Next Steps & Clinical Pearls:**\nOther risk factors: maternal history of GDM, high-risk ethnicity (African American, Hispanic, Native American, Asian American), conditions associated with insulin resistance (PCOS, small for gestational age). Screen with FPG, OGTT, or HbA1c.\n\n**Variations & Exam Traps:**\nAcanthosis nigricans is a clinical sign, not a diagnosis. It indicates insulin resistance and increased T2DM risk but doesn't confirm diabetes. Other conditions with acanthosis: PCOS, obesity, malignancy (rare, paraneoplastic)."
+        },
+        {
+            "question_type": "emq",
+            "instructions": "For each clinical scenario, select the most appropriate antihypertensive drug class from the options below.",
+            "premises": [
+                "A 55-year-old man with hypertension, type 2 diabetes, and microalbuminuria",
+                "A 60-year-old man with hypertension and a history of recurrent gout attacks",
+                "A 50-year-old woman with hypertension and a history of asthma with frequent exacerbations",
+                "A 65-year-old man with hypertension and stable angina"
+            ],
+            "options": [
+                "ACE inhibitor",
+                "Thiazide diuretic",
+                "Beta-blocker",
+                "Calcium channel blocker",
+                "Alpha-blocker"
+            ],
+            "matches": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    1,
+                    3
+                ],
+                [
+                    2,
+                    3
+                ],
+                [
+                    3,
+                    2
+                ]
+            ],
+            "difficulty": 4,
+            "retention_aid": "Match the COMORBIDITY to the DRUG: DM+Proteinuria→ACEi (renoprotection), Gout→avoid thiazides (↑uric acid), Asthma→avoid beta-blockers (bronchoconstriction), Angina→beta-blockers (↓HR, ↓O2 demand).",
+            "explanation": "**Core Concept & Mechanism:**\nAntihypertensive selection should consider comorbidities to maximize benefit and minimize harm. Each drug class has specific indications and contraindications based on coexisting conditions.\n\n**Correct Answer Explained:**\n\n1. DM with microalbuminuria → ACE inhibitor: Provides renoprotection by reducing intraglomerular pressure and proteinuria, slowing nephropathy progression\n\n2. Gout → Calcium channel blocker: Thiazides are relatively contraindicated in gout as they increase uric acid levels and precipitate attacks. CCBs are metabolically neutral\n\n3. Asthma → Calcium channel blocker: Beta-blockers can cause bronchospasm and are contraindicated in asthma. CCBs have no respiratory effects\n\n4. Stable angina → Beta-blocker: Reduces heart rate and myocardial oxygen demand, first-line for stable angina. Anti-ischemic and antihypertensive benefits combined\n\n**Why Other Options Are Wrong:**\n- Thiazides cause hyperuricemia (avoid in gout)\n- Beta-blockers cause bronchoconstriction (avoid in asthma)\n- Alpha-blockers are not first-line for any standard indication (used for BPH or add-on in resistant HTN)\n\n**Next Steps & Clinical Pearls:**\nOther comorbidity-drug matches: HF with reduced EF → ACEi + beta-blocker; AF → beta-blocker or CCB (diltiazem/verapamil); Migraine → beta-blocker; BPH → alpha-blocker; Pregnancy → labetalol, methyldopa, nifedipine.\n\n**Variations & Exam Traps:**\nACEi can worsen hyperkalemia (caution with K-sparing diuretics, CKD); Beta-blockers can mask hypoglycemia symptoms in diabetics; Verapamil/diltiazem avoid combining with beta-blockers (heart block risk)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 24-year-old woman at 9 weeks gestation presents for her first prenatal visit. She is uncertain of her last menstrual period date. Which investigation provides the most accurate estimate of gestational age?",
+            "options": [
+                "Maternal serum hCG level",
+                "Uterine size on pelvic examination",
+                "First-trimester ultrasound",
+                "Fundal height measurement"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "First trimester US = 'GOLD STANDARD' for dating! Crown-rump length (CRL) at 7-14 weeks is accurate within 3-5 days. Later ultrasounds are less precise. When in doubt, DATE it out with early US!",
+            "explanation": "**Core Concept & Mechanism:**\nFirst trimester ultrasound measures crown-rump length (CRL), which has the smallest variation in early pregnancy. Before 14 weeks, fetal growth is relatively uniform regardless of genetic or environmental factors, making CRL highly accurate for dating (±3-5 days). Later pregnancy measurements have more variability.\n\n**Correct Answer Explained:**\nFirst-trimester ultrasound (crown-rump length measurement) is the most accurate method for determining gestational age, accurate within 3-5 days when performed at 7-14 weeks. This patient at 9 weeks is in the optimal window.\n\n**Why Other Options Are Wrong:**\n- Maternal hCG: Wide range of normal values at any gestational age; not accurate for dating\n- Uterine size on exam: Subjective and affected by maternal body habitus, fibroids, multiple gestation\n- Fundal height: Only useful after 20 weeks when fundus is palpable abdominally; not applicable at 9 weeks\n\n**Next Steps & Clinical Pearls:**\nIf LMP-based dating differs from ultrasound dating by >5-7 days in first trimester, use ultrasound date. Second trimester US is accurate within 10-14 days. Third trimester US is accurate only within 21 days - not reliable for dating.\n\n**Variations & Exam Traps:**\nUltrasound findings by gestational age: Gestational sac at 5 weeks, yolk sac at 5.5 weeks, fetal pole at 6 weeks, heartbeat at 6-7 weeks. No heartbeat with CRL >7 mm suggests missed abortion."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "At what fundal height landmark is the uterus expected to reach by 20 weeks of gestation?",
+            "options": [
+                "Just above the pubic symphysis",
+                "At the umbilicus",
+                "Midway between umbilicus and xiphoid",
+                "At the xiphoid process"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Fundal Height Landmarks: '12 weeks = Pubic symphysis, 20 weeks = Umbilicus, 36-38 weeks = Xiphoid.' Think: '12-20-36' matches with 'Pubis-Umbilicus-Xiphoid' (PUX)!",
+            "explanation": "**Core Concept & Mechanism:**\nFundal height provides a clinical estimate of gestational age and fetal growth. The uterus enlarges predictably: rising from the pelvis around 12 weeks, reaching the umbilicus at 20 weeks, and approaching the xiphoid near term. After 20 weeks, fundal height in centimeters approximately equals gestational age in weeks (±2 cm).\n\n**Correct Answer Explained:**\nAt 20 weeks gestation, the fundus reaches the level of the umbilicus. This is a reliable clinical landmark for confirming gestational age before ultrasound and for ongoing growth assessment.\n\n**Why Other Options Are Wrong:**\n- Just above pubic symphysis: This corresponds to 12 weeks gestation\n- Midway between umbilicus and xiphoid: This corresponds to approximately 28-32 weeks\n- At the xiphoid: This corresponds to 36-38 weeks (near term)\n\n**Next Steps & Clinical Pearls:**\nFundal height > dates suggests: wrong dates, multiple gestation, polyhydramnios, macrosomia, fibroids. Fundal height < dates suggests: wrong dates, IUGR, oligohydramnios, transverse lie. Discrepancy >3 cm warrants ultrasound.\n\n**Variations & Exam Traps:**\nAt 40 weeks (term), fundus may drop below the 36-38 week level as the presenting part engages in the pelvis ('lightening'). Fundal height measurement begins reliably after 20 weeks when the fundus is consistently palpable abdominally."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Which of the following is a symptom of hypoglycemia related to activation of the autonomic nervous system?",
+            "options": [
+                "Confusion",
+                "Sweating and tremor",
+                "Seizures",
+                "Coma"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Hypoglycemia symptoms = 'AUTONOMIC then NEURO!' Autonomic (early, adrenergic): Sweating, Shaking, Hunger, Anxiety, Palpitations. Neuroglycopenic (late, brain): Confusion, Seizures, Coma. Treat before neuro symptoms!",
+            "explanation": "**Core Concept & Mechanism:**\nHypoglycemia triggers a counter-regulatory response mediated by catecholamines (epinephrine, norepinephrine). These cause autonomic symptoms as early warning signs. If glucose continues to fall, brain glucose deprivation causes neuroglycopenic symptoms. Recognizing early autonomic symptoms allows self-treatment.\n\n**Correct Answer Explained:**\nSweating and tremor are classic autonomic (adrenergic) symptoms of hypoglycemia. These are mediated by sympathetic nervous system activation and typically occur at glucose levels 55-65 mg/dL, serving as early warning signs.\n\n**Why Other Options Are Wrong:**\n- Confusion: Neuroglycopenic symptom (brain glucose deprivation), not autonomic\n- Seizures: Severe neuroglycopenic manifestation occurring at very low glucose levels\n- Coma: End-stage neuroglycopenic manifestation indicating profound hypoglycemia\n\n**Next Steps & Clinical Pearls:**\nOther autonomic symptoms: hunger, palpitations, anxiety, pallor, trembling. Neuroglycopenic symptoms: difficulty concentrating, drowsiness, weakness, visual changes, slurred speech. Hypoglycemia unawareness (loss of autonomic warning symptoms) develops with recurrent hypoglycemia and is dangerous.\n\n**Variations & Exam Traps:**\nWhipple's triad confirms hypoglycemia: (1) symptoms consistent with hypoglycemia, (2) low plasma glucose at time of symptoms, (3) relief of symptoms with glucose administration. Beta-blockers can mask autonomic symptoms except sweating."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 62-year-old hypertensive man on maximum doses of amlodipine, lisinopril, and hydrochlorothiazide still has blood pressure of 158/96 mmHg. His medication compliance is confirmed. Which term best describes his hypertension?",
+            "options": [
+                "White coat hypertension",
+                "Secondary hypertension",
+                "Resistant hypertension",
+                "Malignant hypertension"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "Resistant HTN = 'THREE drugs at max dose INCLUDING a diuretic, and BP still uncontrolled.' If BP resists 3 drugs, the HTN is 'resistant!' Check compliance, then look for secondary causes.",
+            "explanation": "**Core Concept & Mechanism:**\nResistant hypertension is defined as blood pressure that remains above goal despite optimal doses of three antihypertensive drugs from different classes, one of which must be a diuretic. True resistance occurs after excluding pseudo-resistance (non-compliance, white coat effect, improper BP measurement).\n\n**Correct Answer Explained:**\nThis patient is on three antihypertensive agents (CCB, ACEi, thiazide diuretic) at maximum doses with confirmed compliance, yet his BP remains elevated. This meets the definition of resistant hypertension.\n\n**Why Other Options Are Wrong:**\n- White coat hypertension: Would show normal BP on home/ambulatory monitoring; requires confirmation\n- Secondary hypertension: A possible CAUSE of resistant HTN but not the same thing. Should be investigated in resistant HTN\n- Malignant hypertension: Hypertensive emergency with end-organ damage (papilledema, encephalopathy, AKI). Not suggested by this presentation\n\n**Next Steps & Clinical Pearls:**\nApproach to resistant HTN: (1) Confirm true resistance (exclude non-compliance, white coat, improper measurement); (2) Optimize current therapy; (3) Screen for secondary causes (renal artery stenosis, primary aldosteronism, OSA, pheochromocytoma); (4) Add spironolactone as fourth agent (often effective).\n\n**Variations & Exam Traps:**\nControlled resistant HTN: BP at goal on 4+ medications. Refractory HTN: uncontrolled despite 5+ agents. Primary aldosteronism may account for 10-20% of resistant HTN - check aldosterone:renin ratio."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 34-year-old G1P0 woman at 32 weeks gestation presents with a blood pressure of 155/98 mmHg. She has no history of hypertension prior to pregnancy. Urinalysis shows 1+ protein. She is asymptomatic. Which of the following pharmacological agents is absolutely contraindicated for blood pressure management in this patient?",
+            "options": [
+                "Labetalol",
+                "Methyldopa",
+                "Nifedipine",
+                "Lisinopril",
+                "Hydralazine"
+            ],
+            "correct_index": 3,
+            "difficulty": 3,
+            "retention_aid": "ACEls and ARBs cause Renal damage in the fetus (Renal Agenesis). Remember: 'PRILS' kill.",
+            "explanation": "Core Concept & Mechanism:\nHypertension in pregnancy requires careful selection of agents that lower maternal blood pressure without compromising placental perfusion or causing teratogenicity. The renin-angiotensin-aldosterone system (RAAS) is essential for fetal renal development.\n\nCorrect Answer Explained:\nLisinopril is an ACE inhibitor. ACE inhibitors and ARBs are strictly contraindicated in pregnancy (Category D/X). They are associated with fetal renal dysgenesis, oligohydramnios, pulmonary hypoplasia, and skull ossification defects. Even in the second/third trimester, they cause fetal renal failure.\n\nWhy Other Options Are Wrong:\n- Labetalol: A non-selective beta-blocker with alpha-1 blocking activity. It is a first-line agent for HTN in pregnancy.\n- Methyldopa: An alpha-2 agonist. It has the longest safety track record in pregnancy and is a preferred first-line agent for chronic management.\n- Nifedipine: A calcium channel blocker. It is safe and commonly used for both acute and chronic HTN in pregnancy.\n- Hydralazine: A direct vasodilator. It is frequently used for acute severe hypertension (hypertensive crisis) in pregnancy, though less common for chronic maintenance due to side effects.\n\nNext Steps & Clinical Pearls:\nMonitor for pre-eclampsia progression (severe features). Target BP is generally 120-160 / 80-105 mmHg to prevent maternal stroke while maintaining placental flow.\n\nVariations & Exam Traps:\nWatch for a history of asthma; Labetalol (non-selective beta-blocker) should be avoided in asthmatics. Nifedipine would be the choice there."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 28-year-old woman at 26 weeks gestation undergoes a 1-hour 50g glucose challenge test (GCT) with a result of 155 mg/dL. She returns for a 3-hour 100g oral glucose tolerance test (OGTT). According to Carpenter and Coustan criteria, which set of values would confirm a diagnosis of Gestational Diabetes Mellitus (GDM)?",
+            "options": [
+                "Fasting 90, 1-hr 170, 2-hr 150, 3-hr 135",
+                "Fasting 98, 1-hr 185, 2-hr 140, 3-hr 130",
+                "Fasting 92, 1-hr 175, 2-hr 160, 3-hr 135",
+                "Fasting 100, 1-hr 160, 2-hr 140, 3-hr 130"
+            ],
+            "correct_index": 1,
+            "difficulty": 4,
+            "retention_aid": "Carpenter/Coustan Cutoffs: 95 - 180 - 155 - 140. (Think: decreasing roughly by 20s, starting near 180). Diagnosis requires 2 abnormal values.",
+            "explanation": "Core Concept & Mechanism:\nGDM is diagnosed using a two-step method (in many guidelines): a 50g screening load followed by a 100g diagnostic load if the screen is positive (>130 or 140 mg/dL). The 3-hour test requires two or more elevated values for diagnosis.\n\nCorrect Answer Explained:\nThe Carpenter and Coustan thresholds are:\n- Fasting: >95 mg/dL\n- 1-hour: >180 mg/dL\n- 2-hour: >155 mg/dL\n- 3-hour: >140 mg/dL\nOption 2 has Fasting (98 > 95) and 1-hr (185 > 180) elevated. Two abnormal values confirm the diagnosis.\n\nWhy Other Options Are Wrong:\n- Option 1: All values are below the cutoffs.\n- Option 3: Only the 2-hour value (160 > 155) is elevated. One abnormal value is typically insufficient for diagnosis under these criteria (though some guidelines suggest treating isolated fasting hyperglycemia).\n- Option 4: Only the Fasting value (100 > 95) is elevated.\n\nNext Steps & Clinical Pearls:\nInitial management is Medical Nutritional Therapy (MNT). If targets are not met (Fasting <95, 2hr postprandial <120), initiate pharmacotherapy (Insulin is gold standard; Metformin/Glyburide are alternatives).\n\nVariations & Exam Traps:\nThe exam may reference the 'One-step' IADPSG guidelines (75g OGTT), where a single abnormal value is diagnostic. Always check which criteria (Carpenter-Coustan vs WHO/IADPSG) the question implies."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 39-year-old male smoker visits the clinic. He is currently in the 'Precontemplation' stage regarding smoking cessation. Which physician response is most appropriate for this stage according to the Transtheoretical Model?",
+            "options": [
+                "Prescribe a nicotine patch and set a quit date for next week.",
+                "Teach him techniques to manage withdrawal symptoms.",
+                "Ask: 'What do you think are the pros and cons of your smoking?'",
+                "Ask: 'Is it okay if I talk to you about your smoking?' to raise awareness.",
+                "Praise him for maintaining abstinence for 6 months."
+            ],
+            "correct_index": 3,
+            "difficulty": 3,
+            "retention_aid": "Precontemplation = Denial/Unaware. Goal: Raise doubt/awareness. Don't push action. Just 'Ask Permission' to talk.",
+            "explanation": "Core Concept & Mechanism:\nThe Transtheoretical Model defines stages of change: Precontemplation (no intent to change), Contemplation (considering change), Preparation (planning change), Action, and Maintenance. Counseling must match the stage.\n\nCorrect Answer Explained:\nIn Precontemplation, the patient is unaware of the problem or unwilling to change. Aggressive action planning creates resistance. The goal is to raise awareness without confrontation. Asking permission to discuss the topic (Choice 4) or asking 'What are your thoughts about your smoking?' respects autonomy and initiates the conversation non-judgmentally.\n\nWhy Other Options Are Wrong:\n- Prescribing/Setting dates: Appropriate for the *Preparation* stage.\n- Managing withdrawal: Appropriate for the *Action* stage.\n- Pros and Cons: Weighing ambivalence is the hallmark of the *Contemplation* stage.\n- Praising abstinence: Appropriate for the *Maintenance* stage.\n\nNext Steps & Clinical Pearls:\nUse Motivational Interviewing (MI). For precontemplators, avoid the 'Righting Reflex' (trying to fix them). Roll with resistance.\n\nVariations & Exam Traps:\nQuestions often describe a patient saying 'I know I should quit, but I'm stressed.' This is *Contemplation* (ambivalence), not precontemplation. For them, you explore the barriers."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 2-year-old boy is brought to the clinic for growth monitoring. His weight-for-height Z-score is -2.5 SD, but his height-for-age Z-score is -0.5 SD. He has no edema. Which term best describes his nutritional status?",
+            "options": [
+                "Stunted",
+                "Underweight",
+                "Wasted",
+                "Kwashiorkor",
+                "Normal"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "Weight can change usually (Acute). Height takes ages to change (Chronic). Low W/H = Wasting (Acute starvation). Low H/A = Stunting (Chronic malnutrition).",
+            "explanation": "Core Concept & Mechanism:\nAnthropometric indices reflect different chronicity of malnutrition. Weight is sensitive to acute caloric deprivation. Height is affected by chronic, long-term deprivation.\n\nCorrect Answer Explained:\n- Weight-for-Length/Height (W/H) reflects *acute* malnutrition or current body mass. A Z-score between -2 and -3 indicates moderate **Wasting**. (<-3 is severe wasting).\n- Height-for-Age (H/A) reflects *chronic* malnutrition. A normal Z-score here rules out stunting.\n\nWhy Other Options Are Wrong:\n- Stunted: Defined as Height-for-Age < -2 SD.\n- Underweight: Defined as Weight-for-Age < -2 SD (a composite measure that doesn't distinguish acute vs chronic).\n- Kwashiorkor: Characterized by bilateral pitting edema. The stem explicitly states 'no edema'. This child fits the Marasmus spectrum (wasting).\n- Normal: Z-scores between -2 and +2 are generally considered normal range.\n\nNext Steps & Clinical Pearls:\nWasting is a medical emergency requiring nutritional rehabilitation (F-75/F-100 formulas). Check for complications like hypoglycemia and hypothermia.\n\nVariations & Exam Traps:\nConfusion between 'Underweight' (W/A) and 'Wasting' (W/H). Wasting is the more specific indicator for acute danger and mortality risk."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "According to the USPSTF and general cardiovascular screening guidelines, which of the following patients meets the specific criteria for Abdominal Aortic Aneurysm (AAA) screening with ultrasonography?",
+            "options": [
+                "A 67-year-old male who has never smoked.",
+                "A 70-year-old female who has smoked 1 pack/day for 30 years.",
+                "A 68-year-old male with a 20 pack-year smoking history.",
+                "A 50-year-old male with a family history of AAA.",
+                "All men over age 65 regardless of smoking history."
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "AAA screening rule: 'Old Smoking Men'. Men, 65-75, Ever smoked. (Women and Non-smokers generally don't get screened).",
+            "explanation": "Core Concept & Mechanism:\nAAA screening aims to prevent rupture, which has high mortality. The risk is strongly associated with male sex, age, and smoking history.\n\nCorrect Answer Explained:\nThe USPSTF recommends one-time screening for AAA with ultrasonography in **men aged 65 to 75 years who have ever smoked** (defined as >100 cigarettes in their lifetime). The 68-year-old male smoker fits this Grade B recommendation perfectly.\n\nWhy Other Options Are Wrong:\n- Male never smoker: USPSTF Grade C (selectively offer based on other risks, but not a blanket recommendation).\n- Female smoker: The USPSTF concludes the evidence is insufficient (Grade I) for women who smoke and recommends *against* screening women who have never smoked (Grade D).\n- 50-year-old male: Too young for routine screening.\n- All men >65: Only 'ever smokers' are the primary target.\n\nNext Steps & Clinical Pearls:\nIf the aorta is <3.0 cm, no further screening is needed. If 3.0-5.4 cm, surveillance is required. If >5.5 cm or rapidly expanding, surgical referral is indicated.\n\nVariations & Exam Traps:\nLung cancer screening also involves 'Old Smokers' (50-80 years, 20 pack-year history, quit <15 years ago). Do not confuse the age ranges or criteria."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 35-year-old primigravida at 34 weeks gestation presents with severe headache and visual scotomata. Her BP is 165/110 mmHg. Reflexes are 4+ with clonus. You initiate Magnesium Sulfate. Two hours later, her respiratory rate drops to 8/min and urine output is 10 mL/hr. What is the immediate antidote?",
+            "options": [
+                "Labetalol IV",
+                "Insulin",
+                "Calcium Gluconate",
+                "Protamine Sulfate",
+                "Potassium Chloride"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "Magnesium toxicity causes 'Drops': Drop in reflexes -> Drop in breaths -> Drop in heart. Antidote is Calcium (stabilizes the membrane).",
+            "explanation": "Core Concept & Mechanism:\nMagnesium sulfate prevents seizures (eclampsia) by blocking neuromuscular transmission. Toxicity follows a predictable sequence: Loss of DTRs (serum level >10 mg/dL) → Respiratory depression (>12) → Cardiac arrest (>25). Magnesium is renally excreted, so oliguria (common in severe pre-eclampsia) increases toxicity risk.\n\nCorrect Answer Explained:\nCalcium Gluconate (1g IV) is the specific antidote for magnesium toxicity. Calcium competitively reverses the neuromuscular blockade caused by hypermagnesemia.\n\nWhy Other Options Are Wrong:\n- Labetalol: Treats hypertension, not Mg toxicity. Giving it now might worsen bradycardia/hypotension if cardiac arrest is imminent.\n- Insulin: Treats hyperglycemia or hyperkalemia.\n- Protamine Sulfate: Antidote for Heparin.\n- Potassium Chloride: Used for hypokalemia; dangerous in renal impairment.\n\nNext Steps & Clinical Pearls:\nStop the Mag infusion immediately. Administer oxygen. Monitor urine output—if <30mL/hr, Mg dose must be adjusted or stopped.\n\nVariations & Exam Traps:\nThe first sign of toxicity is loss of deep tendon reflexes (patellar). The exam might ask 'What clinical sign warns of impending toxicity?' Answer: Loss of reflexes."
+        },
+        {
+            "question_type": "mcq_multi",
+            "question_text": "Which of the following scenarios represent a valid indication for administering the Tdap (Tetanus, Diphtheria, Acellular Pertussis) vaccine? (Select TWO)",
+            "options": [
+                "A 24-year-old pregnant woman at 30 weeks gestation who received Tdap 2 years ago.",
+                "A 40-year-old man who stepped on a rusty nail, last Td booster was 3 years ago.",
+                "A 60-year-old grandmother anticipating the birth of her first grandchild, who has never received Tdap (only Td).",
+                "A 6-month-old infant for their primary series.",
+                "A 30-year-old who received Tdap 5 years ago presenting for a routine checkup with no injuries."
+            ],
+            "correct_indices": [
+                0,
+                2
+            ],
+            "difficulty": 4,
+            "retention_aid": "Tdap: 'P' is for Pregnant (Every pregnancy) and Pertussis protection for grandParents (Cocooning).",
+            "explanation": "Core Concept & Mechanism:\nTdap adds pertussis protection to the standard Tetanus/Diphtheria booster. Pertussis is fatal in neonates. Strategies focus on passing antibodies to the fetus and 'cocooning' the infant by vaccinating close contacts.\n\nCorrect Answer Explained:\n- Option A (Pregnant): Tdap is recommended in **EVERY** pregnancy (optimally 27-36 weeks) regardless of prior vaccination history, to maximize passive antibody transfer to the fetus.\n- Option C (Grandmother): Adults >19 who have never received Tdap should get one dose (especially if in contact with infants) to prevent pertussis transmission.\n\nWhy Other Options Are Wrong:\n- Option B (Rusty nail): If the last booster was <5 years ago, no booster is needed for a dirty wound. (If >5 years, he needs a booster, but Td is sufficient unless he's never had Tdap).\n- Option D (Infant): Infants get DTaP (pediatric formulation), not Tdap (adult/adolescent formulation).\n- Option E (Routine): Tdap is usually a one-time adult dose (or every 10 years depending on evolving guidelines), but Td is the standard decennial booster.\n\nNext Steps & Clinical Pearls:\nAlways verify the formulation. DTaP for kids <7. Tdap for older kids and adults.\n\nVariations & Exam Traps:\nExaminers love the pregnancy rule. Even if she had the shot 1 year ago for a previous baby, she gets it again now."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 55-year-old male presents for a routine health check. The USPSTF recommends screening for Colorectal Cancer starting at age 45. If this patient opts for a colonoscopy and the results are normal, when is the next recommended screening?",
+            "options": [
+                "1 year",
+                "3 years",
+                "5 years",
+                "10 years",
+                "No further screening needed"
+            ],
+            "correct_index": 3,
+            "difficulty": 2,
+            "retention_aid": "Colonoscopy: 10 years (Gold standard, long interval). FOBT/FIT: 1 year (Short interval, easy to do). Sigmoidoscopy: 5 years.",
+            "explanation": "Core Concept & Mechanism:\nColorectal cancer (CRC) develops slowly from adenomatous polyps. Screening intervals depend on the sensitivity of the test and the natural history of the disease.\n\nCorrect Answer Explained:\nFor an average-risk individual with a normal colonoscopy, the interval is **10 years**. This is a Grade A/B recommendation for adults aged 45/50 to 75.\n\nWhy Other Options Are Wrong:\n- 1 year: Interval for Fecal Occult Blood Test (FOBT) or FIT.\n- 3 years: Often the surveillance interval for findings of high-risk adenomas (e.g., >1cm, villous, high-grade dysplasia) or after piecemeal resection.\n- 5 years: Interval for Flexible Sigmoidoscopy or CT Colonography.\n- No further screening: Only applicable after age 75 (Grade C/individualized) or 85 (Grade D/stop).\n\nNext Steps & Clinical Pearls:\nIf there is a first-degree relative with CRC diagnosed <60y, start screening at age 40 or 10 years before the index case, whichever is earlier.\n\nVariations & Exam Traps:\nDon't confuse 'screening' (asymptomatic) with 'diagnostic' (symptomatic/bleeding) intervals. Symptomatic patients need immediate investigation."
+        },
+        {
+            "question_type": "emq",
+            "instructions": "Match the clinical scenario to the most appropriate counseling model.",
+            "premises": [
+                "A busy GP asks a patient 'How many drinks do you have a week?' and then states 'As your doctor, I recommend keeping it under 14 units.'",
+                "A doctor explores a patient's resistance to weight loss by asking 'What do you see as the good things about your current diet?'",
+                "A patient is distressed about a divorce. The doctor asks 'How are you handling that?' to support the patient emotionally during a 15-min visit."
+            ],
+            "options": [
+                "FRAMES / 5 A's (Brief Intervention)",
+                "Motivational Interviewing",
+                "BATHE",
+                "CBT",
+                "Stages of Change Assessment"
+            ],
+            "matches": [
+                [
+                    0,
+                    0
+                ],
+                [
+                    1,
+                    1
+                ],
+                [
+                    2,
+                    2
+                ]
+            ],
+            "difficulty": 4,
+            "retention_aid": "FRAMES/5A's = Direct Advice/Brief. MI = Resolving Ambivalence. BATHE = Psychosocial Support/Empathy.",
+            "explanation": "Core Concept & Mechanism:\nDifferent counseling models suit different clinical constraints and patient needs.\n\nCorrect Answer Explained:\n- **Scenario 1 -> FRAMES/5 A's:** This is a Direct/Brief Intervention. The doctor Asks and Advises directly. FRAMES includes 'Advice to change'.\n- **Scenario 2 -> Motivational Interviewing:** The doctor is exploring ambivalence and rolling with resistance rather than dictating. Asking about the 'good things' of a bad habit avoids confrontation and builds rapport.\n- **Scenario 3 -> BATHE:** Background, Affect, Troubles, Handling, Empathy. This is specifically designed for psychosocial support in short primary care visits to validate feelings without needing deep psychotherapy.\n\nWhy Other Options Are Wrong:\n- Stages of Change: This is an *assessment* tool (Precontemplation etc.), not the counseling technique itself.\n- CBT: A structured psychological therapy usually requiring longer sessions, focusing on cognitive distortions.\n\nNext Steps & Clinical Pearls:\nUse BATHE when the medical workup is negative but the patient is clearly suffering. It legitimizes their stress.\n\nVariations & Exam Traps:\nConfusing 'Brief Intervention' (Direct advice) with 'Motivational Interviewing' (Collaborative exploration)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 4-year-old child presents with bilateral pitting edema of the feet, sparse hair, and flaky-paint dermatitis. The mother reports he was weaned recently when a new sibling arrived and has been eating mostly maize gruel. What is the primary biochemical deficit driving this presentation?",
+            "options": [
+                "Total calorie deficiency",
+                "Severe protein deficiency",
+                "Vitamin A deficiency",
+                "Zinc deficiency",
+                "Essential fatty acid deficiency"
+            ],
+            "correct_index": 1,
+            "difficulty": 2,
+            "retention_aid": "Kwashiorkor = Protein difficiency. The 'Pot belly' is fluid (ascites/edema) due to low oncotic pressure (low albumin). Marasmus = Calorie deficiency (muscle wasting).",
+            "explanation": "Core Concept & Mechanism:\nMalnutrition presents as Marasmus (balanced starvation) or Kwashiorkor (protein-energy malnutrition with relative carbohydrate sufficiency). In Kwashiorkor, the lack of dietary protein leads to hypoalbuminemia.\n\nCorrect Answer Explained:\n**Severe protein deficiency** leads to reduced synthesis of visceral proteins (albumin). Low oncotic pressure causes extravasation of fluid (edema/ascites). The 'flaky paint' dermatosis and hair changes are classic for Kwashiorkor.\n\nWhy Other Options Are Wrong:\n- Total calorie deficiency: Causes Marasmus (severe wasting, 'old man' face, *no* edema).\n- Vitamin A deficiency: Causes night blindness/Bitot spots. Can coexist but doesn't cause the edema.\n- Zinc deficiency: Causes acrodermatitis enteropathica (perioral rash), but not generalized edema.\n\nNext Steps & Clinical Pearls:\nTreatment involves distinct phases: Stabilization (treat hypoglycemia, hypothermia, infection, dehydration - *slowly*) -> Rehabilitation. Do not give high protein immediately; the metabolic machinery cannot handle it (Refeeding syndrome risk).\n\nVariations & Exam Traps:\nThe exam may describe a 'sugar baby' – a child who looks plump due to edema but is severely malnourished. Do not mistake the edema for healthy fat."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Which of the following findings in a pregnant patient at 36 weeks gestation is considered PHYSIOLOGICAL and typically requires only reassurance?",
+            "options": [
+                "Blood pressure of 145/95 mmHg",
+                "2+ Proteinuria on dipstick",
+                "Bilateral ankle edema worsening at the end of the day",
+                "Severe, persistent right upper quadrant pain",
+                "Unilateral leg swelling with calf tenderness"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "Edema is normal if dependent (feet) and equal. Warning signs: Unequal (DVT), Facial/Hand (Pre-eclampsia), or associated with HTN.",
+            "explanation": "Core Concept & Mechanism:\nPregnancy induces profound physiological changes: increased blood volume, venous compression by the uterus, and hormonal fluid retention.\n\nCorrect Answer Explained:\n**Bilateral ankle edema** is very common (physiological) due to uterine compression of the IVC and sodium retention. If BP is normal and no other symptoms exist, reassurance, leg elevation, and left lateral decubitus positioning are the management.\n\nWhy Other Options Are Wrong:\n- BP 145/95: Hypertension (>140/90). Pathological.\n- 2+ Proteinuria: Suggests Pre-eclampsia or renal disease.\n- RUQ pain: Suggests liver capsule stretching (HELLP syndrome/Severe Pre-eclampsia) or gallbladder disease.\n- Unilateral swelling: Red flag for Deep Vein Thrombosis (DVT), which is high risk in pregnancy (hypercoagulable state).\n\nNext Steps & Clinical Pearls:\nAlways check BP and urine protein in a pregnant woman with 'just edema' to rule out pre-eclampsia, even if the edema looks physiological.\n\nVariations & Exam Traps:\nShortness of breath can be physiological (progesterone drive/uterus pushing diaphragm) OR pathological (PE/Peripartum Cardiomyopathy). Sudden onset is the red flag."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "You are assessing a patient's risk for cardiovascular disease. According to the screening lecture, which of the following is considered a 'Major Risk Factor' that often necessitates earlier or more frequent screening for dyslipidemia?",
+            "options": [
+                "Hypothyroidism",
+                "Age < 20",
+                "Diabetes Mellitus",
+                "Occasional alcohol use",
+                "Asthma"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "Diabetes is a 'CHD Equivalent'. It carries the same risk as having already had a heart attack.",
+            "explanation": "Core Concept & Mechanism:\nCardiovascular risk stratification determines screening intensity. Major risk factors accelerate atherosclerosis.\n\nCorrect Answer Explained:\n**Diabetes Mellitus** is a major independent risk factor for CVD. Guidelines typically recommend lipid screening in men >35 and women >45, but *earlier* (age 20+) if risk factors like Diabetes, HTN, or strong family history are present.\n\nWhy Other Options Are Wrong:\n- Hypothyroidism: Can cause high lipids (secondary cause), but is not a primary CVD risk factor in the same category as DM.\n- Age < 20: Screening is rarely done unless familial hypercholesterolemia is suspected.\n- Occasional alcohol: Moderate use is not a major risk factor (heavy use is).\n- Asthma: Not a direct major CVD risk factor.\n\nNext Steps & Clinical Pearls:\nIn diabetics, statin therapy is often indicated regardless of LDL level if age >40, for primary prevention.\n\nVariations & Exam Traps:\nHypertension is the other massive risk factor. Smoking is the third. These 'Big 3' drive most screening decisions."
+        },
+        {
+            "question_type": "true_false",
+            "question_text": "Regarding Wilson and Jungner's criteria for screening: A screening program is considered appropriate even if no effective treatment exists for the disease, provided the disease is severe.",
+            "is_correct_true": false,
+            "difficulty": 2,
+            "retention_aid": "Screening Rule #1: Don't find it if you can't fix it. Screening without treatment = Anxiety without benefit.",
+            "explanation": "Core Concept & Mechanism:\nScreening involves testing asymptomatic people. To be ethical and cost-effective, it must meet Wilson and Jungner's criteria.\n\nCorrect Answer Explained:\n**False.** One of the fundamental criteria is that **there should be an accepted treatment for patients with recognized disease**. Screening for an untreatable condition (with no intervention to alter the course) increases anxiety and cost without improving mortality/morbidity.\n\nWhy Other Options Are Wrong:\nOther criteria include: Important health problem, recognizable latent stage, available facilities for diagnosis/treatment, and the test must be acceptable to the population.\n\nNext Steps & Clinical Pearls:\nThis is why we don't screen for certain genetic neurological conditions in the general population unless gene therapy or specific interventions are available.\n\nVariations & Exam Traps:\nExaminers might ask about 'Cost'. The cost of case-finding (including diagnosis and treatment) should be economically balanced in relation to overall medical expenditure."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 52-year-old female presents with a blood pressure of 145/92 mmHg in the clinic. This is her first elevated reading. What is the most appropriate next step to confirm a diagnosis of Hypertension?",
+            "options": [
+                "Start Amlodipine 5mg daily immediately.",
+                "Diagnose HTN and advise salt restriction.",
+                "Perform an ECG and Echo.",
+                "Schedule a follow-up for repeat BP measurement (out-of-office or subsequent visit).",
+                "Refer to a cardiologist."
+            ],
+            "correct_index": 3,
+            "difficulty": 2,
+            "retention_aid": "One reading is an accident; two is a trend. 'White Coat HTN' is common. Confirm before labeling.",
+            "explanation": "Core Concept & Mechanism:\nDiagnosis of chronic hypertension generally requires ≥2 elevated readings on ≥2 separate occasions, unless severe (e.g., >180/110) or end-organ damage is present.\n\nCorrect Answer Explained:\nAmbulatory BP monitoring (ABPM) or **repeat measurements** are required to rule out White Coat Hypertension. You cannot diagnose chronic HTN on a single mild/moderate elevation.\n\nWhy Other Options Are Wrong:\n- Start medication: Premature. Only for Stage 2 (>160/100) or high CV risk/end-organ damage upon presentation.\n- Diagnose HTN: Incorrect without confirmation.\n- ECG/Echo: Part of workup *after* diagnosis is confirmed or if examining for organ damage, but confirmation of BP is priority 1.\n\nNext Steps & Clinical Pearls:\nCorrect cuff size is crucial. Too small = falsely high BP.\n\nVariations & Exam Traps:\nIf the patient presents with Hypertensive Urgency (>180/120) or Emergency (signs of stroke/MI), you DO treat immediately. The '2 readings' rule applies to asymptomatic screening."
+        },
+        {
+            "question_type": "cloze",
+            "question_text": "In the counseling model 'BATHE', the letter 'H' stands for {1} the situation, while in the 'FRAMES' model, the letter 'R' stands for {2}.",
+            "answers": [
+                "Handling",
+                "Responsibility"
+            ],
+            "difficulty": 3,
+            "retention_aid": "BATHE = Handling emotions. FRAMES = Taking Responsibility for change.",
+            "explanation": "Core Concept & Mechanism:\nAcronyms guide the structure of consultation.\n\nCorrect Answer Explained:\n- **BATHE**: Background, Affect, Troubles, **Handling** ('How are you handling that?'), Empathy.\n- **FRAMES**: Feedback, **Responsibility** (Patient's responsibility to change), Advice, Menu, Empathy, Self-efficacy.\n\nWhy Other Options Are Wrong:\n- H in BATHE is not 'History' or 'Help'. It specifically addresses coping mechanisms.\n- R in FRAMES is not 'Referral' or 'Risk'. It emphasizes patient autonomy.\n\nNext Steps & Clinical Pearls:\nBATHE is for *emotive/psychological* support. FRAMES is for *behavioral change* (addiction/lifestyle).\n\nVariations & Exam Traps:\nDon't mix up the 'A's. In 5A's, it's Assess/Assist. In BATHE, it's Affect. In FRAMES, it's Advice."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 12-month-old boy is brought for immunization. He has not received any vaccines since birth. According to the catch-up schedule principles and the case study in the lecture, which combination is appropriate for this visit?",
+            "options": [
+                "BCG only",
+                "Measles only",
+                "DPT1, OPV1, HBV1, and Measles (or MMR)",
+                "DPT1, OPV1, and Vitamin A only",
+                "Wait until he is 15 months to restart the schedule"
+            ],
+            "correct_index": 2,
+            "difficulty": 4,
+            "retention_aid": "Missed opportunities kill. Give everything indicated for the age NOW. Safe to combine.",
+            "explanation": "Core Concept & Mechanism:\nCatch-up immunization requires administering all due vaccines simultaneously (at different sites) or with minimal spacing, provided there are no specific contraindications (like live vaccines typically separated by 4 weeks if not given same day).\n\nCorrect Answer Explained:\nAt 12 months, the child is overdue for the primary series (DPT/OPV/HBV usually given at 2, 4, 6m) AND is now eligible for the Measles/MMR (given at 9m or 12-15m depending on the country schedule). Giving **DPT1, OPV1, HBV1, and Measles** simultaneously is safe and necessary to close the immunity gap.\n\nWhy Other Options Are Wrong:\n- BCG/Measles only: Leaves the child vulnerable to diphtheria, pertussis, tetanus, and polio.\n- Vitamin A: Good to give, but not a substitute for vaccines.\n- Wait: 'Missed opportunities' are a major cause of vaccine-preventable outbreaks. Never defer valid vaccines.\n\nNext Steps & Clinical Pearls:\nSchedule the next dose in 4 weeks (min interval for DPT/OPV).\n\nVariations & Exam Traps:\nIf the child was >5 years, DPT (whole cell pertussis) might be switched to Tdap or DT depending on local policy, as whole-cell pertussis has higher side effects in older kids."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 45-year-old female presents with fatigue. A screening 'Low Dose CT' (LDCT) of the chest is suggested by a resident. Why is this screening test likely inappropriate for this patient?",
+            "options": [
+                "LDCT is not sensitive enough for lung cancer.",
+                "She does not meet the age criteria (50-80 years).",
+                "Screening is only for men.",
+                "Chest X-ray is the preferred screening modality.",
+                "LDCT is Grade D (Harm outweighs benefit) for everyone."
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "Lung Screen: 50-80, 20 pack-years. X-ray is useless (Grade D).",
+            "explanation": "Core Concept & Mechanism:\nLung cancer screening has very specific eligibility to balance radiation/false positives against mortality benefit.\n\nCorrect Answer Explained:\nUSPSTF recommends LDCT only for adults aged **50 to 80 years** who have a **20 pack-year** smoking history and currently smoke (or quit <15 years ago). This patient is 45, making her too young.\n\nWhy Other Options Are Wrong:\n- Sensitivity: LDCT is highly sensitive (high false positive rate is actually the problem).\n- Gender: Screening applies to women and men.\n- CXR: Chest X-ray screening is NOT recommended (Grade D) as it does not reduce mortality.\n- Grade D: LDCT is Grade B for the correct high-risk population.\n\nNext Steps & Clinical Pearls:\nCalculate pack-years: (Packs per day) x (Years smoked). 1 pack = 20 cigarettes.\n\nVariations & Exam Traps:\nA patient who quit 20 years ago. They are ineligible. (Must be quit <15 years)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Which of the following clinical features is typically associated with MARASMUS rather than Kwashiorkor?",
+            "options": [
+                "Hepatomegaly (Fatty liver)",
+                "Bilateral pitting edema",
+                "Severe wasting of subcutaneous fat and muscle ('Old man face')",
+                "Psychomotor changes (apathy/irritability)",
+                "Flaky paint dermatitis"
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "Marasmus = Muscle wasting (M&M). Kwashiorkor = Fluid (Edema/Liver).",
+            "explanation": "Core Concept & Mechanism:\nMarasmus is an adaptive response to starvation (energy and protein deficiency). The body utilizes all fat and muscle stores to survive.\n\nCorrect Answer Explained:\n**Severe wasting** and the 'old man face' (loss of buccal fat pads) are hallmark signs of Marasmus. The weight-for-height is typically < -3 SD.\n\nWhy Other Options Are Wrong:\n- Hepatomegaly: Typical of Kwashiorkor (fatty liver due to lack of apoproteins for fat transport).\n- Edema: The defining feature of Kwashiorkor.\n- Psychomotor/Dermatitis: More severe/common in Kwashiorkor (though Marasmic children are hungry/alert, Kwashiorkor children are often miserable/apathetic).\n\nNext Steps & Clinical Pearls:\nMarasmus = 'Skin and Bones'. Kwashiorkor = 'Sugar Baby' (swollen). Marasmic-Kwashiorkor = Wasted upper body + Edematous lower body (worst prognosis).\n\nVariations & Exam Traps:\nAppetite. Marasmic children usually have a good appetite (hungry). Kwashiorkor children have poor appetite (anorexic)."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "Regarding hypertension in pregnancy, which of the following statements is TRUE?",
+            "options": [
+                "Gestational hypertension includes proteinuria >300mg/24h.",
+                "Chronic hypertension is defined as BP >140/90 developing after 20 weeks gestation.",
+                "Eclampsia is defined as the onset of seizures in a woman with pre-eclampsia.",
+                "Delivery is indicated only after 40 weeks in severe pre-eclampsia.",
+                "Diuretics are the first-line treatment for gestational hypertension."
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "Pre-eclampsia = HTN + Protein. Gestational HTN = HTN only. Chronic HTN = Before 20 weeks. Eclampsia = Seizures.",
+            "explanation": "Core Concept & Mechanism:\nClassification of hypertensive disorders in pregnancy is based on onset timing (<20 vs >20 weeks) and end-organ features (proteinuria/seizures).\n\nCorrect Answer Explained:\n**Eclampsia** is the occurrence of generalized tonic-clonic seizures in a patient with pre-eclampsia, not attributable to other causes (like epilepsy).\n\nWhy Other Options Are Wrong:\n- Gestational HTN: By definition, has NO proteinuria. (If protein is present, it's pre-eclampsia).\n- Chronic HTN: Defined as onset *before* pregnancy or *before* 20 weeks gestation.\n- Delivery: In severe pre-eclampsia, delivery is usually indicated at 34 weeks (or earlier if unstable). Waiting to 40 weeks is dangerous.\n- Diuretics: Generally avoided in pregnancy as they reduce plasma volume (which is already contracted in pre-eclampsia), risking placental perfusion.\n\nNext Steps & Clinical Pearls:\nNew onset proteinuria in a chronic hypertensive patient after 20 weeks = 'Superimposed Pre-eclampsia'.\n\nVariations & Exam Traps:\nMagnesium sulfate is for *seizure prophylaxis*, not primarily for lowering blood pressure. Hydralazine/Labetalol are for BP."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A doctor uses 'Motivational Interviewing' (MI) to counsel a patient about alcohol cessation. When the patient says, 'I know drinking is bad for my liver, but it's the only way I can relax after work,' the doctor responds: 'You are worried about your health, yet you feel alcohol is your main stress reliever.' Which MI technique is the doctor using?",
+            "options": [
+                "Open-ended questioning",
+                "Developing Discrepancy (Double-sided Reflection)",
+                "Expressing Empathy",
+                "Direct Persuasion",
+                "Rolling with Resistance"
+            ],
+            "correct_index": 1,
+            "difficulty": 4,
+            "retention_aid": "Developing Discrepancy: Holding up a mirror to the patient's 'But'. 'You want X, but you do Y'. This creates internal conflict which drives change.",
+            "explanation": "Core Concept & Mechanism:\nMotivational Interviewing relies on 'OARS' (Open questions, Affirmations, Reflections, Summaries). Developing discrepancy highlights the gap between the patient's goals/values and their current behavior.\n\nCorrect Answer Explained:\n**Developing Discrepancy** (specifically a Double-sided Reflection) captures both sides of the patient's ambivalence ('You want health' vs 'You need alcohol'). This forces the patient to confront the contradiction without the doctor arguing.\n\nWhy Other Options Are Wrong:\n- Open-ended question: Would be 'How does drinking affect your work?'.\n- Direct Persuasion: 'You must stop drinking.' (Contraindicated in MI).\n- Rolling with Resistance: Avoiding argument, but the specific technique here is highlighting the contrast.\n\nNext Steps & Clinical Pearls:\nThe goal is to have the *patient* make the argument for change ('Change Talk'), not the doctor.\n\nVariations & Exam Traps:\nRecognizing the 'Righting Reflex' (the urge to fix the patient's problem) - this is what MI tries to suppress."
         }
     ]
 }

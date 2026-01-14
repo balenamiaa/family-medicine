@@ -8,8 +8,11 @@ import {
   ProgressRing,
   ModeSwitcher,
   QuestionNavigator,
+  SoundToggle,
 } from "@/components/ui";
 import { useQuiz } from "@/hooks/useQuiz";
+import { startSession, recordQuestionAnswered } from "@/lib/stats";
+import { playSoundIfEnabled } from "@/lib/sounds";
 import { QuestionBank, QuestionType, Difficulty, QUESTION_TYPE_LABELS, DIFFICULTY_LABELS } from "@/types";
 import { cn, formatPercent, shuffle } from "@/lib/utils";
 import questionsData from "@/questions.json";
@@ -67,6 +70,7 @@ export default function ExamPage() {
   const {
     currentQuestion,
     currentIndex,
+    currentQuestionIndex,
     totalQuestions,
     answeredCount,
     correctCount,
@@ -85,12 +89,20 @@ export default function ExamPage() {
     shuffleQuestions: false,
   });
 
+  // Track answers in stats
+  const handleAnswer = (correct: boolean, answer: Parameters<typeof answerQuestion>[1]) => {
+    answerQuestion(correct, answer);
+    recordQuestionAnswered(correct, 0);
+  };
+
   // Start exam
   const startExam = () => {
     const indices = generateExamQuestions();
     setSelectedIndices(indices);
     setTimeRemaining(config.timeLimit * 60);
     setExamState("running");
+    startSession();
+    playSoundIfEnabled("click");
   };
 
   // Timer effect
@@ -101,6 +113,7 @@ export default function ExamPage() {
       setTimeRemaining((prev) => {
         if (prev <= 1) {
           setExamState("finished");
+          playSoundIfEnabled("complete");
           return 0;
         }
         return prev - 1;
@@ -120,6 +133,7 @@ export default function ExamPage() {
   // End exam early
   const finishExam = () => {
     setExamState("finished");
+    playSoundIfEnabled("complete");
   };
 
   // Reset for new exam
@@ -193,8 +207,11 @@ export default function ExamPage() {
             {/* Mode Switcher (only in setup) */}
             {examState === "setup" && <ModeSwitcher />}
 
-            {/* Theme toggle */}
-            <ThemeToggle />
+            {/* Controls */}
+            <div className="flex items-center gap-2">
+              <SoundToggle />
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </header>
@@ -359,14 +376,16 @@ export default function ExamPage() {
                   key={currentIndex}
                   question={currentQuestion}
                   questionNumber={currentIndex + 1}
+                  questionIndex={currentQuestionIndex}
                   totalQuestions={totalQuestions}
                   isAnswered={isAnswered}
                   isCorrect={isCorrect}
-                  onAnswer={answerQuestion}
+                  onAnswer={handleAnswer}
                   onNext={nextQuestion}
                   onPrevious={previousQuestion}
                   canGoNext={currentIndex < totalQuestions - 1}
                   canGoPrevious={currentIndex > 0}
+                  showBookmark={false}
                 />
               )}
 

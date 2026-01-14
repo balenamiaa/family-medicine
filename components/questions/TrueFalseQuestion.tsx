@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { TrueFalseQuestion as TFQuestion } from "@/types";
+import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 import { cn } from "@/lib/utils";
 
 interface TrueFalseQuestionProps {
@@ -13,16 +14,29 @@ interface TrueFalseQuestionProps {
 export function TrueFalseQuestion({ question, onAnswer, answered }: TrueFalseQuestionProps) {
   const [selected, setSelected] = useState<boolean | null>(null);
 
-  const handleSelect = (value: boolean) => {
+  const handleSelect = useCallback((value: boolean) => {
     if (answered) return;
     setSelected(value);
-  };
+  }, [answered]);
 
-  const handleSubmit = () => {
+  const handleSelectByIndex = useCallback((index: number) => {
+    handleSelect(index === 0); // 0 = True, 1 = False
+  }, [handleSelect]);
+
+  const handleSubmit = useCallback(() => {
     if (selected === null) return;
     const isCorrect = selected === question.is_correct_true;
     onAnswer(isCorrect, selected);
-  };
+  }, [selected, question.is_correct_true, onAnswer]);
+
+  // Keyboard shortcuts (T/F handled, 1/2 for True/False)
+  useKeyboardShortcuts({
+    onSelectOption: handleSelectByIndex,
+    onSubmit: handleSubmit,
+    optionCount: 2,
+    isAnswered: answered,
+    canSubmit: selected !== null,
+  });
 
   const getButtonState = (value: boolean): "default" | "selected" | "correct" | "incorrect" => {
     if (!answered) {
@@ -151,6 +165,7 @@ export function TrueFalseQuestion({ question, onAnswer, answered }: TrueFalseQue
           )}
         >
           Check Answer
+          <span className="ml-2 text-xs opacity-70 hidden sm:inline">(Enter)</span>
         </button>
       )}
     </div>

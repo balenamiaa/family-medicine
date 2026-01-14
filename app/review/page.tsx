@@ -7,7 +7,9 @@ import {
   ThemeToggle,
   ProgressRing,
   ModeSwitcher,
+  SoundToggle,
 } from "@/components/ui";
+import { startSession, recordQuestionAnswered } from "@/lib/stats";
 import { useQuiz } from "@/hooks/useQuiz";
 import {
   getStoredData,
@@ -50,6 +52,7 @@ export default function ReviewPage() {
   const {
     currentQuestion,
     currentIndex,
+    currentQuestionIndex,
     totalQuestions,
     answeredCount,
     correctCount,
@@ -65,9 +68,15 @@ export default function ReviewPage() {
     shuffleQuestions: true,
   });
 
+  // Start session tracking
+  useEffect(() => {
+    startSession();
+  }, []);
+
   // Refresh data after answering
   const handleAnswer = (correct: boolean, answer: any) => {
     answerQuestion(correct, answer);
+    recordQuestionAnswered(correct, 0); // Streak not tracked in review mode
     // Refresh SR data after a short delay
     setTimeout(() => {
       setSrData(getStoredData());
@@ -121,8 +130,11 @@ export default function ReviewPage() {
             {/* Mode Switcher */}
             <ModeSwitcher />
 
-            {/* Theme toggle */}
-            <ThemeToggle />
+            {/* Controls */}
+            <div className="flex items-center gap-2">
+              <SoundToggle />
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </header>
@@ -203,6 +215,7 @@ export default function ReviewPage() {
                     key={currentIndex}
                     question={currentQuestion}
                     questionNumber={currentIndex + 1}
+                    questionIndex={currentQuestionIndex}
                     totalQuestions={totalQuestions}
                     isAnswered={isAnswered}
                     isCorrect={isCorrect}

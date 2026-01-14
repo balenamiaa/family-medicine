@@ -1,5 +1,6 @@
 "use client";
 
+import { useCallback, useEffect } from "react";
 import {
   Question,
   isMCQSingle,
@@ -14,6 +15,7 @@ import {
   QuestionTypeBadge,
   RetentionAid,
   ExplanationPanel,
+  BookmarkButton,
 } from "./ui";
 import {
   MCQQuestion,
@@ -21,11 +23,15 @@ import {
   EMQQuestion,
   ClozeQuestion,
 } from "./questions";
+import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
+import { playSoundIfEnabled } from "@/lib/sounds";
+import { toggleBookmark } from "@/lib/bookmarks";
 import { cn } from "@/lib/utils";
 
 interface QuestionCardProps {
   question: Question;
   questionNumber: number;
+  questionIndex: number; // Original index in question bank
   totalQuestions: number;
   isAnswered: boolean;
   isCorrect: boolean | null;
@@ -34,11 +40,13 @@ interface QuestionCardProps {
   onPrevious: () => void;
   canGoNext: boolean;
   canGoPrevious: boolean;
+  showBookmark?: boolean;
 }
 
 export function QuestionCard({
   question,
   questionNumber,
+  questionIndex,
   totalQuestions,
   isAnswered,
   isCorrect,
@@ -47,13 +55,43 @@ export function QuestionCard({
   onPrevious,
   canGoNext,
   canGoPrevious,
+  showBookmark = true,
 }: QuestionCardProps) {
+  // Play sound on answer
+  useEffect(() => {
+    if (isAnswered && isCorrect !== null) {
+      playSoundIfEnabled(isCorrect ? "correct" : "incorrect");
+    }
+  }, [isAnswered, isCorrect]);
+
+  // Wrap onAnswer to add sound
+  const handleAnswer = useCallback((correct: boolean, answer: UserAnswer) => {
+    onAnswer(correct, answer);
+  }, [onAnswer]);
+
+  // Handle bookmark toggle
+  const handleToggleBookmark = useCallback(() => {
+    if (questionIndex >= 0) {
+      toggleBookmark(questionIndex);
+    }
+  }, [questionIndex]);
+
+  // Keyboard shortcuts for navigation
+  useKeyboardShortcuts({
+    onNext,
+    onPrevious,
+    onToggleBookmark: handleToggleBookmark,
+    isAnswered,
+    canGoNext,
+    canGoPrevious,
+  });
+
   const renderQuestion = () => {
     if (isMCQSingle(question) || isMCQMulti(question)) {
       return (
         <MCQQuestion
           question={question}
-          onAnswer={onAnswer}
+          onAnswer={handleAnswer}
           answered={isAnswered}
         />
       );
@@ -63,7 +101,7 @@ export function QuestionCard({
       return (
         <TrueFalseQuestion
           question={question}
-          onAnswer={onAnswer}
+          onAnswer={handleAnswer}
           answered={isAnswered}
         />
       );
@@ -73,7 +111,7 @@ export function QuestionCard({
       return (
         <EMQQuestion
           question={question}
-          onAnswer={onAnswer}
+          onAnswer={handleAnswer}
           answered={isAnswered}
         />
       );
@@ -83,7 +121,7 @@ export function QuestionCard({
       return (
         <ClozeQuestion
           question={question}
-          onAnswer={onAnswer}
+          onAnswer={handleAnswer}
           answered={isAnswered}
         />
       );
@@ -108,10 +146,13 @@ export function QuestionCard({
             </span>
           </div>
 
-          {/* Badges */}
+          {/* Badges and bookmark */}
           <div className="flex items-center gap-2">
             <QuestionTypeBadge type={question.question_type} />
             <DifficultyBadge difficulty={question.difficulty} size="sm" />
+            {showBookmark && questionIndex >= 0 && (
+              <BookmarkButton questionIndex={questionIndex} size="sm" />
+            )}
           </div>
         </div>
 
@@ -146,10 +187,14 @@ export function QuestionCard({
                 <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
               </svg>
               Previous
+              <span className="ml-1 text-xs opacity-60 hidden sm:inline">(←)</span>
             </button>
 
             <button
-              onClick={onNext}
+              onClick={() => {
+                playSoundIfEnabled("navigate");
+                onNext();
+              }}
               disabled={!canGoNext}
               className={cn(
                 "btn btn-primary px-6",
@@ -158,9 +203,12 @@ export function QuestionCard({
             >
               {canGoNext ? "Next Question" : "Finished!"}
               {canGoNext && (
-                <svg className="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                </svg>
+                <>
+                  <svg className="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                  <span className="ml-1 text-xs opacity-60 hidden sm:inline">(→)</span>
+                </>
               )}
             </button>
           </div>

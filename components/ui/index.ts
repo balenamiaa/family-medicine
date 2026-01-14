@@ -7,3 +7,7 @@ export { RetentionAid } from "./RetentionAid";
 export { ExplanationPanel } from "./ExplanationPanel";
 export { QuestionNavigator } from "./QuestionNavigator";
 export { ModeSwitcher } from "./ModeSwitcher";
+export { SoundToggle } from "./SoundToggle";
+export { BookmarkButton } from "./BookmarkButton";
+export { SearchInput } from "./SearchInput";
+export { KeyboardHints } from "./KeyboardHints";

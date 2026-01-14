@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { QuestionCard } from "@/components/QuestionCard";
 import {
   ThemeToggle,
@@ -8,9 +8,13 @@ import {
   StreakCounter,
   QuestionNavigator,
   ModeSwitcher,
+  SoundToggle,
+  SearchInput,
+  KeyboardHints,
 } from "@/components/ui";
 import { useQuiz } from "@/hooks/useQuiz";
-import { QuestionBank, QuestionType, Difficulty, QUESTION_TYPE_LABELS, DIFFICULTY_LABELS } from "@/types";
+import { startSession, recordQuestionAnswered } from "@/lib/stats";
+import { QuestionBank, QuestionType, Difficulty, QUESTION_TYPE_LABELS, DIFFICULTY_LABELS, Question } from "@/types";
 import { cn, formatPercent } from "@/lib/utils";
 import questionsData from "@/questions.json";
 
@@ -19,17 +23,62 @@ const questions = (questionsData as QuestionBank).questions;
 const QUESTION_TYPES: QuestionType[] = ["mcq_single", "mcq_multi", "true_false", "emq", "cloze"];
 const DIFFICULTIES: Difficulty[] = [1, 2, 3, 4, 5];
 
+// Search function to filter questions by keyword
+function searchQuestions(questions: Question[], query: string): number[] {
+  if (!query.trim()) return [];
+
+  const lowerQuery = query.toLowerCase();
+  const indices: number[] = [];
+
+  questions.forEach((q, index) => {
+    let searchText = "";
+
+    // Get searchable text based on question type
+    if ("question_text" in q) {
+      searchText += q.question_text;
+    }
+    if ("instructions" in q) {
+      searchText += " " + q.instructions;
+    }
+    if ("options" in q) {
+      searchText += " " + q.options.join(" ");
+    }
+    if ("premises" in q) {
+      searchText += " " + q.premises.join(" ");
+    }
+    searchText += " " + q.explanation + " " + q.retention_aid;
+
+    if (searchText.toLowerCase().includes(lowerQuery)) {
+      indices.push(index);
+    }
+  });
+
+  return indices;
+}
+
 export default function PracticePage() {
   // Filter state
   const [filterTypes, setFilterTypes] = useState<QuestionType[]>([]);
   const [filterDifficulty, setFilterDifficulty] = useState<Difficulty[]>([]);
   const [showFilters, setShowFilters] = useState(false);
   const [isShuffled, setIsShuffled] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Search results
+  const searchIndices = useMemo(() => {
+    return searchQuestions(questions, searchQuery);
+  }, [searchQuery]);
+
+  // Start session tracking on mount
+  useEffect(() => {
+    startSession();
+  }, []);
 
   // Quiz hook
   const {
     currentQuestion,
     currentIndex,
+    currentQuestionIndex,
     totalQuestions,
     answeredCount,
     correctCount,
@@ -49,7 +98,14 @@ export default function PracticePage() {
     shuffleQuestions: isShuffled,
     filterTypes: filterTypes.length > 0 ? filterTypes : undefined,
     filterDifficulty: filterDifficulty.length > 0 ? filterDifficulty : undefined,
+    questionIndices: searchQuery.trim() ? searchIndices : undefined,
   });
+
+  // Track answered questions in stats
+  const handleAnswer = (correct: boolean, answer: Parameters<typeof answerQuestion>[1]) => {
+    answerQuestion(correct, answer);
+    recordQuestionAnswered(correct, correct ? streak + 1 : 0);
+  };
 
   // Toggle filter
   const toggleTypeFilter = (type: QuestionType) => {
@@ -101,8 +157,11 @@ export default function PracticePage() {
             {/* Mode Switcher */}
             <ModeSwitcher />
 
-            {/* Theme toggle */}
-            <ThemeToggle />
+            {/* Controls */}
+            <div className="flex items-center gap-2">
+              <SoundToggle />
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </header>
@@ -111,6 +170,16 @@ export default function PracticePage() {
         <div className="grid gap-8 lg:grid-cols-[1fr,320px]">
           {/* Main content */}
           <div className="space-y-6">
+            {/* Keyboard hints */}
+            <KeyboardHints />
+
+            {/* Search */}
+            <SearchInput
+              value={searchQuery}
+              onChange={setSearchQuery}
+              placeholder="Search questions by keyword..."
+            />
+
             {/* Filter toggle */}
             <div className="flex items-center justify-between">
               <button
@@ -223,10 +292,11 @@ export default function PracticePage() {
                 key={currentIndex}
                 question={currentQuestion}
                 questionNumber={currentIndex + 1}
+                questionIndex={currentQuestionIndex}
                 totalQuestions={totalQuestions}
                 isAnswered={isAnswered}
                 isCorrect={isCorrect}
-                onAnswer={answerQuestion}
+                onAnswer={handleAnswer}
                 onNext={nextQuestion}
                 onPrevious={previousQuestion}
                 canGoNext={currentIndex < totalQuestions - 1}
