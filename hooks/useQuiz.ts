@@ -12,6 +12,7 @@ import { shuffle, getStoredValue, setStoredValue } from "@/lib/utils";
 import { recordAnswer } from "@/lib/spacedRepetition";
 
 const STORAGE_KEY = "medcram_progress";
+const PRACTICE_STORAGE_KEY = "medcram_practice_progress";
 
 interface UseQuizOptions {
   questions: Question[];
@@ -19,6 +20,7 @@ interface UseQuizOptions {
   filterTypes?: QuestionType[];
   filterDifficulty?: Difficulty[];
   questionIndices?: number[]; // For review mode - specific question indices to use
+  persistKey?: string; // Custom storage key for different modes
 }
 
 interface UseQuizReturn {
@@ -52,12 +54,24 @@ interface UseQuizReturn {
   shuffleRemaining: () => void;
 }
 
+function createInitialProgress(): SessionProgress {
+  return {
+    currentIndex: 0,
+    answered: 0,
+    correct: 0,
+    streak: 0,
+    maxStreak: 0,
+    questionStates: {},
+  };
+}
+
 export function useQuiz({
   questions: allQuestions,
   shuffleQuestions = false,
   filterTypes,
   filterDifficulty,
   questionIndices,
+  persistKey = PRACTICE_STORAGE_KEY,
 }: UseQuizOptions): UseQuizReturn {
   // Filter questions based on type and difficulty, or use provided indices
   const filteredQuestionData = useMemo(() => {
@@ -81,10 +95,38 @@ export function useQuiz({
     return result;
   }, [allQuestions, filterTypes, filterDifficulty, questionIndices]);
 
+  // Generate a cache key based on filters to separate progress for different filter combinations
+  const filterCacheKey = useMemo(() => {
+    if (questionIndices && questionIndices.length > 0) {
+      return `${persistKey}_review`;
+    }
+    const typeKey = filterTypes?.sort().join(",") || "all";
+    const diffKey = filterDifficulty?.sort().join(",") || "all";
+    return `${persistKey}_${typeKey}_${diffKey}`;
+  }, [persistKey, filterTypes, filterDifficulty, questionIndices]);
+
   // Initialize question order (indices into filteredQuestionData)
   const [questionOrder, setQuestionOrder] = useState<number[]>(() => {
     const order = filteredQuestionData.map((_, i) => i);
     return shuffleQuestions ? shuffle(order) : order;
+  });
+
+  // Session progress state - load from localStorage
+  const [progress, setProgress] = useState<SessionProgress>(() => {
+    if (typeof window === "undefined") return createInitialProgress();
+
+    const stored = getStoredValue<SessionProgress | null>(filterCacheKey, null);
+    if (stored) {
+      // Validate that stored progress is compatible with current question set
+      const maxStoredIndex = Math.max(
+        stored.currentIndex,
+        ...Object.keys(stored.questionStates).map(Number)
+      );
+      if (maxStoredIndex < filteredQuestionData.length) {
+        return stored;
+      }
+    }
+    return createInitialProgress();
   });
 
   // Re-shuffle when filteredQuestionData changes
@@ -93,22 +135,37 @@ export function useQuiz({
     setQuestionOrder(shuffleQuestions ? shuffle(order) : order);
   }, [filteredQuestionData, shuffleQuestions]);
 
-  // Session progress state
-  const [progress, setProgress] = useState<SessionProgress>({
-    currentIndex: 0,
-    answered: 0,
-    correct: 0,
-    streak: 0,
-    maxStreak: 0,
-    questionStates: {},
-  });
+  // Load progress when filter cache key changes
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const stored = getStoredValue<SessionProgress | null>(filterCacheKey, null);
+    if (stored) {
+      const maxStoredIndex = Math.max(
+        stored.currentIndex,
+        ...Object.keys(stored.questionStates).map(Number).filter(n => !isNaN(n)),
+        0
+      );
+      if (maxStoredIndex < filteredQuestionData.length) {
+        setProgress(stored);
+        return;
+      }
+    }
+    setProgress(createInitialProgress());
+  }, [filterCacheKey, filteredQuestionData.length]);
+
+  // Save progress to localStorage whenever it changes
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    setStoredValue(filterCacheKey, progress);
+  }, [progress, filterCacheKey]);
 
   // Computed sets for navigation
   const answeredIndices = useMemo(() => {
     return new Set(
       Object.keys(progress.questionStates)
         .map(Number)
-        .filter((i) => progress.questionStates[i]?.answered)
+        .filter((i) => !isNaN(i) && progress.questionStates[i]?.answered)
     );
   }, [progress.questionStates]);
 
@@ -116,7 +173,7 @@ export function useQuiz({
     return new Set(
       Object.keys(progress.questionStates)
         .map(Number)
-        .filter((i) => progress.questionStates[i]?.correct === true)
+        .filter((i) => !isNaN(i) && progress.questionStates[i]?.correct === true)
     );
   }, [progress.questionStates]);
 
@@ -184,15 +241,14 @@ export function useQuiz({
       : filteredQuestionData.map((_, i) => i);
 
     setQuestionOrder(newOrder);
-    setProgress({
-      currentIndex: 0,
-      answered: 0,
-      correct: 0,
-      streak: 0,
-      maxStreak: 0,
-      questionStates: {},
-    });
-  }, [filteredQuestionData, shuffleQuestions]);
+    const newProgress = createInitialProgress();
+    setProgress(newProgress);
+
+    // Clear from localStorage
+    if (typeof window !== "undefined") {
+      setStoredValue(filterCacheKey, newProgress);
+    }
+  }, [filteredQuestionData, shuffleQuestions, filterCacheKey]);
 
   // Shuffle remaining unanswered questions
   const shuffleRemaining = useCallback(() => {
