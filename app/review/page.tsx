@@ -27,21 +27,28 @@ const questions = (questionsData as QuestionBank).questions;
 export default function ReviewPage() {
   const [srData, setSrData] = useState<SpacedRepetitionData | null>(null);
   const [showConfirmClear, setShowConfirmClear] = useState(false);
+  // Lock the review indices at session start to prevent question changes mid-session
+  const [sessionIndices, setSessionIndices] = useState<number[] | null>(null);
 
   // Load spaced repetition data
   useEffect(() => {
-    setSrData(getStoredData());
+    const data = getStoredData();
+    setSrData(data);
+    // Only set session indices once at mount
+    if (sessionIndices === null) {
+      const cards = getCardsNeedingReview(data);
+      setSessionIndices(cards.map((card) => card.questionIndex));
+    }
   }, []);
 
-  // Get questions that need review
+  // Get questions that need review (for sidebar display only)
   const reviewCards = useMemo(() => {
     if (!srData) return [];
     return getCardsNeedingReview(srData);
   }, [srData]);
 
-  const reviewQuestionIndices = useMemo(() => {
-    return reviewCards.map((card) => card.questionIndex);
-  }, [reviewCards]);
+  // Use locked session indices for the quiz, not the dynamic reviewCards
+  const reviewQuestionIndices = sessionIndices ?? [];
 
   const stats = useMemo(() => {
     if (!srData) return null;
@@ -86,7 +93,17 @@ export default function ReviewPage() {
   const handleClearData = () => {
     clearAllData();
     setSrData({ cards: {}, reviewHistory: [] });
+    setSessionIndices([]);
     setShowConfirmClear(false);
+    resetQuiz();
+  };
+
+  // Start a new review session with fresh indices
+  const startNewSession = () => {
+    const data = getStoredData();
+    setSrData(data);
+    const cards = getCardsNeedingReview(data);
+    setSessionIndices(cards.map((card) => card.questionIndex));
     resetQuiz();
   };
 
