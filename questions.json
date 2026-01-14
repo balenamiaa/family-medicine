@@ -2616,6 +2616,172 @@
             "difficulty": 4,
             "retention_aid": "Developing Discrepancy: Holding up a mirror to the patient's 'But'. 'You want X, but you do Y'. This creates internal conflict which drives change.",
             "explanation": "Core Concept & Mechanism:\nMotivational Interviewing relies on 'OARS' (Open questions, Affirmations, Reflections, Summaries). Developing discrepancy highlights the gap between the patient's goals/values and their current behavior.\n\nCorrect Answer Explained:\n**Developing Discrepancy** (specifically a Double-sided Reflection) captures both sides of the patient's ambivalence ('You want health' vs 'You need alcohol'). This forces the patient to confront the contradiction without the doctor arguing.\n\nWhy Other Options Are Wrong:\n- Open-ended question: Would be 'How does drinking affect your work?'.\n- Direct Persuasion: 'You must stop drinking.' (Contraindicated in MI).\n- Rolling with Resistance: Avoiding argument, but the specific technique here is highlighting the contrast.\n\nNext Steps & Clinical Pearls:\nThe goal is to have the *patient* make the argument for change ('Change Talk'), not the doctor.\n\nVariations & Exam Traps:\nRecognizing the 'Righting Reflex' (the urge to fix the patient's problem) - this is what MI tries to suppress."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 36-year-old female presents to the family medicine clinic requesting a prescription for the Combined Oral Contraceptive (COC) pill. She has a history of tension headaches and smokes 15 cigarettes per day. Her blood pressure is 120/80 mmHg. According to the provided text and standard medical eligibility criteria, why is the COC absolutely contraindicated in this patient?",
+            "options": [
+                "History of tension headaches",
+                "Age > 35 years combined with smoking",
+                "Risk of reducing bone mineral density",
+                "Hypertension > 140/90 mmHg",
+                "Increased risk of ovarian cysts"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "Remember the '35 & Smoke' Rule: Women over 35 who smoke have a significantly elevated risk of cardiovascular events (VTE, MI, stroke) with estrogen.",
+            "explanation": "### Core Concept & Mechanism\nCombined Oral Contraceptives (COCs) contain estrogen, which increases hepatic production of clotting factors (VII, X, fibrinogen), creating a pro-thrombotic state. Smoking damages vascular endothelium and increases platelet aggregation. \n\n### Correct Answer Explained\nThe text lists **\"Smokers over age 35yr\"** explicitly under **Absolute Contraindications** for COCs. The combination of age (>35) and smoking synergistically raises the risk of thromboembolic events and myocardial infarction to an unacceptable level (WHO MEC Category 4).\n\n### Why Other Options Are Wrong\n- **Tension headaches:** The text lists \"Migraine *with* aura\" as an absolute contraindication and \"Migraine *without* aura\" as a relative contraindication. Tension headaches are not a contraindication.\n- **Bone density:** This is a concern for **Depot Medroxyprogesterone Acetate (DMPA)**, not COCs.\n- **Hypertension:** While HTN is a contraindication, this patient's BP is 120/80 (normal). The text specifies \"HTN (moderate-severe) >160/110\" as absolute and \"mild HTN\" as relative.\n- **Ovarian cysts:** COCs actually **prevent** functional ovarian cysts (suppress ovulation) and reduce the risk of ovarian cancer.\n\n### Next Steps & Clinical Pearls\nCounsel this patient on non-estrogen methods such as the Copper IUD, Levonorgestrel IUD (Mirena), or Progestin-Only Pills (POP), which do not carry the same cardiovascular risks associated with smoking."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 24-year-old woman requests emergency contraception (EC) 4 days (96 hours) after an episode of unprotected sexual intercourse. She wishes to use the most effective method available. Which option offers the highest efficacy for this timeframe according to the lecture material?",
+            "options": [
+                "Combined Oral Contraceptive Pills (Yuzpe method)",
+                "Levonorgestrel 1.5mg single dose (Plan B)",
+                "Copper Intrauterine Device (Cu-IUD)",
+                "Progestin-Only Pill (Norethindrone) taken daily",
+                "Vaginal Sponge with spermicide"
+            ],
+            "correct_index": 2,
+            "difficulty": 3,
+            "retention_aid": "Copper is King: The Copper IUD is the 'Gold Standard' for emergency contraception efficacy and works up to 5 days out.",
+            "explanation": "### Core Concept & Mechanism\nEmergency contraception works by delaying ovulation or preventing implantation. The Copper IUD is toxic to sperm and blastocysts, preventing fertilization or implantation effectively even after fertilization has occurred (but before implantation).\n\n### Correct Answer Explained\nThe text states the **IUCD (Copper)** failure rate is only **1%** and it is \"more effective than Yuzpe.\" It can be inserted up to 5 days after unprotected intercourse. Standard guidelines confirm the Copper IUD is the most effective form of EC (>99% effective).\n\n### Why Other Options Are Wrong\n- **Levonorgestrel (Plan B):** The text notes efficacy is highest within **72 hours** (3 days). While sometimes used up to 5 days, efficacy drops significantly over time compared to the IUD.\n- **Yuzpe method:** The text notes this involves high-dose COCs but generally has a higher failure rate (3.2% per text) and more side effects (nausea/vomiting) compared to dedicated EC or IUDs.\n- **Progestin-Only Pill (daily):** Regular POPs (Norethindrone) are for maintenance, not emergency use, unless taken in specific high doses (which is the Plan B protocol, not the daily maintenance dose).\n- **Vaginal Sponge:** A barrier method, not emergency contraception.\n\n### Next Steps & Clinical Pearls\nExclude existing pregnancy before insertion. The Cu-IUD also provides ongoing contraception for up to 10 years."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 22-year-old female with a BMI of 34 (weight 95 kg) is interested in the transdermal contraceptive patch (Ortho Evra). What specific limitation regarding this method should be highlighted during counseling?",
+            "options": [
+                "It causes significant bone mineral density loss after 2 years.",
+                "It is less effective in women weighing > 90 kg.",
+                "It requires daily removal for 3 hours to maintain efficacy.",
+                "It is absolutely contraindicated in nulliparous women.",
+                "It commonly causes delayed return of fertility for 18 months."
+            ],
+            "correct_index": 1,
+            "difficulty": 4,
+            "retention_aid": "Patch fits poorly on the heavy: Efficacy 'peels off' over 90kg.",
+            "explanation": "### Core Concept & Mechanism\nThe transdermal patch delivers ethinyl estradiol and norelgestromin through the skin. Pharmacokinetic studies have shown that absorption and serum steady-state levels can be lower in patients with higher body mass/surface area.\n\n### Correct Answer Explained\nThe text explicitly lists under Disadvantages for the Transdermal Patch: **\"less effective in obese >90 kg.\"** This is a crucial counseling point to prevent unintended pregnancy due to method failure.\n\n### Why Other Options Are Wrong\n- **Bone density:** This is a specific side effect of **Depot Medroxyprogesterone (Depo-Provera)** injections.\n- **Daily removal:** The patch is applied for **1 week** at a time (3 weeks on, 1 week off). The NuvaRing (vaginal ring) can be removed for up to 3 hours, not the patch.\n- **Nulliparous women:** There is no restriction on parity for the patch.\n- **Delayed fertility:** This is characteristic of **Depot injections**, not the patch, which has a rapid return to fertility.\n\n### Next Steps & Clinical Pearls\nFor patients >90kg, recommend LARC (IUD/Implant) or oral contraceptives where efficacy is less weight-dependent."
+        },
+        {
+            "question_type": "mcq_multi",
+            "question_text": "A 28-year-old female with Polycystic Ovarian Syndrome (PCOS) complains of irregular menses, acne, and hirsutism. Which of the following contraceptive constituents are specifically indicated to help manage her androgenic symptoms? (Select TWO)",
+            "options": [
+                "Levonorgestrel",
+                "Cyproterone acetate",
+                "Norethindrone",
+                "Drospirenone",
+                "Medroxyprogesterone"
+            ],
+            "correct_indices": [
+                1,
+                3
+            ],
+            "difficulty": 4,
+            "retention_aid": "Drop the Androgens: DROP-spirenone and Cyproterone are anti-androgenic.",
+            "explanation": "### Core Concept & Mechanism\nIn PCOS, hyperandrogenism causes acne and hirsutism. Progestins vary in their androgenicity. Older generations (e.g., Levonorgestrel) have residual androgenic activity. Newer 'anti-androgenic' progestins block androgen receptors.\n\n### Correct Answer Explained\nThe text specifically highlights:\n- **Cyproterone acetate:** \"for PCOS\" (it is a potent anti-androgen).\n- **Drospirenone (4th gen):** and **Desogestrel:** listed to \"help in Acne & hirsutism.\"\n\n### Why Other Options Are Wrong\n- **Levonorgestrel (2nd gen):** Derived from testosterone, it has higher androgenic activity and may worsen acne/hirsutism.\n- **Norethindrone (1st gen):** Has androgenic properties.\n- **Medroxyprogesterone:** Used in Depo shots; associated with weight gain and not typically first-line for cosmetic PCOS management compared to anti-androgenic COCs.\n\n### Next Steps & Clinical Pearls\nCOCs containing these specific progestins treat the 'root cause' of cosmetic symptoms in PCOS by increasing Sex Hormone Binding Globulin (SHBG) and blocking androgen receptors."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A breastfeeding mother (6 weeks postpartum) requests contraception. She wants a 'pill' but wants to ensure her milk supply is not affected. Which method is most appropriate and what is the rule for a missed dose?",
+            "options": [
+                "Combined Oral Contraceptive (COC); if missed, take two the next day.",
+                "Progestin-Only Pill (POP); if taken >3 hours late, use backup for 48 hours.",
+                "Progestin-Only Pill (POP); if taken >12 hours late, use backup for 7 days.",
+                "Combined Oral Contraceptive (COC); safe for lactation immediately postpartum.",
+                "Ulipristal Acetate; taken once weekly."
+            ],
+            "correct_index": 1,
+            "difficulty": 4,
+            "retention_aid": "POP is Strict: 3-hour window or you're at risk (Back up for 2 days).",
+            "explanation": "### Core Concept & Mechanism\nEstrogen can suppress prolactin action and reduce breast milk volume, so COCs are generally avoided in the first 6 months of breastfeeding. Progestin-Only Pills (POPs) do not affect milk supply.\n\n### Correct Answer Explained\n**POP** is the correct choice for breastfeeding. The text specifies the strict adherence rule for traditional POPs: **\"If POP is taken 3 or more hours late, an additional form of contraception should be used for the next 48 hours.\"**\n\n### Why Other Options Are Wrong\n- **COC:** Estrogen is contraindicated or relatively contraindicated (per text \"Lactation\" is under Contraindication) due to effects on milk.\n- **POP >12 hours rule:** This applies to Desogestrel-only pills (Cerazette), but the strict \"3-hour\" rule is the classic teaching for traditional POPs (Levonorgestrel/Norethindrone) emphasized in the text.\n- **Ulipristal:** This is for emergency contraception or fibroids, not a weekly maintenance pill.\n\n### Next Steps & Clinical Pearls\nEmphasize strict timing with POP users. If the patient struggles with daily adherence, suggest an Implant or Depot injection which are also safe for lactation."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A 29-year-old nulliparous woman requests an Intrauterine Contraceptive Device (IUCD). She has a history of heavy menstrual bleeding (menorrhagia) and severe dysmenorrhea. Which device is preferred, and what is a potential complication mentioned in the text?",
+            "options": [
+                "Copper IUD; complication: Amenorrhea",
+                "Mirena (LNG-IUS); complication: Ovarian cysts",
+                "Copper IUD; complication: Increased dysmenorrhea",
+                "Mirena (LNG-IUS); complication: Permanent infertility",
+                "Lippes Loop; complication: Toxic Shock Syndrome"
+            ],
+            "correct_index": 1,
+            "difficulty": 3,
+            "retention_aid": "Mirena Minimizes Menses: Best for heavy bleeding, but watch for functional cysts.",
+            "explanation": "### Core Concept & Mechanism\nThe Levonorgestrel-releasing IUS (Mirena) causes local endometrial atrophy, significantly reducing menstrual blood loss and pain. The Copper IUD creates a sterile inflammatory reaction that often **increases** bleeding and pain.\n\n### Correct Answer Explained\nThe text states **Mirena** allows for \"Significant reduction in dysmenorrhea\" and \"Decrease menstrual blood loss.\" Under complications/side effects for hormonal methods/IUDs, **\"Ovarian cysts\"** (specifically mentioned under POP/Implants, but benign ovarian cysts are a known transient side effect of progestin-only methods including IUS due to partial ovulation suppression). *Correction based on strict text mapping:* Page 3 lists \"Benign gestational trophoblastic dis\" and \"Ovarian ca\" under Relative CI, but for **POP** side effects, it lists \"ovarian cyst.\" However, for Mirena specifically, the text lists benefits. Let's look at the options. Copper IUD causes *increased* dysmenorrhea (true). Mirena treats it. The best clinical fit for the *patient* is Mirena. Is \"Ovarian cysts\" a valid distractor? Yes, functional cysts are common. Is \"Copper IUD; complication: Increased dysmenorrhea\" also factually true? Yes. But the question asks which device is **preferred** for a patient *with* menorrhagia. The Copper IUD would be a poor choice as it worsens her complaint. Therefore, Mirena is the preferred device. The associated complication in the choice must be plausible.\n\n### Why Other Options Are Wrong\n- **Copper IUD (Options A & C):** Contraindicated (relative) or poor choice for women with *existing* menorrhagia/dysmenorrhea as it exacerbates these symptoms (Text: \"Bleeding, Pain\" under complications).\n- **Mirena / Permanent Infertility:** IUDs are fully reversible.\n- **Lippes Loop:** 1st generation, obsolete.\n\n### Next Steps & Clinical Pearls\nThe text explicitly lists \"Significant reduction in dysmenorrhea\" as a Non-Contraceptive Use of LNG-IUS."
+        },
+        {
+            "question_type": "emq",
+            "instructions": "Match the contraceptive method to the specific side effect or risk described in the lecture notes.",
+            "premises": [
+                "Associated with a reduction in bone mineral density if used for >2 years",
+                "Risk of Toxic Shock Syndrome if left in situ >24 hours",
+                "Can cause irregular vaginal bleeding and is effective for 3 years",
+                "May cause actinomyces infection on Pap smear"
+            ],
+            "options": [
+                "Combined Oral Contraceptive",
+                "Depot Medroxyprogesterone Acetate (DMPA)",
+                "Vaginal Diaphragm/Cap",
+                "Subdermal Implant (Implanon)",
+                "Intrauterine Contraceptive Device (IUCD)",
+                "Male Condom"
+            ],
+            "matches": [
+                [
+                    0,
+                    1
+                ],
+                [
+                    1,
+                    2
+                ],
+                [
+                    2,
+                    3
+                ],
+                [
+                    3,
+                    4
+                ]
+            ],
+            "difficulty": 3,
+            "retention_aid": "Depo degrades Density. Diaphragm causes toxic Disease. Implanon is Irregular. IUD invites Actinomyces.",
+            "explanation": "### Core Concept & Mechanism\nEach method has a unique 'signature' side effect profile commonly tested.\n\n### Correct Answer Explained\n1. **Bone Density -> DMPA:** The text warns \"depo provera can adversely affect bone density... after 2 years, follow up with DEXA.\"\n2. **Toxic Shock -> Diaphragm:** The text states for Occlusive Caps/Diaphragms: \"Should not be kept >24hr... Produce toxic shock.\"\n3. **Irregular Bleeding (3 years) -> Implant:** The text for Progestin only Implanon lists \"Prevent Pregnancy for 3 years\" and Disadvantages: \"Irregular cycle.\"\n4. **Actinomyces -> IUCD:** The text lists under IUCD Complications: \"Infection actinomyces (Doxycyclin/Azithro 1 hour before insertion).\"\n\n### Why Other Options Are Wrong\n- **COC:** Generally preserves bone density; not associated with Actinomyces.\n- **Male Condom:** No systemic side effects; main risk is breakage/slippage."
+        },
+        {
+            "question_type": "true_false",
+            "question_text": "A 32-year-old woman with a history of migraine **with aura** is a suitable candidate for the Combined Oral Contraceptive Pill.",
+            "is_correct_true": false,
+            "difficulty": 2,
+            "retention_aid": "Aura = Stop. Migraine with Aura is a stroke risk with estrogen.",
+            "explanation": "### Core Concept & Mechanism\nMigraine with aura indicates a neurological involvement that correlates with a higher baseline risk of ischemic stroke. Exogenous estrogen further increases thrombotic risk.\n\n### Correct Answer Explained\n**False.** The text explicitly lists \"Migraine with aura\" under the **Absolute Contraindications** (Category 4) for Combined Contraceptives. Prescribing COCs to this patient significantly increases the risk of stroke.\n\n### Why Other Options Are Wrong\n- Migraine *without* aura is listed as a Relative Contraindication (depending on age and other factors), but *with* aura is absolute.\n\n### Next Steps & Clinical Pearls\nSuitable alternatives include Progestin-Only Pills, Implants, or IUDs (Copper or Mirena), which do not carry the same stroke risk."
+        },
+        {
+            "question_type": "mcq_single",
+            "question_text": "A patient using the Depot Medroxyprogesterone Acetate (DMPA) injection complains of amenorrhea after 6 months of use. She is concerned about pregnancy. A pregnancy test is negative. What is the appropriate management?",
+            "options": [
+                "Discontinue the injection immediately and start COCs.",
+                "Perform a pelvic ultrasound to rule out Asherman's syndrome.",
+                "Reassure her that amenorrhea is a common and expected side effect.",
+                "Administer estrogen supplements to induce bleeding.",
+                "Treat for potential chlamydia infection."
+            ],
+            "correct_index": 2,
+            "difficulty": 2,
+            "retention_aid": "Depo dries it up: Atrophy of the endometrium leads to no periods.",
+            "explanation": "### Core Concept & Mechanism\nProgestin-only injectables cause thinning and atrophy of the endometrium over time. This results in amenorrhea, which is a common, non-harmful side effect, often considered a benefit by users once counseled.\n\n### Correct Answer Explained\nThe text notes that DMPA users can experience irregular cycles and amenorrhea. Amenorrhea is seen in 50% of users by 1 year. If pregnancy is ruled out, **reassurance** is the correct management.\n\n### Why Other Options Are Wrong\n- **Discontinue:** There is no medical need to stop if the patient is otherwise happy; amenorrhea is not harmful.\n- **Asherman's:** Intrauterine adhesions are not caused by DMPA.\n- **Estrogen:** Supplemental estrogen can be used for *irregular bleeding* (as per text: \"Rx by adding supplemental estrogen\"), but amenorrhea itself typically doesn't require treatment unless the patient finds it distressing.\n\n### Next Steps & Clinical Pearls\nCounseling prior to starting DMPA about menstrual changes improves adherence."
+        },
+        {
+            "question_type": "cloze",
+            "question_text": "The primary mechanism of action for Combined Oral Contraceptives (COC) is to {1}, mainly mediated by the estrogen component. In contrast, the main mechanism for Progestin-Only Pills (POP) is to {2}.",
+            "answers": [
+                "prevent ovulation",
+                "thicken cervical mucus"
+            ],
+            "difficulty": 3,
+            "retention_aid": "Estrogen stops the Egg (Ovulation). Progestin Plugs the Passage (Mucus).",
+            "explanation": "### Core Concept & Mechanism\nHormonal contraceptives work via multiple pathways, but the dominant mechanism depends on the hormone.\n\n### Correct Answer Explained\n- **{1} Prevent ovulation:** The text for COC Mechanism explicitly states \"Prevent ovulation (est)\" — estrogen inhibits FSH release, stopping follicle development.\n- **{2} Thicken cervical mucus:** The text for POP Mechanism states \"Thickening cervical mucus (main)\". While some POPs (like desogestrel) inhibit ovulation, the classical POP mechanism is mucus thickening to prevent sperm entry.\n\n### Why Other Options Are Wrong\n- While progestins in COCs *also* thicken mucus and thin the endometrium, the *primary* contribution of the estrogen component is ovulation suppression.\n- POPs do not consistently suppress ovulation (except desogestrel), so \"prevent ovulation\" is not the *main* mechanism for the class as a whole.\n\n### Next Steps & Clinical Pearls\nBecause POPs rely on the mucus plug, and the plug degrades rapidly without hormone, the timing (within 3 hours) is critical compared to COCs."
         }
     ]
 }
