@@ -16,6 +16,7 @@ import {
   RetentionAid,
   ExplanationPanel,
   BookmarkButton,
+  FloatingNavigation,
 } from "./ui";
 import {
   MCQQuestion,
@@ -26,7 +27,6 @@ import {
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 import { playSoundIfEnabled } from "@/lib/sounds";
 import { toggleBookmark } from "@/lib/bookmarks";
-import { cn } from "@/lib/utils";
 
 interface QuestionCardProps {
   question: Question;
@@ -172,48 +172,19 @@ export function QuestionCard({
             isCorrect={isCorrect ?? false}
             isVisible
           />
-
-          {/* Navigation */}
-          <div className="flex items-center justify-between gap-4 pt-2">
-            <button
-              onClick={onPrevious}
-              disabled={!canGoPrevious}
-              className={cn(
-                "btn btn-ghost px-6",
-                !canGoPrevious && "opacity-50 cursor-not-allowed"
-              )}
-            >
-              <svg className="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-              </svg>
-              Previous
-              <span className="ml-1 text-xs opacity-60 hidden sm:inline">(←)</span>
-            </button>
-
-            <button
-              onClick={() => {
-                playSoundIfEnabled("navigate");
-                onNext();
-              }}
-              disabled={!canGoNext}
-              className={cn(
-                "btn btn-primary px-6",
-                !canGoNext && "opacity-50 cursor-not-allowed"
-              )}
-            >
-              {canGoNext ? "Next Question" : "Finished!"}
-              {canGoNext && (
-                <>
-                  <svg className="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
-                  <span className="ml-1 text-xs opacity-60 hidden sm:inline">(→)</span>
-                </>
-              )}
-            </button>
-          </div>
         </div>
       )}
+
+      {/* Floating Navigation - always visible */}
+      <FloatingNavigation
+        currentIndex={questionNumber - 1}
+        totalQuestions={totalQuestions}
+        onPrevious={onPrevious}
+        onNext={onNext}
+        canGoPrevious={canGoPrevious}
+        canGoNext={canGoNext}
+        isAnswered={isAnswered}
+      />
     </div>
   );
 }

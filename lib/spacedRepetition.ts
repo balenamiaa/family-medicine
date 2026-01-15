@@ -1,4 +1,5 @@
-// Simplified SM-2 Spaced Repetition Algorithm
+// SM-2 Spaced Repetition Algorithm
+// Based on the SuperMemo SM-2 algorithm with response time integration
 
 export interface ReviewCard {
   questionIndex: number;
@@ -8,6 +9,8 @@ export interface ReviewCard {
   nextReviewDate: number; // Timestamp
   lastAnsweredCorrect: boolean;
   lastReviewDate: number;
+  averageResponseTimeMs?: number; // Rolling average response time
+  totalResponses?: number; // Count for calculating average
 }
 
 export interface SpacedRepetitionData {
@@ -19,17 +22,61 @@ export interface ReviewHistoryEntry {
   questionIndex: number;
   timestamp: number;
   correct: boolean;
+  responseTimeMs?: number;
+  quality?: Quality;
 }
 
 const STORAGE_KEY = "medcram_spaced_repetition";
+const DEFAULT_RESPONSE_TIME_MS = 15000; // 15 seconds as baseline
 
 // Quality ratings for SM-2
-// 0-2: Incorrect (needs immediate review)
-// 3: Correct with difficulty
-// 4: Correct with hesitation
-// 5: Perfect recall
+// 0: Complete blackout - no recall at all
+// 1: Incorrect - but recognized the answer when shown
+// 2: Incorrect - but upon seeing answer, felt familiar
+// 3: Correct - but required significant effort to recall
+// 4: Correct - with some hesitation
+// 5: Perfect - instant recall with confidence
 export type Quality = 0 | 1 | 2 | 3 | 4 | 5;
 
+/**
+ * Determines quality based on correctness and response time.
+ * Uses the card's historical average response time as a baseline.
+ */
+export function qualityFromResponse(
+  correct: boolean,
+  responseTimeMs: number,
+  averageResponseTimeMs: number = DEFAULT_RESPONSE_TIME_MS
+): Quality {
+  if (!correct) {
+    // Incorrect answers: differentiate between complete failure and partial recall
+    // If they answered quickly (wrong), it's a complete blackout (0)
+    // If they took time thinking (wrong), they had some familiarity (1)
+    if (responseTimeMs < averageResponseTimeMs * 0.5) {
+      return 0; // Quick wrong answer - complete blackout
+    }
+    return 1; // Slow wrong answer - had some memory but couldn't retrieve
+  }
+
+  // Correct answers: differentiate by response speed
+  const ratio = responseTimeMs / averageResponseTimeMs;
+
+  if (ratio < 0.5) {
+    return 5; // Very fast - perfect recall
+  } else if (ratio < 0.8) {
+    return 4; // Somewhat fast - good recall with minor hesitation
+  } else if (ratio < 1.2) {
+    return 4; // Around average - normal recall
+  } else if (ratio < 2.0) {
+    return 3; // Slow - correct but difficult
+  } else {
+    return 3; // Very slow - significant struggle
+  }
+}
+
+/**
+ * Legacy function for backwards compatibility.
+ * Prefer qualityFromResponse when response time is available.
+ */
 export function qualityFromCorrectness(correct: boolean, hesitation: boolean = false): Quality {
   if (!correct) return 1;
   if (hesitation) return 3;
@@ -102,8 +149,8 @@ export function getStoredData(): SpacedRepetitionData {
     if (stored) {
       return JSON.parse(stored) as SpacedRepetitionData;
     }
-  } catch {
-    // Ignore errors
+  } catch (error) {
+    console.warn("[SpacedRepetition] Failed to parse stored data:", error);
   }
 
   return { cards: {}, reviewHistory: [] };
@@ -114,30 +161,68 @@ export function saveData(data: SpacedRepetitionData): void {
 
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-  } catch {
-    // Storage full or unavailable
+  } catch (error) {
+    console.error("[SpacedRepetition] Failed to save data:", error);
+    // Could be storage quota exceeded
+    if (error instanceof Error && error.name === "QuotaExceededError") {
+      // Try to free up space by trimming history
+      data.reviewHistory = data.reviewHistory.slice(-500);
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        console.info("[SpacedRepetition] Trimmed history to save space");
+      } catch {
+        console.error("[SpacedRepetition] Still unable to save after trimming");
+      }
+    }
   }
 }
 
+/**
+ * Records an answer with optional response time for better quality calculation.
+ * @param questionIndex - The index of the question being answered
+ * @param correct - Whether the answer was correct
+ * @param responseTimeMs - Optional time taken to answer in milliseconds
+ */
 export function recordAnswer(
   questionIndex: number,
-  correct: boolean
+  correct: boolean,
+  responseTimeMs?: number
 ): SpacedRepetitionData {
   const data = getStoredData();
-  const quality = qualityFromCorrectness(correct);
-
   const existingCard = data.cards[questionIndex] || null;
+
+  // Calculate quality using response time if available
+  let quality: Quality;
+  if (responseTimeMs !== undefined && responseTimeMs > 0) {
+    const avgTime = existingCard?.averageResponseTimeMs ?? DEFAULT_RESPONSE_TIME_MS;
+    quality = qualityFromResponse(correct, responseTimeMs, avgTime);
+  } else {
+    quality = qualityFromCorrectness(correct);
+  }
+
   const updatedCard = calculateNextReview(
     existingCard ? { ...existingCard, questionIndex } : null,
     quality
   );
   updatedCard.questionIndex = questionIndex;
 
+  // Update rolling average response time
+  if (responseTimeMs !== undefined && responseTimeMs > 0) {
+    const prevAvg = existingCard?.averageResponseTimeMs ?? DEFAULT_RESPONSE_TIME_MS;
+    const prevCount = existingCard?.totalResponses ?? 0;
+    const newCount = prevCount + 1;
+    // Exponential moving average with more weight on recent responses
+    updatedCard.averageResponseTimeMs = prevAvg * 0.7 + responseTimeMs * 0.3;
+    updatedCard.totalResponses = newCount;
+  }
+
   data.cards[questionIndex] = updatedCard;
   data.reviewHistory.push({
     questionIndex,
     timestamp: Date.now(),
     correct,
+    responseTimeMs,
+    quality,
   });
 
   // Keep only last 1000 history entries

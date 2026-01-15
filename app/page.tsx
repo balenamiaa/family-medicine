@@ -227,7 +227,7 @@ export default function PracticePage() {
 
             {/* Filters panel */}
             {showFilters && (
-              <div className="card p-5 space-y-4 animate-scale-in">
+              <div className="card p-4 sm:p-5 space-y-4 animate-scale-in">
                 {/* Question types */}
                 <div>
                   <h3 className="text-sm font-semibold text-[var(--text-muted)] mb-3">Question Types</h3>
@@ -237,14 +237,15 @@ export default function PracticePage() {
                         key={type}
                         onClick={() => toggleTypeFilter(type)}
                         className={cn(
-                          "px-3 py-1.5 rounded-lg text-sm font-medium transition-all",
+                          // Minimum 44px touch target on mobile
+                          "min-h-[44px] px-3 sm:px-4 py-2.5 rounded-lg text-sm font-medium transition-all",
                           filterTypes.includes(type)
                             ? "bg-[var(--bg-accent)] text-[var(--text-inverse)]"
-                            : "bg-[var(--bg-secondary)] text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)]"
+                            : "bg-[var(--bg-secondary)] text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] active:scale-95"
                         )}
                       >
                         {QUESTION_TYPE_LABELS[type]}
-                        <span className="ml-1.5 opacity-60">({typeCounts[type]})</span>
+                        <span className="ml-1.5 opacity-60 hidden sm:inline">({typeCounts[type]})</span>
                       </button>
                     ))}
                   </div>
@@ -259,10 +260,11 @@ export default function PracticePage() {
                         key={diff}
                         onClick={() => toggleDifficultyFilter(diff)}
                         className={cn(
-                          "px-3 py-1.5 rounded-lg text-sm font-medium transition-all",
+                          // Minimum 44px touch target on mobile
+                          "min-h-[44px] min-w-[44px] px-3 sm:px-4 py-2.5 rounded-lg text-sm font-medium transition-all",
                           filterDifficulty.includes(diff)
                             ? "bg-[var(--bg-accent)] text-[var(--text-inverse)]"
-                            : "bg-[var(--bg-secondary)] text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)]"
+                            : "bg-[var(--bg-secondary)] text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] active:scale-95"
                         )}
                       >
                         {DIFFICULTY_LABELS[diff]}
@@ -278,7 +280,7 @@ export default function PracticePage() {
                       setFilterTypes([]);
                       setFilterDifficulty([]);
                     }}
-                    className="text-sm text-[var(--text-accent)] hover:underline"
+                    className="min-h-[44px] px-4 py-2 text-sm text-[var(--text-accent)] hover:underline"
                   >
                     Clear all filters
                   </button>

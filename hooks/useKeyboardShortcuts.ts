@@ -107,9 +107,9 @@ export function useKeyboardShortcuts({
       return;
     }
 
-    // Arrow keys for navigation
+    // Arrow keys for navigation (works regardless of answer state)
     if (e.key === "ArrowRight" || e.key === "ArrowDown") {
-      if (config.isAnswered && config.canGoNext && config.onNext) {
+      if (config.canGoNext && config.onNext) {
         e.preventDefault();
         playSoundIfEnabled("navigate");
         config.onNext();

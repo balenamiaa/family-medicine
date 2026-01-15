@@ -11,3 +11,4 @@ export { SoundToggle } from "./SoundToggle";
 export { BookmarkButton } from "./BookmarkButton";
 export { SearchInput } from "./SearchInput";
 export { KeyboardHints } from "./KeyboardHints";
+export { FloatingNavigation } from "./FloatingNavigation";

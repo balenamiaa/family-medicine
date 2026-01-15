@@ -16,6 +16,7 @@ export function ClozeQuestion({ question, onAnswer, answered }: ClozeQuestionPro
   const blankCount = segments.filter((s) => s.type === "blank").length;
 
   const [answers, setAnswers] = useState<string[]>(Array(blankCount).fill(""));
+  const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   // Focus first input on mount
@@ -74,7 +75,7 @@ export function ClozeQuestion({ question, onAnswer, answered }: ClozeQuestionPro
   return (
     <div className="space-y-6">
       {/* Cloze text with inputs */}
-      <div className="p-6 rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] leading-relaxed text-lg">
+      <div className="p-5 sm:p-6 rounded-xl bg-[var(--bg-card)] border border-[var(--border-subtle)] leading-loose text-base sm:text-lg">
         {segments.map((segment, i) => {
           if (segment.type === "text") {
             return (
@@ -87,49 +88,77 @@ export function ClozeQuestion({ question, onAnswer, answered }: ClozeQuestionPro
           const currentBlankIndex = blankIndex++;
           const state = getBlankState(currentBlankIndex);
           const correctAnswer = question.answers[currentBlankIndex];
+          const isFocused = focusedIndex === currentBlankIndex;
 
           return (
-            <span key={i} className="inline-block mx-1 align-bottom">
-              <span className="relative">
+            <span key={i} className="inline-flex items-baseline mx-0.5 my-1">
+              <span className="relative group">
+                {/* Underline-style input - compact and elegant */}
                 <input
                   ref={(el) => { inputRefs.current[currentBlankIndex] = el; }}
                   type="text"
                   value={answered ? question.answers[currentBlankIndex] : answers[currentBlankIndex]}
                   onChange={(e) => handleInputChange(currentBlankIndex, e.target.value)}
                   onKeyDown={(e) => handleKeyDown(currentBlankIndex, e)}
+                  onFocus={() => setFocusedIndex(currentBlankIndex)}
+                  onBlur={() => setFocusedIndex(null)}
                   disabled={answered}
-                  placeholder={`(${currentBlankIndex + 1})`}
+                  placeholder={`___`}
                   className={cn(
-                    "w-40 px-3 py-1.5 rounded-lg border-2 text-center font-medium transition-all duration-200",
-                    "focus:outline-none focus:ring-2 focus:ring-[var(--border-accent)] focus:ring-offset-1",
-                    "placeholder:text-[var(--text-muted)] placeholder:text-sm",
+                    // Compact underline style
+                    "w-20 sm:w-24 px-1 py-0.5 text-center font-medium text-sm sm:text-base",
+                    "bg-transparent border-b-2 rounded-none transition-all duration-300",
+                    "focus:outline-none placeholder:text-[var(--text-muted)]/50",
 
+                    // Default state - subtle underline
                     state === "default" && [
-                      "bg-[var(--bg-secondary)] border-[var(--border-default)]",
-                      "text-[var(--text-primary)]",
+                      "border-[var(--border-accent)]/40 text-[var(--text-primary)]",
+                      "hover:border-[var(--border-accent)]/60",
+                      "focus:border-[var(--border-accent)]",
+                      isFocused && "shadow-[0_2px_8px_-2px_var(--bg-accent)]"
                     ],
+
+                    // Correct state - green success
                     state === "correct" && [
-                      "bg-[var(--success-bg)] border-[var(--success-border)]",
-                      "text-[var(--success-text)]",
+                      "border-[var(--success-border)] text-[var(--success-text)]",
+                      "bg-[var(--success-bg)]/30 rounded-md px-2"
                     ],
+
+                    // Incorrect state - red with strikethrough
                     state === "incorrect" && [
-                      "bg-[var(--error-bg)] border-[var(--error-border)]",
-                      "text-[var(--error-text)] line-through",
+                      "border-[var(--error-border)] text-[var(--error-text)]",
+                      "bg-[var(--error-bg)]/30 rounded-md px-2 line-through"
                     ]
                   )}
+                  style={{
+                    // Dynamic width based on answer length (min 80px, max 160px)
+                    minWidth: answered
+                      ? `${Math.max(80, Math.min(160, correctAnswer.length * 10 + 20))}px`
+                      : undefined
+                  }}
                 />
 
-                {/* Show correct answer for incorrect responses */}
+                {/* Blank number indicator */}
+                {!answered && (
+                  <span className={cn(
+                    "absolute -top-4 left-1/2 -translate-x-1/2 text-[10px] font-medium transition-opacity duration-200",
+                    isFocused ? "opacity-100 text-[var(--text-accent)]" : "opacity-40 text-[var(--text-muted)]"
+                  )}>
+                    {currentBlankIndex + 1}
+                  </span>
+                )}
+
+                {/* Correct answer tooltip for incorrect responses */}
                 {answered && state === "incorrect" && (
-                  <span className="absolute -bottom-6 left-0 right-0 text-xs text-center text-[var(--success-text)] font-medium">
+                  <span className="absolute -bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] sm:text-xs text-[var(--success-text)] font-medium bg-[var(--success-bg)] px-1.5 py-0.5 rounded">
                     {correctAnswer}
                   </span>
                 )}
 
-                {/* Checkmark for correct */}
+                {/* Success indicator */}
                 {answered && state === "correct" && (
-                  <span className="absolute -right-6 top-1/2 -translate-y-1/2">
-                    <svg className="w-4 h-4 text-[var(--success-text)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                  <span className="absolute -right-4 top-1/2 -translate-y-1/2">
+                    <svg className="w-3 h-3 text-[var(--success-text)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                   </span>
@@ -142,9 +171,16 @@ export function ClozeQuestion({ question, onAnswer, answered }: ClozeQuestionPro
 
       {/* Hint about number of blanks */}
       {!answered && (
-        <p className="text-sm text-[var(--text-muted)] text-center">
-          Fill in {blankCount} blank{blankCount > 1 ? "s" : ""} to complete the statement
-        </p>
+        <div className="flex items-center justify-center gap-2 text-sm text-[var(--text-muted)]">
+          <span className="flex items-center gap-1.5">
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            </svg>
+            Fill {blankCount} blank{blankCount > 1 ? "s" : ""}
+          </span>
+          <span className="text-[var(--text-muted)]/50">•</span>
+          <span className="text-xs">Tab to move between blanks</span>
+        </div>
       )}
 
       {/* Submit button */}
@@ -153,15 +189,23 @@ export function ClozeQuestion({ question, onAnswer, answered }: ClozeQuestionPro
           onClick={handleSubmit}
           disabled={!allFilled}
           className={cn(
-            "btn w-full py-4 text-base font-semibold rounded-xl transition-all duration-200",
+            "btn w-full py-3.5 text-sm sm:text-base font-semibold rounded-xl transition-all duration-300",
             allFilled
-              ? "btn-primary"
+              ? "btn-primary shadow-lg shadow-[var(--bg-accent)]/20 hover:shadow-[var(--bg-accent)]/30"
               : "bg-[var(--bg-secondary)] text-[var(--text-muted)] cursor-not-allowed"
           )}
         >
-          {allFilled
-            ? "Check Answers"
-            : `Fill all blanks (${answers.filter((a) => a.trim()).length}/${blankCount})`}
+          {allFilled ? (
+            <span className="flex items-center justify-center gap-2">
+              Check Answers
+              <kbd className="px-1.5 py-0.5 text-[10px] bg-white/20 rounded">Enter</kbd>
+            </span>
+          ) : (
+            <span className="flex items-center justify-center gap-2">
+              <span className="tabular-nums">{answers.filter((a) => a.trim()).length}/{blankCount}</span>
+              <span>blanks filled</span>
+            </span>
+          )}
         </button>
       )}
     </div>

@@ -68,7 +68,7 @@ export function ModeSwitcher() {
   const pathname = usePathname();
 
   return (
-    <nav className="flex items-center gap-1 p-1 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-subtle)]">
+    <nav className="flex items-center gap-0.5 sm:gap-1 p-1 rounded-xl bg-[var(--bg-secondary)] border border-[var(--border-subtle)]">
       {modes.map((mode) => {
         const isActive = pathname === mode.path;
 
@@ -77,7 +77,12 @@ export function ModeSwitcher() {
             key={mode.path}
             href={mode.path}
             className={cn(
-              "relative flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200",
+              // Base styles with larger mobile touch targets (min 44px)
+              "relative flex items-center justify-center gap-2 rounded-lg font-medium transition-all duration-200",
+              // Mobile: icon-only with minimum 44px touch target
+              "min-w-[44px] min-h-[44px] p-2.5",
+              // Desktop: show text with adjusted padding
+              "sm:min-w-0 sm:px-4 sm:py-2.5 text-sm",
               isActive
                 ? "bg-[var(--bg-accent)] text-[var(--text-inverse)] shadow-sm"
                 : "text-[var(--text-muted)] hover:text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)]"
