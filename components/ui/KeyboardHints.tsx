@@ -15,9 +15,8 @@ export function KeyboardHints({ className, compact = false }: KeyboardHintsProps
     // Check if user has dismissed hints before
     const dismissed = localStorage.getItem("medcram_hints_dismissed");
     if (!dismissed) {
-      // Show hints after a delay
-      const timer = setTimeout(() => setIsVisible(true), 2000);
-      return () => clearTimeout(timer);
+      // Show hints instantly - no artificial delays
+      setIsVisible(true);
     }
   }, []);
 

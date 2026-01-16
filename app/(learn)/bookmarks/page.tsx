@@ -154,6 +154,7 @@ export default function BookmarksPage() {
                     onPrevious={previousQuestion}
                     canGoNext={currentIndex < totalQuestions - 1}
                     canGoPrevious={currentIndex > 0}
+                    showBookmark={false}
                   />
                 </div>
               )}

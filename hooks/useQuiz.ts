@@ -51,6 +51,7 @@ interface UseQuizReturn {
   previousQuestion: () => void;
   goToQuestion: (index: number) => void;
   resetQuiz: () => void;
+  resetSingleQuestion: (index: number) => void;
   shuffleRemaining: () => void;
 }
 
@@ -250,6 +251,25 @@ export function useQuiz({
     }
   }, [filteredQuestionData, shuffleQuestions, filterCacheKey]);
 
+  // Reset a single question to allow re-answering
+  const resetSingleQuestion = useCallback((index: number) => {
+    setProgress((prev) => {
+      const questionState = prev.questionStates[index];
+      if (!questionState?.answered) return prev;
+
+      const wasCorrect = questionState.correct;
+      const { [index]: _, ...restStates } = prev.questionStates;
+
+      return {
+        ...prev,
+        answered: Math.max(0, prev.answered - 1),
+        correct: Math.max(0, prev.correct - (wasCorrect ? 1 : 0)),
+        streak: 0, // Reset streak when retrying
+        questionStates: restStates,
+      };
+    });
+  }, []);
+
   // Shuffle remaining unanswered questions
   const shuffleRemaining = useCallback(() => {
     setQuestionOrder((prev) => {
@@ -290,6 +310,7 @@ export function useQuiz({
     previousQuestion,
     goToQuestion,
     resetQuiz,
+    resetSingleQuestion,
     shuffleRemaining,
   };
 }

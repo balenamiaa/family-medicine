@@ -13,7 +13,7 @@ import {
   StudyStats,
 } from "@/lib/stats";
 import { getBookmarkCount } from "@/lib/bookmarks";
-import { getStats as getSRStats } from "@/lib/spacedRepetition";
+import { getStats as getSRStats, getStoredData } from "@/lib/spacedRepetition";
 import { cn } from "@/lib/utils";
 
 export default function StatsPage() {
@@ -31,10 +31,9 @@ export default function StatsPage() {
     setStudyStreak(getStudyStreak());
     setBookmarkCount(getBookmarkCount());
 
-    const sr = getSRStats(null as never);
-    if (sr) {
-      setSrStats(sr);
-    }
+    const srData = getStoredData();
+    const sr = getSRStats(srData);
+    setSrStats(sr);
   }, []);
 
   const filteredRecentStats = useMemo(() => {
