@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/db";
+import { db, studySets } from "@/db";
+import { eq, desc } from "drizzle-orm";
 
 // GET /api/study-sets - List all study sets
 export async function GET(request: NextRequest) {
@@ -7,17 +8,22 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const userId = searchParams.get("userId");
 
-    const studySets = await prisma.studySet.findMany({
-      where: userId ? { userId } : undefined,
-      include: {
-        _count: {
-          select: { cards: true },
-        },
+    const results = await db.query.studySets.findMany({
+      where: userId ? eq(studySets.userId, userId) : undefined,
+      with: {
+        cards: true,
       },
-      orderBy: { updatedAt: "desc" },
+      orderBy: [desc(studySets.updatedAt)],
     });
 
-    return NextResponse.json(studySets);
+    // Add card count to each result
+    const withCounts = results.map((set) => ({
+      ...set,
+      _count: { cards: set.cards.length },
+      cards: undefined, // Don't include full cards in list
+    }));
+
+    return NextResponse.json(withCounts);
   } catch (error) {
     console.error("Failed to fetch study sets:", error);
     return NextResponse.json(
@@ -40,15 +46,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const studySet = await prisma.studySet.create({
-      data: {
+    const [studySet] = await db
+      .insert(studySets)
+      .values({
         userId,
         title,
         description,
         tags: tags ?? [],
         isPublic: isPublic ?? false,
-      },
-    });
+      })
+      .returning();
 
     return NextResponse.json(studySet, { status: 201 });
   } catch (error) {

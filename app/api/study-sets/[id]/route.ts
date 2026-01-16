@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/db";
+import { db, studySets } from "@/db";
+import { eq } from "drizzle-orm";
 
 interface RouteParams {
   params: Promise<{ id: string }>;
@@ -10,14 +11,11 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params;
 
-    const studySet = await prisma.studySet.findUnique({
-      where: { id },
-      include: {
+    const studySet = await db.query.studySets.findFirst({
+      where: eq(studySets.id, id),
+      with: {
         cards: {
-          orderBy: { orderIndex: "asc" },
-        },
-        _count: {
-          select: { cards: true },
+          orderBy: (cards, { asc }) => [asc(cards.orderIndex)],
         },
       },
     });
@@ -29,7 +27,10 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       );
     }
 
-    return NextResponse.json(studySet);
+    return NextResponse.json({
+      ...studySet,
+      _count: { cards: studySet.cards.length },
+    });
   } catch (error) {
     console.error("Failed to fetch study set:", error);
     return NextResponse.json(
@@ -46,15 +47,24 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     const body = await request.json();
     const { title, description, tags, isPublic } = body;
 
-    const studySet = await prisma.studySet.update({
-      where: { id },
-      data: {
+    const [studySet] = await db
+      .update(studySets)
+      .set({
         ...(title !== undefined && { title }),
         ...(description !== undefined && { description }),
         ...(tags !== undefined && { tags }),
         ...(isPublic !== undefined && { isPublic }),
-      },
-    });
+        updatedAt: new Date(),
+      })
+      .where(eq(studySets.id, id))
+      .returning();
+
+    if (!studySet) {
+      return NextResponse.json(
+        { error: "Study set not found" },
+        { status: 404 }
+      );
+    }
 
     return NextResponse.json(studySet);
   } catch (error) {
@@ -71,9 +81,17 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params;
 
-    await prisma.studySet.delete({
-      where: { id },
-    });
+    const [deleted] = await db
+      .delete(studySets)
+      .where(eq(studySets.id, id))
+      .returning();
+
+    if (!deleted) {
+      return NextResponse.json(
+        { error: "Study set not found" },
+        { status: 404 }
+      );
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

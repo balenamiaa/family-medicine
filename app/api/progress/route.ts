@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/db";
+import { db, cardProgress, reviewHistory, studyCards } from "@/db";
+import { eq, and, lte, count, avg } from "drizzle-orm";
 
 // GET /api/progress - Get cards due for review
 export async function GET(request: NextRequest) {
@@ -19,16 +20,18 @@ export async function GET(request: NextRequest) {
 
     const now = new Date();
 
-    // Get progress records, optionally filtered by due date
-    const progressRecords = await prisma.cardProgress.findMany({
-      where: {
-        userId,
-        ...(dueOnly && { nextReviewDate: { lte: now } }),
-        card: studySetId ? { studySetId } : undefined,
-      },
-      include: {
+    // Build conditions
+    const conditions = [eq(cardProgress.userId, userId)];
+    if (dueOnly) {
+      conditions.push(lte(cardProgress.nextReviewDate, now));
+    }
+
+    // Get progress records with cards
+    const progressRecords = await db.query.cardProgress.findMany({
+      where: and(...conditions),
+      with: {
         card: {
-          select: {
+          columns: {
             id: true,
             cardType: true,
             content: true,
@@ -37,34 +40,41 @@ export async function GET(request: NextRequest) {
           },
         },
       },
-      orderBy: [
-        { nextReviewDate: "asc" },
-      ],
-      take: limit,
+      orderBy: (cp, { asc }) => [asc(cp.nextReviewDate)],
+      limit,
     });
+
+    // Filter by studySetId if provided (after join)
+    const filteredProgress = studySetId
+      ? progressRecords.filter((p) => p.card?.studySetId === studySetId)
+      : progressRecords;
 
     // Get stats
-    const stats = await prisma.cardProgress.groupBy({
-      by: ["userId"],
-      where: { userId },
-      _count: { _all: true },
-      _avg: { easeFactor: true },
-    });
+    const [statsResult] = await db
+      .select({
+        totalCards: count(),
+        avgEaseFactor: avg(cardProgress.easeFactor),
+      })
+      .from(cardProgress)
+      .where(eq(cardProgress.userId, userId));
 
-    const dueCount = await prisma.cardProgress.count({
-      where: {
-        userId,
-        nextReviewDate: { lte: now },
-        card: studySetId ? { studySetId } : undefined,
-      },
-    });
+    // Get due count
+    const dueConditions = [
+      eq(cardProgress.userId, userId),
+      lte(cardProgress.nextReviewDate, now),
+    ];
+
+    const [dueResult] = await db
+      .select({ count: count() })
+      .from(cardProgress)
+      .where(and(...dueConditions));
 
     return NextResponse.json({
-      progress: progressRecords,
+      progress: filteredProgress,
       stats: {
-        totalCards: stats[0]?._count._all ?? 0,
-        avgEaseFactor: stats[0]?._avg.easeFactor ?? 2.5,
-        dueNow: dueCount,
+        totalCards: statsResult?.totalCards ?? 0,
+        avgEaseFactor: statsResult?.avgEaseFactor ?? 2.5,
+        dueNow: dueResult?.count ?? 0,
       },
     });
   } catch (error) {
@@ -89,9 +99,12 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Get existing progress or create new
-    const existing = await prisma.cardProgress.findUnique({
-      where: { userId_cardId: { userId, cardId } },
+    // Get existing progress
+    const existing = await db.query.cardProgress.findFirst({
+      where: and(
+        eq(cardProgress.userId, userId),
+        eq(cardProgress.cardId, cardId)
+      ),
     });
 
     // Calculate new SM-2 values
@@ -124,46 +137,61 @@ export async function POST(request: NextRequest) {
 
     const nextReviewDate = new Date(now.getTime() + intervalDays * 24 * 60 * 60 * 1000);
 
-    // Update progress
-    const progress = await prisma.cardProgress.upsert({
-      where: { userId_cardId: { userId, cardId } },
-      update: {
-        easeFactor,
-        intervalDays,
-        repetitions,
-        nextReviewDate,
-        lastReviewedAt: now,
-        totalReviews: { increment: 1 },
-        correctReviews: correct ? { increment: 1 } : undefined,
-        avgResponseTime: responseTimeMs
-          ? existing?.avgResponseTime
-            ? existing.avgResponseTime * 0.7 + responseTimeMs * 0.3
-            : responseTimeMs
-          : undefined,
-      },
-      create: {
-        userId,
-        cardId,
-        easeFactor,
-        intervalDays,
-        repetitions,
-        nextReviewDate,
-        lastReviewedAt: now,
-        totalReviews: 1,
-        correctReviews: correct ? 1 : 0,
-        avgResponseTime: responseTimeMs ?? undefined,
-      },
-    });
+    // Calculate new avg response time
+    const newAvgResponseTime = responseTimeMs
+      ? existing?.avgResponseTime
+        ? existing.avgResponseTime * 0.7 + responseTimeMs * 0.3
+        : responseTimeMs
+      : existing?.avgResponseTime;
+
+    let progress;
+
+    if (existing) {
+      // Update existing
+      const [updated] = await db
+        .update(cardProgress)
+        .set({
+          easeFactor,
+          intervalDays,
+          repetitions,
+          nextReviewDate,
+          lastReviewedAt: now,
+          totalReviews: (existing.totalReviews ?? 0) + 1,
+          correctReviews: correct
+            ? (existing.correctReviews ?? 0) + 1
+            : existing.correctReviews,
+          avgResponseTime: newAvgResponseTime,
+        })
+        .where(eq(cardProgress.id, existing.id))
+        .returning();
+      progress = updated;
+    } else {
+      // Create new
+      const [created] = await db
+        .insert(cardProgress)
+        .values({
+          userId,
+          cardId,
+          easeFactor,
+          intervalDays,
+          repetitions,
+          nextReviewDate,
+          lastReviewedAt: now,
+          totalReviews: 1,
+          correctReviews: correct ? 1 : 0,
+          avgResponseTime: responseTimeMs,
+        })
+        .returning();
+      progress = created;
+    }
 
     // Record in history
-    await prisma.reviewHistory.create({
-      data: {
-        userId,
-        cardId,
-        quality,
-        correct,
-        responseTimeMs,
-      },
+    await db.insert(reviewHistory).values({
+      userId,
+      cardId,
+      quality,
+      correct,
+      responseTimeMs,
     });
 
     return NextResponse.json(progress);

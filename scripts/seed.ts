@@ -3,7 +3,11 @@
  * Migrates questions from questions.json to the database
  */
 
-import { PrismaClient, CardType, Difficulty } from "../lib/generated/prisma";
+import "dotenv/config";
+import { drizzle } from "drizzle-orm/postgres-js";
+import postgres from "postgres";
+import { users, studySets, studyCards, CardType, Difficulty } from "../db/schema";
+import { count } from "drizzle-orm";
 import questionsData from "../questions.json";
 import type {
   McqSingleContent,
@@ -13,25 +17,33 @@ import type {
   EmqContent,
 } from "../types/studyCard";
 
-const prisma = new PrismaClient();
+const connectionString = process.env.STUDY_POSTGRES_PRISMA_URL;
+
+if (!connectionString) {
+  console.error("STUDY_POSTGRES_PRISMA_URL is not set");
+  process.exit(1);
+}
+
+const conn = postgres(connectionString);
+const db = drizzle(conn);
 
 // Map old question type to new CardType
 function mapCardType(type: string): CardType {
   const mapping: Record<string, CardType> = {
-    mcq_single: CardType.MCQ_SINGLE,
-    mcq_multi: CardType.MCQ_MULTI,
-    true_false: CardType.TRUE_FALSE,
-    emq: CardType.EMQ,
-    cloze: CardType.CLOZE,
+    mcq_single: "MCQ_SINGLE",
+    mcq_multi: "MCQ_MULTI",
+    true_false: "TRUE_FALSE",
+    emq: "EMQ",
+    cloze: "CLOZE",
   };
-  return mapping[type] ?? CardType.MCQ_SINGLE;
+  return mapping[type] ?? "MCQ_SINGLE";
 }
 
 // Map old difficulty (1-5) to new Difficulty enum
 function mapDifficulty(difficulty: number): Difficulty {
-  if (difficulty <= 2) return Difficulty.EASY;
-  if (difficulty >= 4) return Difficulty.HARD;
-  return Difficulty.MEDIUM;
+  if (difficulty <= 2) return "EASY";
+  if (difficulty >= 4) return "HARD";
+  return "MEDIUM";
 }
 
 // Convert old question format to new content format
@@ -97,33 +109,49 @@ async function main() {
   console.log("Starting database seed...\n");
 
   // Check if data already exists
-  const existingCards = await prisma.studyCard.count();
-  if (existingCards > 0) {
-    console.log(`Found ${existingCards} existing cards. Skipping seed.`);
+  const [existingResult] = await db.select({ total: count() }).from(studyCards);
+  if (existingResult.total > 0) {
+    console.log(`Found ${existingResult.total} existing cards. Skipping seed.`);
     console.log("To re-seed, clear the database first or delete existing data.");
+    await conn.end();
     return;
   }
 
   // Create a default user for anonymous/local usage
-  const user = await prisma.user.upsert({
-    where: { email: "local@medcram.app" },
-    update: {},
-    create: {
+  const [user] = await db
+    .insert(users)
+    .values({
       email: "local@medcram.app",
       name: "Local User",
-    },
-  });
-  console.log(`Created/found user: ${user.name} (${user.id})`);
+    })
+    .onConflictDoNothing()
+    .returning();
+
+  // If user already exists, fetch it
+  let userId: string;
+  if (user) {
+    userId = user.id;
+    console.log(`Created user: ${user.name} (${user.id})`);
+  } else {
+    const { eq } = await import("drizzle-orm");
+    const [existing] = await db
+      .select()
+      .from(users)
+      .where(eq(users.email, "local@medcram.app"));
+    userId = existing.id;
+    console.log(`Found existing user: ${existing.name} (${existing.id})`);
+  }
 
   // Create the default study set
-  const studySet = await prisma.studySet.create({
-    data: {
-      userId: user.id,
+  const [studySet] = await db
+    .insert(studySets)
+    .values({
+      userId,
       title: "Family Medicine Questions",
       description: "Comprehensive question bank for family medicine exam preparation",
       tags: ["family-medicine", "clinical", "exam-prep"],
-    },
-  });
+    })
+    .returning();
   console.log(`Created study set: ${studySet.title} (${studySet.id})\n`);
 
   // Type assertion for questions data
@@ -137,32 +165,30 @@ async function main() {
   for (let i = 0; i < questions.length; i += batchSize) {
     const batch = questions.slice(i, i + batchSize);
 
-    await prisma.studyCard.createMany({
-      data: batch.map((q, idx) => ({
+    await db.insert(studyCards).values(
+      batch.map((q, idx) => ({
         studySetId: studySet.id,
         cardType: mapCardType(q.question_type),
         content: convertContent(q),
         difficulty: mapDifficulty(q.difficulty),
         tags: q.tags ?? [],
         orderIndex: i + idx,
-      })),
-    });
+      }))
+    );
 
     migrated += batch.length;
     console.log(`Migrated ${migrated}/${questions.length} questions...`);
   }
 
   console.log(`\nSeed completed successfully!`);
-  console.log(`- User: ${user.id}`);
+  console.log(`- User: ${userId}`);
   console.log(`- Study Set: ${studySet.id}`);
   console.log(`- Cards: ${migrated}`);
+
+  await conn.end();
 }
 
-main()
-  .catch((e) => {
-    console.error("Seed failed:", e);
-    process.exit(1);
-  })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+main().catch((e) => {
+  console.error("Seed failed:", e);
+  process.exit(1);
+});

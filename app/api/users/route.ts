@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/db";
+import { db, users, studySets, cardProgress, reviewHistory } from "@/db";
+import { eq, count } from "drizzle-orm";
 
 // GET /api/users - Get or create a local user
 export async function GET(request: NextRequest) {
@@ -7,26 +8,47 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const email = searchParams.get("email") ?? "local@medcram.app";
 
-    // Get or create the local user
-    const user = await prisma.user.upsert({
-      where: { email },
-      update: {},
-      create: {
-        email,
-        name: "Local User",
-      },
-      include: {
-        _count: {
-          select: {
-            studySets: true,
-            cardProgress: true,
-            reviewHistory: true,
-          },
-        },
-      },
+    // Try to find existing user
+    let user = await db.query.users.findFirst({
+      where: eq(users.email, email),
     });
 
-    return NextResponse.json(user);
+    // Create if not exists
+    if (!user) {
+      const [created] = await db
+        .insert(users)
+        .values({
+          email,
+          name: "Local User",
+        })
+        .returning();
+      user = created;
+    }
+
+    // Get counts
+    const [studySetCount] = await db
+      .select({ count: count() })
+      .from(studySets)
+      .where(eq(studySets.userId, user.id));
+
+    const [progressCount] = await db
+      .select({ count: count() })
+      .from(cardProgress)
+      .where(eq(cardProgress.userId, user.id));
+
+    const [historyCount] = await db
+      .select({ count: count() })
+      .from(reviewHistory)
+      .where(eq(reviewHistory.userId, user.id));
+
+    return NextResponse.json({
+      ...user,
+      _count: {
+        studySets: studySetCount?.count ?? 0,
+        cardProgress: progressCount?.count ?? 0,
+        reviewHistory: historyCount?.count ?? 0,
+      },
+    });
   } catch (error) {
     console.error("Failed to fetch user:", error);
     return NextResponse.json(
@@ -49,12 +71,13 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const user = await prisma.user.create({
-      data: {
+    const [user] = await db
+      .insert(users)
+      .values({
         email,
         name,
-      },
-    });
+      })
+      .returning();
 
     return NextResponse.json(user, { status: 201 });
   } catch (error) {

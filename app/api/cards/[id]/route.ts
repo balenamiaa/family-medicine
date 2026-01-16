@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/db";
+import { db, studyCards } from "@/db";
+import { eq } from "drizzle-orm";
 
 interface RouteParams {
   params: Promise<{ id: string }>;
@@ -10,11 +11,11 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params;
 
-    const card = await prisma.studyCard.findUnique({
-      where: { id },
-      include: {
+    const card = await db.query.studyCards.findFirst({
+      where: eq(studyCards.id, id),
+      with: {
         studySet: {
-          select: { id: true, title: true },
+          columns: { id: true, title: true },
         },
       },
     });
@@ -43,15 +44,24 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
     const body = await request.json();
     const { content, difficulty, tags, orderIndex } = body;
 
-    const card = await prisma.studyCard.update({
-      where: { id },
-      data: {
+    const [card] = await db
+      .update(studyCards)
+      .set({
         ...(content !== undefined && { content }),
         ...(difficulty !== undefined && { difficulty }),
         ...(tags !== undefined && { tags }),
         ...(orderIndex !== undefined && { orderIndex }),
-      },
-    });
+        updatedAt: new Date(),
+      })
+      .where(eq(studyCards.id, id))
+      .returning();
+
+    if (!card) {
+      return NextResponse.json(
+        { error: "Card not found" },
+        { status: 404 }
+      );
+    }
 
     return NextResponse.json(card);
   } catch (error) {
@@ -68,9 +78,17 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params;
 
-    await prisma.studyCard.delete({
-      where: { id },
-    });
+    const [deleted] = await db
+      .delete(studyCards)
+      .where(eq(studyCards.id, id))
+      .returning();
+
+    if (!deleted) {
+      return NextResponse.json(
+        { error: "Card not found" },
+        { status: 404 }
+      );
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

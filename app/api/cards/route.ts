@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/db";
-import { CardType, Difficulty } from "@/lib/generated/prisma";
+import { db, studyCards, CardType, Difficulty } from "@/db";
+import { eq, and, asc, count } from "drizzle-orm";
 
 // GET /api/cards - List cards (optionally filtered by studySetId)
 export async function GET(request: NextRequest) {
@@ -12,24 +12,26 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get("limit") ?? "100");
     const offset = parseInt(searchParams.get("offset") ?? "0");
 
-    const cards = await prisma.studyCard.findMany({
-      where: {
-        ...(studySetId && { studySetId }),
-        ...(cardType && { cardType }),
-        ...(difficulty && { difficulty }),
-      },
-      orderBy: { orderIndex: "asc" },
-      take: limit,
-      skip: offset,
-    });
+    // Build where conditions
+    const conditions = [];
+    if (studySetId) conditions.push(eq(studyCards.studySetId, studySetId));
+    if (cardType) conditions.push(eq(studyCards.cardType, cardType));
+    if (difficulty) conditions.push(eq(studyCards.difficulty, difficulty));
 
-    const total = await prisma.studyCard.count({
-      where: {
-        ...(studySetId && { studySetId }),
-        ...(cardType && { cardType }),
-        ...(difficulty && { difficulty }),
-      },
-    });
+    const whereClause = conditions.length > 0 ? and(...conditions) : undefined;
+
+    const cards = await db
+      .select()
+      .from(studyCards)
+      .where(whereClause)
+      .orderBy(asc(studyCards.orderIndex))
+      .limit(limit)
+      .offset(offset);
+
+    const [{ total }] = await db
+      .select({ total: count() })
+      .from(studyCards)
+      .where(whereClause);
 
     return NextResponse.json({ cards, total, limit, offset });
   } catch (error) {
@@ -54,16 +56,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const card = await prisma.studyCard.create({
-      data: {
+    const [card] = await db
+      .insert(studyCards)
+      .values({
         studySetId,
         cardType,
         content,
-        difficulty: difficulty ?? Difficulty.MEDIUM,
+        difficulty: difficulty ?? "MEDIUM",
         tags: tags ?? [],
         orderIndex: orderIndex ?? 0,
-      },
-    });
+      })
+      .returning();
 
     return NextResponse.json(card, { status: 201 });
   } catch (error) {
@@ -75,7 +78,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// POST /api/cards/bulk - Create multiple cards at once
+// PUT /api/cards/bulk - Create multiple cards at once
 export async function PUT(request: NextRequest) {
   try {
     const body = await request.json();
@@ -88,18 +91,21 @@ export async function PUT(request: NextRequest) {
       );
     }
 
-    const result = await prisma.studyCard.createMany({
-      data: cards.map((card: any) => ({
-        studySetId: card.studySetId,
-        cardType: card.cardType,
-        content: card.content,
-        difficulty: card.difficulty ?? Difficulty.MEDIUM,
-        tags: card.tags ?? [],
-        orderIndex: card.orderIndex ?? 0,
-      })),
-    });
+    const insertedCards = await db
+      .insert(studyCards)
+      .values(
+        cards.map((card: any) => ({
+          studySetId: card.studySetId,
+          cardType: card.cardType,
+          content: card.content,
+          difficulty: card.difficulty ?? "MEDIUM",
+          tags: card.tags ?? [],
+          orderIndex: card.orderIndex ?? 0,
+        }))
+      )
+      .returning();
 
-    return NextResponse.json({ created: result.count }, { status: 201 });
+    return NextResponse.json({ created: insertedCards.length }, { status: 201 });
   } catch (error) {
     console.error("Failed to bulk create cards:", error);
     return NextResponse.json(
