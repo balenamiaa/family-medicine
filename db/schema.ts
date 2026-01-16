@@ -13,6 +13,10 @@ import {
 import { relations } from "drizzle-orm";
 
 // Enums
+export const userRoleEnum = pgEnum("user_role", ["ADMIN", "USER"]);
+
+export const studySetTypeEnum = pgEnum("study_set_type", ["SYSTEM", "PUBLIC", "PRIVATE"]);
+
 export const cardTypeEnum = pgEnum("card_type", [
   "NOTE",
   "MCQ_SINGLE",
@@ -31,6 +35,7 @@ export const users = pgTable("users", {
   id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
   email: text("email").unique(),
   name: text("name"),
+  role: userRoleEnum("role").default("USER").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
@@ -48,11 +53,12 @@ export const studySets = pgTable("study_sets", {
   title: text("title").notNull(),
   description: text("description"),
   tags: text("tags").array().default([]),
-  isPublic: boolean("is_public").default(false).notNull(),
+  type: studySetTypeEnum("type").default("PRIVATE").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 }, (table) => [
   index("study_sets_user_id_idx").on(table.userId),
+  index("study_sets_type_idx").on(table.type),
 ]);
 
 export const studySetsRelations = relations(studySets, ({ one, many }) => ({
@@ -154,5 +160,7 @@ export type NewCardProgress = typeof cardProgress.$inferInsert;
 export type ReviewHistory = typeof reviewHistory.$inferSelect;
 export type NewReviewHistory = typeof reviewHistory.$inferInsert;
 
+export type UserRole = typeof userRoleEnum.enumValues[number];
+export type StudySetType = typeof studySetTypeEnum.enumValues[number];
 export type CardType = typeof cardTypeEnum.enumValues[number];
 export type Difficulty = typeof difficultyEnum.enumValues[number];

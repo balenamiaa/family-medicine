@@ -1,0 +1,12 @@
+[package]
+name = "which-failed"
+version = "0.1.0"
+edition = "2021"
+description = "A procedural macro that identifies which condition fails in compound boolean expressions"
+license = "MIT"
+repository = "https://github.com/yourusername/which-failed"
+keywords = ["macro", "debugging", "conditions", "boolean"]
+categories = ["development-tools::debugging", "rust-patterns"]
+
+[dependencies]
+which-failed-macro = { path = "which-failed-macro" }

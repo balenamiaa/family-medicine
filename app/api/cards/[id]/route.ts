@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db, studyCards } from "@/db";
+import { db, studyCards, studySets } from "@/db";
 import { eq } from "drizzle-orm";
+import { getCurrentUser, canEditSet } from "@/lib/auth";
+import { toFrontendCard, numericToDifficulty } from "@/lib/card-utils";
 
 interface RouteParams {
   params: Promise<{ id: string }>;
@@ -10,6 +12,8 @@ interface RouteParams {
 export async function GET(request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params;
+    const searchParams = request.nextUrl.searchParams;
+    const format = searchParams.get("format");
 
     const card = await db.query.studyCards.findFirst({
       where: eq(studyCards.id, id),
@@ -27,7 +31,8 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       );
     }
 
-    return NextResponse.json(card);
+    const response = format === "frontend" ? toFrontendCard(card) : card;
+    return NextResponse.json(response);
   } catch (error) {
     console.error("Failed to fetch card:", error);
     return NextResponse.json(
@@ -37,10 +42,93 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
   }
 }
 
-// PUT /api/cards/[id] - Update a card
+// Helper to get card with permission check
+async function getCardWithPermission(request: NextRequest, id: string) {
+  const user = await getCurrentUser(request);
+
+  const card = await db.query.studyCards.findFirst({
+    where: eq(studyCards.id, id),
+    with: {
+      studySet: true,
+    },
+  });
+
+  if (!card) {
+    return { error: "Card not found", status: 404 };
+  }
+
+  if (!canEditSet(user, card.studySet)) {
+    return { error: "You don't have permission to edit this card", status: 403 };
+  }
+
+  return { card };
+}
+
+// PATCH /api/cards/[id] - Partial update a card (preferred for frontend)
+export async function PATCH(request: NextRequest, { params }: RouteParams) {
+  try {
+    const { id } = await params;
+    const result = await getCardWithPermission(request, id);
+
+    if ("error" in result) {
+      return NextResponse.json(
+        { error: result.error },
+        { status: result.status }
+      );
+    }
+
+    const body = await request.json();
+    const updates: Record<string, unknown> = { updatedAt: new Date() };
+
+    // Support both frontend and database field names
+    if ("questionData" in body) {
+      updates.content = body.questionData;
+    } else if ("content" in body) {
+      updates.content = body.content;
+    }
+
+    if ("difficulty" in body) {
+      // Handle numeric difficulty from frontend
+      if (typeof body.difficulty === "number") {
+        updates.difficulty = numericToDifficulty(body.difficulty);
+      } else {
+        updates.difficulty = body.difficulty;
+      }
+    }
+
+    if ("tags" in body) updates.tags = body.tags;
+    if ("orderIndex" in body) updates.orderIndex = body.orderIndex;
+
+    const [card] = await db
+      .update(studyCards)
+      .set(updates)
+      .where(eq(studyCards.id, id))
+      .returning();
+
+    // Return in frontend format
+    return NextResponse.json(toFrontendCard(card));
+  } catch (error) {
+    console.error("Failed to update card:", error);
+    return NextResponse.json(
+      { error: "Failed to update card" },
+      { status: 500 }
+    );
+  }
+}
+
+// PUT /api/cards/[id] - Full update a card (legacy support)
 export async function PUT(request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params;
+    const result = await getCardWithPermission(request, id);
+
+    if ("error" in result) {
+      return NextResponse.json(
+        { error: result.error },
+        { status: result.status }
+      );
+    }
+
     const body = await request.json();
     const { content, difficulty, tags, orderIndex } = body;
 
@@ -77,6 +165,14 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
 export async function DELETE(request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params;
+    const result = await getCardWithPermission(request, id);
+
+    if ("error" in result) {
+      return NextResponse.json(
+        { error: result.error },
+        { status: result.status }
+      );
+    }
 
     const [deleted] = await db
       .delete(studyCards)

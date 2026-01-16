@@ -1,16 +1,59 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db, users, studySets, cardProgress, reviewHistory } from "@/db";
-import { eq, count } from "drizzle-orm";
+import { eq, count, desc, sql } from "drizzle-orm";
+import { getCurrentUser, isAdmin } from "@/lib/auth";
 
-// GET /api/users - Get or create a local user
+// GET /api/users - Get current user or list all users (admin)
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
-    const email = searchParams.get("email") ?? "local@medcram.app";
+    const email = searchParams.get("email");
+    const includeSetCount = searchParams.get("include")?.includes("setCount");
+    const listAll = searchParams.get("list") === "all" || !email;
 
-    // Try to find existing user
+    const currentUser = await getCurrentUser(request);
+
+    // If listing all users, require admin
+    if (listAll && !email) {
+      if (!isAdmin(currentUser)) {
+        return NextResponse.json(
+          { error: "Admin access required" },
+          { status: 403 }
+        );
+      }
+
+      // Get all users with optional set count
+      if (includeSetCount) {
+        const allUsers = await db
+          .select({
+            id: users.id,
+            name: users.name,
+            email: users.email,
+            role: users.role,
+            createdAt: users.createdAt,
+            setCount: count(studySets.id),
+          })
+          .from(users)
+          .leftJoin(studySets, eq(users.id, studySets.userId))
+          .groupBy(users.id)
+          .orderBy(desc(users.createdAt));
+
+        return NextResponse.json({ users: allUsers });
+      }
+
+      const allUsers = await db
+        .select()
+        .from(users)
+        .orderBy(desc(users.createdAt));
+
+      return NextResponse.json({ users: allUsers });
+    }
+
+    // Get or create a specific user by email
+    const targetEmail = email ?? "local@medcram.app";
+
     let user = await db.query.users.findFirst({
-      where: eq(users.email, email),
+      where: eq(users.email, targetEmail),
     });
 
     // Create if not exists
@@ -18,7 +61,7 @@ export async function GET(request: NextRequest) {
       const [created] = await db
         .insert(users)
         .values({
-          email,
+          email: targetEmail,
           name: "Local User",
         })
         .returning();

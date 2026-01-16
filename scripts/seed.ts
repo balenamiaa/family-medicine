@@ -6,7 +6,7 @@
 import "dotenv/config";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
-import { users, studySets, studyCards, CardType, Difficulty } from "../db/schema";
+import { users, studySets, studyCards, CardType, Difficulty, StudySetType, UserRole } from "../db/schema";
 import { count } from "drizzle-orm";
 import questionsData from "../questions.json";
 import type {
@@ -117,12 +117,13 @@ async function main() {
     return;
   }
 
-  // Create a default user for anonymous/local usage
+  // Create a system admin user for the default content
   const [user] = await db
     .insert(users)
     .values({
-      email: "local@medcram.app",
-      name: "Local User",
+      email: "system@medcram.app",
+      name: "MedCram System",
+      role: "ADMIN" as UserRole,
     })
     .onConflictDoNothing()
     .returning();
@@ -137,12 +138,12 @@ async function main() {
     const [existing] = await db
       .select()
       .from(users)
-      .where(eq(users.email, "local@medcram.app"));
+      .where(eq(users.email, "system@medcram.app"));
     userId = existing.id;
     console.log(`Found existing user: ${existing.name} (${existing.id})`);
   }
 
-  // Create the default study set
+  // Create the default study set as a SYSTEM set
   const [studySet] = await db
     .insert(studySets)
     .values({
@@ -150,6 +151,7 @@ async function main() {
       title: "Family Medicine Questions",
       description: "Comprehensive question bank for family medicine exam preparation",
       tags: ["family-medicine", "clinical", "exam-prep"],
+      type: "SYSTEM" as StudySetType,
     })
     .returning();
   console.log(`Created study set: ${studySet.title} (${studySet.id})\n`);

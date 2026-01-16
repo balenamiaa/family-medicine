@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db, studyCards, CardType, Difficulty } from "@/db";
+import { db, studyCards, studySets, CardType, Difficulty } from "@/db";
 import { eq, and, asc, count } from "drizzle-orm";
+import { getCurrentUser, canEditSet } from "@/lib/auth";
+import { toFrontendCard, toDatabaseCard } from "@/lib/card-utils";
 
 // GET /api/cards - List cards (optionally filtered by studySetId)
 export async function GET(request: NextRequest) {
@@ -11,6 +13,7 @@ export async function GET(request: NextRequest) {
     const difficulty = searchParams.get("difficulty") as Difficulty | null;
     const limit = parseInt(searchParams.get("limit") ?? "100");
     const offset = parseInt(searchParams.get("offset") ?? "0");
+    const format = searchParams.get("format"); // "frontend" for transformed data
 
     // Build where conditions
     const conditions = [];
@@ -33,7 +36,12 @@ export async function GET(request: NextRequest) {
       .from(studyCards)
       .where(whereClause);
 
-    return NextResponse.json({ cards, total, limit, offset });
+    // Transform to frontend format if requested
+    const responseCards = format === "frontend"
+      ? cards.map(toFrontendCard)
+      : cards;
+
+    return NextResponse.json({ cards: responseCards, total, limit, offset });
   } catch (error) {
     console.error("Failed to fetch cards:", error);
     return NextResponse.json(
@@ -46,29 +54,77 @@ export async function GET(request: NextRequest) {
 // POST /api/cards - Create a new card
 export async function POST(request: NextRequest) {
   try {
+    const user = await getCurrentUser(request);
     const body = await request.json();
-    const { studySetId, cardType, content, difficulty, tags, orderIndex } = body;
 
-    if (!studySetId || !cardType || !content) {
+    // Support both frontend format (questionType/questionData) and database format (cardType/content)
+    const studySetId = body.studySetId;
+    const hasQuestionType = "questionType" in body;
+
+    if (!studySetId) {
       return NextResponse.json(
-        { error: "studySetId, cardType, and content are required" },
+        { error: "studySetId is required" },
         { status: 400 }
       );
     }
 
-    const [card] = await db
-      .insert(studyCards)
-      .values({
+    // Check if user can edit the study set
+    const set = await db.query.studySets.findFirst({
+      where: eq(studySets.id, studySetId),
+    });
+
+    if (!set) {
+      return NextResponse.json(
+        { error: "Study set not found" },
+        { status: 404 }
+      );
+    }
+
+    if (!canEditSet(user, set)) {
+      return NextResponse.json(
+        { error: "You don't have permission to edit this study set" },
+        { status: 403 }
+      );
+    }
+
+    let insertData;
+    if (hasQuestionType) {
+      // Frontend format
+      insertData = toDatabaseCard({
+        studySetId,
+        questionType: body.questionType,
+        questionData: body.questionData,
+        difficulty: body.difficulty,
+        orderIndex: body.orderIndex,
+        tags: body.tags,
+      });
+    } else {
+      // Database format
+      const { cardType, content, difficulty, tags, orderIndex } = body;
+      if (!cardType || !content) {
+        return NextResponse.json(
+          { error: "cardType and content are required" },
+          { status: 400 }
+        );
+      }
+      insertData = {
         studySetId,
         cardType,
         content,
         difficulty: difficulty ?? "MEDIUM",
         tags: tags ?? [],
         orderIndex: orderIndex ?? 0,
-      })
+      };
+    }
+
+    const [card] = await db
+      .insert(studyCards)
+      .values(insertData)
       .returning();
 
-    return NextResponse.json(card, { status: 201 });
+    // Return in frontend format if created with frontend format
+    const response = hasQuestionType ? toFrontendCard(card) : card;
+    return NextResponse.json(response, { status: 201 });
   } catch (error) {
     console.error("Failed to create card:", error);
     return NextResponse.json(
@@ -81,8 +137,9 @@ export async function POST(request: NextRequest) {
 // PUT /api/cards/bulk - Create multiple cards at once
 export async function PUT(request: NextRequest) {
   try {
+    const user = await getCurrentUser(request);
     const body = await request.json();
-    const { cards } = body;
+    const { cards, studySetId } = body;
 
     if (!Array.isArray(cards) || cards.length === 0) {
       return NextResponse.json(
@@ -91,11 +148,32 @@ export async function PUT(request: NextRequest) {
       );
     }
 
+    // Verify permission if studySetId provided
+    if (studySetId) {
+      const set = await db.query.studySets.findFirst({
+        where: eq(studySets.id, studySetId),
+      });
+
+      if (!set) {
+        return NextResponse.json(
+          { error: "Study set not found" },
+          { status: 404 }
+        );
+      }
+
+      if (!canEditSet(user, set)) {
+        return NextResponse.json(
+          { error: "You don't have permission to edit this study set" },
+          { status: 403 }
+        );
+      }
+    }
+
     const insertedCards = await db
       .insert(studyCards)
       .values(
         cards.map((card: any) => ({
-          studySetId: card.studySetId,
+          studySetId: card.studySetId || studySetId,
           cardType: card.cardType,
           content: card.content,
           difficulty: card.difficulty ?? "MEDIUM",
