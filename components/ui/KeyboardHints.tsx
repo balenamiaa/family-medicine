@@ -34,6 +34,9 @@ export function KeyboardHints({ className, compact = false }: KeyboardHintsProps
           <kbd className="px-1 py-0.5 bg-[var(--bg-secondary)] rounded text-[10px]">1-5</kbd> Select
         </span>
         <span>
+          <kbd className="px-1 py-0.5 bg-[var(--bg-secondary)] rounded text-[10px]">1-3</kbd> Feedback
+        </span>
+        <span>
           <kbd className="px-1 py-0.5 bg-[var(--bg-secondary)] rounded text-[10px]">Enter</kbd> Submit
         </span>
         <span>
@@ -70,6 +73,12 @@ export function KeyboardHints({ className, compact = false }: KeyboardHintsProps
                 1-5
               </kbd>
               <span className="text-[var(--text-secondary)]">Select option</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <kbd className="px-1.5 py-0.5 bg-[var(--bg-card)] border border-[var(--border-subtle)] rounded text-xs font-mono">
+                1-3
+              </kbd>
+              <span className="text-[var(--text-secondary)]">Feedback (after incorrect)</span>
             </div>
             <div className="flex items-center gap-2">
               <kbd className="px-1.5 py-0.5 bg-[var(--bg-card)] border border-[var(--border-subtle)] rounded text-xs font-mono">

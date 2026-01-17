@@ -7,16 +7,18 @@ import { cn } from "@/lib/utils";
 
 export default function LoginPage() {
   const router = useRouter();
+  const [step, setStep] = useState<"request" | "verify">("request");
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [code, setCode] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const [isVerifying, setIsVerifying] = useState(false);
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    if (isSubmitting) return;
+  const requestCode = async () => {
+    if (isSending) return;
     setError(null);
-    setIsSubmitting(true);
+    setIsSending(true);
 
     try {
       const response = await fetch("/api/auth/login", {
@@ -25,18 +27,62 @@ export default function LoginPage() {
         body: JSON.stringify({ email, name }),
       });
 
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        throw new Error(data.error || "Login failed. Please try again.");
+      }
+
+      if (data.user) {
+        router.replace("/");
+        return;
+      }
+
+      setStep("verify");
+      setCode("");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Login failed. Please try again.");
+    } finally {
+      setIsSending(false);
+    }
+  };
+
+  const verifyCode = async () => {
+    if (isVerifying) return;
+    setError(null);
+    setIsVerifying(true);
+
+    try {
+      const response = await fetch("/api/auth/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, name, code }),
+      });
+
       if (!response.ok) {
         const data = await response.json().catch(() => ({}));
-        throw new Error(data.error || "Login failed. Please try again.");
+        throw new Error(data.error || "Verification failed. Please try again.");
       }
 
       router.replace("/");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Login failed. Please try again.");
+      setError(err instanceof Error ? err.message : "Verification failed. Please try again.");
     } finally {
-      setIsSubmitting(false);
+      setIsVerifying(false);
     }
   };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (step === "request") {
+      await requestCode();
+      return;
+    }
+
+    await verifyCode();
+  };
+
+  const isSubmitting = step === "request" ? isSending : isVerifying;
 
   return (
     <div className="min-h-screen grid place-items-center px-4 py-10 bg-[var(--bg-primary)]">
@@ -68,28 +114,72 @@ export default function LoginPage() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <label className="block text-sm font-medium text-[var(--text-secondary)]">
-              Email
-              <input
-                type="email"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-                placeholder="you@example.com"
-                className="mt-2 w-full rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-4 py-3 text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-[var(--border-accent)] focus:ring-2 focus:ring-[var(--border-accent)]/20"
-                required
-              />
-            </label>
+            {step === "request" ? (
+              <>
+                <label className="block text-sm font-medium text-[var(--text-secondary)]">
+                  Email
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                    placeholder="you@example.com"
+                    className="mt-2 w-full rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-4 py-3 text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-[var(--border-accent)] focus:ring-2 focus:ring-[var(--border-accent)]/20"
+                    required
+                  />
+                </label>
 
-            <label className="block text-sm font-medium text-[var(--text-secondary)]">
-              Name (optional)
-              <input
-                type="text"
-                value={name}
-                onChange={(event) => setName(event.target.value)}
-                placeholder="Preferred display name"
-                className="mt-2 w-full rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-4 py-3 text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-[var(--border-accent)] focus:ring-2 focus:ring-[var(--border-accent)]/20"
-              />
-            </label>
+                <label className="block text-sm font-medium text-[var(--text-secondary)]">
+                  Name (optional)
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(event) => setName(event.target.value)}
+                    placeholder="Preferred display name"
+                    className="mt-2 w-full rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-4 py-3 text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-[var(--border-accent)] focus:ring-2 focus:ring-[var(--border-accent)]/20"
+                  />
+                </label>
+              </>
+            ) : (
+              <>
+                <div className="rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-4 py-3 text-sm text-[var(--text-secondary)]">
+                  We sent a 6-digit code to <span className="font-semibold text-[var(--text-primary)]">{email}</span>.
+                </div>
+                <label className="block text-sm font-medium text-[var(--text-secondary)]">
+                  Verification code
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    autoComplete="one-time-code"
+                    value={code}
+                    onChange={(event) => setCode(event.target.value)}
+                    placeholder="Enter the code"
+                    className="mt-2 w-full rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-4 py-3 text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-[var(--border-accent)] focus:ring-2 focus:ring-[var(--border-accent)]/20 tracking-[0.3em] text-center"
+                    required
+                  />
+                </label>
+
+                <div className="flex items-center justify-between text-sm">
+                  <button
+                    type="button"
+                    onClick={() => setStep("request")}
+                    className="text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors"
+                  >
+                    Change email
+                  </button>
+                  <button
+                    type="button"
+                    onClick={requestCode}
+                    disabled={isSending}
+                    className={cn(
+                      "text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors",
+                      isSending && "opacity-60 cursor-not-allowed"
+                    )}
+                  >
+                    Resend code
+                  </button>
+                </div>
+              </>
+            )}
 
             {error && (
               <div className="rounded-xl border border-[var(--error-border)] bg-[var(--error-bg)] px-4 py-3 text-sm text-[var(--error-text)]">
@@ -106,13 +196,9 @@ export default function LoginPage() {
                 isSubmitting && "opacity-60 cursor-not-allowed"
               )}
             >
-              Continue
+              {step === "request" ? "Send code" : "Verify and continue"}
             </button>
           </form>
-
-          <p className="mt-6 text-xs text-[var(--text-muted)]">
-            Admin access appears in Settings for approved accounts.
-          </p>
         </div>
       </motion.div>
     </div>

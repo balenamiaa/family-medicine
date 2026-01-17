@@ -178,7 +178,7 @@ export default function BookmarksPage() {
                 Press <kbd className="px-1.5 py-0.5 bg-[var(--bg-secondary)] border border-[var(--border-subtle)] rounded text-xs font-mono">B</kbd> while
                 viewing any question to bookmark it for later review.
               </p>
-              <Link href="/" className="btn btn-primary">
+              <Link href="/practice" className="btn btn-primary">
                 Start Practicing
               </Link>
             </div>
@@ -291,7 +291,7 @@ export default function BookmarksPage() {
 
           {/* Links */}
           <div className="flex gap-2">
-            <Link href="/" className="btn btn-ghost flex-1 text-sm">
+            <Link href="/practice" className="btn btn-ghost flex-1 text-sm">
               Practice
             </Link>
             <Link href="/stats" className="btn btn-ghost flex-1 text-sm">

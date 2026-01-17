@@ -66,6 +66,12 @@ export function QuestionCard({
   onFeedback,
 }: QuestionCardProps) {
   const [feedbackGiven, setFeedbackGiven] = useState(false);
+  const feedbackOptions = [
+    { label: "Blanked", desc: "No recall", quality: 0 as Quality },
+    { label: "Felt familiar", desc: "Recognized it", quality: 1 as Quality },
+    { label: "Almost", desc: "Nearly had it", quality: 2 as Quality },
+  ];
+  const feedbackShortcutEnabled = Boolean(onFeedback) && isAnswered && isCorrect === false && !feedbackGiven;
 
   // Play sound on answer
   useEffect(() => {
@@ -102,9 +108,12 @@ export function QuestionCard({
     onPrevious,
     onToggleBookmark: handleToggleBookmark,
     onReset,
+    onFeedback: feedbackShortcutEnabled ? handleFeedback : undefined,
     isAnswered,
     canGoNext,
     canGoPrevious,
+    feedbackEnabled: feedbackShortcutEnabled,
+    feedbackOptions: feedbackOptions.length,
   });
 
   const renderQuestion = () => {
@@ -224,11 +233,7 @@ export function QuestionCard({
                 )}
               </div>
               <div className="mt-3 grid gap-2 sm:grid-cols-3">
-                {[
-                  { label: "Blanked", desc: "No recall", quality: 0 as Quality },
-                  { label: "Felt familiar", desc: "Recognized it", quality: 1 as Quality },
-                  { label: "Almost", desc: "Nearly had it", quality: 2 as Quality },
-                ].map((option) => (
+                {feedbackOptions.map((option, index) => (
                   <button
                     key={option.label}
                     onClick={() => handleFeedback(option.quality)}
@@ -239,8 +244,11 @@ export function QuestionCard({
                       feedbackGiven && "opacity-60 cursor-not-allowed"
                     )}
                   >
-                    <div className="text-xs font-semibold text-[var(--text-primary)]">
-                      {option.label}
+                    <div className="flex items-center gap-2 text-xs font-semibold text-[var(--text-primary)]">
+                      <kbd className="inline-flex h-5 min-w-[20px] items-center justify-center rounded bg-[var(--bg-secondary)] px-1 text-[10px] font-medium text-[var(--text-muted)]">
+                        {index + 1}
+                      </kbd>
+                      <span>{option.label}</span>
                     </div>
                     <div className="text-[11px] text-[var(--text-muted)]">
                       {option.desc}

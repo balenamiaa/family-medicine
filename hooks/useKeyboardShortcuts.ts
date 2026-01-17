@@ -2,6 +2,7 @@
 
 import { useEffect, useCallback, useRef } from "react";
 import { playSoundIfEnabled } from "@/lib/sounds";
+import { Quality } from "@/lib/spacedRepetition";
 
 interface KeyboardShortcutsConfig {
   onSelectOption?: (index: number) => void;
@@ -10,11 +11,14 @@ interface KeyboardShortcutsConfig {
   onPrevious?: () => void;
   onToggleBookmark?: () => void;
   onReset?: () => void;
+  onFeedback?: (quality: Quality) => void;
   optionCount?: number;
   isAnswered?: boolean;
   canSubmit?: boolean;
   canGoNext?: boolean;
   canGoPrevious?: boolean;
+  feedbackEnabled?: boolean;
+  feedbackOptions?: number;
   enabled?: boolean;
 }
 
@@ -25,11 +29,14 @@ export function useKeyboardShortcuts({
   onPrevious,
   onToggleBookmark,
   onReset,
+  onFeedback,
   optionCount = 0,
   isAnswered = false,
   canSubmit = false,
   canGoNext = false,
   canGoPrevious = false,
+  feedbackEnabled = false,
+  feedbackOptions = 0,
   enabled = true,
 }: KeyboardShortcutsConfig): void {
   // Use refs to always have latest values in event handler
@@ -40,11 +47,14 @@ export function useKeyboardShortcuts({
     onPrevious,
     onToggleBookmark,
     onReset,
+    onFeedback,
     optionCount,
     isAnswered,
     canSubmit,
     canGoNext,
     canGoPrevious,
+    feedbackEnabled,
+    feedbackOptions,
     enabled,
   });
 
@@ -57,11 +67,14 @@ export function useKeyboardShortcuts({
       onPrevious,
       onToggleBookmark,
       onReset,
+      onFeedback,
       optionCount,
       isAnswered,
       canSubmit,
       canGoNext,
       canGoPrevious,
+      feedbackEnabled,
+      feedbackOptions,
       enabled,
     };
   }, [
@@ -71,11 +84,14 @@ export function useKeyboardShortcuts({
     onPrevious,
     onToggleBookmark,
     onReset,
+    onFeedback,
     optionCount,
     isAnswered,
     canSubmit,
     canGoNext,
     canGoPrevious,
+    feedbackEnabled,
+    feedbackOptions,
     enabled,
   ]);
 
@@ -97,6 +113,17 @@ export function useKeyboardShortcuts({
         e.preventDefault();
         playSoundIfEnabled("click");
         config.onSelectOption(num - 1);
+        return;
+      }
+    }
+
+    // Number keys for post-answer feedback
+    if (config.isAnswered && config.feedbackEnabled && config.onFeedback) {
+      const num = parseInt(e.key, 10);
+      if (!Number.isNaN(num) && num >= 1 && num <= config.feedbackOptions) {
+        e.preventDefault();
+        playSoundIfEnabled("click");
+        config.onFeedback((num - 1) as Quality);
         return;
       }
     }

@@ -190,13 +190,13 @@ export function StudySetForm({
             {tags.map((tag) => (
               <span
                 key={tag}
-                className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[var(--bg-secondary)] text-sm text-[var(--text-secondary)]"
+                className="inline-flex items-center gap-2 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-3 py-1 text-xs font-medium text-[var(--text-secondary)]"
               >
                 {tag}
                 <button
                   type="button"
                   onClick={() => handleRemoveTag(tag)}
-                  className="w-4 h-4 rounded-full hover:bg-[var(--bg-card-hover)] flex items-center justify-center"
+                  className="flex h-4 w-4 items-center justify-center rounded-full hover:bg-[var(--bg-card-hover)]"
                   disabled={isLoading}
                 >
                   <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

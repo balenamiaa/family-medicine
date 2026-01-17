@@ -12,6 +12,7 @@ import { StudySetSelector, useStudySet } from "@/components/sets";
 import { useQuiz } from "@/hooks/useQuiz";
 import { startSession, recordQuestionAnswered } from "@/lib/stats";
 import { playSoundIfEnabled } from "@/lib/sounds";
+import { overrideLastReviewQuality, Quality } from "@/lib/spacedRepetition";
 import { QuestionType, Difficulty, QUESTION_TYPE_LABELS, DIFFICULTY_LABELS } from "@/types";
 import { cn, formatPercent, shuffle } from "@/lib/utils";
 import { scopedKey } from "@/lib/storage";
@@ -111,6 +112,11 @@ export default function ExamPage() {
   const handleAnswer = (correct: boolean, answer: Parameters<typeof answerQuestion>[1]) => {
     answerQuestion(correct, answer);
     recordQuestionAnswered(correct, 0, statsKey);
+  };
+
+  const handleFeedback = (quality: Quality) => {
+    if (currentQuestionIndex < 0) return;
+    overrideLastReviewQuality(currentQuestionIndex, quality, srKey);
   };
 
   // Reset current question
@@ -647,6 +653,8 @@ export default function ExamPage() {
                       onPrevious={previousQuestion}
                       canGoNext={currentIndex < totalQuestions - 1}
                       canGoPrevious={currentIndex > 0}
+                      onReset={handleResetQuestion}
+                      onFeedback={handleFeedback}
                       showBookmark={false}
                     />
                   </motion.div>
@@ -700,6 +708,10 @@ export default function ExamPage() {
                   <div className="flex items-center gap-2">
                     <kbd className="px-1.5 py-0.5 bg-[var(--bg-secondary)] rounded">1-5</kbd>
                     <span>Select option</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <kbd className="px-1.5 py-0.5 bg-[var(--bg-secondary)] rounded">1-3</kbd>
+                    <span>Feedback</span>
                   </div>
                 </div>
               </div>

@@ -353,7 +353,7 @@ export default function StudySetDetailPage() {
             </Link>
 
             <Link
-              href="/"
+              href={`/practice?set=${studySet.id}`}
               className="card p-5 hover:border-[var(--border-accent)] transition-colors group"
             >
               <div className="flex items-center gap-3">

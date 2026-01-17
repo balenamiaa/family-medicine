@@ -46,6 +46,18 @@ export const usersRelations = relations(users, ({ many }) => ({
   reviewHistory: many(reviewHistory),
 }));
 
+// Login Tokens table (email verification codes)
+export const loginTokens = pgTable("login_tokens", {
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+  email: text("email").notNull(),
+  tokenHash: text("token_hash").notNull(),
+  expiresAt: timestamp("expires_at").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+}, (table) => [
+  index("login_tokens_email_idx").on(table.email),
+  index("login_tokens_expires_idx").on(table.expiresAt),
+]);
+
 // Study Sets table
 export const studySets = pgTable("study_sets", {
   id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
@@ -151,6 +163,8 @@ export const reviewHistoryRelations = relations(reviewHistory, ({ one }) => ({
 // Type exports for use in application
 export type User = typeof users.$inferSelect;
 export type NewUser = typeof users.$inferInsert;
+export type LoginToken = typeof loginTokens.$inferSelect;
+export type NewLoginToken = typeof loginTokens.$inferInsert;
 export type StudySet = typeof studySets.$inferSelect;
 export type NewStudySet = typeof studySets.$inferInsert;
 export type StudyCard = typeof studyCards.$inferSelect;

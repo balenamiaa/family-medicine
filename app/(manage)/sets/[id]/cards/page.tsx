@@ -432,7 +432,7 @@ export default function CardEditorPage() {
         </div>
 
         {/* Editor */}
-        <div className="card p-6">
+        <div className="card p-6 lg:min-h-[calc(100vh-8rem)]">
           {selectedCard ? (
             <>
               <div className="flex items-center justify-between mb-6">

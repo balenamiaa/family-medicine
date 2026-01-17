@@ -172,7 +172,7 @@ export default function AdminDashboard() {
                   </div>
                 </div>
                 <Link
-                  href={`/admin/sets/${set.id}`}
+                  href={`/sets/${set.id}`}
                   className="p-2 rounded-lg hover:bg-[var(--bg-secondary)] transition-colors"
                 >
                   <svg

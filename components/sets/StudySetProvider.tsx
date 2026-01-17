@@ -2,6 +2,7 @@
 
 import type { ReactNode } from "react";
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Question, QuestionType } from "@/types";
 import { getStoredValue, setStoredValue } from "@/lib/utils";
 
@@ -79,6 +80,10 @@ function toStudyQuestion(card: StudySetCard): StudyQuestion | null {
 }
 
 export function StudySetProvider({ children }: { children: ReactNode }) {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const requestedSetId = searchParams.get("set");
   const [sets, setSets] = useState<StudySetSummary[]>([]);
   const [activeSetId, setActiveSetId] = useState<string | null>(() =>
     getStoredValue<string | null>(ACTIVE_SET_KEY, null)
@@ -135,17 +140,20 @@ export function StudySetProvider({ children }: { children: ReactNode }) {
   }, [activeSetId]);
 
   useEffect(() => {
-    if (!activeSetId && sets.length > 0) {
-      const fallback = sets.find((set) => set.type === "SYSTEM") || sets[0];
-      setActiveSetId(fallback.id);
+    if (sets.length === 0) return;
+
+    if (requestedSetId && sets.some((set) => set.id === requestedSetId)) {
+      if (requestedSetId !== activeSetId) {
+        setActiveSetId(requestedSetId);
+      }
       return;
     }
 
-    if (activeSetId && sets.length > 0 && !sets.some((set) => set.id === activeSetId)) {
+    if (!activeSetId || !sets.some((set) => set.id === activeSetId)) {
       const fallback = sets.find((set) => set.type === "SYSTEM") || sets[0];
       setActiveSetId(fallback.id);
     }
-  }, [activeSetId, sets]);
+  }, [activeSetId, requestedSetId, sets]);
 
   useEffect(() => {
     refreshActiveSet();
@@ -160,7 +168,11 @@ export function StudySetProvider({ children }: { children: ReactNode }) {
 
   const selectSet = useCallback((id: string) => {
     setActiveSetId(id);
-  }, []);
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("set", id);
+    const nextQuery = params.toString();
+    router.replace(nextQuery ? `${pathname}?${nextQuery}` : pathname, { scroll: false });
+  }, [pathname, router, searchParams]);
 
   const value = useMemo(
     () => ({

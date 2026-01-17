@@ -6,12 +6,41 @@ import { getSessionPayload, SESSION_COOKIE_NAME } from "@/lib/session";
 // Admin emails - can be configured via environment variable
 const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || "admin@medcram.app")
   .split(",")
-  .map((e) => e.trim())
+  .map((e) => e.trim().toLowerCase())
   .filter(Boolean);
+
+const ALLOWLIST_ONLY = process.env.AUTH_ALLOWLIST_ONLY === "true";
+const ALLOWED_EMAILS = (process.env.AUTH_ALLOWED_EMAILS || "")
+  .split(",")
+  .map((e) => e.trim().toLowerCase())
+  .filter(Boolean);
+const ALLOWED_DOMAINS = (process.env.AUTH_ALLOWED_DOMAINS || "")
+  .split(",")
+  .map((e) => e.trim().toLowerCase())
+  .filter(Boolean);
+
+export const AUTH_REQUIRE_EMAIL_VERIFICATION =
+  process.env.AUTH_REQUIRE_EMAIL_VERIFICATION !== "false";
 
 export function isAdminEmail(email?: string | null): boolean {
   if (!email) return false;
-  return ADMIN_EMAILS.includes(email);
+  return ADMIN_EMAILS.includes(email.toLowerCase());
+}
+
+export function isEmailAllowed(email?: string | null): boolean {
+  if (!email) return false;
+  const normalized = email.toLowerCase();
+  if (isAdminEmail(normalized)) return true;
+
+  const [_, domain] = normalized.split("@");
+  if (ALLOWED_EMAILS.includes(normalized)) return true;
+  if (domain && ALLOWED_DOMAINS.includes(domain)) return true;
+
+  if (!ALLOWLIST_ONLY && ALLOWED_EMAILS.length === 0 && ALLOWED_DOMAINS.length === 0) {
+    return true;
+  }
+
+  return false;
 }
 
 /**

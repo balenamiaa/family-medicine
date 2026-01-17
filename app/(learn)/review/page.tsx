@@ -236,7 +236,7 @@ export default function ReviewPage() {
                   ? "You've reviewed all due questions. Come back later for more practice."
                   : "Start practicing in the Practice mode to build your review queue. Questions you get wrong will appear here for review."}
               </p>
-              <Link href="/" className="btn btn-primary">
+              <Link href="/practice" className="btn btn-primary">
                 Go to Practice
               </Link>
             </div>
