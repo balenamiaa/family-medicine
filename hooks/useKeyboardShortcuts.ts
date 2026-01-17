@@ -139,8 +139,8 @@ export function useKeyboardShortcuts({
       return;
     }
 
-    // Arrow keys for navigation (works regardless of answer state)
-    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+    // Arrow keys for navigation (left/right only)
+    if (e.key === "ArrowRight") {
       if (config.canGoNext && config.onNext) {
         e.preventDefault();
         playSoundIfEnabled("navigate");
@@ -149,7 +149,7 @@ export function useKeyboardShortcuts({
       return;
     }
 
-    if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+    if (e.key === "ArrowLeft") {
       if (config.canGoPrevious && config.onPrevious) {
         e.preventDefault();
         playSoundIfEnabled("navigate");

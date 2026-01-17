@@ -5,6 +5,7 @@ import { getCurrentUser, canViewSet, canCreateSetOfType, isAdmin } from "@/lib/a
 
 // GET /api/study-sets - List study sets
 export async function GET(request: NextRequest) {
+  const startedAt = Date.now();
   try {
     const user = await getCurrentUser(request);
     const searchParams = request.nextUrl.searchParams;
@@ -87,6 +88,8 @@ export async function GET(request: NextRequest) {
       { error: "Failed to fetch study sets" },
       { status: 500 }
     );
+  } finally {
+    console.info(`[api] GET /api/study-sets ${Date.now() - startedAt}ms`);
   }
 }
 

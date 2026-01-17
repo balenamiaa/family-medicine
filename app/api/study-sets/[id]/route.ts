@@ -10,9 +10,10 @@ interface RouteParams {
 
 // GET /api/study-sets/[id] - Get a specific study set with cards
 export async function GET(request: NextRequest, { params }: RouteParams) {
+  const startedAt = Date.now();
+  const { id } = await params;
   try {
     const user = await getCurrentUser(request);
-    const { id } = await params;
 
     const studySet = await db.query.studySets.findFirst({
       where: eq(studySets.id, id),
@@ -68,6 +69,8 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       { error: "Failed to fetch study set" },
       { status: 500 }
     );
+  } finally {
+    console.info(`[api] GET /api/study-sets/${id} ${Date.now() - startedAt}ms`);
   }
 }
 

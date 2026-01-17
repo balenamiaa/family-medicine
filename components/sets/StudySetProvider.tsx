@@ -79,17 +79,29 @@ function toStudyQuestion(card: StudySetCard): StudyQuestion | null {
   } as StudyQuestion;
 }
 
-export function StudySetProvider({ children }: { children: ReactNode }) {
+interface StudySetProviderProps {
+  children: ReactNode;
+  initialSets?: StudySetSummary[];
+  initialActiveSet?: StudySetDetail | null;
+  initialActiveSetId?: string | null;
+}
+
+export function StudySetProvider({
+  children,
+  initialSets = [],
+  initialActiveSet = null,
+  initialActiveSetId = null,
+}: StudySetProviderProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
   const requestedSetId = searchParams.get("set");
-  const [sets, setSets] = useState<StudySetSummary[]>([]);
+  const [sets, setSets] = useState<StudySetSummary[]>(initialSets);
   const [activeSetId, setActiveSetId] = useState<string | null>(() =>
-    getStoredValue<string | null>(ACTIVE_SET_KEY, null)
+    getStoredValue<string | null>(ACTIVE_SET_KEY, initialActiveSetId ?? null)
   );
-  const [activeSet, setActiveSet] = useState<StudySetDetail | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [activeSet, setActiveSet] = useState<StudySetDetail | null>(initialActiveSet);
+  const [isLoading, setIsLoading] = useState(initialSets.length === 0);
   const [isLoadingActive, setIsLoadingActive] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -114,6 +126,10 @@ export function StudySetProvider({ children }: { children: ReactNode }) {
       return;
     }
 
+    if (activeSet && activeSet.id === activeSetId && Array.isArray(activeSet.cards)) {
+      return;
+    }
+
     try {
       setIsLoadingActive(true);
       setError(null);
@@ -127,11 +143,13 @@ export function StudySetProvider({ children }: { children: ReactNode }) {
     } finally {
       setIsLoadingActive(false);
     }
-  }, [activeSetId]);
+  }, [activeSet, activeSetId]);
 
   useEffect(() => {
-    refreshSets();
-  }, [refreshSets]);
+    if (initialSets.length === 0) {
+      refreshSets();
+    }
+  }, [initialSets.length, refreshSets]);
 
   useEffect(() => {
     if (activeSetId) {

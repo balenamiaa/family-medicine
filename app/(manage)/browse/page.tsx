@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { StudySetCard, StudySetTypeBadge } from "@/components/sets";
 import { cn } from "@/lib/utils";
 
@@ -19,6 +19,7 @@ type FilterType = "all" | "SYSTEM" | "PUBLIC";
 
 function BrowseContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
   const typeParam = searchParams.get("type");
 
   const [studySets, setStudySets] = useState<StudySet[]>([]);
@@ -28,6 +29,24 @@ function BrowseContent() {
     typeParam === "SYSTEM" ? "SYSTEM" : typeParam === "PUBLIC" ? "PUBLIC" : "all"
   );
   const [searchQuery, setSearchQuery] = useState("");
+
+  useEffect(() => {
+    const nextFilter = typeParam === "SYSTEM" ? "SYSTEM" : typeParam === "PUBLIC" ? "PUBLIC" : "all";
+    setFilter(nextFilter);
+  }, [typeParam]);
+
+  useEffect(() => {
+    const nextType = filter === "all" ? null : filter;
+    if ((typeParam ?? null) === nextType) return;
+    const params = new URLSearchParams(searchParams.toString());
+    if (nextType) {
+      params.set("type", nextType);
+    } else {
+      params.delete("type");
+    }
+    const query = params.toString();
+    router.replace(query ? `/browse?${query}` : "/browse", { scroll: false });
+  }, [filter, router, searchParams, typeParam]);
 
   useEffect(() => {
     fetchStudySets();
