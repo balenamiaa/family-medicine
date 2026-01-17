@@ -16,21 +16,25 @@ function createEmptyBookmarks(): BookmarkData {
   };
 }
 
-export function getBookmarks(): BookmarkData {
-  return getStoredValue<BookmarkData>(BOOKMARKS_KEY, createEmptyBookmarks());
+function resolveKey(storageKey?: string): string {
+  return storageKey ?? BOOKMARKS_KEY;
 }
 
-export function saveBookmarks(data: BookmarkData): void {
-  setStoredValue(BOOKMARKS_KEY, data);
+export function getBookmarks(storageKey?: string): BookmarkData {
+  return getStoredValue<BookmarkData>(resolveKey(storageKey), createEmptyBookmarks());
 }
 
-export function isBookmarked(questionIndex: number): boolean {
-  const data = getBookmarks();
+export function saveBookmarks(data: BookmarkData, storageKey?: string): void {
+  setStoredValue(resolveKey(storageKey), data);
+}
+
+export function isBookmarked(questionIndex: number, storageKey?: string): boolean {
+  const data = getBookmarks(storageKey);
   return data.questionIndices.includes(questionIndex);
 }
 
-export function toggleBookmark(questionIndex: number): boolean {
-  const data = getBookmarks();
+export function toggleBookmark(questionIndex: number, storageKey?: string): boolean {
+  const data = getBookmarks(storageKey);
   const isCurrentlyBookmarked = data.questionIndices.includes(questionIndex);
 
   if (isCurrentlyBookmarked) {
@@ -41,18 +45,18 @@ export function toggleBookmark(questionIndex: number): boolean {
     data.createdAt[questionIndex] = Date.now();
   }
 
-  saveBookmarks(data);
+  saveBookmarks(data, storageKey);
   return !isCurrentlyBookmarked;
 }
 
-export function clearAllBookmarks(): void {
-  saveBookmarks(createEmptyBookmarks());
+export function clearAllBookmarks(storageKey?: string): void {
+  saveBookmarks(createEmptyBookmarks(), storageKey);
 }
 
-export function getBookmarkCount(): number {
-  return getBookmarks().questionIndices.length;
+export function getBookmarkCount(storageKey?: string): number {
+  return getBookmarks(storageKey).questionIndices.length;
 }
 
-export function getBookmarkedIndices(): number[] {
-  return getBookmarks().questionIndices;
+export function getBookmarkedIndices(storageKey?: string): number[] {
+  return getBookmarks(storageKey).questionIndices;
 }

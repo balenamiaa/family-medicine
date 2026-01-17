@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
+import { StudySetSelector, useStudySet } from "@/components/sets";
 import {
   getStats,
   getRecentStats,
@@ -15,8 +16,14 @@ import {
 import { getBookmarkCount } from "@/lib/bookmarks";
 import { getStats as getSRStats, getStoredData } from "@/lib/spacedRepetition";
 import { cn } from "@/lib/utils";
+import { scopedKey } from "@/lib/storage";
 
 export default function StatsPage() {
+  const { activeSet, questions, isLoading, isLoadingActive, error } = useStudySet();
+  const statsKey = scopedKey("medcram_study_stats", activeSet?.id);
+  const bookmarkKey = scopedKey("medcram_bookmarks", activeSet?.id);
+  const srKey = scopedKey("medcram_spaced_repetition", activeSet?.id);
+
   const [stats, setStats] = useState<StudyStats | null>(null);
   const [recentStats, setRecentStats] = useState<DailyStats[]>([]);
   const [studyStreak, setStudyStreak] = useState(0);
@@ -26,15 +33,15 @@ export default function StatsPage() {
   const [viewDays, setViewDays] = useState<7 | 14 | 30>(7);
 
   useEffect(() => {
-    setStats(getStats());
-    setRecentStats(getRecentStats(30));
-    setStudyStreak(getStudyStreak());
-    setBookmarkCount(getBookmarkCount());
+    setStats(getStats(statsKey));
+    setRecentStats(getRecentStats(30, statsKey));
+    setStudyStreak(getStudyStreak(statsKey));
+    setBookmarkCount(getBookmarkCount(bookmarkKey));
 
-    const srData = getStoredData();
+    const srData = getStoredData(srKey);
     const sr = getSRStats(srData);
     setSrStats(sr);
-  }, []);
+  }, [bookmarkKey, srKey, statsKey]);
 
   const filteredRecentStats = useMemo(() => {
     return recentStats.slice(-viewDays);
@@ -49,10 +56,10 @@ export default function StatsPage() {
   }, [filteredRecentStats]);
 
   const handleClearStats = () => {
-    clearStats();
-    setStats(getStats());
-    setRecentStats([]);
-    setStudyStreak(0);
+    clearStats(statsKey);
+    setStats(getStats(statsKey));
+    setRecentStats(getRecentStats(30, statsKey));
+    setStudyStreak(getStudyStreak(statsKey));
     setShowConfirmClear(false);
   };
 
@@ -82,28 +89,61 @@ export default function StatsPage() {
   }, [filteredRecentStats, viewDays]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <div className="space-y-8">
-        {/* Page header */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="font-display text-2xl font-semibold text-[var(--text-primary)]">
-              Your Progress
-            </h2>
-            <p className="text-sm text-[var(--text-muted)] mt-1">
-              Track your study habits and performance
-            </p>
-          </div>
+    <div className="max-w-6xl mx-auto px-4 py-8 space-y-6">
+      <StudySetSelector />
 
-          {stats && stats.totalQuestionsAnswered > 0 && (
-            <button
-              onClick={() => setShowConfirmClear(true)}
-              className="btn btn-ghost text-sm text-[var(--error-text)]"
-            >
-              Clear Stats
-            </button>
-          )}
+      {isLoading || isLoadingActive ? (
+        <div className="card p-6 animate-pulse">
+          <div className="h-5 w-40 bg-[var(--bg-secondary)] rounded mb-3" />
+          <div className="h-4 w-2/3 bg-[var(--bg-secondary)] rounded mb-6" />
+          <div className="h-64 bg-[var(--bg-secondary)] rounded" />
         </div>
+      ) : error ? (
+        <div className="card p-6 border-[var(--error-border)] bg-[var(--error-bg)]">
+          <h3 className="text-sm font-semibold text-[var(--error-text)] mb-2">
+            Unable to load stats
+          </h3>
+          <p className="text-sm text-[var(--text-muted)]">{error}</p>
+        </div>
+      ) : questions.length === 0 ? (
+        <div className="card p-8 text-center">
+          <h3 className="font-display text-xl font-semibold text-[var(--text-primary)]">
+            No questions in this set
+          </h3>
+          <p className="text-sm text-[var(--text-muted)] mt-2">
+            Import questions or switch to another study set.
+          </p>
+          <div className="mt-4 flex flex-wrap justify-center gap-2">
+            <Link href="/sets" className="btn btn-ghost text-sm">
+              Manage Sets
+            </Link>
+            <Link href="/browse" className="btn btn-primary text-sm">
+              Browse Sets
+            </Link>
+          </div>
+        </div>
+      ) : (
+        <div className="space-y-6">
+          {/* Page header */}
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="font-display text-2xl font-semibold text-[var(--text-primary)]">
+                Your Progress
+              </h2>
+              <p className="text-sm text-[var(--text-muted)] mt-1">
+                Track your study habits and performance
+              </p>
+            </div>
+
+            {stats && stats.totalQuestionsAnswered > 0 && (
+              <button
+                onClick={() => setShowConfirmClear(true)}
+                className="btn btn-ghost text-sm text-[var(--error-text)]"
+              >
+                Clear Stats
+              </button>
+            )}
+          </div>
 
         {/* Confirm clear dialog */}
         {showConfirmClear && (
@@ -129,78 +169,70 @@ export default function StatsPage() {
         )}
 
         {/* Quick stats grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="card p-5 text-center">
-            <div className="text-3xl font-bold text-[var(--text-accent)] tabular-nums">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="card p-4 text-center">
+            <div className="text-2xl font-bold text-[var(--text-accent)] tabular-nums">
               {studyStreak}
             </div>
-            <div className="text-sm text-[var(--text-muted)] mt-1">Day Streak</div>
-            {studyStreak > 0 && (
-              <div className="mt-2 text-2xl">🔥</div>
-            )}
+            <div className="text-xs text-[var(--text-muted)] mt-1">Day Streak</div>
           </div>
 
-          <div className="card p-5 text-center">
-            <div className="text-3xl font-bold text-[var(--text-primary)] tabular-nums">
+          <div className="card p-4 text-center">
+            <div className="text-2xl font-bold text-[var(--text-primary)] tabular-nums">
               {stats?.totalQuestionsAnswered ?? 0}
             </div>
-            <div className="text-sm text-[var(--text-muted)] mt-1">Questions Answered</div>
+            <div className="text-xs text-[var(--text-muted)] mt-1">Answered</div>
           </div>
 
-          <div className="card p-5 text-center">
-            <div className="text-3xl font-bold text-[var(--success-text)] tabular-nums">
+          <div className="card p-4 text-center">
+            <div className="text-2xl font-bold text-[var(--success-text)] tabular-nums">
               {stats ? Math.round((stats.totalCorrect / Math.max(stats.totalQuestionsAnswered, 1)) * 100) : 0}%
             </div>
-            <div className="text-sm text-[var(--text-muted)] mt-1">Overall Accuracy</div>
+            <div className="text-xs text-[var(--text-muted)] mt-1">Accuracy</div>
           </div>
 
-          <div className="card p-5 text-center">
-            <div className="text-3xl font-bold text-[var(--text-primary)] tabular-nums">
+          <div className="card p-4 text-center">
+            <div className="text-2xl font-bold text-[var(--text-primary)] tabular-nums">
               {formatStudyTime(stats?.totalStudyTimeMs ?? 0)}
             </div>
-            <div className="text-sm text-[var(--text-muted)] mt-1">Total Study Time</div>
+            <div className="text-xs text-[var(--text-muted)] mt-1">Study Time</div>
           </div>
         </div>
 
-        {/* Additional stats */}
-        <div className="grid md:grid-cols-3 gap-4">
-          <div className="card p-5">
-            <h3 className="text-sm font-semibold text-[var(--text-muted)] mb-3">Best Streak</h3>
-            <div className="text-2xl font-bold text-[var(--text-accent)] tabular-nums">
-              {stats?.longestStreak ?? 0} correct
+        {/* Focus stats */}
+        <div className="card p-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <p className="text-xs text-[var(--text-muted)]">Best streak</p>
+              <p className="text-lg font-semibold text-[var(--text-accent)] tabular-nums">
+                {stats?.longestStreak ?? 0} correct
+              </p>
             </div>
-            <p className="text-xs text-[var(--text-muted)] mt-1">Consecutive correct answers</p>
-          </div>
-
-          <div className="card p-5">
-            <h3 className="text-sm font-semibold text-[var(--text-muted)] mb-3">Bookmarked</h3>
-            <div className="text-2xl font-bold text-[var(--warning-text)] tabular-nums">
-              {bookmarkCount} questions
+            <div className="text-right">
+              <p className="text-xs text-[var(--text-muted)]">Bookmarks</p>
+              <p className="text-lg font-semibold text-[var(--warning-text)] tabular-nums">
+                {bookmarkCount}
+              </p>
             </div>
-            <p className="text-xs text-[var(--text-muted)] mt-1">Saved for later review</p>
           </div>
-
-          <div className="card p-5">
-            <h3 className="text-sm font-semibold text-[var(--text-muted)] mb-3">Spaced Repetition</h3>
-            <div className="flex gap-4">
-              <div>
-                <div className="text-xl font-bold text-[var(--success-text)] tabular-nums">
-                  {srStats?.mastered ?? 0}
-                </div>
-                <p className="text-xs text-[var(--text-muted)]">Mastered</p>
+          <div className="mt-3 grid grid-cols-3 gap-3 text-center">
+            <div className="rounded-lg bg-[var(--success-bg)] py-2">
+              <div className="text-sm font-semibold text-[var(--success-text)] tabular-nums">
+                {srStats?.mastered ?? 0}
               </div>
-              <div>
-                <div className="text-xl font-bold text-[var(--text-accent)] tabular-nums">
-                  {srStats?.learning ?? 0}
-                </div>
-                <p className="text-xs text-[var(--text-muted)]">Learning</p>
+              <div className="text-[11px] text-[var(--text-muted)]">Mastered</div>
+            </div>
+            <div className="rounded-lg bg-[var(--bg-accent-subtle)] py-2">
+              <div className="text-sm font-semibold text-[var(--text-accent)] tabular-nums">
+                {srStats?.learning ?? 0}
               </div>
-              <div>
-                <div className="text-xl font-bold text-[var(--error-text)] tabular-nums">
-                  {srStats?.struggling ?? 0}
-                </div>
-                <p className="text-xs text-[var(--text-muted)]">Struggling</p>
+              <div className="text-[11px] text-[var(--text-muted)]">Learning</div>
+            </div>
+            <div className="rounded-lg bg-[var(--error-bg)] py-2">
+              <div className="text-sm font-semibold text-[var(--error-text)] tabular-nums">
+                {srStats?.struggling ?? 0}
               </div>
+              <div className="text-[11px] text-[var(--text-muted)]">Struggling</div>
             </div>
           </div>
         </div>
@@ -229,7 +261,7 @@ export default function StatsPage() {
 
           {/* Bar chart */}
           <div className="space-y-4">
-            <div className="flex items-end gap-1 h-40">
+            <div className="flex items-end gap-1 h-28">
               {chartData.map((day, i) => {
                 const height = (day.questionsAnswered / maxQuestions) * 100;
                 const accuracy = day.questionsAnswered > 0
@@ -283,25 +315,10 @@ export default function StatsPage() {
               })}
             </div>
 
-            {/* Legend */}
-            <div className="flex items-center justify-center gap-6 text-xs text-[var(--text-muted)]">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded bg-[var(--success-border)]" />
-                <span>≥70% accuracy</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded bg-[var(--warning-text)]" />
-                <span>50-69% accuracy</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded bg-[var(--error-border)]" />
-                <span>&lt;50% accuracy</span>
-              </div>
-            </div>
           </div>
 
           {/* Summary for period */}
-          <div className="mt-6 pt-6 border-t border-[var(--border-subtle)] grid grid-cols-3 gap-4 text-center">
+          <div className="mt-4 pt-4 border-t border-[var(--border-subtle)] grid grid-cols-3 gap-4 text-center">
             <div>
               <div className="text-xl font-bold text-[var(--text-primary)] tabular-nums">
                 {filteredRecentStats.reduce((sum, d) => sum + d.questionsAnswered, 0)}
@@ -322,52 +339,9 @@ export default function StatsPage() {
             </div>
           </div>
         </div>
-
-        {/* Quick links */}
-        <div className="grid md:grid-cols-3 gap-4">
-          <Link href="/" className="card p-5 hover:border-[var(--border-accent)] transition-colors group">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-[var(--bg-accent-subtle)] flex items-center justify-center group-hover:bg-[var(--bg-accent)] transition-colors">
-                <svg className="w-5 h-5 text-[var(--text-accent)] group-hover:text-[var(--text-inverse)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
-              </div>
-              <div>
-                <h4 className="font-semibold text-[var(--text-primary)]">Practice</h4>
-                <p className="text-xs text-[var(--text-muted)]">Continue studying</p>
-              </div>
-            </div>
-          </Link>
-
-          <Link href="/review" className="card p-5 hover:border-[var(--border-accent)] transition-colors group">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-[var(--bg-accent-subtle)] flex items-center justify-center group-hover:bg-[var(--bg-accent)] transition-colors">
-                <svg className="w-5 h-5 text-[var(--text-accent)] group-hover:text-[var(--text-inverse)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
-              </div>
-              <div>
-                <h4 className="font-semibold text-[var(--text-primary)]">Active Recall</h4>
-                <p className="text-xs text-[var(--text-muted)]">Review due cards</p>
-              </div>
-            </div>
-          </Link>
-
-          <Link href="/bookmarks" className="card p-5 hover:border-[var(--border-accent)] transition-colors group">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-lg bg-[var(--bg-accent-subtle)] flex items-center justify-center group-hover:bg-[var(--bg-accent)] transition-colors">
-                <svg className="w-5 h-5 text-[var(--text-accent)] group-hover:text-[var(--text-inverse)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-                </svg>
-              </div>
-              <div>
-                <h4 className="font-semibold text-[var(--text-primary)]">Bookmarks</h4>
-                <p className="text-xs text-[var(--text-muted)]">{bookmarkCount} saved questions</p>
-              </div>
-            </div>
-          </Link>
         </div>
-      </div>
+
+      )}
     </div>
   );
 }

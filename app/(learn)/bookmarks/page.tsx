@@ -1,28 +1,37 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { QuestionCard } from "@/components/QuestionCard";
 import {
   ProgressRing,
   BookmarkButton,
 } from "@/components/ui";
+import { StudySetSelector, useStudySet } from "@/components/sets";
 import { useQuiz } from "@/hooks/useQuiz";
 import { getBookmarkedIndices, clearAllBookmarks } from "@/lib/bookmarks";
-import { QuestionBank } from "@/types";
+import { playSoundIfEnabled } from "@/lib/sounds";
+import { overrideLastReviewQuality, Quality } from "@/lib/spacedRepetition";
 import { cn } from "@/lib/utils";
-import questionsData from "@/questions.json";
-
-const questions = (questionsData as QuestionBank).questions;
+import { scopedKey } from "@/lib/storage";
 
 export default function BookmarksPage() {
+  const { activeSet, questions, isLoading, isLoadingActive, error } = useStudySet();
+  const bookmarkKey = scopedKey("medcram_bookmarks", activeSet?.id);
+  const progressKey = scopedKey("medcram_bookmarks_progress", activeSet?.id);
+  const srKey = scopedKey("medcram_spaced_repetition", activeSet?.id);
+
   const [bookmarkedIndices, setBookmarkedIndices] = useState<number[]>([]);
   const [showConfirmClear, setShowConfirmClear] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
 
   useEffect(() => {
-    setBookmarkedIndices(getBookmarkedIndices());
-  }, [refreshKey]);
+    setBookmarkedIndices(getBookmarkedIndices(bookmarkKey));
+  }, [refreshKey, bookmarkKey]);
+
+  const validBookmarkedIndices = useMemo(() => {
+    return bookmarkedIndices.filter((index) => index >= 0 && index < questions.length);
+  }, [bookmarkedIndices, questions.length]);
 
   const {
     currentQuestion,
@@ -38,15 +47,17 @@ export default function BookmarksPage() {
     previousQuestion,
     goToQuestion,
     resetQuiz,
+    resetSingleQuestion,
   } = useQuiz({
     questions,
-    questionIndices: bookmarkedIndices,
+    questionIndices: validBookmarkedIndices,
     shuffleQuestions: false,
-    persistKey: "medcram_bookmarks_progress",
+    persistKey: progressKey,
+    spacedRepetitionKey: srKey,
   });
 
   const handleClearBookmarks = () => {
-    clearAllBookmarks();
+    clearAllBookmarks(bookmarkKey);
     setBookmarkedIndices([]);
     setShowConfirmClear(false);
     resetQuiz();
@@ -59,31 +70,75 @@ export default function BookmarksPage() {
     }, 100);
   };
 
-  return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <div className="grid gap-8 lg:grid-cols-[1fr,320px]">
-        {/* Main content */}
-        <div className="space-y-6">
-          {/* Page header */}
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="font-display text-2xl font-semibold text-[var(--text-primary)]">
-                Bookmarked Questions
-              </h2>
-              <p className="text-sm text-[var(--text-muted)] mt-1">
-                Questions you&apos;ve saved for later review
-              </p>
-            </div>
+  const handleResetQuestion = () => {
+    if (!resetSingleQuestion) return;
+    resetSingleQuestion(currentIndex);
+    playSoundIfEnabled("click");
+  };
 
-            {bookmarkedIndices.length > 0 && (
+  const handleFeedback = (quality: Quality) => {
+    if (currentQuestionIndex < 0) return;
+    overrideLastReviewQuality(currentQuestionIndex, quality, srKey);
+  };
+
+  return (
+    <div className="max-w-6xl mx-auto px-4 py-8 space-y-6">
+      <StudySetSelector />
+
+      {isLoading || isLoadingActive ? (
+        <div className="card p-6 animate-pulse">
+          <div className="h-5 w-40 bg-[var(--bg-secondary)] rounded mb-3" />
+          <div className="h-4 w-2/3 bg-[var(--bg-secondary)] rounded mb-6" />
+          <div className="h-64 bg-[var(--bg-secondary)] rounded" />
+        </div>
+      ) : error ? (
+        <div className="card p-6 border-[var(--error-border)] bg-[var(--error-bg)]">
+          <h3 className="text-sm font-semibold text-[var(--error-text)] mb-2">
+            Unable to load bookmarks
+          </h3>
+          <p className="text-sm text-[var(--text-muted)]">{error}</p>
+        </div>
+      ) : questions.length === 0 ? (
+        <div className="card p-8 text-center">
+          <h3 className="font-display text-xl font-semibold text-[var(--text-primary)]">
+            No questions in this set
+          </h3>
+          <p className="text-sm text-[var(--text-muted)] mt-2">
+            Import questions or switch to another study set.
+          </p>
+          <div className="mt-4 flex flex-wrap justify-center gap-2">
+            <Link href="/sets" className="btn btn-ghost text-sm">
+              Manage Sets
+            </Link>
+            <Link href="/browse" className="btn btn-primary text-sm">
+              Browse Sets
+            </Link>
+          </div>
+        </div>
+      ) : (
+        <div className="grid gap-8 lg:grid-cols-[1fr,320px]">
+          {/* Main content */}
+          <div className="space-y-6">
+            {/* Page header */}
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="font-display text-2xl font-semibold text-[var(--text-primary)]">
+                  Bookmarked Questions
+                </h2>
+                <p className="text-sm text-[var(--text-muted)] mt-1">
+                  Questions you&apos;ve saved for later review
+                </p>
+              </div>
+
+            {validBookmarkedIndices.length > 0 && (
               <button
                 onClick={() => setShowConfirmClear(true)}
                 className="btn btn-ghost text-sm text-[var(--error-text)]"
               >
-                Clear All
-              </button>
-            )}
-          </div>
+                  Clear All
+                </button>
+              )}
+            </div>
 
           {/* Confirm clear dialog */}
           {showConfirmClear && (
@@ -138,6 +193,7 @@ export default function BookmarksPage() {
                       questionIndex={currentQuestionIndex}
                       onToggle={handleBookmarkToggle}
                       size="lg"
+                      storageKey={bookmarkKey}
                     />
                   </div>
 
@@ -155,17 +211,20 @@ export default function BookmarksPage() {
                     canGoNext={currentIndex < totalQuestions - 1}
                     canGoPrevious={currentIndex > 0}
                     showBookmark={false}
+                    onReset={handleResetQuestion}
+                    bookmarkStorageKey={bookmarkKey}
+                    onFeedback={handleFeedback}
                   />
                 </div>
               )}
 
               {/* Question list */}
               <div className="card p-5">
-                <h3 className="text-sm font-semibold text-[var(--text-muted)] mb-4">
-                  All Bookmarks ({bookmarkedIndices.length})
-                </h3>
-                <div className="grid grid-cols-10 gap-2">
-                  {bookmarkedIndices.map((qIndex, i) => (
+              <h3 className="text-sm font-semibold text-[var(--text-muted)] mb-4">
+                All Bookmarks ({validBookmarkedIndices.length})
+              </h3>
+              <div className="grid grid-cols-10 gap-2">
+                {validBookmarkedIndices.map((qIndex, i) => (
                     <button
                       key={qIndex}
                       onClick={() => goToQuestion(i)}
@@ -241,6 +300,7 @@ export default function BookmarksPage() {
           </div>
         </aside>
       </div>
+      )}
     </div>
   );
 }

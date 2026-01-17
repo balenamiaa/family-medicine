@@ -4,7 +4,9 @@ import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { QuestionCard } from "@/components/QuestionCard";
 import { ProgressRing } from "@/components/ui";
+import { StudySetSelector, useStudySet } from "@/components/sets";
 import { startSession, recordQuestionAnswered } from "@/lib/stats";
+import { playSoundIfEnabled } from "@/lib/sounds";
 import { useQuiz } from "@/hooks/useQuiz";
 import {
   getStoredData,
@@ -12,14 +14,18 @@ import {
   getStats,
   clearAllData,
   SpacedRepetitionData,
+  overrideLastReviewQuality,
+  Quality,
 } from "@/lib/spacedRepetition";
-import { QuestionBank } from "@/types";
 import { cn } from "@/lib/utils";
-import questionsData from "@/questions.json";
-
-const questions = (questionsData as QuestionBank).questions;
+import { scopedKey } from "@/lib/storage";
 
 export default function ReviewPage() {
+  const { activeSet, questions, isLoading, isLoadingActive, error } = useStudySet();
+  const srKey = scopedKey("medcram_spaced_repetition", activeSet?.id);
+  const statsKey = scopedKey("medcram_study_stats", activeSet?.id);
+  const bookmarkKey = scopedKey("medcram_bookmarks", activeSet?.id);
+
   const [srData, setSrData] = useState<SpacedRepetitionData | null>(null);
   const [showConfirmClear, setShowConfirmClear] = useState(false);
   // Lock the review indices at session start to prevent question changes mid-session
@@ -27,14 +33,12 @@ export default function ReviewPage() {
 
   // Load spaced repetition data
   useEffect(() => {
-    const data = getStoredData();
+    if (!activeSet?.id) return;
+    const data = getStoredData(srKey);
     setSrData(data);
-    // Only set session indices once at mount
-    if (sessionIndices === null) {
-      const cards = getCardsNeedingReview(data);
-      setSessionIndices(cards.map((card) => card.questionIndex));
-    }
-  }, []);
+    const cards = getCardsNeedingReview(data);
+    setSessionIndices(cards.map((card) => card.questionIndex));
+  }, [activeSet?.id, srKey, questions.length]);
 
   // Get questions that need review (for sidebar display only)
   const reviewCards = useMemo(() => {
@@ -64,29 +68,45 @@ export default function ReviewPage() {
     nextQuestion,
     previousQuestion,
     resetQuiz,
+    resetSingleQuestion,
   } = useQuiz({
     questions,
     questionIndices: reviewQuestionIndices,
     shuffleQuestions: true,
+    persistKey: scopedKey("medcram_review_progress", activeSet?.id),
+    spacedRepetitionKey: srKey,
   });
 
   // Start session tracking
   useEffect(() => {
-    startSession();
-  }, []);
+    if (!activeSet?.id) return;
+    startSession(statsKey);
+  }, [activeSet?.id, statsKey]);
 
   // Refresh data after answering
   const handleAnswer = (correct: boolean, answer: any) => {
     answerQuestion(correct, answer);
-    recordQuestionAnswered(correct, 0); // Streak not tracked in review mode
+    recordQuestionAnswered(correct, 0, statsKey); // Streak not tracked in review mode
     // Refresh SR data after a short delay
     setTimeout(() => {
-      setSrData(getStoredData());
+      setSrData(getStoredData(srKey));
     }, 100);
   };
 
+  const handleResetQuestion = () => {
+    if (!resetSingleQuestion) return;
+    resetSingleQuestion(currentIndex);
+    playSoundIfEnabled("click");
+  };
+
+  const handleFeedback = (quality: Quality) => {
+    if (currentQuestionIndex < 0) return;
+    overrideLastReviewQuality(currentQuestionIndex, quality, srKey);
+    setSrData(getStoredData(srKey));
+  };
+
   const handleClearData = () => {
-    clearAllData();
+    clearAllData(srKey);
     setSrData({ cards: {}, reviewHistory: [] });
     setSessionIndices([]);
     setShowConfirmClear(false);
@@ -95,7 +115,7 @@ export default function ReviewPage() {
 
   // Start a new review session with fresh indices
   const startNewSession = () => {
-    const data = getStoredData();
+    const data = getStoredData(srKey);
     setSrData(data);
     const cards = getCardsNeedingReview(data);
     setSessionIndices(cards.map((card) => card.questionIndex));
@@ -119,30 +139,63 @@ export default function ReviewPage() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <div className="grid gap-8 lg:grid-cols-[1fr,320px]">
-        {/* Main content */}
-        <div className="space-y-6">
-          {/* Page header */}
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="font-display text-2xl font-semibold text-[var(--text-primary)]">
-                Active Recall
-              </h2>
-              <p className="text-sm text-[var(--text-muted)] mt-1">
-                Review questions using spaced repetition
-              </p>
-            </div>
+    <div className="max-w-6xl mx-auto px-4 py-8 space-y-6">
+      <StudySetSelector />
 
-            {stats && stats.totalReviewed > 0 && (
-              <button
-                onClick={() => setShowConfirmClear(true)}
-                className="btn btn-ghost text-sm text-[var(--error-text)]"
-              >
-                Clear History
-              </button>
-            )}
+      {isLoading || isLoadingActive ? (
+        <div className="card p-6 animate-pulse">
+          <div className="h-5 w-40 bg-[var(--bg-secondary)] rounded mb-3" />
+          <div className="h-4 w-2/3 bg-[var(--bg-secondary)] rounded mb-6" />
+          <div className="h-64 bg-[var(--bg-secondary)] rounded" />
+        </div>
+      ) : error ? (
+        <div className="card p-6 border-[var(--error-border)] bg-[var(--error-bg)]">
+          <h3 className="text-sm font-semibold text-[var(--error-text)] mb-2">
+            Unable to load review queue
+          </h3>
+          <p className="text-sm text-[var(--text-muted)]">{error}</p>
+        </div>
+      ) : questions.length === 0 ? (
+        <div className="card p-8 text-center">
+          <h3 className="font-display text-xl font-semibold text-[var(--text-primary)]">
+            No questions in this set
+          </h3>
+          <p className="text-sm text-[var(--text-muted)] mt-2">
+            Import questions or switch to another study set.
+          </p>
+          <div className="mt-4 flex flex-wrap justify-center gap-2">
+            <Link href="/sets" className="btn btn-ghost text-sm">
+              Manage Sets
+            </Link>
+            <Link href="/browse" className="btn btn-primary text-sm">
+              Browse Sets
+            </Link>
           </div>
+        </div>
+      ) : (
+        <div className="grid gap-8 lg:grid-cols-[1fr,320px]">
+          {/* Main content */}
+          <div className="space-y-6">
+            {/* Page header */}
+            <div className="flex items-center justify-between">
+              <div>
+                <h2 className="font-display text-2xl font-semibold text-[var(--text-primary)]">
+                  Active Recall
+                </h2>
+                <p className="text-sm text-[var(--text-muted)] mt-1">
+                  Review questions using spaced repetition
+                </p>
+              </div>
+
+              {stats && stats.totalReviewed > 0 && (
+                <button
+                  onClick={() => setShowConfirmClear(true)}
+                  className="btn btn-ghost text-sm text-[var(--error-text)]"
+                >
+                  Clear History
+                </button>
+              )}
+            </div>
 
           {/* Confirm clear dialog */}
           {showConfirmClear && (
@@ -204,6 +257,9 @@ export default function ReviewPage() {
                   onPrevious={previousQuestion}
                   canGoNext={currentIndex < totalQuestions - 1}
                   canGoPrevious={currentIndex > 0}
+                  onReset={handleResetQuestion}
+                  bookmarkStorageKey={bookmarkKey}
+                  onFeedback={handleFeedback}
                 />
               )}
             </>
@@ -318,6 +374,7 @@ export default function ReviewPage() {
           )}
         </aside>
       </div>
+      )}
     </div>
   );
 }

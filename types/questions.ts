@@ -14,6 +14,8 @@ interface BaseQuestion {
   difficulty: Difficulty;
   retention_aid: string;
   explanation: string;
+  id?: string;
+  tags?: string[];
 }
 
 // Single-choice MCQ

@@ -42,6 +42,9 @@ export function KeyboardHints({ className, compact = false }: KeyboardHintsProps
         <span>
           <kbd className="px-1 py-0.5 bg-[var(--bg-secondary)] rounded text-[10px]">B</kbd> Bookmark
         </span>
+        <span>
+          <kbd className="px-1 py-0.5 bg-[var(--bg-secondary)] rounded text-[10px]">R</kbd> Retry
+        </span>
       </div>
     );
   }
@@ -85,6 +88,12 @@ export function KeyboardHints({ className, compact = false }: KeyboardHintsProps
                 B
               </kbd>
               <span className="text-[var(--text-secondary)]">Bookmark</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <kbd className="px-1.5 py-0.5 bg-[var(--bg-card)] border border-[var(--border-subtle)] rounded text-xs font-mono">
+                R
+              </kbd>
+              <span className="text-[var(--text-secondary)]">Retry</span>
             </div>
           </div>
         </div>

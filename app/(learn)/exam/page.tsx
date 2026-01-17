@@ -8,14 +8,13 @@ import {
   ProgressRing,
   QuestionNavigator,
 } from "@/components/ui";
+import { StudySetSelector, useStudySet } from "@/components/sets";
 import { useQuiz } from "@/hooks/useQuiz";
 import { startSession, recordQuestionAnswered } from "@/lib/stats";
 import { playSoundIfEnabled } from "@/lib/sounds";
-import { QuestionBank, QuestionType, Difficulty, QUESTION_TYPE_LABELS, DIFFICULTY_LABELS, Question, isEMQ } from "@/types";
+import { QuestionType, Difficulty, QUESTION_TYPE_LABELS, DIFFICULTY_LABELS } from "@/types";
 import { cn, formatPercent, shuffle } from "@/lib/utils";
-import questionsData from "@/questions.json";
-
-const questions = (questionsData as QuestionBank).questions;
+import { scopedKey } from "@/lib/storage";
 
 type ExamState = "setup" | "running" | "finished";
 
@@ -27,46 +26,17 @@ interface ExamConfig {
   selectedTopics: string[];
 }
 
-// Extract topics from questions based on keywords
-const TOPICS = [
-  { id: "infant-feeding", label: "Infant Feeding", icon: "🍼", keywords: ["breastfeed", "feeding", "infant", "complementary", "nutrition", "milk"] },
-  { id: "diarrhea", label: "Diarrhea & Dehydration", icon: "💧", keywords: ["diarrhea", "dehydration", "ors", "zinc", "dysentery"] },
-  { id: "respiratory", label: "Respiratory Illness", icon: "🫁", keywords: ["cough", "pneumonia", "respiratory", "breathing", "wheeze", "stridor"] },
-  { id: "fever", label: "Fever & Malaria", icon: "🌡️", keywords: ["fever", "malaria", "temperature", "rdt", "artemether"] },
-  { id: "malnutrition", label: "Malnutrition", icon: "📊", keywords: ["malnutrition", "wasting", "stunting", "muac", "weight", "kwashiorkor", "marasmus"] },
-  { id: "immunization", label: "Immunization", icon: "💉", keywords: ["vaccine", "immunization", "bcg", "polio", "measles", "dpt"] },
-  { id: "hiv", label: "HIV & PMTCT", icon: "🔬", keywords: ["hiv", "pmtct", "antiretroviral", "art", "prevention"] },
-  { id: "anemia", label: "Anemia & Iron", icon: "🩸", keywords: ["anemia", "iron", "hemoglobin", "pallor", "ferrous"] },
-  { id: "danger-signs", label: "Danger Signs", icon: "⚠️", keywords: ["danger", "severe", "emergency", "refer", "urgent"] },
-  { id: "other", label: "Other Topics", icon: "📚", keywords: [] },
-];
-
-function getQuestionText(question: Question): string {
-  if (isEMQ(question)) {
-    // EMQ uses instructions and premises
-    return [question.instructions, ...question.premises].join(" ");
-  }
-  return question.question_text;
-}
-
-function getQuestionTopics(question: Question): string[] {
-  const text = getQuestionText(question).toLowerCase();
-  const matchedTopics: string[] = [];
-
-  for (const topic of TOPICS) {
-    if (topic.id === "other") continue;
-    if (topic.keywords.some(keyword => text.includes(keyword))) {
-      matchedTopics.push(topic.id);
-    }
-  }
-
-  return matchedTopics.length > 0 ? matchedTopics : ["other"];
-}
+// Topics are derived from study set tags instead of hardcoded keywords.
 
 const QUESTION_TYPES: QuestionType[] = ["mcq_single", "mcq_multi", "true_false", "emq", "cloze"];
 const DIFFICULTIES: Difficulty[] = [1, 2, 3, 4, 5];
 
 export default function ExamPage() {
+  const { activeSet, questions, isLoading, isLoadingActive, error } = useStudySet();
+  const statsKey = scopedKey("medcram_study_stats", activeSet?.id);
+  const progressKey = scopedKey("medcram_exam_progress", activeSet?.id);
+  const srKey = scopedKey("medcram_spaced_repetition", activeSet?.id);
+
   // Exam state
   const [examState, setExamState] = useState<ExamState>("setup");
   const [config, setConfig] = useState<ExamConfig>({
@@ -101,8 +71,8 @@ export default function ExamPage() {
 
     if (config.selectedTopics.length > 0) {
       filtered = filtered.filter((item) => {
-        const questionTopics = getQuestionTopics(item.question);
-        return config.selectedTopics.some(t => questionTopics.includes(t));
+        const tags = item.question.tags ?? [];
+        return tags.some((tag) => config.selectedTopics.includes(tag));
       });
     }
 
@@ -133,12 +103,14 @@ export default function ExamPage() {
     questions,
     questionIndices: selectedIndices,
     shuffleQuestions: false,
+    persistKey: progressKey,
+    spacedRepetitionKey: srKey,
   });
 
   // Track answers in stats
   const handleAnswer = (correct: boolean, answer: Parameters<typeof answerQuestion>[1]) => {
     answerQuestion(correct, answer);
-    recordQuestionAnswered(correct, 0);
+    recordQuestionAnswered(correct, 0, statsKey);
   };
 
   // Reset current question
@@ -157,7 +129,7 @@ export default function ExamPage() {
     setSelectedIndices(indices);
     setTimeRemaining(config.timeLimit * 60);
     setExamState("running");
-    startSession();
+    startSession(statsKey);
     playSoundIfEnabled("click");
   };
 
@@ -200,6 +172,10 @@ export default function ExamPage() {
     resetQuiz();
   };
 
+  useEffect(() => {
+    resetExam();
+  }, [activeSet?.id]);
+
   // Calculate available questions based on filters
   const availableCount = useMemo(() => {
     let filtered = questions;
@@ -218,28 +194,31 @@ export default function ExamPage() {
 
     if (config.selectedTopics.length > 0) {
       filtered = filtered.filter((q) => {
-        const questionTopics = getQuestionTopics(q);
-        return config.selectedTopics.some(t => questionTopics.includes(t));
+        const tags = q.tags ?? [];
+        return tags.some((tag) => config.selectedTopics.includes(tag));
       });
     }
 
     return filtered.length;
-  }, [config.questionTypes, config.difficulties, config.selectedTopics]);
+  }, [questions, config.questionTypes, config.difficulties, config.selectedTopics]);
 
   // Topic counts
   const topicCounts = useMemo(() => {
     const counts: Record<string, number> = {};
-    for (const topic of TOPICS) {
-      counts[topic.id] = 0;
-    }
-    for (const q of questions) {
-      const topics = getQuestionTopics(q);
-      for (const t of topics) {
-        counts[t] = (counts[t] || 0) + 1;
-      }
-    }
+    questions.forEach((q) => {
+      const tags = q.tags ?? [];
+      tags.forEach((tag) => {
+        counts[tag] = (counts[tag] || 0) + 1;
+      });
+    });
     return counts;
-  }, []);
+  }, [questions]);
+
+  const topics = useMemo(() => {
+    return Object.entries(topicCounts)
+      .map(([tag, count]) => ({ id: tag, label: tag, count }))
+      .sort((a, b) => b.count - a.count);
+  }, [topicCounts]);
 
   // Timer urgency level
   const timerUrgency = useMemo(() => {
@@ -348,107 +327,140 @@ export default function ExamPage() {
         {/* Setup State */}
         {examState === "setup" && (
           <div className="space-y-8">
-            {/* Hero Header */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-center space-y-4"
-            >
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--bg-accent-subtle)] text-[var(--text-accent)] text-sm font-medium">
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                Timed Assessment
-              </div>
-              <h1 className="font-display text-4xl md:text-5xl font-bold text-[var(--text-primary)]">
-                Exam Mode
-              </h1>
-              <p className="text-lg text-[var(--text-muted)] max-w-md mx-auto">
-                Simulate a real exam environment with time pressure
-              </p>
-            </motion.div>
+            <StudySetSelector />
 
-            {/* Topics Grid */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="space-y-4"
-            >
-              <div className="flex items-center justify-between">
-                <h2 className="text-sm font-semibold text-[var(--text-muted)] uppercase tracking-wider">
-                  Select Topics
-                </h2>
-                {config.selectedTopics.length > 0 && (
-                  <button
-                    onClick={() => setConfig(c => ({ ...c, selectedTopics: [] }))}
-                    className="text-xs text-[var(--text-accent)] hover:underline"
-                  >
-                    Clear all
-                  </button>
-                )}
+            {isLoading || isLoadingActive ? (
+              <div className="card p-6 animate-pulse">
+                <div className="h-5 w-40 bg-[var(--bg-secondary)] rounded mb-3" />
+                <div className="h-4 w-2/3 bg-[var(--bg-secondary)] rounded mb-6" />
+                <div className="h-64 bg-[var(--bg-secondary)] rounded" />
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-                {TOPICS.map((topic, i) => {
-                  const isSelected = config.selectedTopics.includes(topic.id);
-                  const count = topicCounts[topic.id] || 0;
+            ) : error ? (
+              <div className="card p-6 border-[var(--error-border)] bg-[var(--error-bg)]">
+                <h3 className="text-sm font-semibold text-[var(--error-text)] mb-2">
+                  Unable to load exam setup
+                </h3>
+                <p className="text-sm text-[var(--text-muted)]">{error}</p>
+              </div>
+            ) : questions.length === 0 ? (
+              <div className="card p-8 text-center">
+                <h3 className="font-display text-xl font-semibold text-[var(--text-primary)]">
+                  No questions in this set
+                </h3>
+                <p className="text-sm text-[var(--text-muted)] mt-2">
+                  Import questions or switch to another study set.
+                </p>
+                <div className="mt-4 flex flex-wrap justify-center gap-2">
+                  <Link href="/sets" className="btn btn-ghost text-sm">
+                    Manage Sets
+                  </Link>
+                  <Link href="/browse" className="btn btn-primary text-sm">
+                    Browse Sets
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <>
+                {/* Hero Header */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-center space-y-4"
+                >
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--bg-accent-subtle)] text-[var(--text-accent)] text-sm font-medium">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Timed Assessment
+                  </div>
+                  <h1 className="font-display text-4xl md:text-5xl font-bold text-[var(--text-primary)]">
+                    Exam Mode
+                  </h1>
+                  <p className="text-lg text-[var(--text-muted)] max-w-md mx-auto">
+                    Simulate a real exam environment with time pressure
+                  </p>
+                </motion.div>
 
-                  return (
-                    <motion.button
-                      key={topic.id}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.05 * i }}
-                      onClick={() => setConfig(c => ({
-                        ...c,
-                        selectedTopics: isSelected
-                          ? c.selectedTopics.filter(t => t !== topic.id)
-                          : [...c.selectedTopics, topic.id]
-                      }))}
-                      className={cn(
-                        "group relative p-4 rounded-2xl border-2 transition-all duration-200 text-left",
-                        isSelected
-                          ? "bg-[var(--bg-accent)] border-[var(--bg-accent)] text-[var(--text-inverse)] shadow-lg shadow-[var(--bg-accent)]/20"
-                          : "bg-[var(--bg-card)] border-[var(--border-subtle)] hover:border-[var(--border-accent)] hover:shadow-md"
-                      )}
+            {topics.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="space-y-4"
+              >
+                <div className="flex items-center justify-between">
+                  <h2 className="text-sm font-semibold text-[var(--text-muted)] uppercase tracking-wider">
+                    Filter by Tags
+                  </h2>
+                  {config.selectedTopics.length > 0 && (
+                    <button
+                      onClick={() => setConfig(c => ({ ...c, selectedTopics: [] }))}
+                      className="text-xs text-[var(--text-accent)] hover:underline"
                     >
-                      <div className="text-2xl mb-2">{topic.icon}</div>
-                      <div className={cn(
-                        "text-sm font-semibold mb-1",
-                        isSelected ? "text-[var(--text-inverse)]" : "text-[var(--text-primary)]"
-                      )}>
-                        {topic.label}
-                      </div>
-                      <div className={cn(
-                        "text-xs tabular-nums",
-                        isSelected ? "text-[var(--text-inverse)]/70" : "text-[var(--text-muted)]"
-                      )}>
-                        {count} questions
-                      </div>
-                      {isSelected && (
-                        <motion.div
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          className="absolute top-2 right-2 w-5 h-5 rounded-full bg-white/20 flex items-center justify-center"
-                        >
-                          <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                          </svg>
-                        </motion.div>
-                      )}
-                    </motion.button>
-                  );
-                })}
-              </div>
-            </motion.div>
+                      Clear all
+                    </button>
+                  )}
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+                  {topics.map((topic, i) => {
+                    const isSelected = config.selectedTopics.includes(topic.id);
 
-            {/* Configuration Cards */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="grid md:grid-cols-2 gap-4"
-            >
+                    return (
+                      <motion.button
+                        key={topic.id}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.05 * i }}
+                        onClick={() => setConfig(c => ({
+                          ...c,
+                          selectedTopics: isSelected
+                            ? c.selectedTopics.filter(t => t !== topic.id)
+                            : [...c.selectedTopics, topic.id]
+                        }))}
+                        className={cn(
+                          "group relative p-4 rounded-2xl border-2 transition-all duration-200 text-left",
+                          isSelected
+                            ? "bg-[var(--bg-accent)] border-[var(--bg-accent)] text-[var(--text-inverse)] shadow-lg shadow-[var(--bg-accent)]/20"
+                            : "bg-[var(--bg-card)] border-[var(--border-subtle)] hover:border-[var(--border-accent)] hover:shadow-md"
+                        )}
+                      >
+                        <div className={cn(
+                          "text-sm font-semibold mb-1",
+                          isSelected ? "text-[var(--text-inverse)]" : "text-[var(--text-primary)]"
+                        )}>
+                          {topic.label}
+                        </div>
+                        <div className={cn(
+                          "text-xs tabular-nums",
+                          isSelected ? "text-[var(--text-inverse)]/70" : "text-[var(--text-muted)]"
+                        )}>
+                          {topic.count} questions
+                        </div>
+                        {isSelected && (
+                          <motion.div
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            className="absolute top-2 right-2 w-5 h-5 rounded-full bg-white/20 flex items-center justify-center"
+                          >
+                            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                          </motion.div>
+                        )}
+                      </motion.button>
+                    );
+                  })}
+                </div>
+              </motion.div>
+            )}
+
+                {/* Configuration Cards */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="grid md:grid-cols-2 gap-4"
+                >
               {/* Questions & Time */}
               <div className="card p-6 space-y-6">
                 <div>
@@ -605,6 +617,8 @@ export default function ExamPage() {
                 Begin Exam →
               </motion.button>
             </motion.div>
+              </>
+            )}
           </div>
         )}
 

@@ -9,6 +9,7 @@ interface KeyboardShortcutsConfig {
   onNext?: () => void;
   onPrevious?: () => void;
   onToggleBookmark?: () => void;
+  onReset?: () => void;
   optionCount?: number;
   isAnswered?: boolean;
   canSubmit?: boolean;
@@ -23,6 +24,7 @@ export function useKeyboardShortcuts({
   onNext,
   onPrevious,
   onToggleBookmark,
+  onReset,
   optionCount = 0,
   isAnswered = false,
   canSubmit = false,
@@ -37,6 +39,7 @@ export function useKeyboardShortcuts({
     onNext,
     onPrevious,
     onToggleBookmark,
+    onReset,
     optionCount,
     isAnswered,
     canSubmit,
@@ -53,6 +56,7 @@ export function useKeyboardShortcuts({
       onNext,
       onPrevious,
       onToggleBookmark,
+      onReset,
       optionCount,
       isAnswered,
       canSubmit,
@@ -66,6 +70,7 @@ export function useKeyboardShortcuts({
     onNext,
     onPrevious,
     onToggleBookmark,
+    onReset,
     optionCount,
     isAnswered,
     canSubmit,
@@ -132,6 +137,16 @@ export function useKeyboardShortcuts({
         e.preventDefault();
         playSoundIfEnabled("click");
         config.onToggleBookmark();
+      }
+      return;
+    }
+
+    // R to reset after answering
+    if ((e.key === "r" || e.key === "R") && config.isAnswered) {
+      if (config.onReset) {
+        e.preventDefault();
+        playSoundIfEnabled("click");
+        config.onReset();
       }
       return;
     }

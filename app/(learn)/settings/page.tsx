@@ -4,10 +4,12 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { ThemeToggle, SoundToggle } from "@/components/ui";
+import { useStudySet } from "@/components/sets";
 import { cn } from "@/lib/utils";
 import { clearStats } from "@/lib/stats";
 import { clearAllBookmarks } from "@/lib/bookmarks";
 import { clearAllData as clearSRData } from "@/lib/spacedRepetition";
+import { scopedKey } from "@/lib/storage";
 
 interface User {
   id: string;
@@ -17,10 +19,16 @@ interface User {
 }
 
 export default function SettingsPage() {
+  const { activeSet } = useStudySet();
+  const statsKey = scopedKey("medcram_study_stats", activeSet?.id);
+  const bookmarkKey = scopedKey("medcram_bookmarks", activeSet?.id);
+  const srKey = scopedKey("medcram_spaced_repetition", activeSet?.id);
+
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [showClearConfirm, setShowClearConfirm] = useState<string | null>(null);
   const [clearSuccess, setClearSuccess] = useState<string | null>(null);
+  const [isSigningOut, setIsSigningOut] = useState(false);
 
   useEffect(() => {
     async function fetchUser() {
@@ -44,25 +52,40 @@ export default function SettingsPage() {
   const handleClearData = (type: string) => {
     switch (type) {
       case "stats":
-        clearStats();
+        clearStats(statsKey);
         break;
       case "bookmarks":
-        clearAllBookmarks();
+        clearAllBookmarks(bookmarkKey);
         break;
       case "progress":
-        clearSRData();
-        localStorage.removeItem("medcram_practice_progress");
+        clearSRData(srKey);
+        [
+          "medcram_practice_progress",
+          "medcram_review_progress",
+          "medcram_bookmarks_progress",
+          "medcram_exam_progress",
+        ].forEach((key) => localStorage.removeItem(scopedKey(key, activeSet?.id)));
         break;
       case "all":
-        clearStats();
-        clearAllBookmarks();
-        clearSRData();
+        clearStats(statsKey);
+        clearAllBookmarks(bookmarkKey);
+        clearSRData(srKey);
         localStorage.clear();
         break;
     }
     setShowClearConfirm(null);
     setClearSuccess(type);
     setTimeout(() => setClearSuccess(null), 3000);
+  };
+
+  const handleSignOut = async () => {
+    if (isSigningOut) return;
+    setIsSigningOut(true);
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+    } finally {
+      window.location.href = "/login";
+    }
   };
 
   return (
@@ -112,6 +135,20 @@ export default function SettingsPage() {
                     Administrator
                   </span>
                 )}
+                <button
+                  onClick={handleSignOut}
+                  disabled={isSigningOut}
+                  className={cn(
+                    "mt-3 inline-flex items-center gap-2 rounded-lg border border-[var(--border-subtle)] px-3 py-1.5 text-xs font-medium text-[var(--text-secondary)] transition-colors",
+                    "hover:bg-[var(--bg-card-hover)]",
+                    isSigningOut && "opacity-60 cursor-not-allowed"
+                  )}
+                >
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1" />
+                  </svg>
+                  Sign out
+                </button>
               </div>
             </div>
           ) : (

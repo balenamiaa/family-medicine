@@ -11,6 +11,7 @@ interface BookmarkButtonProps {
   size?: "sm" | "md" | "lg";
   showLabel?: boolean;
   onToggle?: (bookmarked: boolean) => void;
+  storageKey?: string;
 }
 
 export function BookmarkButton({
@@ -19,21 +20,22 @@ export function BookmarkButton({
   size = "md",
   showLabel = false,
   onToggle,
+  storageKey,
 }: BookmarkButtonProps) {
   const [bookmarked, setBookmarked] = useState(false);
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    setBookmarked(isBookmarked(questionIndex));
-  }, [questionIndex]);
+    setBookmarked(isBookmarked(questionIndex, storageKey));
+  }, [questionIndex, storageKey]);
 
   const handleToggle = useCallback(() => {
-    const newState = toggleBookmark(questionIndex);
+    const newState = toggleBookmark(questionIndex, storageKey);
     setBookmarked(newState);
     playSoundIfEnabled("click");
     onToggle?.(newState);
-  }, [questionIndex, onToggle]);
+  }, [questionIndex, onToggle, storageKey]);
 
   const sizeClasses = {
     sm: "w-4 h-4",

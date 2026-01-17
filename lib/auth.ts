@@ -1,54 +1,45 @@
 import { NextRequest } from "next/server";
 import { db, users, User, StudySet, UserRole, StudySetType } from "@/db";
 import { eq } from "drizzle-orm";
+import { getSessionPayload, SESSION_COOKIE_NAME } from "@/lib/session";
 
 // Admin emails - can be configured via environment variable
-const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || "admin@medcram.app").split(",").map((e) => e.trim());
+const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || "admin@medcram.app")
+  .split(",")
+  .map((e) => e.trim())
+  .filter(Boolean);
+
+export function isAdminEmail(email?: string | null): boolean {
+  if (!email) return false;
+  return ADMIN_EMAILS.includes(email);
+}
 
 /**
  * Get the current user from the request
- * For now, uses a simple header-based approach or defaults to local user
- * Later: Integrate with NextAuth, Clerk, or other auth providers
  */
 export async function getCurrentUser(request: NextRequest): Promise<User | null> {
   try {
-    // Check for user ID in header (for authenticated requests)
-    const userId = request.headers.get("x-user-id");
-
-    // Check for email in header or cookie
-    const userEmail = request.headers.get("x-user-email") || "local@medcram.app";
-
-    if (userId) {
-      const user = await db.query.users.findFirst({
-        where: eq(users.id, userId),
-      });
-      return user || null;
-    }
-
-    // Get or create user by email
-    let user = await db.query.users.findFirst({
-      where: eq(users.email, userEmail),
-    });
-
-    if (!user) {
-      // Create new user
-      const isAdmin = ADMIN_EMAILS.includes(userEmail);
-      const [created] = await db
-        .insert(users)
-        .values({
-          email: userEmail,
-          name: userEmail === "local@medcram.app" ? "Local User" : userEmail.split("@")[0],
-          role: isAdmin ? "ADMIN" : "USER",
-        })
-        .returning();
-      user = created;
-    }
-
-    return user;
+    const token = request.cookies.get(SESSION_COOKIE_NAME)?.value ?? null;
+    return await getCurrentUserFromSessionToken(token);
   } catch (error) {
+    if (error instanceof Error && error.message.includes("AUTH_SESSION_SECRET")) {
+      throw error;
+    }
     console.error("Failed to get current user:", error);
     return null;
   }
+}
+
+export async function getCurrentUserFromSessionToken(
+  token?: string | null
+): Promise<User | null> {
+  const payload = getSessionPayload(token);
+  if (!payload) return null;
+
+  const user = await db.query.users.findFirst({
+    where: eq(users.id, payload.userId),
+  });
+  return user ?? null;
 }
 
 /**
@@ -56,7 +47,7 @@ export async function getCurrentUser(request: NextRequest): Promise<User | null>
  */
 export function isAdmin(user: User | null): boolean {
   if (!user) return false;
-  return user.role === "ADMIN" || ADMIN_EMAILS.includes(user.email || "");
+  return user.role === "ADMIN" || isAdminEmail(user.email);
 }
 
 /**

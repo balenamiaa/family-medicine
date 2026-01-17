@@ -24,6 +24,7 @@ export interface ReviewHistoryEntry {
   correct: boolean;
   responseTimeMs?: number;
   quality?: Quality;
+  prevCard?: ReviewCard | null;
 }
 
 const STORAGE_KEY = "medcram_spaced_repetition";
@@ -139,13 +140,17 @@ export function calculateNextReview(
   };
 }
 
-export function getStoredData(): SpacedRepetitionData {
+function resolveKey(storageKey?: string): string {
+  return storageKey ?? STORAGE_KEY;
+}
+
+export function getStoredData(storageKey?: string): SpacedRepetitionData {
   if (typeof window === "undefined") {
     return { cards: {}, reviewHistory: [] };
   }
 
   try {
-    const stored = localStorage.getItem(STORAGE_KEY);
+    const stored = localStorage.getItem(resolveKey(storageKey));
     if (stored) {
       return JSON.parse(stored) as SpacedRepetitionData;
     }
@@ -156,11 +161,11 @@ export function getStoredData(): SpacedRepetitionData {
   return { cards: {}, reviewHistory: [] };
 }
 
-export function saveData(data: SpacedRepetitionData): void {
+export function saveData(data: SpacedRepetitionData, storageKey?: string): void {
   if (typeof window === "undefined") return;
 
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    localStorage.setItem(resolveKey(storageKey), JSON.stringify(data));
   } catch (error) {
     console.error("[SpacedRepetition] Failed to save data:", error);
     // Could be storage quota exceeded
@@ -168,7 +173,7 @@ export function saveData(data: SpacedRepetitionData): void {
       // Try to free up space by trimming history
       data.reviewHistory = data.reviewHistory.slice(-500);
       try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+        localStorage.setItem(resolveKey(storageKey), JSON.stringify(data));
         console.info("[SpacedRepetition] Trimmed history to save space");
       } catch {
         console.error("[SpacedRepetition] Still unable to save after trimming");
@@ -186,20 +191,24 @@ export function saveData(data: SpacedRepetitionData): void {
 export function recordAnswer(
   questionIndex: number,
   correct: boolean,
-  responseTimeMs?: number
+  responseTimeMs?: number,
+  options?: { quality?: Quality; storageKey?: string }
 ): SpacedRepetitionData {
-  const data = getStoredData();
+  const data = getStoredData(options?.storageKey);
   const existingCard = data.cards[questionIndex] || null;
 
   // Calculate quality using response time if available
   let quality: Quality;
-  if (responseTimeMs !== undefined && responseTimeMs > 0) {
+  if (options?.quality !== undefined) {
+    quality = options.quality;
+  } else if (responseTimeMs !== undefined && responseTimeMs > 0) {
     const avgTime = existingCard?.averageResponseTimeMs ?? DEFAULT_RESPONSE_TIME_MS;
     quality = qualityFromResponse(correct, responseTimeMs, avgTime);
   } else {
     quality = qualityFromCorrectness(correct);
   }
 
+  const previousCard = existingCard ? { ...existingCard } : null;
   const updatedCard = calculateNextReview(
     existingCard ? { ...existingCard, questionIndex } : null,
     quality
@@ -223,6 +232,7 @@ export function recordAnswer(
     correct,
     responseTimeMs,
     quality,
+    prevCard: previousCard,
   });
 
   // Keep only last 1000 history entries
@@ -230,7 +240,40 @@ export function recordAnswer(
     data.reviewHistory = data.reviewHistory.slice(-1000);
   }
 
-  saveData(data);
+  saveData(data, options?.storageKey);
+  return data;
+}
+
+export function overrideLastReviewQuality(
+  questionIndex: number,
+  quality: Quality,
+  storageKey?: string
+): SpacedRepetitionData {
+  const data = getStoredData(storageKey);
+  const history = data.reviewHistory;
+
+  const lastIndexFromEnd = [...history].reverse().findIndex(
+    (entry) => entry.questionIndex === questionIndex
+  );
+  if (lastIndexFromEnd === -1) return data;
+
+  const entryIndex = history.length - 1 - lastIndexFromEnd;
+  const entry = history[entryIndex];
+  if (!entry) return data;
+
+  const baseCard = entry.prevCard ? { ...entry.prevCard, questionIndex } : null;
+  if (baseCard) {
+    const updatedCard = calculateNextReview(baseCard, quality);
+    updatedCard.questionIndex = questionIndex;
+    data.cards[questionIndex] = updatedCard;
+  }
+
+  history[entryIndex] = {
+    ...entry,
+    quality,
+  };
+
+  saveData(data, storageKey);
   return data;
 }
 
@@ -280,7 +323,7 @@ export function getStats(data: SpacedRepetitionData) {
   };
 }
 
-export function clearAllData(): void {
+export function clearAllData(storageKey?: string): void {
   if (typeof window === "undefined") return;
-  localStorage.removeItem(STORAGE_KEY);
+  localStorage.removeItem(resolveKey(storageKey));
 }

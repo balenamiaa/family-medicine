@@ -21,6 +21,7 @@ interface UseQuizOptions {
   filterDifficulty?: Difficulty[];
   questionIndices?: number[]; // For review mode - specific question indices to use
   persistKey?: string; // Custom storage key for different modes
+  spacedRepetitionKey?: string;
 }
 
 interface UseQuizReturn {
@@ -73,6 +74,7 @@ export function useQuiz({
   filterDifficulty,
   questionIndices,
   persistKey = PRACTICE_STORAGE_KEY,
+  spacedRepetitionKey,
 }: UseQuizOptions): UseQuizReturn {
   // Filter questions based on type and difficulty, or use provided indices
   const filteredQuestionData = useMemo(() => {
@@ -193,7 +195,7 @@ export function useQuiz({
   const answerQuestion = useCallback((correct: boolean, answer: UserAnswer) => {
     // Record in spaced repetition system
     if (currentQuestionIndex >= 0) {
-      recordAnswer(currentQuestionIndex, correct);
+      recordAnswer(currentQuestionIndex, correct, undefined, { storageKey: spacedRepetitionKey });
     }
 
     setProgress((prev) => {

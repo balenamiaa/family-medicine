@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo, useEffect } from "react";
+import Link from "next/link";
 import { QuestionCard } from "@/components/QuestionCard";
 import {
   ProgressRing,
@@ -9,13 +10,14 @@ import {
   SearchInput,
   KeyboardHints,
 } from "@/components/ui";
+import { StudySetSelector, useStudySet } from "@/components/sets";
 import { useQuiz } from "@/hooks/useQuiz";
 import { startSession, recordQuestionAnswered } from "@/lib/stats";
-import { QuestionBank, QuestionType, Difficulty, QUESTION_TYPE_LABELS, DIFFICULTY_LABELS, Question } from "@/types";
+import { playSoundIfEnabled } from "@/lib/sounds";
+import { overrideLastReviewQuality, Quality } from "@/lib/spacedRepetition";
+import { QuestionType, Difficulty, QUESTION_TYPE_LABELS, DIFFICULTY_LABELS, Question } from "@/types";
 import { cn, formatPercent } from "@/lib/utils";
-import questionsData from "@/questions.json";
-
-const questions = (questionsData as QuestionBank).questions;
+import { scopedKey } from "@/lib/storage";
 
 const QUESTION_TYPES: QuestionType[] = ["mcq_single", "mcq_multi", "true_false", "emq", "cloze"];
 const DIFFICULTIES: Difficulty[] = [1, 2, 3, 4, 5];
@@ -54,6 +56,12 @@ function searchQuestions(questions: Question[], query: string): number[] {
 }
 
 export default function PracticePage() {
+  const { activeSet, questions, isLoading, isLoadingActive, error } = useStudySet();
+  const progressKey = scopedKey("medcram_practice_progress", activeSet?.id);
+  const statsKey = scopedKey("medcram_study_stats", activeSet?.id);
+  const bookmarkKey = scopedKey("medcram_bookmarks", activeSet?.id);
+  const srKey = scopedKey("medcram_spaced_repetition", activeSet?.id);
+
   // Filter state
   const [filterTypes, setFilterTypes] = useState<QuestionType[]>([]);
   const [filterDifficulty, setFilterDifficulty] = useState<Difficulty[]>([]);
@@ -64,12 +72,13 @@ export default function PracticePage() {
   // Search results
   const searchIndices = useMemo(() => {
     return searchQuestions(questions, searchQuery);
-  }, [searchQuery]);
+  }, [questions, searchQuery]);
 
   // Start session tracking on mount
   useEffect(() => {
-    startSession();
-  }, []);
+    if (!activeSet?.id) return;
+    startSession(statsKey);
+  }, [activeSet?.id, statsKey]);
 
   // Quiz hook
   const {
@@ -90,18 +99,32 @@ export default function PracticePage() {
     previousQuestion,
     goToQuestion,
     resetQuiz,
+    resetSingleQuestion,
   } = useQuiz({
     questions,
     shuffleQuestions: isShuffled,
     filterTypes: filterTypes.length > 0 ? filterTypes : undefined,
     filterDifficulty: filterDifficulty.length > 0 ? filterDifficulty : undefined,
     questionIndices: searchQuery.trim() ? searchIndices : undefined,
+    persistKey: progressKey,
+    spacedRepetitionKey: srKey,
   });
 
   // Track answered questions in stats
   const handleAnswer = (correct: boolean, answer: Parameters<typeof answerQuestion>[1]) => {
     answerQuestion(correct, answer);
-    recordQuestionAnswered(correct, correct ? streak + 1 : 0);
+    recordQuestionAnswered(correct, correct ? streak + 1 : 0, statsKey);
+  };
+
+  const handleResetQuestion = () => {
+    if (!resetSingleQuestion) return;
+    resetSingleQuestion(currentIndex);
+    playSoundIfEnabled("click");
+  };
+
+  const handleFeedback = (quality: Quality) => {
+    if (currentQuestionIndex < 0) return;
+    overrideLastReviewQuality(currentQuestionIndex, quality, srKey);
   };
 
   // Toggle filter
@@ -128,22 +151,55 @@ export default function PracticePage() {
     };
     questions.forEach((q) => counts[q.question_type]++);
     return counts;
-  }, []);
+  }, [questions]);
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
-      <div className="grid gap-8 lg:grid-cols-[1fr,320px]">
-        {/* Main content */}
-        <div className="space-y-6">
-          {/* Keyboard hints */}
-          <KeyboardHints />
+    <div className="max-w-6xl mx-auto px-4 py-8 space-y-6">
+      <StudySetSelector />
 
-          {/* Search */}
-          <SearchInput
-            value={searchQuery}
-            onChange={setSearchQuery}
-            placeholder="Search questions by keyword..."
-          />
+      {isLoading || isLoadingActive ? (
+        <div className="card p-6 animate-pulse">
+          <div className="h-5 w-40 bg-[var(--bg-secondary)] rounded mb-3" />
+          <div className="h-4 w-2/3 bg-[var(--bg-secondary)] rounded mb-6" />
+          <div className="h-64 bg-[var(--bg-secondary)] rounded" />
+        </div>
+      ) : error ? (
+        <div className="card p-6 border-[var(--error-border)] bg-[var(--error-bg)]">
+          <h3 className="text-sm font-semibold text-[var(--error-text)] mb-2">
+            Unable to load questions
+          </h3>
+          <p className="text-sm text-[var(--text-muted)]">{error}</p>
+        </div>
+      ) : questions.length === 0 ? (
+        <div className="card p-8 text-center">
+          <h3 className="font-display text-xl font-semibold text-[var(--text-primary)]">
+            No questions in this set
+          </h3>
+          <p className="text-sm text-[var(--text-muted)] mt-2">
+            Import questions or switch to another study set.
+          </p>
+          <div className="mt-4 flex flex-wrap justify-center gap-2">
+            <Link href="/sets" className="btn btn-ghost text-sm">
+              Manage Sets
+            </Link>
+            <Link href="/browse" className="btn btn-primary text-sm">
+              Browse Sets
+            </Link>
+          </div>
+        </div>
+      ) : (
+        <div className="grid gap-8 lg:grid-cols-[1fr,320px]">
+          {/* Main content */}
+          <div className="space-y-6">
+            {/* Keyboard hints */}
+            <KeyboardHints />
+
+            {/* Search */}
+            <SearchInput
+              value={searchQuery}
+              onChange={setSearchQuery}
+              placeholder={`Search ${activeSet?.title ?? "questions"}...`}
+            />
 
           {/* Filter toggle */}
           <div className="flex items-center justify-between">
@@ -268,6 +324,9 @@ export default function PracticePage() {
               onPrevious={previousQuestion}
               canGoNext={currentIndex < totalQuestions - 1}
               canGoPrevious={currentIndex > 0}
+              onReset={handleResetQuestion}
+              bookmarkStorageKey={bookmarkKey}
+              onFeedback={handleFeedback}
             />
           ) : (
             <div className="card p-12 text-center">
@@ -356,6 +415,7 @@ export default function PracticePage() {
           </div>
         </aside>
       </div>
+      )}
     </div>
   );
 }

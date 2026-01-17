@@ -4,6 +4,10 @@ import { getStoredValue, setStoredValue } from "./utils";
 
 const STATS_KEY = "medcram_study_stats";
 
+function resolveKey(storageKey?: string): string {
+  return storageKey ?? STATS_KEY;
+}
+
 export interface DailyStats {
   date: string; // YYYY-MM-DD format
   questionsAnswered: number;
@@ -62,16 +66,16 @@ function getTodayStats(stats: StudyStats): DailyStats {
   return todayStats;
 }
 
-export function getStats(): StudyStats {
-  return getStoredValue<StudyStats>(STATS_KEY, createEmptyStats());
+export function getStats(storageKey?: string): StudyStats {
+  return getStoredValue<StudyStats>(resolveKey(storageKey), createEmptyStats());
 }
 
-export function saveStats(stats: StudyStats): void {
-  setStoredValue(STATS_KEY, stats);
+export function saveStats(stats: StudyStats, storageKey?: string): void {
+  setStoredValue(resolveKey(storageKey), stats);
 }
 
-export function startSession(): void {
-  const stats = getStats();
+export function startSession(storageKey?: string): void {
+  const stats = getStats(storageKey);
   const now = Date.now();
 
   // If there was no session or last activity was more than 5 minutes ago, start new session
@@ -82,11 +86,11 @@ export function startSession(): void {
   }
 
   stats.lastActivityTimestamp = now;
-  saveStats(stats);
+  saveStats(stats, storageKey);
 }
 
-export function recordStudyTime(): void {
-  const stats = getStats();
+export function recordStudyTime(storageKey?: string): void {
+  const stats = getStats(storageKey);
   const now = Date.now();
 
   if (stats.lastActivityTimestamp && stats.currentSessionStart) {
@@ -98,13 +102,13 @@ export function recordStudyTime(): void {
   }
 
   stats.lastActivityTimestamp = now;
-  saveStats(stats);
+  saveStats(stats, storageKey);
 }
 
-export function recordQuestionAnswered(correct: boolean, streak: number): void {
-  recordStudyTime();
+export function recordQuestionAnswered(correct: boolean, streak: number, storageKey?: string): void {
+  recordStudyTime(storageKey);
 
-  const stats = getStats();
+  const stats = getStats(storageKey);
   const todayStats = getTodayStats(stats);
 
   todayStats.questionsAnswered++;
@@ -120,19 +124,19 @@ export function recordQuestionAnswered(correct: boolean, streak: number): void {
   }
 
   stats.lastActivityTimestamp = Date.now();
-  saveStats(stats);
+  saveStats(stats, storageKey);
 }
 
-export function endSession(): void {
-  recordStudyTime();
-  const stats = getStats();
+export function endSession(storageKey?: string): void {
+  recordStudyTime(storageKey);
+  const stats = getStats(storageKey);
   stats.currentSessionStart = null;
-  saveStats(stats);
+  saveStats(stats, storageKey);
 }
 
 // Get stats for the last N days
-export function getRecentStats(days: number): DailyStats[] {
-  const stats = getStats();
+export function getRecentStats(days: number, storageKey?: string): DailyStats[] {
+  const stats = getStats(storageKey);
   const cutoffDate = new Date();
   cutoffDate.setDate(cutoffDate.getDate() - days);
   const cutoff = cutoffDate.toISOString().split("T")[0];
@@ -143,8 +147,8 @@ export function getRecentStats(days: number): DailyStats[] {
 }
 
 // Calculate streak (consecutive days with activity)
-export function getStudyStreak(): number {
-  const stats = getStats();
+export function getStudyStreak(storageKey?: string): number {
+  const stats = getStats(storageKey);
   if (stats.dailyStats.length === 0) return 0;
 
   const sorted = [...stats.dailyStats].sort((a, b) => b.date.localeCompare(a.date));
@@ -202,6 +206,6 @@ export function getAverageAccuracy(dailyStats: DailyStats[]): number {
 }
 
 // Clear all stats
-export function clearStats(): void {
-  saveStats(createEmptyStats());
+export function clearStats(storageKey?: string): void {
+  saveStats(createEmptyStats(), storageKey);
 }
