@@ -193,6 +193,17 @@ export default function PracticePage() {
         <div className="grid gap-8 lg:grid-cols-[1fr,320px]">
           {/* Main content */}
           <div className="space-y-6">
+            {/* Question navigator - at top for quick access */}
+            {totalQuestions > 0 && (
+              <QuestionNavigator
+                totalQuestions={totalQuestions}
+                currentIndex={currentIndex}
+                answeredIndices={answeredIndices}
+                correctIndices={correctIndices}
+                onNavigate={goToQuestion}
+              />
+            )}
+
             {/* Keyboard hints */}
             <KeyboardHints />
 
@@ -356,16 +367,6 @@ export default function PracticePage() {
             </div>
           )}
 
-          {/* Question navigator */}
-          {totalQuestions > 0 && (
-            <QuestionNavigator
-              totalQuestions={totalQuestions}
-              currentIndex={currentIndex}
-              answeredIndices={answeredIndices}
-              correctIndices={correctIndices}
-              onNavigate={goToQuestion}
-            />
-          )}
         </div>
 
         {/* Sidebar */}
