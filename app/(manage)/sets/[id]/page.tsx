@@ -170,6 +170,7 @@ export default function StudySetDetailPage() {
                 type: studySet.type,
                 tags: studySet.tags,
               }}
+              allowedTypes={studySet.type === "SYSTEM" ? ["SYSTEM", "PUBLIC"] : ["PRIVATE", "PUBLIC"]}
               onSubmit={handleUpdate}
               onCancel={() => setIsEditing(false)}
               submitLabel="Save Changes"

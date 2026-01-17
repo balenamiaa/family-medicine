@@ -112,6 +112,12 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
 
     // If changing type, verify user can create that type
     if (type !== undefined && type !== existing.type) {
+      if (existing.type === "SYSTEM" && type === "PRIVATE") {
+        return NextResponse.json(
+          { error: "System study sets cannot be private" },
+          { status: 400 }
+        );
+      }
       if (!canCreateSetOfType(user, type as StudySetType)) {
         return NextResponse.json(
           { error: `You cannot change this set to type ${type}` },
