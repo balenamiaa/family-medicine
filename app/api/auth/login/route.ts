@@ -35,7 +35,6 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const allowlistOnly = process.env.AUTH_ALLOWLIST_ONLY === "true";
     const providerReady = Boolean(process.env.RESEND_API_KEY && process.env.AUTH_EMAIL_FROM);
 
     if (AUTH_REQUIRE_EMAIL_VERIFICATION && providerReady) {
@@ -60,7 +59,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ status: "sent" });
     }
 
-    if (AUTH_REQUIRE_EMAIL_VERIFICATION && !providerReady && !allowlistOnly) {
+    if (AUTH_REQUIRE_EMAIL_VERIFICATION && !providerReady) {
       return NextResponse.json(
         { error: "Email verification is not configured yet." },
         { status: 500 }
