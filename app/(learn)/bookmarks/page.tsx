@@ -34,6 +34,7 @@ export default function BookmarksPage() {
   }, [bookmarkedIndices, questions.length]);
 
   const {
+    progress,
     currentQuestion,
     currentIndex,
     currentQuestionIndex,
@@ -205,6 +206,7 @@ export default function BookmarksPage() {
                     totalQuestions={totalQuestions}
                     isAnswered={isAnswered}
                     isCorrect={isCorrect}
+                    userAnswer={progress.questionStates[currentIndex]?.userAnswer}
                     onAnswer={answerQuestion}
                     onNext={nextQuestion}
                     onPrevious={previousQuestion}

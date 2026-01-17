@@ -82,6 +82,7 @@ export default function PracticePage() {
 
   // Quiz hook
   const {
+    progress,
     currentQuestion,
     currentIndex,
     currentQuestionIndex,
@@ -320,6 +321,7 @@ export default function PracticePage() {
               totalQuestions={totalQuestions}
               isAnswered={isAnswered}
               isCorrect={isCorrect}
+              userAnswer={progress.questionStates[currentIndex]?.userAnswer}
               onAnswer={handleAnswer}
               onNext={nextQuestion}
               onPrevious={previousQuestion}

@@ -39,6 +39,7 @@ interface QuestionCardProps {
   totalQuestions: number;
   isAnswered: boolean;
   isCorrect: boolean | null;
+  userAnswer?: UserAnswer;
   onAnswer: (correct: boolean, answer: UserAnswer) => void;
   onNext: () => void;
   onPrevious: () => void;
@@ -57,6 +58,7 @@ export function QuestionCard({
   totalQuestions,
   isAnswered,
   isCorrect,
+  userAnswer,
   onAnswer,
   onNext,
   onPrevious,
@@ -162,11 +164,15 @@ export function QuestionCard({
     }
 
     if (isCloze(question)) {
+      const clozeAnswer = Array.isArray(userAnswer) && userAnswer.every((item) => typeof item === "string")
+        ? (userAnswer as string[])
+        : undefined;
       return (
         <ClozeQuestion
           question={question}
           onAnswer={handleAnswer}
           answered={isAnswered}
+          initialAnswer={clozeAnswer}
         />
       );
     }

@@ -9,9 +9,10 @@ interface ClozeQuestionProps {
   question: ClozeQuestionType;
   onAnswer: (correct: boolean, answer: string[]) => void;
   answered: boolean;
+  initialAnswer?: string[];
 }
 
-export function ClozeQuestion({ question, onAnswer, answered }: ClozeQuestionProps) {
+export function ClozeQuestion({ question, onAnswer, answered, initialAnswer }: ClozeQuestionProps) {
   const segments = parseClozeText(question.question_text);
   const blankCount = segments.filter((s) => s.type === "blank").length;
 
@@ -23,6 +24,14 @@ export function ClozeQuestion({ question, onAnswer, answered }: ClozeQuestionPro
   useEffect(() => {
     inputRefs.current[0]?.focus();
   }, []);
+
+  useEffect(() => {
+    if (initialAnswer && initialAnswer.length === blankCount) {
+      setAnswers(initialAnswer);
+      return;
+    }
+    setAnswers(Array(blankCount).fill(""));
+  }, [blankCount, initialAnswer, question.question_text]);
 
   const handleInputChange = (index: number, value: string) => {
     if (answered) return;
@@ -88,6 +97,8 @@ export function ClozeQuestion({ question, onAnswer, answered }: ClozeQuestionPro
           const currentBlankIndex = blankIndex++;
           const state = getBlankState(currentBlankIndex);
           const correctAnswer = question.answers[currentBlankIndex];
+          const displayAnswer = answers[currentBlankIndex] ?? "";
+          const measuredLength = Math.max(displayAnswer.length, correctAnswer?.length ?? 0);
           const isFocused = focusedIndex === currentBlankIndex;
 
           return (
@@ -97,7 +108,7 @@ export function ClozeQuestion({ question, onAnswer, answered }: ClozeQuestionPro
                 <input
                   ref={(el) => { inputRefs.current[currentBlankIndex] = el; }}
                   type="text"
-                  value={answered ? question.answers[currentBlankIndex] : answers[currentBlankIndex]}
+                  value={displayAnswer}
                   onChange={(e) => handleInputChange(currentBlankIndex, e.target.value)}
                   onKeyDown={(e) => handleKeyDown(currentBlankIndex, e)}
                   onFocus={() => setFocusedIndex(currentBlankIndex)}
@@ -132,9 +143,9 @@ export function ClozeQuestion({ question, onAnswer, answered }: ClozeQuestionPro
                   )}
                   style={{
                     // Dynamic width based on answer length (min 80px, max 160px)
-                    minWidth: answered
-                      ? `${Math.max(80, Math.min(160, correctAnswer.length * 10 + 20))}px`
-                      : undefined
+                    minWidth: answered && measuredLength > 0
+                      ? `${Math.max(80, Math.min(160, measuredLength * 10 + 20))}px`
+                      : undefined,
                   }}
                 />
 

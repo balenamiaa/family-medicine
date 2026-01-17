@@ -56,6 +56,7 @@ export default function ReviewPage() {
 
   // Quiz hook for review mode
   const {
+    progress,
     currentQuestion,
     currentIndex,
     currentQuestionIndex,
@@ -252,6 +253,7 @@ export default function ReviewPage() {
                   totalQuestions={totalQuestions}
                   isAnswered={isAnswered}
                   isCorrect={isCorrect}
+                  userAnswer={progress.questionStates[currentIndex]?.userAnswer}
                   onAnswer={handleAnswer}
                   onNext={nextQuestion}
                   onPrevious={previousQuestion}
