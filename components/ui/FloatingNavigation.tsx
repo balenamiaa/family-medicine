@@ -84,16 +84,16 @@ export function FloatingNavigation({
             className={cn(
               "flex items-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl font-medium text-sm transition-all duration-200",
               canGoPrevious
-                ? "bg-[var(--bg-secondary)] hover:bg-[var(--bg-card-hover)] text-[var(--text-primary)] cursor-pointer"
+                ? "bg-[var(--bg-button)] hover:bg-[var(--bg-button-hover)] text-[var(--text-primary)] cursor-pointer"
                 : "text-[var(--text-muted)]/40 cursor-not-allowed"
             )}
           >
             <svg
-              className="w-4 h-4 transition-transform group-hover:-translate-x-0.5"
+              className="w-5 h-5 transition-transform group-hover:-translate-x-0.5"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
-              strokeWidth={2}
+              strokeWidth={2.5}
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
             </svg>
@@ -181,21 +181,21 @@ export function FloatingNavigation({
               "flex items-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl font-medium text-sm transition-all duration-200",
               canGoNext
                 ? isAnswered
-                  ? "bg-gradient-to-r from-[var(--bg-accent)] to-[var(--color-amber-500)] text-[var(--text-inverse)] shadow-lg shadow-[var(--bg-accent)]/30"
-                  : "bg-[var(--bg-secondary)] hover:bg-[var(--bg-card-hover)] text-[var(--text-primary)]"
+                  ? "bg-[var(--bg-accent)] text-[var(--text-inverse)] shadow-lg shadow-[var(--bg-accent)]/30"
+                  : "bg-[var(--bg-button)] hover:bg-[var(--bg-button-hover)] text-[var(--text-primary)]"
                 : "text-[var(--text-muted)]/40 cursor-not-allowed"
             )}
           >
             <span className="hidden sm:inline">{canGoNext ? "Next" : "Done"}</span>
             <svg
               className={cn(
-                "w-4 h-4 transition-transform",
+                "w-5 h-5 transition-transform",
                 canGoNext && "group-hover:translate-x-0.5"
               )}
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
-              strokeWidth={2}
+              strokeWidth={2.5}
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>

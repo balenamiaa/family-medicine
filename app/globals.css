@@ -75,6 +75,8 @@
     --bg-card-hover: var(--color-cream-50);
     --bg-accent: var(--color-teal-600);
     --bg-accent-subtle: color-mix(in oklch, var(--color-teal-500) 10%, transparent);
+    --bg-button: var(--color-cream-200);
+    --bg-button-hover: var(--color-cream-300);
 
     --text-primary: #1A1A1A;
     --text-secondary: #4A4A4A;
@@ -114,6 +116,8 @@
     --bg-card-hover: var(--color-slate-700);
     --bg-accent: var(--color-amber-500);
     --bg-accent-subtle: color-mix(in oklch, var(--color-amber-500) 12%, transparent);
+    --bg-button: var(--color-slate-700);
+    --bg-button-hover: var(--color-slate-600);
 
     --text-primary: #F7F7F7;
     --text-secondary: #C9D1D9;
