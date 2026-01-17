@@ -6,13 +6,13 @@ import { QuestionCard } from "@/components/QuestionCard";
 import {
   ProgressRing,
   BookmarkButton,
+  QuestionNavigator,
 } from "@/components/ui";
 import { StudySetSelector, useStudySet } from "@/components/sets";
 import { useQuiz } from "@/hooks/useQuiz";
 import { getBookmarkedIndices, clearAllBookmarks } from "@/lib/bookmarks";
 import { playSoundIfEnabled } from "@/lib/sounds";
 import { overrideLastReviewQuality, Quality } from "@/lib/spacedRepetition";
-import { cn } from "@/lib/utils";
 import { scopedKey } from "@/lib/storage";
 
 export default function BookmarksPage() {
@@ -41,6 +41,8 @@ export default function BookmarksPage() {
     totalQuestions,
     answeredCount,
     correctCount,
+    answeredIndices,
+    correctIndices,
     isAnswered,
     isCorrect,
     answerQuestion,
@@ -185,6 +187,15 @@ export default function BookmarksPage() {
             </div>
           ) : (
             <>
+              {/* Quick navigation */}
+              <QuestionNavigator
+                totalQuestions={totalQuestions}
+                currentIndex={currentIndex}
+                answeredIndices={answeredIndices}
+                correctIndices={correctIndices}
+                onNavigate={goToQuestion}
+              />
+
               {/* Question card with bookmark button */}
               {currentQuestion && (
                 <div className="relative">
@@ -219,29 +230,6 @@ export default function BookmarksPage() {
                   />
                 </div>
               )}
-
-              {/* Question list */}
-              <div className="card p-5">
-              <h3 className="text-sm font-semibold text-[var(--text-muted)] mb-4">
-                All Bookmarks ({validBookmarkedIndices.length})
-              </h3>
-              <div className="grid grid-cols-10 gap-2">
-                {validBookmarkedIndices.map((qIndex, i) => (
-                    <button
-                      key={qIndex}
-                      onClick={() => goToQuestion(i)}
-                      className={cn(
-                        "aspect-square rounded-lg text-sm font-medium transition-all",
-                        i === currentIndex
-                          ? "bg-[var(--bg-accent)] text-[var(--text-inverse)]"
-                          : "bg-[var(--bg-secondary)] text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)]"
-                      )}
-                    >
-                      {qIndex + 1}
-                    </button>
-                  ))}
-                </div>
-              </div>
             </>
           )}
         </div>
@@ -271,25 +259,6 @@ export default function BookmarksPage() {
               </div>
             </div>
           )}
-
-          {/* Tips */}
-          <div className="card p-5">
-            <h3 className="text-sm font-semibold text-[var(--text-muted)] mb-3">Tips</h3>
-            <ul className="space-y-2 text-sm text-[var(--text-secondary)]">
-              <li className="flex items-start gap-2">
-                <span className="text-[var(--text-accent)]">•</span>
-                <span>Press <kbd className="px-1 py-0.5 bg-[var(--bg-secondary)] rounded text-xs">B</kbd> to toggle bookmark</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-[var(--text-accent)]">•</span>
-                <span>Bookmark tricky questions to revisit later</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-[var(--text-accent)]">•</span>
-                <span>Use bookmarks for targeted revision</span>
-              </li>
-            </ul>
-          </div>
 
           {/* Links */}
           <div className="flex gap-2">

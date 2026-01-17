@@ -78,13 +78,14 @@ export function useQuiz({
 }: UseQuizOptions): UseQuizReturn {
   // Filter questions based on type and difficulty, or use provided indices
   const filteredQuestionData = useMemo(() => {
-    if (questionIndices && questionIndices.length > 0) {
-      // Use specific indices (for review mode)
+    // If questionIndices is explicitly provided (even if empty), use only those indices
+    if (questionIndices !== undefined) {
       return questionIndices
         .filter((i) => i >= 0 && i < allQuestions.length)
         .map((i) => ({ question: allQuestions[i], originalIndex: i }));
     }
 
+    // Otherwise, use all questions with optional type/difficulty filters
     let result = allQuestions.map((q, i) => ({ question: q, originalIndex: i }));
 
     if (filterTypes && filterTypes.length > 0) {
@@ -100,7 +101,7 @@ export function useQuiz({
 
   // Generate a cache key based on filters to separate progress for different filter combinations
   const filterCacheKey = useMemo(() => {
-    if (questionIndices && questionIndices.length > 0) {
+    if (questionIndices !== undefined) {
       return `${persistKey}_review`;
     }
     const typeKey = filterTypes?.sort().join(",") || "all";
