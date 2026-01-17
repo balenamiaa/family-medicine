@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
+import { Bookmark } from "lucide-react";
 import { QuestionCard } from "@/components/QuestionCard";
 import {
   ProgressRing,
@@ -18,7 +19,8 @@ import { scopedKey } from "@/lib/storage";
 export default function BookmarksPage() {
   const { activeSet, questions, isLoading, isLoadingActive, error } = useStudySet();
   const bookmarkKey = scopedKey("medcram_bookmarks", activeSet?.id);
-  const progressKey = scopedKey("medcram_bookmarks_progress", activeSet?.id);
+  // Use the same progress key as practice so answers sync
+  const progressKey = scopedKey("medcram_practice_progress", activeSet?.id);
   const srKey = scopedKey("medcram_spaced_repetition", activeSet?.id);
 
   const [bookmarkedIndices, setBookmarkedIndices] = useState<number[]>([]);
@@ -170,9 +172,7 @@ export default function BookmarksPage() {
           {totalQuestions === 0 ? (
             <div className="card p-12 text-center">
               <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-[var(--bg-secondary)] flex items-center justify-center">
-                <svg className="w-10 h-10 text-[var(--text-muted)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-                </svg>
+                <Bookmark className="w-10 h-10 text-[var(--text-muted)]" />
               </div>
               <h3 className="font-display text-xl font-semibold text-[var(--text-primary)] mb-2">
                 No bookmarks yet

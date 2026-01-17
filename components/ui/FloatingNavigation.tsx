@@ -40,7 +40,6 @@ export function FloatingNavigation({
     }
   };
 
-  // Progress percentage
   const progress = ((currentIndex + 1) / totalQuestions) * 100;
 
   return (
@@ -51,110 +50,57 @@ export function FloatingNavigation({
       className={cn("relative", className)}
     >
       <div
-        className="absolute -inset-1 rounded-[22px] bg-gradient-to-r from-[var(--color-amber-400)]/25 via-[var(--color-teal-500)]/20 to-[var(--color-amber-500)]/25 blur-sm"
-        aria-hidden="true"
-      />
-      {/* Glassmorphic floating bar */}
-      <div
         className={cn(
-          "relative overflow-hidden rounded-2xl border backdrop-blur-xl transition-all duration-500",
-          "bg-[var(--bg-card)]/80 border-[var(--border-subtle)]",
-          "shadow-lg shadow-black/5 dark:shadow-black/20",
-          isAnswered && "border-[var(--border-accent)]/40 shadow-[var(--bg-accent)]/15"
+          "relative rounded-xl border bg-[var(--bg-card)] transition-colors duration-200",
+          "border-[var(--border-subtle)]",
+          isAnswered && "border-[var(--border-accent)]"
         )}
       >
-        <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-[var(--bg-accent)] via-[var(--color-amber-400)] to-[var(--bg-accent)] opacity-60" />
-
-        {/* Progress bar background */}
-        <div className="absolute inset-0 overflow-hidden rounded-2xl">
+        {/* Progress bar */}
+        <div className="absolute inset-x-0 bottom-0 h-1 overflow-hidden rounded-b-xl bg-[var(--bg-secondary)]">
           <motion.div
-            className="absolute inset-y-0 left-0 bg-gradient-to-r from-[var(--bg-accent)]/10 to-[var(--bg-accent)]/5"
+            className="h-full bg-[var(--bg-accent)]"
             initial={{ width: 0 }}
             animate={{ width: `${progress}%` }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
           />
         </div>
 
-        <div className="relative flex items-center justify-between gap-3 px-2 py-2 sm:px-4 sm:py-3">
+        <div className="flex items-center justify-between gap-4 px-3 py-2.5 sm:px-4 sm:py-3">
           {/* Previous button */}
           <motion.button
             onClick={handlePrevious}
             disabled={!canGoPrevious}
-            whileHover={canGoPrevious ? { scale: 1.02 } : {}}
-            whileTap={canGoPrevious ? { scale: 0.98 } : {}}
+            whileTap={canGoPrevious ? { scale: 0.95 } : {}}
             className={cn(
-              "flex items-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl font-medium text-sm transition-all duration-200",
+              "flex items-center gap-2 px-3 py-2 rounded-lg font-medium text-sm transition-colors",
               canGoPrevious
-                ? "bg-[var(--bg-button)] hover:bg-[var(--bg-button-hover)] text-[var(--text-primary)] cursor-pointer"
-                : "text-[var(--text-muted)]/40 cursor-not-allowed"
+                ? "bg-[var(--bg-button)] hover:bg-[var(--bg-button-hover)] text-[var(--text-primary)]"
+                : "text-[var(--text-muted)]/30 cursor-not-allowed"
             )}
           >
-            <ChevronLeft className="w-5 h-5" strokeWidth={2.5} />
+            <ChevronLeft className="w-6 h-6" strokeWidth={2} />
             <span className="hidden sm:inline">Previous</span>
-            <kbd className="hidden sm:inline-flex items-center justify-center w-5 h-5 ml-1 text-[10px] rounded bg-[var(--bg-primary)]/50 text-[var(--text-muted)]">
-              ←
-            </kbd>
           </motion.button>
 
-          {/* Center: Progress dots */}
-          <div className="flex items-center gap-2">
-            {/* Compact progress indicator */}
-            <div className="flex items-center gap-1.5">
-              {/* Progress ring */}
-              <div className="relative w-8 h-8 sm:w-10 sm:h-10">
-                <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
-                  {/* Background circle */}
-                  <circle
-                    cx="18"
-                    cy="18"
-                    r="14"
-                    fill="none"
-                    stroke="var(--border-subtle)"
-                    strokeWidth="3"
-                  />
-                  {/* Progress circle */}
-                  <motion.circle
-                    cx="18"
-                    cy="18"
-                    r="14"
-                    fill="none"
-                    stroke="var(--bg-accent)"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                    initial={{ strokeDasharray: "0 100" }}
-                    animate={{ strokeDasharray: `${progress} 100` }}
-                    transition={{ duration: 0.5 }}
-                    style={{ strokeDashoffset: 0 }}
-                  />
-                </svg>
-                {/* Center text */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <span className="text-[9px] sm:text-[10px] font-bold text-[var(--text-primary)] tabular-nums">
-                    {currentIndex + 1}
-                  </span>
-                </div>
-              </div>
-
-              {/* Separator */}
-              <span className="text-[var(--text-muted)] text-xs">/</span>
-
-              {/* Total */}
-              <span className="text-xs sm:text-sm font-medium text-[var(--text-secondary)] tabular-nums">
-                {totalQuestions}
-              </span>
+          {/* Center: Progress */}
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1.5 text-sm font-medium">
+              <span className="text-[var(--text-primary)] tabular-nums">{currentIndex + 1}</span>
+              <span className="text-[var(--text-muted)]">/</span>
+              <span className="text-[var(--text-muted)] tabular-nums">{totalQuestions}</span>
             </div>
 
-            {/* Status indicator */}
             <AnimatePresence mode="wait">
               {isAnswered && (
                 <motion.div
                   initial={{ scale: 0, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   exit={{ scale: 0, opacity: 0 }}
-                  className="flex items-center gap-1 px-2 py-1 rounded-full bg-[var(--success-bg)] border border-[var(--success-border)]"
+                  className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-[var(--success-bg)]"
                 >
-                  <Check className="w-3 h-3 text-[var(--success-text)]" strokeWidth={3} />
-                  <span className="text-[10px] font-medium text-[var(--success-text)] hidden sm:inline">
+                  <Check className="w-3.5 h-3.5 text-[var(--success-text)]" strokeWidth={2.5} />
+                  <span className="text-xs font-medium text-[var(--success-text)] hidden sm:inline">
                     Answered
                   </span>
                 </motion.div>
@@ -166,22 +112,18 @@ export function FloatingNavigation({
           <motion.button
             onClick={handleNext}
             disabled={!canGoNext}
-            whileHover={canGoNext ? { scale: 1.02 } : {}}
-            whileTap={canGoNext ? { scale: 0.98 } : {}}
+            whileTap={canGoNext ? { scale: 0.95 } : {}}
             className={cn(
-              "flex items-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl font-medium text-sm transition-all duration-200",
+              "flex items-center gap-2 px-3 py-2 rounded-lg font-medium text-sm transition-colors",
               canGoNext
                 ? isAnswered
-                  ? "bg-[var(--bg-accent)] text-[var(--text-inverse)] shadow-lg shadow-[var(--bg-accent)]/30"
+                  ? "bg-[var(--bg-accent)] text-[var(--text-inverse)]"
                   : "bg-[var(--bg-button)] hover:bg-[var(--bg-button-hover)] text-[var(--text-primary)]"
-                : "text-[var(--text-muted)]/40 cursor-not-allowed"
+                : "text-[var(--text-muted)]/30 cursor-not-allowed"
             )}
           >
             <span className="hidden sm:inline">{canGoNext ? "Next" : "Done"}</span>
-            <ChevronRight className="w-5 h-5" strokeWidth={2.5} />
-            <kbd className="hidden sm:inline-flex items-center justify-center w-5 h-5 ml-1 text-[10px] rounded bg-[var(--bg-primary)]/50 text-[var(--text-muted)]">
-              →
-            </kbd>
+            <ChevronRight className="w-6 h-6" strokeWidth={2} />
           </motion.button>
         </div>
       </div>

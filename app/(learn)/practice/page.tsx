@@ -2,6 +2,7 @@
 
 import { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
+import { Filter, Shuffle, RotateCcw, Frown } from "lucide-react";
 import { QuestionCard } from "@/components/QuestionCard";
 import {
   ProgressRing,
@@ -220,9 +221,7 @@ export default function PracticePage() {
               onClick={() => setShowFilters(!showFilters)}
               className="btn btn-ghost text-sm"
             >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-              </svg>
+              <Filter className="w-4 h-4" />
               Filters
               {(filterTypes.length > 0 || filterDifficulty.length > 0) && (
                 <span className="ml-1 px-1.5 py-0.5 text-xs font-bold bg-[var(--bg-accent)] text-[var(--text-inverse)] rounded-full">
@@ -242,18 +241,14 @@ export default function PracticePage() {
                   isShuffled && "bg-[var(--bg-accent-subtle)] border-[var(--border-accent)]"
                 )}
               >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
+                <Shuffle className="w-4 h-4" />
                 Shuffle
               </button>
               <button
                 onClick={resetQuiz}
                 className="btn btn-ghost text-sm"
               >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                </svg>
+                <RotateCcw className="w-4 h-4" />
                 Reset
               </button>
             </div>
@@ -345,9 +340,7 @@ export default function PracticePage() {
           ) : (
             <div className="card p-12 text-center">
               <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[var(--bg-secondary)] flex items-center justify-center">
-                <svg className="w-8 h-8 text-[var(--text-muted)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+                <Frown className="w-8 h-8 text-[var(--text-muted)]" />
               </div>
               <h2 className="font-display text-xl font-semibold text-[var(--text-primary)] mb-2">
                 No questions found
