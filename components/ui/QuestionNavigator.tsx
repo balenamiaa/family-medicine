@@ -25,8 +25,8 @@ export function QuestionNavigator({
 
   const shouldCollapse = totalQuestions > collapsedCount + 10;
   const displayCount = isExpanded || !shouldCollapse ? totalQuestions : collapsedCount;
-  const answeredPercent = totalQuestions > 0
-    ? Math.round((answeredIndices.size / totalQuestions) * 100)
+  const positionPercent = totalQuestions > 1
+    ? Math.round((currentIndex / (totalQuestions - 1)) * 100)
     : 0;
 
   const indices = useMemo(
@@ -71,7 +71,7 @@ export function QuestionNavigator({
         <div className="h-2 rounded-full bg-[var(--bg-secondary)] overflow-hidden">
           <div
             className="h-full bg-[var(--bg-accent)] transition-all duration-300 ease-out rounded-full"
-            style={{ width: `${answeredPercent}%` }}
+            style={{ width: `${positionPercent}%` }}
           />
         </div>
       </div>
