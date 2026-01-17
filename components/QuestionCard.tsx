@@ -69,9 +69,9 @@ export function QuestionCard({
 }: QuestionCardProps) {
   const [feedbackGiven, setFeedbackGiven] = useState(false);
   const feedbackOptions = [
-    { label: "No recall", desc: "Blank or guessed", quality: 0 as Quality },
-    { label: "Partial recall", desc: "Some fragments", quality: 1 as Quality },
-    { label: "Almost correct", desc: "Nearly there", quality: 2 as Quality },
+    { label: "Again", desc: "No recall", quality: 0 as Quality },
+    { label: "Hard", desc: "Partial recall", quality: 1 as Quality },
+    { label: "Almost", desc: "Close but wrong", quality: 2 as Quality },
   ];
   const feedbackShortcutEnabled = Boolean(onFeedback) && isAnswered && isCorrect === false && !feedbackGiven;
 
@@ -186,17 +186,6 @@ export function QuestionCard({
 
   return (
     <div className="space-y-6 animate-fade-in">
-      <FloatingNavigation
-        currentIndex={questionNumber - 1}
-        totalQuestions={totalQuestions}
-        onPrevious={onPrevious}
-        onNext={onNext}
-        canGoPrevious={canGoPrevious}
-        canGoNext={canGoNext}
-        isAnswered={isAnswered}
-        className="sticky top-24 md:top-20 lg:top-16 z-30"
-      />
-
       {/* Card */}
       <div className="card p-6 md:p-8">
         {/* Header */}
@@ -296,6 +285,17 @@ export function QuestionCard({
 
         </div>
       )}
+
+      {/* Floating Navigation - always visible */}
+      <FloatingNavigation
+        currentIndex={questionNumber - 1}
+        totalQuestions={totalQuestions}
+        onPrevious={onPrevious}
+        onNext={onNext}
+        canGoPrevious={canGoPrevious}
+        canGoNext={canGoNext}
+        isAnswered={isAnswered}
+      />
     </div>
   );
 }

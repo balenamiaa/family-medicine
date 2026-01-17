@@ -25,82 +25,100 @@ export function QuestionNavigator({
 
   const shouldCollapse = totalQuestions > collapsedCount + 10;
   const displayCount = isExpanded || !shouldCollapse ? totalQuestions : collapsedCount;
+  const answeredPercent = totalQuestions > 0
+    ? Math.round((answeredIndices.size / totalQuestions) * 100)
+    : 0;
 
-  // Group questions into rows for better visual organization
-  const rows = useMemo(() => {
-    const result: number[][] = [];
-    for (let i = 0; i < displayCount; i += itemsPerRow) {
-      result.push(
-        Array.from({ length: Math.min(itemsPerRow, displayCount - i) }, (_, j) => i + j)
-      );
-    }
-    return result;
-  }, [displayCount, itemsPerRow]);
+  const indices = useMemo(
+    () => Array.from({ length: displayCount }, (_, i) => i),
+    [displayCount]
+  );
 
   return (
-    <div className="card p-4">
-      <div className="flex items-center justify-between mb-3">
-        <span className="text-sm font-medium text-[var(--text-muted)]">
-          Quick Navigation
-        </span>
-        <span className="text-xs text-[var(--text-muted)]">
-          {answeredIndices.size} of {totalQuestions} answered
-        </span>
+    <div className="relative overflow-hidden rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)] p-4 sm:p-5">
+      <div className="absolute -top-16 -right-12 h-40 w-40 rounded-full bg-[var(--color-amber-400)]/10 blur-2xl" aria-hidden="true" />
+      <div className="absolute -bottom-20 -left-12 h-44 w-44 rounded-full bg-[var(--color-teal-500)]/10 blur-2xl" aria-hidden="true" />
+      <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-[var(--bg-accent)] via-[var(--color-amber-500)] to-[var(--bg-accent)] opacity-70" aria-hidden="true" />
+
+      <div className="relative flex flex-wrap items-center justify-between gap-3 mb-4">
+        <div className="flex items-center gap-3">
+          <span className="text-sm font-semibold text-[var(--text-primary)]">
+            Quick Navigation
+          </span>
+          <span className="inline-flex items-center gap-1 rounded-full bg-[var(--bg-secondary)] px-2 py-0.5 text-[11px] text-[var(--text-muted)]">
+            {answeredIndices.size}/{totalQuestions} answered
+          </span>
+        </div>
+        <div className="flex items-center gap-3 text-[11px] text-[var(--text-muted)]">
+          <div className="flex items-center gap-1">
+            <span className="h-2 w-2 rounded-full bg-[var(--success-bg)] border border-[var(--success-border)]" />
+            Correct
+          </div>
+          <div className="flex items-center gap-1">
+            <span className="h-2 w-2 rounded-full bg-[var(--error-bg)] border border-[var(--error-border)]" />
+            Missed
+          </div>
+          <div className="flex items-center gap-1">
+            <span className="h-2 w-2 rounded-full bg-[var(--bg-secondary)] border border-[var(--border-subtle)]" />
+            Unseen
+          </div>
+        </div>
       </div>
 
-      <div className="space-y-1.5">
-        {rows.map((row, rowIndex) => (
-          <div key={rowIndex} className="flex flex-wrap gap-1.5">
-            {row.map((i) => {
-              const isCurrent = i === currentIndex;
-              const isAnswered = answeredIndices.has(i);
-              const isCorrect = correctIndices.has(i);
-              const isIncorrect = isAnswered && !isCorrect;
+      <div className="relative">
+        <div className="h-2 rounded-full bg-[var(--bg-secondary)] overflow-hidden">
+          <div
+            className="h-full bg-gradient-to-r from-[var(--bg-accent)] to-[var(--color-amber-500)] transition-all duration-500"
+            style={{ width: `${answeredPercent}%` }}
+          />
+        </div>
+        <div className="mt-3 grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 xl:grid-cols-12 gap-2">
+          {indices.map((i) => {
+            const isCurrent = i === currentIndex;
+            const isAnswered = answeredIndices.has(i);
+            const isCorrect = correctIndices.has(i);
+            const isIncorrect = isAnswered && !isCorrect;
 
-              return (
-                <button
-                  key={i}
-                  onClick={() => onNavigate(i)}
-                  className={cn(
-                    "w-8 h-8 rounded-lg text-xs font-medium transition-all duration-150",
-                    "focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-accent)]",
-
-                    isCurrent && [
-                      "bg-[var(--bg-accent)] text-[var(--text-inverse)]",
-                      "ring-2 ring-[var(--border-accent)] ring-offset-2 ring-offset-[var(--bg-card)]",
-                    ],
-
-                    !isCurrent && isCorrect && [
-                      "bg-[var(--success-bg)] text-[var(--success-text)]",
-                      "border border-[var(--success-border)]/30",
-                    ],
-
-                    !isCurrent && isIncorrect && [
-                      "bg-[var(--error-bg)] text-[var(--error-text)]",
-                      "border border-[var(--error-border)]/30",
-                    ],
-
-                    !isCurrent && !isAnswered && [
-                      "bg-[var(--bg-secondary)] text-[var(--text-muted)]",
-                      "hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-secondary)]",
-                    ]
-                  )}
-                  aria-label={`Go to question ${i + 1}${isAnswered ? (isCorrect ? " (correct)" : " (incorrect)") : ""}`}
-                  aria-current={isCurrent ? "true" : undefined}
-                >
-                  {i + 1}
-                </button>
-              );
-            })}
-          </div>
-        ))}
+            return (
+              <button
+                key={i}
+                onClick={() => onNavigate(i)}
+                className={cn(
+                  "h-9 rounded-xl text-xs font-semibold transition-all duration-150",
+                  "focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--border-accent)]",
+                  isCurrent && [
+                    "bg-gradient-to-br from-[var(--bg-accent)] to-[var(--color-amber-500)] text-[var(--text-inverse)]",
+                    "ring-2 ring-[var(--border-accent)] ring-offset-2 ring-offset-[var(--bg-card)]",
+                    "shadow-md shadow-[var(--bg-accent)]/30",
+                  ],
+                  !isCurrent && isCorrect && [
+                    "bg-[var(--success-bg)] text-[var(--success-text)]",
+                    "border border-[var(--success-border)]/40",
+                  ],
+                  !isCurrent && isIncorrect && [
+                    "bg-[var(--error-bg)] text-[var(--error-text)]",
+                    "border border-[var(--error-border)]/40",
+                  ],
+                  !isCurrent && !isAnswered && [
+                    "bg-[var(--bg-secondary)] text-[var(--text-muted)]",
+                    "hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-secondary)]",
+                  ]
+                )}
+                aria-label={`Go to question ${i + 1}${isAnswered ? (isCorrect ? " (correct)" : " (incorrect)") : ""}`}
+                aria-current={isCurrent ? "true" : undefined}
+              >
+                {i + 1}
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Expand/Collapse button */}
       {shouldCollapse && (
         <button
           onClick={() => setIsExpanded(!isExpanded)}
-          className="mt-3 w-full py-2 text-sm font-medium text-[var(--text-accent)] hover:underline flex items-center justify-center gap-1"
+          className="mt-4 w-full py-2 text-sm font-medium text-[var(--text-accent)] hover:underline flex items-center justify-center gap-1"
         >
           {isExpanded ? (
             <>
