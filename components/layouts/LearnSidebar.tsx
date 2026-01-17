@@ -80,16 +80,6 @@ export function LearnSidebar({
         </div>
       </div>
 
-      {/* Study Tips */}
-      <div className="card p-4 bg-gradient-to-br from-[var(--bg-card)] to-[var(--bg-accent-subtle)]/30">
-        <h3 className="font-display text-sm font-medium text-[var(--text-secondary)] mb-2">
-          Study Tip
-        </h3>
-        <p className="text-sm text-[var(--text-muted)] leading-relaxed">
-          Take breaks every 25 minutes. Short rest periods help consolidate memory and prevent fatigue.
-        </p>
-      </div>
-
       {/* Quick Links */}
       <div className="space-y-2">
         <Link

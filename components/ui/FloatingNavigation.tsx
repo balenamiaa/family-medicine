@@ -12,6 +12,7 @@ interface FloatingNavigationProps {
   canGoPrevious: boolean;
   canGoNext: boolean;
   isAnswered: boolean;
+  className?: string;
 }
 
 export function FloatingNavigation({
@@ -22,6 +23,7 @@ export function FloatingNavigation({
   canGoPrevious,
   canGoNext,
   isAnswered,
+  className,
 }: FloatingNavigationProps) {
   const handleNext = () => {
     if (canGoNext) {
@@ -45,17 +47,23 @@ export function FloatingNavigation({
       initial={{ y: 20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ delay: 0.2, duration: 0.4, ease: "easeOut" }}
-      className="relative"
+      className={cn("relative", className)}
     >
+      <div
+        className="absolute -inset-1 rounded-[22px] bg-gradient-to-r from-[var(--color-amber-400)]/25 via-[var(--color-teal-500)]/20 to-[var(--color-amber-500)]/25 blur-sm"
+        aria-hidden="true"
+      />
       {/* Glassmorphic floating bar */}
       <div
         className={cn(
           "relative overflow-hidden rounded-2xl border backdrop-blur-xl transition-all duration-500",
           "bg-[var(--bg-card)]/80 border-[var(--border-subtle)]",
           "shadow-lg shadow-black/5 dark:shadow-black/20",
-          isAnswered && "border-[var(--border-accent)]/30"
+          isAnswered && "border-[var(--border-accent)]/40 shadow-[var(--bg-accent)]/15"
         )}
       >
+        <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-[var(--bg-accent)] via-[var(--color-amber-400)] to-[var(--bg-accent)] opacity-60" />
+
         {/* Progress bar background */}
         <div className="absolute inset-0 overflow-hidden rounded-2xl">
           <motion.div
@@ -173,7 +181,7 @@ export function FloatingNavigation({
               "flex items-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl font-medium text-sm transition-all duration-200",
               canGoNext
                 ? isAnswered
-                  ? "bg-[var(--bg-accent)] hover:bg-[var(--bg-accent)]/90 text-[var(--text-inverse)] shadow-md shadow-[var(--bg-accent)]/20"
+                  ? "bg-gradient-to-r from-[var(--bg-accent)] to-[var(--color-amber-500)] text-[var(--text-inverse)] shadow-lg shadow-[var(--bg-accent)]/30"
                   : "bg-[var(--bg-secondary)] hover:bg-[var(--bg-card-hover)] text-[var(--text-primary)]"
                 : "text-[var(--text-muted)]/40 cursor-not-allowed"
             )}

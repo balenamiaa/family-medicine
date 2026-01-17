@@ -51,7 +51,7 @@ export function CategoryNav({ className }: CategoryNavProps) {
             )}
           >
             {category.icon}
-            <span className="hidden sm:inline">{category.name}</span>
+            <span className="text-[11px] sm:text-sm">{category.name}</span>
           </Link>
         );
       })}

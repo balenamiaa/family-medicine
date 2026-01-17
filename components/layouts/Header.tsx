@@ -23,9 +23,9 @@ export function Header({
   className,
 }: HeaderProps) {
   return (
-    <div className={cn("px-4 md:px-6 h-16 flex items-center justify-between gap-4", className)}>
+    <div className={cn("px-4 md:px-6 py-3 min-h-16 flex flex-wrap items-center justify-between gap-3", className)}>
       {/* Left: Logo and Category Nav */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 order-1">
         <Link
           href="/"
           className="flex items-center gap-2 text-[var(--text-primary)] hover:text-[var(--text-accent)] transition-colors"
@@ -47,13 +47,13 @@ export function Header({
 
       {/* Center: Optional content */}
       {centerContent && (
-        <div className="flex-1 flex justify-center">
+        <div className="order-3 md:order-2 w-full md:w-auto flex justify-center">
           {centerContent}
         </div>
       )}
 
       {/* Right: Controls */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 order-2 md:order-3 ml-auto">
         {rightContent || (
           <>
             <SoundToggle />
@@ -71,6 +71,14 @@ export function Header({
           </>
         )}
       </div>
+
+      {showCategoryNav && (
+        <div className="order-4 w-full md:hidden -mx-4 px-4">
+          <div className="overflow-x-auto pb-1">
+            <CategoryNav className="min-w-max" />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

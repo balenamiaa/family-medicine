@@ -396,24 +396,6 @@ export default function PracticePage() {
           {/* Streak */}
           <StreakCounter streak={streak} maxStreak={maxStreak} />
 
-          {/* Tips card */}
-          <div className="card p-5">
-            <h3 className="text-sm font-semibold text-[var(--text-muted)] mb-3">Study Tips</h3>
-            <ul className="space-y-2 text-sm text-[var(--text-secondary)]">
-              <li className="flex items-start gap-2">
-                <span className="text-[var(--text-accent)]">•</span>
-                <span>Use the memory tricks to build associations</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-[var(--text-accent)]">•</span>
-                <span>Read explanations even when correct</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-[var(--text-accent)]">•</span>
-                <span>Take breaks every 25 questions</span>
-              </li>
-            </ul>
-          </div>
         </aside>
       </div>
       )}

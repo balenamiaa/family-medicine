@@ -69,9 +69,9 @@ export function QuestionCard({
 }: QuestionCardProps) {
   const [feedbackGiven, setFeedbackGiven] = useState(false);
   const feedbackOptions = [
-    { label: "Blanked", desc: "No recall", quality: 0 as Quality },
-    { label: "Felt familiar", desc: "Recognized it", quality: 1 as Quality },
-    { label: "Almost", desc: "Nearly had it", quality: 2 as Quality },
+    { label: "No recall", desc: "Blank or guessed", quality: 0 as Quality },
+    { label: "Partial recall", desc: "Some fragments", quality: 1 as Quality },
+    { label: "Almost correct", desc: "Nearly there", quality: 2 as Quality },
   ];
   const feedbackShortcutEnabled = Boolean(onFeedback) && isAnswered && isCorrect === false && !feedbackGiven;
 
@@ -186,6 +186,17 @@ export function QuestionCard({
 
   return (
     <div className="space-y-6 animate-fade-in">
+      <FloatingNavigation
+        currentIndex={questionNumber - 1}
+        totalQuestions={totalQuestions}
+        onPrevious={onPrevious}
+        onNext={onNext}
+        canGoPrevious={canGoPrevious}
+        canGoNext={canGoNext}
+        isAnswered={isAnswered}
+        className="sticky top-24 md:top-20 lg:top-16 z-30"
+      />
+
       {/* Card */}
       <div className="card p-6 md:p-8">
         {/* Header */}
@@ -224,6 +235,50 @@ export function QuestionCard({
 
         {/* Question content */}
         {renderQuestion()}
+
+        {onFeedback && isAnswered && isCorrect === false && (
+          <div className="mt-6 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)]/70 p-4">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+              <div>
+                <p className="text-sm font-semibold text-[var(--text-primary)]">
+                  How close were you?
+                </p>
+                <p className="text-xs text-[var(--text-muted)] mt-1">
+                  This tunes the review schedule.
+                </p>
+              </div>
+              {feedbackGiven && (
+                <span className="text-xs font-medium text-[var(--success-text)]">
+                  Feedback saved
+                </span>
+              )}
+            </div>
+            <div className="mt-3 grid gap-2 sm:grid-cols-3">
+              {feedbackOptions.map((option, index) => (
+                <button
+                  key={option.label}
+                  onClick={() => handleFeedback(option.quality)}
+                  disabled={feedbackGiven}
+                  className={cn(
+                    "rounded-xl border px-3 py-2 text-left transition-all",
+                    "border-[var(--border-subtle)] hover:border-[var(--border-accent)]",
+                    feedbackGiven && "opacity-60 cursor-not-allowed"
+                  )}
+                >
+                  <div className="flex items-center gap-2 text-xs font-semibold text-[var(--text-primary)]">
+                    <kbd className="inline-flex h-5 min-w-[20px] items-center justify-center rounded bg-[var(--bg-card)] px-1 text-[10px] font-medium text-[var(--text-muted)]">
+                      {index + 1}
+                    </kbd>
+                    <span>{option.label}</span>
+                  </div>
+                  <div className="text-[11px] text-[var(--text-muted)]">
+                    {option.desc}
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Post-answer content */}
@@ -239,62 +294,8 @@ export function QuestionCard({
             isVisible
           />
 
-          {onFeedback && isCorrect === false && (
-            <div className="card p-4 border-[var(--border-subtle)]">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                <div>
-                  <p className="text-sm font-semibold text-[var(--text-primary)]">
-                    How close were you?
-                  </p>
-                  <p className="text-xs text-[var(--text-muted)] mt-1">
-                    Your feedback tunes the spaced repetition schedule.
-                  </p>
-                </div>
-                {feedbackGiven && (
-                  <span className="text-xs font-medium text-[var(--success-text)]">
-                    Feedback saved
-                  </span>
-                )}
-              </div>
-              <div className="mt-3 grid gap-2 sm:grid-cols-3">
-                {feedbackOptions.map((option, index) => (
-                  <button
-                    key={option.label}
-                    onClick={() => handleFeedback(option.quality)}
-                    disabled={feedbackGiven}
-                    className={cn(
-                      "rounded-xl border px-3 py-2 text-left transition-all",
-                      "border-[var(--border-subtle)] hover:border-[var(--border-accent)]",
-                      feedbackGiven && "opacity-60 cursor-not-allowed"
-                    )}
-                  >
-                    <div className="flex items-center gap-2 text-xs font-semibold text-[var(--text-primary)]">
-                      <kbd className="inline-flex h-5 min-w-[20px] items-center justify-center rounded bg-[var(--bg-secondary)] px-1 text-[10px] font-medium text-[var(--text-muted)]">
-                        {index + 1}
-                      </kbd>
-                      <span>{option.label}</span>
-                    </div>
-                    <div className="text-[11px] text-[var(--text-muted)]">
-                      {option.desc}
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       )}
-
-      {/* Floating Navigation - always visible */}
-      <FloatingNavigation
-        currentIndex={questionNumber - 1}
-        totalQuestions={totalQuestions}
-        onPrevious={onPrevious}
-        onNext={onNext}
-        canGoPrevious={canGoPrevious}
-        canGoNext={canGoNext}
-        isAnswered={isAnswered}
-      />
     </div>
   );
 }
