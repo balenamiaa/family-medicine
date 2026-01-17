@@ -68,9 +68,9 @@ export function QuestionNavigator({
 
       {/* Progress bar */}
       <div className="mb-4">
-        <div className="h-1.5 rounded-full bg-[var(--bg-secondary)] overflow-hidden">
+        <div className="h-2 rounded-full bg-[var(--bg-secondary)] overflow-hidden">
           <div
-            className="h-full bg-[var(--bg-accent)] transition-all duration-300 ease-out"
+            className="h-full bg-[var(--bg-accent)] transition-all duration-300 ease-out rounded-full"
             style={{ width: `${answeredPercent}%` }}
           />
         </div>
