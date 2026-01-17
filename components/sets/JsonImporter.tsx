@@ -91,6 +91,11 @@ export function JsonImporter({ studySetId, onImportComplete, onClose }: JsonImpo
               errors.push(`Question ${i + 1}: needs at least 1 answer`);
             }
             break;
+          case "written":
+            previewText = q.question_text?.slice(0, 100) || "(no question text)";
+            if (!q.question_text) errors.push(`Question ${i + 1}: missing question_text`);
+            if (!q.correct_answer) errors.push(`Question ${i + 1}: missing correct_answer`);
+            break;
           default:
             errors.push(`Question ${i + 1}: unknown question_type "${type}"`);
             previewText = "(unknown type)";
@@ -215,6 +220,12 @@ export function JsonImporter({ studySetId, onImportComplete, onClose }: JsonImpo
     "question_type": "cloze",
     "question_text": "The {1} of France is {2}.",
     "answers": ["capital", "Paris"],
+    "difficulty": 3
+  },
+  {
+    "question_type": "written",
+    "question_text": "Explain the clinical significance of homeostatic reserve.",
+    "correct_answer": "Homeostatic reserve is the excess capacity of organ systems to respond to stress...",
     "difficulty": 3
   }
 ]`}

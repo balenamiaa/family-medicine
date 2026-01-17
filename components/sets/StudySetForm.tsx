@@ -190,7 +190,7 @@ export function StudySetForm({
             {tags.map((tag) => (
               <span
                 key={tag}
-                className="inline-flex items-center gap-2 rounded-full border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-3 py-1 text-xs font-medium text-[var(--text-secondary)]"
+                className="inline-flex items-center gap-2 rounded-full border border-[var(--border-default)] bg-[var(--bg-card-hover)] px-3 py-1 text-xs font-medium text-[var(--text-secondary)] shadow-sm"
               >
                 {tag}
                 <button

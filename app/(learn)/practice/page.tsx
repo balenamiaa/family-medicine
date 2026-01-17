@@ -19,7 +19,7 @@ import { QuestionType, Difficulty, QUESTION_TYPE_LABELS, DIFFICULTY_LABELS, Ques
 import { cn, formatPercent } from "@/lib/utils";
 import { scopedKey } from "@/lib/storage";
 
-const QUESTION_TYPES: QuestionType[] = ["mcq_single", "mcq_multi", "true_false", "emq", "cloze"];
+const QUESTION_TYPES: QuestionType[] = ["mcq_single", "mcq_multi", "true_false", "emq", "cloze", "written"];
 const DIFFICULTIES: Difficulty[] = [1, 2, 3, 4, 5];
 
 // Search function to filter questions by keyword
@@ -148,6 +148,7 @@ export default function PracticePage() {
       true_false: 0,
       emq: 0,
       cloze: 0,
+      written: 0,
     };
     questions.forEach((q) => counts[q.question_type]++);
     return counts;

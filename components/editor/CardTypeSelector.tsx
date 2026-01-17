@@ -40,6 +40,12 @@ const typeIcons: Record<QuestionType, ReactNode> = {
       <rect x="14" y="10" width="6" height="4" rx="1" strokeDasharray="2 2" />
     </svg>
   ),
+  written: (
+    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M16 5l3 3m0 0l-9 9H7v-3l9-9z" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M5 19h14" />
+    </svg>
+  ),
 };
 
 const typeDescriptions: Record<QuestionType, string> = {
@@ -48,10 +54,11 @@ const typeDescriptions: Record<QuestionType, string> = {
   true_false: "Statement is either true or false",
   emq: "Match premises to options from a theme",
   cloze: "Fill in the blanks in text",
+  written: "Free-form response with self-evaluation",
 };
 
 export function CardTypeSelector({ selectedType, onSelect, className }: CardTypeSelectorProps) {
-  const types: QuestionType[] = ["mcq_single", "mcq_multi", "true_false", "emq", "cloze"];
+  const types: QuestionType[] = ["mcq_single", "mcq_multi", "true_false", "emq", "cloze", "written"];
 
   return (
     <div className={cn("grid gap-3 sm:grid-cols-2 lg:grid-cols-3", className)}>

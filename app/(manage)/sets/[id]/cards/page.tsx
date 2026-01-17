@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { CardTypeSelector, CardList, MCQEditor, TrueFalseEditor, EMQEditor, ClozeEditor } from "@/components/editor";
+import { CardTypeSelector, CardList, MCQEditor, TrueFalseEditor, EMQEditor, ClozeEditor, WrittenEditor } from "@/components/editor";
 import { QuestionType, QUESTION_TYPE_LABELS, Difficulty, DIFFICULTY_LABELS } from "@/types";
 import { cn } from "@/lib/utils";
 
@@ -267,6 +267,13 @@ export default function CardEditorPage() {
             onChange={handleQuestionDataChange}
           />
         );
+      case "written":
+        return (
+          <WrittenEditor
+            data={selectedCard.questionData}
+            onChange={handleQuestionDataChange}
+          />
+        );
       default:
         return <div>Unknown question type</div>;
     }
@@ -417,7 +424,7 @@ export default function CardEditorPage() {
       )}
 
       {/* Main content */}
-      <div className="grid gap-6 lg:grid-cols-[300px,1fr]">
+      <div className="grid gap-6 lg:grid-cols-[300px,1fr] items-start">
         {/* Card list */}
         <div className="card p-4 lg:sticky lg:top-24 lg:self-start lg:max-h-[calc(100vh-8rem)] overflow-y-auto">
           <h3 className="text-sm font-semibold text-[var(--text-muted)] mb-3">Cards</h3>
@@ -432,7 +439,7 @@ export default function CardEditorPage() {
         </div>
 
         {/* Editor */}
-        <div className="card p-6 lg:min-h-[calc(100vh-8rem)]">
+        <div className="card p-6">
           {selectedCard ? (
             <>
               <div className="flex items-center justify-between mb-6">

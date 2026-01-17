@@ -8,7 +8,7 @@ import { getStoredValue, setStoredValue } from "@/lib/utils";
 
 const ACTIVE_SET_KEY = "medcram_active_study_set";
 
-const QUESTION_TYPES: QuestionType[] = ["mcq_single", "mcq_multi", "true_false", "emq", "cloze"];
+const QUESTION_TYPES: QuestionType[] = ["mcq_single", "mcq_multi", "true_false", "emq", "cloze", "written"];
 
 export interface StudySetSummary {
   id: string;

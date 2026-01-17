@@ -35,6 +35,8 @@ function getCardPreviewText(card: Card): string {
       return data.theme || "No theme";
     case "cloze":
       return data.text?.substring(0, 50) || "No text";
+    case "written":
+      return data.question_text || "No prompt";
     default:
       return "Card";
   }

@@ -34,6 +34,12 @@ const typeIcons: Record<QuestionType, React.ReactNode> = {
       <rect x="14" y="10" width="6" height="4" rx="1" strokeDasharray="2 2" />
     </svg>
   ),
+  written: (
+    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M16 5l3 3m0 0l-9 9H7v-3l9-9z" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M5 19h14" />
+    </svg>
+  ),
 };
 
 export function QuestionTypeBadge({ type }: QuestionTypeBadgeProps) {

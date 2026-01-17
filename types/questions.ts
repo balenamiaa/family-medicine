@@ -5,7 +5,8 @@ export type QuestionType =
   | "mcq_multi"
   | "true_false"
   | "emq"
-  | "cloze";
+  | "cloze"
+  | "written";
 
 export type Difficulty = 1 | 2 | 3 | 4 | 5;
 
@@ -57,13 +58,21 @@ export interface ClozeQuestion extends BaseQuestion {
   answers: string[];
 }
 
+// Written response question
+export interface WrittenQuestion extends BaseQuestion {
+  question_type: "written";
+  question_text: string;
+  correct_answer: string;
+}
+
 // Union type for all question types
 export type Question =
   | MCQSingleQuestion
   | MCQMultiQuestion
   | TrueFalseQuestion
   | EMQQuestion
-  | ClozeQuestion;
+  | ClozeQuestion
+  | WrittenQuestion;
 
 // Question bank structure
 export interface QuestionBank {
@@ -76,13 +85,15 @@ export type MCQMultiAnswer = number[];
 export type TrueFalseAnswer = boolean | null;
 export type EMQAnswer = Record<number, number | null>; // premise_index -> option_index
 export type ClozeAnswer = string[];
+export type WrittenAnswer = string;
 
 export type UserAnswer =
   | MCQAnswer
   | MCQMultiAnswer
   | TrueFalseAnswer
   | EMQAnswer
-  | ClozeAnswer;
+  | ClozeAnswer
+  | WrittenAnswer;
 
 // Question state for tracking user progress
 export interface QuestionState {
@@ -124,6 +135,10 @@ export function isCloze(q: Question): q is ClozeQuestion {
   return q.question_type === "cloze";
 }
 
+export function isWritten(q: Question): q is WrittenQuestion {
+  return q.question_type === "written";
+}
+
 // Difficulty labels
 export const DIFFICULTY_LABELS: Record<Difficulty, string> = {
   1: "Basic",
@@ -140,4 +155,5 @@ export const QUESTION_TYPE_LABELS: Record<QuestionType, string> = {
   true_false: "True/False",
   emq: "Extended Matching",
   cloze: "Fill in the Blank",
+  written: "Written Response",
 };

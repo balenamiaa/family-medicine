@@ -8,6 +8,7 @@ import {
   isTrueFalse,
   isEMQ,
   isCloze,
+  isWritten,
   UserAnswer,
 } from "@/types";
 import {
@@ -23,6 +24,7 @@ import {
   TrueFalseQuestion,
   EMQQuestion,
   ClozeQuestion,
+  WrittenQuestion,
 } from "./questions";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
 import { playSoundIfEnabled } from "@/lib/sounds";
@@ -87,7 +89,19 @@ export function QuestionCard({
   // Wrap onAnswer to add sound
   const handleAnswer = useCallback((correct: boolean, answer: UserAnswer) => {
     onAnswer(correct, answer);
-  }, [onAnswer]);
+
+    if (question.question_type === "written" && question.id) {
+      void fetch("/api/progress", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          cardId: question.id,
+          correct,
+          quality: correct ? 5 : 2,
+        }),
+      });
+    }
+  }, [onAnswer, question]);
 
   // Handle bookmark toggle
   const handleToggleBookmark = useCallback(() => {
@@ -150,6 +164,16 @@ export function QuestionCard({
     if (isCloze(question)) {
       return (
         <ClozeQuestion
+          question={question}
+          onAnswer={handleAnswer}
+          answered={isAnswered}
+        />
+      );
+    }
+
+    if (isWritten(question)) {
+      return (
+        <WrittenQuestion
           question={question}
           onAnswer={handleAnswer}
           answered={isAnswered}

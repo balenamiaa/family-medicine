@@ -8,6 +8,7 @@ export const questionTypeToCardType: Record<QuestionType, CardType> = {
   true_false: "TRUE_FALSE",
   emq: "EMQ",
   cloze: "CLOZE",
+  written: "WRITTEN",
 };
 
 // Map database card types to frontend question types
@@ -19,7 +20,7 @@ export const cardTypeToQuestionType: Record<CardType, QuestionType | null> = {
   CLOZE: "cloze",
   NOTE: null, // No frontend equivalent
   SBA: "mcq_single", // Treat as MCQ single
-  WRITTEN: null, // No frontend equivalent
+  WRITTEN: "written",
 };
 
 // Map numeric difficulty to database enum

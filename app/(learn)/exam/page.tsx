@@ -29,7 +29,7 @@ interface ExamConfig {
 
 // Topics are derived from study set tags instead of hardcoded keywords.
 
-const QUESTION_TYPES: QuestionType[] = ["mcq_single", "mcq_multi", "true_false", "emq", "cloze"];
+const QUESTION_TYPES: QuestionType[] = ["mcq_single", "mcq_multi", "true_false", "emq", "cloze", "written"];
 const DIFFICULTIES: Difficulty[] = [1, 2, 3, 4, 5];
 
 export default function ExamPage() {

@@ -101,7 +101,7 @@ export default function AdminSetsPage() {
             Manage all study sets across the platform
           </p>
         </div>
-        <Link href="/sets/new" className="btn btn-primary">
+        <Link href="/admin/sets/new" className="btn btn-primary">
           <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
           </svg>

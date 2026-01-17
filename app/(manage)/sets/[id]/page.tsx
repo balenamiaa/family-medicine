@@ -156,7 +156,7 @@ export default function StudySetDetailPage() {
       </nav>
 
       {isEditing ? (
-        <div className="max-w-2xl">
+        <div className="max-w-2xl mx-auto w-full">
           <div className="mb-8">
             <h1 className="font-display text-2xl font-semibold text-[var(--text-primary)]">
               Edit Study Set

@@ -27,6 +27,8 @@ interface ImportedQuestion {
   matches?: [number, number][];
   // Cloze fields
   answers?: string[];
+  // Written fields
+  correct_answer?: string;
 }
 
 // Validate a single question
@@ -35,7 +37,7 @@ function validateQuestion(q: ImportedQuestion, index: number): string | null {
     return `Question ${index + 1}: missing question_type`;
   }
 
-  const validTypes: QuestionType[] = ["mcq_single", "mcq_multi", "true_false", "emq", "cloze"];
+  const validTypes: QuestionType[] = ["mcq_single", "mcq_multi", "true_false", "emq", "cloze", "written"];
   if (!validTypes.includes(q.question_type)) {
     return `Question ${index + 1}: invalid question_type "${q.question_type}"`;
   }
@@ -86,6 +88,10 @@ function validateQuestion(q: ImportedQuestion, index: number): string | null {
         return `Question ${index + 1}: answers must be a non-empty array`;
       }
       break;
+    case "written":
+      if (!q.question_text) return `Question ${index + 1}: missing question_text`;
+      if (!q.correct_answer) return `Question ${index + 1}: correct_answer is required`;
+      break;
   }
 
   return null;
@@ -132,6 +138,12 @@ function questionToDbFormat(q: ImportedQuestion): Record<string, unknown> {
         ...base,
         question_text: q.question_text,
         answers: q.answers,
+      };
+    case "written":
+      return {
+        ...base,
+        question_text: q.question_text,
+        correct_answer: q.correct_answer,
       };
     default:
       return base;

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db, cardProgress, reviewHistory, studyCards } from "@/db";
 import { eq, and, lte, count, avg } from "drizzle-orm";
+import { getCurrentUser, isAdmin } from "@/lib/auth";
 
 // GET /api/progress - Get cards due for review
 export async function GET(request: NextRequest) {
@@ -89,12 +90,28 @@ export async function GET(request: NextRequest) {
 // POST /api/progress - Record a review answer
 export async function POST(request: NextRequest) {
   try {
+    const user = await getCurrentUser(request);
+    if (!user) {
+      return NextResponse.json(
+        { error: "Authentication required" },
+        { status: 401 }
+      );
+    }
+
     const body = await request.json();
     const { userId, cardId, quality, correct, responseTimeMs } = body;
+    const resolvedUserId = userId ?? user.id;
 
-    if (!userId || !cardId || quality === undefined || correct === undefined) {
+    if (userId && userId !== user.id && !isAdmin(user)) {
       return NextResponse.json(
-        { error: "userId, cardId, quality, and correct are required" },
+        { error: "Not authorized to record progress for this user" },
+        { status: 403 }
+      );
+    }
+
+    if (!resolvedUserId || !cardId || quality === undefined || correct === undefined) {
+      return NextResponse.json(
+        { error: "cardId, quality, and correct are required" },
         { status: 400 }
       );
     }
@@ -102,7 +119,7 @@ export async function POST(request: NextRequest) {
     // Get existing progress
     const existing = await db.query.cardProgress.findFirst({
       where: and(
-        eq(cardProgress.userId, userId),
+        eq(cardProgress.userId, resolvedUserId),
         eq(cardProgress.cardId, cardId)
       ),
     });
@@ -170,7 +187,7 @@ export async function POST(request: NextRequest) {
       const [created] = await db
         .insert(cardProgress)
         .values({
-          userId,
+          userId: resolvedUserId,
           cardId,
           easeFactor,
           intervalDays,
@@ -187,7 +204,7 @@ export async function POST(request: NextRequest) {
 
     // Record in history
     await db.insert(reviewHistory).values({
-      userId,
+      userId: resolvedUserId,
       cardId,
       quality,
       correct,
