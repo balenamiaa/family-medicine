@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "motion/react";
+import { ChevronLeft, ChevronRight, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { playSoundIfEnabled } from "@/lib/sounds";
 
@@ -88,15 +89,7 @@ export function FloatingNavigation({
                 : "text-[var(--text-muted)]/40 cursor-not-allowed"
             )}
           >
-            <svg
-              className="w-5 h-5 transition-transform group-hover:-translate-x-0.5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2.5}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
+            <ChevronLeft className="w-5 h-5" strokeWidth={2.5} />
             <span className="hidden sm:inline">Previous</span>
             <kbd className="hidden sm:inline-flex items-center justify-center w-5 h-5 ml-1 text-[10px] rounded bg-[var(--bg-primary)]/50 text-[var(--text-muted)]">
               ←
@@ -160,9 +153,7 @@ export function FloatingNavigation({
                   exit={{ scale: 0, opacity: 0 }}
                   className="flex items-center gap-1 px-2 py-1 rounded-full bg-[var(--success-bg)] border border-[var(--success-border)]"
                 >
-                  <svg className="w-3 h-3 text-[var(--success-text)]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
+                  <Check className="w-3 h-3 text-[var(--success-text)]" strokeWidth={3} />
                   <span className="text-[10px] font-medium text-[var(--success-text)] hidden sm:inline">
                     Answered
                   </span>
@@ -187,18 +178,7 @@ export function FloatingNavigation({
             )}
           >
             <span className="hidden sm:inline">{canGoNext ? "Next" : "Done"}</span>
-            <svg
-              className={cn(
-                "w-5 h-5 transition-transform",
-                canGoNext && "group-hover:translate-x-0.5"
-              )}
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2.5}
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-            </svg>
+            <ChevronRight className="w-5 h-5" strokeWidth={2.5} />
             <kbd className="hidden sm:inline-flex items-center justify-center w-5 h-5 ml-1 text-[10px] rounded bg-[var(--bg-primary)]/50 text-[var(--text-muted)]">
               →
             </kbd>

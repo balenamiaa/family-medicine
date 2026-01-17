@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import { ChevronUp, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface QuestionNavigatorProps {
@@ -127,16 +128,12 @@ export function QuestionNavigator({
           {isExpanded ? (
             <>
               Show less
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
-              </svg>
+              <ChevronUp className="w-3.5 h-3.5" strokeWidth={2.5} />
             </>
           ) : (
             <>
               Show all {totalQuestions} questions
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-              </svg>
+              <ChevronDown className="w-3.5 h-3.5" strokeWidth={2.5} />
             </>
           )}
         </button>
