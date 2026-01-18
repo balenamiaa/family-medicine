@@ -49,6 +49,7 @@ interface QuestionCardProps {
   bookmarkStorageKey?: string;
   onReset?: () => void;
   onFeedback?: (quality: Quality) => void;
+  feedbackGiven?: boolean;
 }
 
 export function QuestionCard({
@@ -68,8 +69,8 @@ export function QuestionCard({
   bookmarkStorageKey,
   onReset,
   onFeedback,
+  feedbackGiven = false,
 }: QuestionCardProps) {
-  const [feedbackGiven, setFeedbackGiven] = useState(false);
   const feedbackOptions = [
     { label: "Again", desc: "No recall", quality: 0 as Quality },
     { label: "Hard", desc: "Partial recall", quality: 1 as Quality },
@@ -83,10 +84,6 @@ export function QuestionCard({
       playSoundIfEnabled(isCorrect ? "correct" : "incorrect");
     }
   }, [isAnswered, isCorrect]);
-
-  useEffect(() => {
-    setFeedbackGiven(false);
-  }, [questionNumber, questionIndex]);
 
   // Wrap onAnswer to add sound
   const handleAnswer = useCallback((correct: boolean, answer: UserAnswer) => {
@@ -115,7 +112,6 @@ export function QuestionCard({
   const handleFeedback = useCallback((quality: Quality) => {
     if (!onFeedback) return;
     onFeedback(quality);
-    setFeedbackGiven(true);
   }, [onFeedback]);
 
   // Keyboard shortcuts for navigation

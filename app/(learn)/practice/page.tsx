@@ -96,12 +96,14 @@ export default function PracticePage() {
     correctIndices,
     isAnswered,
     isCorrect,
+    isFeedbackGiven,
     answerQuestion,
     nextQuestion,
     previousQuestion,
     goToQuestion,
     resetQuiz,
     resetSingleQuestion,
+    markFeedbackGiven,
   } = useQuiz({
     questions,
     shuffleQuestions: isShuffled,
@@ -127,6 +129,7 @@ export default function PracticePage() {
   const handleFeedback = (quality: Quality) => {
     if (currentQuestionIndex < 0) return;
     overrideLastReviewQuality(currentQuestionIndex, quality, srKey);
+    markFeedbackGiven();
   };
 
   // Toggle filter
@@ -336,6 +339,7 @@ export default function PracticePage() {
               onReset={handleResetQuestion}
               bookmarkStorageKey={bookmarkKey}
               onFeedback={handleFeedback}
+              feedbackGiven={isFeedbackGiven}
             />
           ) : (
             <div className="card p-12 text-center">

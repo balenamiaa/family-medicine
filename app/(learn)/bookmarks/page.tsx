@@ -47,12 +47,14 @@ export default function BookmarksPage() {
     correctIndices,
     isAnswered,
     isCorrect,
+    isFeedbackGiven,
     answerQuestion,
     nextQuestion,
     previousQuestion,
     goToQuestion,
     resetQuiz,
     resetSingleQuestion,
+    markFeedbackGiven,
   } = useQuiz({
     questions,
     questionIndices: validBookmarkedIndices,
@@ -84,6 +86,7 @@ export default function BookmarksPage() {
   const handleFeedback = (quality: Quality) => {
     if (currentQuestionIndex < 0) return;
     overrideLastReviewQuality(currentQuestionIndex, quality, srKey);
+    markFeedbackGiven();
   };
 
   return (
@@ -227,6 +230,7 @@ export default function BookmarksPage() {
                     onReset={handleResetQuestion}
                     bookmarkStorageKey={bookmarkKey}
                     onFeedback={handleFeedback}
+                    feedbackGiven={isFeedbackGiven}
                   />
                 </div>
               )}

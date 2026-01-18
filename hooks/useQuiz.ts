@@ -45,6 +45,7 @@ interface UseQuizReturn {
   // Question state
   isAnswered: boolean;
   isCorrect: boolean | null;
+  isFeedbackGiven: boolean;
 
   // Actions
   answerQuestion: (correct: boolean, answer: UserAnswer) => void;
@@ -54,6 +55,7 @@ interface UseQuizReturn {
   resetQuiz: () => void;
   resetSingleQuestion: (index: number) => void;
   shuffleRemaining: () => void;
+  markFeedbackGiven: () => void;
 }
 
 function createInitialProgress(): SessionProgress {
@@ -191,6 +193,26 @@ export function useQuiz({
   const questionState = progress.questionStates[progress.currentIndex];
   const isAnswered = questionState?.answered ?? false;
   const isCorrect = questionState?.correct ?? null;
+  const isFeedbackGiven = questionState?.feedbackGiven ?? false;
+
+  // Mark feedback as given for current question
+  const markFeedbackGiven = useCallback(() => {
+    setProgress((prev) => {
+      const currentState = prev.questionStates[prev.currentIndex];
+      if (!currentState) return prev;
+
+      return {
+        ...prev,
+        questionStates: {
+          ...prev.questionStates,
+          [prev.currentIndex]: {
+            ...currentState,
+            feedbackGiven: true,
+          },
+        },
+      };
+    });
+  }, []);
 
   // Answer the current question
   const answerQuestion = useCallback((correct: boolean, answer: UserAnswer) => {
@@ -308,6 +330,7 @@ export function useQuiz({
     correctIndices,
     isAnswered,
     isCorrect,
+    isFeedbackGiven,
     answerQuestion,
     nextQuestion,
     previousQuestion,
@@ -315,5 +338,6 @@ export function useQuiz({
     resetQuiz,
     resetSingleQuestion,
     shuffleRemaining,
+    markFeedbackGiven,
   };
 }

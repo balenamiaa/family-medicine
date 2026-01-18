@@ -102,6 +102,7 @@ export interface QuestionState {
   correct: boolean | null;
   userAnswer: UserAnswer;
   showExplanation: boolean;
+  feedbackGiven?: boolean;
 }
 
 // Session progress
