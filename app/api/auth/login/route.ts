@@ -84,7 +84,8 @@ export async function POST(request: NextRequest) {
       user = created;
     } else {
       const updates: Partial<typeof users.$inferInsert> = {};
-      if (rawName && rawName !== user.name) updates.name = rawName;
+      const hasName = Boolean(user.name && user.name.trim().length > 0);
+      if (rawName && !hasName) updates.name = rawName;
       if (shouldBeAdmin && user.role !== "ADMIN") updates.role = "ADMIN";
 
       if (Object.keys(updates).length > 0) {

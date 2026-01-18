@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Pencil } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface User {
@@ -15,10 +16,34 @@ interface User {
 interface UserTableProps {
   users: User[];
   onRoleChange?: (userId: string, newRole: "ADMIN" | "USER") => Promise<void>;
+  onNameChange?: (userId: string, nextName: string | null) => Promise<void>;
+  selectedIds?: Set<string>;
+  onToggleSelect?: (userId: string) => void;
+  onToggleSelectAll?: (checked: boolean, userIds: string[]) => void;
 }
 
-export function UserTable({ users, onRoleChange }: UserTableProps) {
+export function UserTable({
+  users,
+  onRoleChange,
+  onNameChange,
+  selectedIds,
+  onToggleSelect,
+  onToggleSelectAll,
+}: UserTableProps) {
   const [isChanging, setIsChanging] = useState<string | null>(null);
+  const [isEditingName, setIsEditingName] = useState<string | null>(null);
+  const [pendingName, setPendingName] = useState("");
+  const [isSavingName, setIsSavingName] = useState(false);
+  const selectAllRef = useRef<HTMLInputElement | null>(null);
+  const isSelectable = Boolean(selectedIds && onToggleSelect && onToggleSelectAll);
+  const allSelected = isSelectable && users.length > 0 && users.every((user) => selectedIds?.has(user.id));
+  const someSelected = isSelectable && users.some((user) => selectedIds?.has(user.id)) && !allSelected;
+
+  useEffect(() => {
+    if (selectAllRef.current) {
+      selectAllRef.current.indeterminate = Boolean(someSelected);
+    }
+  }, [someSelected]);
 
   const handleRoleChange = async (userId: string, newRole: "ADMIN" | "USER") => {
     if (!onRoleChange) return;
@@ -27,6 +52,32 @@ export function UserTable({ users, onRoleChange }: UserTableProps) {
       await onRoleChange(userId, newRole);
     } finally {
       setIsChanging(null);
+    }
+  };
+
+  const startEditingName = (user: User) => {
+    if (!onNameChange) return;
+    setIsEditingName(user.id);
+    setPendingName(user.name ?? "");
+  };
+
+  const cancelEditingName = () => {
+    setIsEditingName(null);
+    setPendingName("");
+  };
+
+  const submitNameChange = async () => {
+    if (!onNameChange || !isEditingName) return;
+    setIsSavingName(true);
+    try {
+      const trimmed = pendingName.trim();
+      await onNameChange(isEditingName, trimmed.length > 0 ? trimmed : null);
+      setIsEditingName(null);
+      setPendingName("");
+    } catch (error) {
+      alert(error instanceof Error ? error.message : "Failed to update name");
+    } finally {
+      setIsSavingName(false);
     }
   };
 
@@ -43,6 +94,20 @@ export function UserTable({ users, onRoleChange }: UserTableProps) {
       <table className="w-full">
         <thead>
           <tr className="border-b border-[var(--border-subtle)]">
+            {isSelectable && (
+              <th className="text-left py-3 px-4 text-sm font-semibold text-[var(--text-muted)]">
+                <input
+                  ref={selectAllRef}
+                  type="checkbox"
+                  checked={Boolean(allSelected)}
+                  onChange={(event) =>
+                    onToggleSelectAll?.(event.target.checked, users.map((user) => user.id))
+                  }
+                  aria-label="Select all users"
+                  className="h-4 w-4 rounded border border-[var(--border-subtle)] bg-[var(--bg-secondary)] text-[var(--bg-accent)]"
+                />
+              </th>
+            )}
             <th className="text-left py-3 px-4 text-sm font-semibold text-[var(--text-muted)]">
               User
             </th>
@@ -66,15 +131,48 @@ export function UserTable({ users, onRoleChange }: UserTableProps) {
               key={user.id}
               className="hover:bg-[var(--bg-card-hover)] transition-colors"
             >
+              {isSelectable && (
+                <td className="py-4 px-4">
+                  <input
+                    type="checkbox"
+                    checked={Boolean(selectedIds?.has(user.id))}
+                    onChange={() => onToggleSelect?.(user.id)}
+                    aria-label={`Select ${user.name || user.email}`}
+                    className="h-4 w-4 rounded border border-[var(--border-subtle)] bg-[var(--bg-secondary)] text-[var(--bg-accent)]"
+                  />
+                </td>
+              )}
               <td className="py-4 px-4">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-medium">
                     {(user.name?.[0] || user.email[0]).toUpperCase()}
                   </div>
                   <div>
-                    <p className="font-medium text-[var(--text-primary)]">
-                      {user.name || "Unnamed"}
-                    </p>
+                    {isEditingName === user.id ? (
+                      <div className="flex items-center gap-2">
+                        <input
+                          value={pendingName}
+                          onChange={(event) => setPendingName(event.target.value)}
+                          onKeyDown={(event) => {
+                            if (event.key === "Enter") {
+                              event.preventDefault();
+                              void submitNameChange();
+                            }
+                            if (event.key === "Escape") {
+                              event.preventDefault();
+                              cancelEditingName();
+                            }
+                          }}
+                          placeholder="Name (optional)"
+                          className="w-full max-w-[220px] rounded-lg border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-3 py-1.5 text-sm text-[var(--text-primary)] focus:outline-none focus:border-[var(--border-accent)]"
+                          aria-label={`Edit name for ${user.email}`}
+                        />
+                      </div>
+                    ) : (
+                      <p className="font-medium text-[var(--text-primary)]">
+                        {user.name || "Unnamed"}
+                      </p>
+                    )}
                     <p className="text-sm text-[var(--text-muted)]">{user.email}</p>
                   </div>
                 </div>
@@ -127,6 +225,41 @@ export function UserTable({ users, onRoleChange }: UserTableProps) {
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                     </svg>
                   </div>
+                )}
+                {onNameChange && (
+                  <>
+                    {isEditingName === user.id ? (
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={submitNameChange}
+                          disabled={isSavingName}
+                          className={cn(
+                            "btn btn-primary !px-3 !py-1 text-xs",
+                            isSavingName && "opacity-60 cursor-wait"
+                          )}
+                        >
+                          Save
+                        </button>
+                        <button
+                          type="button"
+                          onClick={cancelEditingName}
+                          className="btn btn-ghost !px-3 !py-1 text-xs"
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => startEditingName(user)}
+                        className="p-2 rounded-lg hover:bg-[var(--bg-secondary)] transition-colors"
+                        title="Edit name"
+                      >
+                        <Pencil className="w-4 h-4 text-[var(--text-muted)]" strokeWidth={2} />
+                      </button>
+                    )}
+                  </>
                 )}
               </td>
             </tr>

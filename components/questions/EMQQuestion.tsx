@@ -1,7 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { EMQQuestion as EMQQuestionType } from "@/types";
+import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
+import { playSoundIfEnabled } from "@/lib/sounds";
 import { cn } from "@/lib/utils";
 
 interface EMQQuestionProps {
@@ -16,18 +18,25 @@ export function EMQQuestion({ question, onAnswer, answered }: EMQQuestionProps) 
   const [selections, setSelections] = useState<Record<number, number | null>>({});
   const [activePremise, setActivePremise] = useState<number | null>(null);
 
+  useEffect(() => {
+    if (!answered) {
+      setSelections({});
+      setActivePremise(null);
+    }
+  }, [answered, question.instructions, question.premises, question.options]);
+
   // Create a map of correct matches
   const correctMatches = question.matches.reduce<Record<number, number>>((acc, [premiseIdx, optionIdx]) => {
     acc[premiseIdx] = optionIdx;
     return acc;
   }, {});
 
-  const handlePremiseClick = (premiseIndex: number) => {
+  const handlePremiseClick = useCallback((premiseIndex: number) => {
     if (answered) return;
-    setActivePremise(activePremise === premiseIndex ? null : premiseIndex);
-  };
+    setActivePremise((prev) => (prev === premiseIndex ? null : premiseIndex));
+  }, [answered]);
 
-  const handleOptionClick = (optionIndex: number) => {
+  const handleOptionClick = useCallback((optionIndex: number) => {
     if (answered || activePremise === null) return;
 
     setSelections((prev) => ({
@@ -35,10 +44,10 @@ export function EMQQuestion({ question, onAnswer, answered }: EMQQuestionProps) 
       [activePremise]: prev[activePremise] === optionIndex ? null : optionIndex,
     }));
     setActivePremise(null);
-  };
+  }, [answered, activePremise]);
 
-  const handleSubmit = () => {
-    const allAnswered = question.premises.every((_, i) => selections[i] !== undefined);
+  const handleSubmit = useCallback(() => {
+    const allAnswered = question.premises.every((_, i) => selections[i] !== undefined && selections[i] !== null);
     if (!allAnswered) return;
 
     const isCorrect = question.matches.every(([premiseIdx, optionIdx]) =>
@@ -46,7 +55,7 @@ export function EMQQuestion({ question, onAnswer, answered }: EMQQuestionProps) 
     );
 
     onAnswer(isCorrect, selections);
-  };
+  }, [question.premises, question.matches, selections, onAnswer]);
 
   const getPremiseState = (index: number): "default" | "active" | "correct" | "incorrect" => {
     if (!answered) {
@@ -57,6 +66,39 @@ export function EMQQuestion({ question, onAnswer, answered }: EMQQuestionProps) 
   };
 
   const allSelected = question.premises.every((_, i) => selections[i] !== undefined && selections[i] !== null);
+
+  useKeyboardShortcuts({
+    onSelectOption: handlePremiseClick,
+    onSubmit: handleSubmit,
+    optionCount: question.premises.length,
+    isAnswered: answered,
+    canSubmit: allSelected,
+  });
+
+  useEffect(() => {
+    if (answered) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (activePremise === null) return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+
+      const target = e.target as HTMLElement;
+      if (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable) {
+        return;
+      }
+
+      const key = e.key.toUpperCase();
+      const optionIndex = OPTION_LETTERS.indexOf(key);
+      if (optionIndex >= 0 && optionIndex < question.options.length) {
+        e.preventDefault();
+        playSoundIfEnabled("select");
+        handleOptionClick(optionIndex);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activePremise, answered, handleOptionClick, question.options.length]);
 
   return (
     <div className="space-y-6">
@@ -82,7 +124,10 @@ export function EMQQuestion({ question, onAnswer, answered }: EMQQuestionProps) 
               return (
                 <button
                   key={index}
-                  onClick={() => handlePremiseClick(index)}
+                  onClick={() => {
+                    playSoundIfEnabled("select");
+                    handlePremiseClick(index);
+                  }}
                   disabled={answered}
                   className={cn(
                     "w-full text-left p-4 rounded-lg border-2 transition-all duration-200",
@@ -143,7 +188,10 @@ export function EMQQuestion({ question, onAnswer, answered }: EMQQuestionProps) 
               return (
                 <button
                   key={index}
-                  onClick={() => handleOptionClick(index)}
+                  onClick={() => {
+                    playSoundIfEnabled("select");
+                    handleOptionClick(index);
+                  }}
                   disabled={answered || activePremise === null}
                   className={cn(
                     "w-full text-left p-4 rounded-lg border-2 transition-all duration-200",

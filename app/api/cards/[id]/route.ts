@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db, studyCards, studySets } from "@/db";
 import { eq } from "drizzle-orm";
-import { getCurrentUser, canEditSet } from "@/lib/auth";
+import { getCurrentUser, canEditSet, canViewSet } from "@/lib/auth";
 import { toFrontendCard, numericToDifficulty } from "@/lib/card-utils";
 
 interface RouteParams {
@@ -12,15 +12,14 @@ interface RouteParams {
 export async function GET(request: NextRequest, { params }: RouteParams) {
   try {
     const { id } = await params;
+    const user = await getCurrentUser(request);
     const searchParams = request.nextUrl.searchParams;
     const format = searchParams.get("format");
 
     const card = await db.query.studyCards.findFirst({
       where: eq(studyCards.id, id),
       with: {
-        studySet: {
-          columns: { id: true, title: true },
-        },
+        studySet: true,
       },
     });
 
@@ -28,6 +27,13 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
       return NextResponse.json(
         { error: "Card not found" },
         { status: 404 }
+      );
+    }
+
+    if (!canViewSet(user, card.studySet)) {
+      return NextResponse.json(
+        { error: "You don't have permission to view this card" },
+        { status: 403 }
       );
     }
 
@@ -79,21 +85,29 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
 
     const body = await request.json();
     const updates: Record<string, unknown> = { updatedAt: new Date() };
+    let nextContent: Record<string, unknown> | null = null;
 
     // Support both frontend and database field names
     if ("questionData" in body) {
-      updates.content = body.questionData;
+      nextContent = { ...(body.questionData as Record<string, unknown>) };
     } else if ("content" in body) {
-      updates.content = body.content;
+      nextContent = { ...(body.content as Record<string, unknown>) };
     }
 
     if ("difficulty" in body) {
       // Handle numeric difficulty from frontend
       if (typeof body.difficulty === "number") {
         updates.difficulty = numericToDifficulty(body.difficulty);
+        if (nextContent) {
+          nextContent._difficulty = body.difficulty;
+        }
       } else {
         updates.difficulty = body.difficulty;
       }
+    }
+
+    if (nextContent) {
+      updates.content = nextContent;
     }
 
     if ("tags" in body) updates.tags = body.tags;
@@ -131,12 +145,18 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
 
     const body = await request.json();
     const { content, difficulty, tags, orderIndex } = body;
+    const resolvedDifficulty = typeof difficulty === "number"
+      ? numericToDifficulty(difficulty)
+      : difficulty;
+    const resolvedContent = typeof difficulty === "number" && typeof content === "object"
+      ? { ...(content as Record<string, unknown>), _difficulty: difficulty }
+      : content;
 
     const [card] = await db
       .update(studyCards)
       .set({
-        ...(content !== undefined && { content }),
-        ...(difficulty !== undefined && { difficulty }),
+        ...(resolvedContent !== undefined && { content: resolvedContent }),
+        ...(resolvedDifficulty !== undefined && { difficulty: resolvedDifficulty }),
         ...(tags !== undefined && { tags }),
         ...(orderIndex !== undefined && { orderIndex }),
         updatedAt: new Date(),

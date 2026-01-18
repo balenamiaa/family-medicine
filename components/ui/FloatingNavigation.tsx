@@ -28,7 +28,7 @@ export function FloatingNavigation({
 }: FloatingNavigationProps) {
   const handleNext = () => {
     if (canGoNext) {
-      playSoundIfEnabled("navigate");
+      playSoundIfEnabled("advance");
       onNext();
     }
   };

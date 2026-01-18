@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db, users, studySets, cardProgress, reviewHistory } from "@/db";
-import { eq, count, desc, sql } from "drizzle-orm";
+import { db, users, studySets } from "@/db";
+import { eq, count, desc } from "drizzle-orm";
 import { getCurrentUser, isAdmin } from "@/lib/auth";
 
 // GET /api/users - Get current user or list all users (admin)
@@ -9,22 +9,29 @@ export async function GET(request: NextRequest) {
     const searchParams = request.nextUrl.searchParams;
     const email = searchParams.get("email");
     const includeSetCount = searchParams.get("include")?.includes("setCount");
-    const listAll = searchParams.get("list") === "all" || !email;
 
     const currentUser = await getCurrentUser(request);
+    if (!isAdmin(currentUser)) {
+      return NextResponse.json(
+        { error: "Admin access required" },
+        { status: 403 }
+      );
+    }
 
-    // If listing all users, require admin
-    if (listAll && !email) {
-      if (!isAdmin(currentUser)) {
+    if (email) {
+      const user = await db.query.users.findFirst({
+        where: eq(users.email, email),
+      });
+
+      if (!user) {
         return NextResponse.json(
-          { error: "Admin access required" },
-          { status: 403 }
+          { error: "User not found" },
+          { status: 404 }
         );
       }
 
-      // Get all users with optional set count
       if (includeSetCount) {
-        const allUsers = await db
+        const [userWithCounts] = await db
           .select({
             id: users.id,
             name: users.name,
@@ -35,63 +42,40 @@ export async function GET(request: NextRequest) {
           })
           .from(users)
           .leftJoin(studySets, eq(users.id, studySets.userId))
-          .groupBy(users.id)
-          .orderBy(desc(users.createdAt));
+          .where(eq(users.id, user.id))
+          .groupBy(users.id);
 
-        return NextResponse.json({ users: allUsers });
+        return NextResponse.json({ users: userWithCounts ? [userWithCounts] : [] });
       }
 
+      return NextResponse.json({ users: [user] });
+    }
+
+    // Get all users with optional set count
+    if (includeSetCount) {
       const allUsers = await db
-        .select()
+        .select({
+          id: users.id,
+          name: users.name,
+          email: users.email,
+          role: users.role,
+          createdAt: users.createdAt,
+          setCount: count(studySets.id),
+        })
         .from(users)
+        .leftJoin(studySets, eq(users.id, studySets.userId))
+        .groupBy(users.id)
         .orderBy(desc(users.createdAt));
 
       return NextResponse.json({ users: allUsers });
     }
 
-    // Get or create a specific user by email
-    const targetEmail = email ?? "local@medcram.app";
+    const allUsers = await db
+      .select()
+      .from(users)
+      .orderBy(desc(users.createdAt));
 
-    let user = await db.query.users.findFirst({
-      where: eq(users.email, targetEmail),
-    });
-
-    // Create if not exists
-    if (!user) {
-      const [created] = await db
-        .insert(users)
-        .values({
-          email: targetEmail,
-          name: "Local User",
-        })
-        .returning();
-      user = created;
-    }
-
-    // Get counts
-    const [studySetCount] = await db
-      .select({ count: count() })
-      .from(studySets)
-      .where(eq(studySets.userId, user.id));
-
-    const [progressCount] = await db
-      .select({ count: count() })
-      .from(cardProgress)
-      .where(eq(cardProgress.userId, user.id));
-
-    const [historyCount] = await db
-      .select({ count: count() })
-      .from(reviewHistory)
-      .where(eq(reviewHistory.userId, user.id));
-
-    return NextResponse.json({
-      ...user,
-      _count: {
-        studySets: studySetCount?.count ?? 0,
-        cardProgress: progressCount?.count ?? 0,
-        reviewHistory: historyCount?.count ?? 0,
-      },
-    });
+    return NextResponse.json({ users: allUsers });
   } catch (error) {
     console.error("Failed to fetch user:", error);
     return NextResponse.json(
@@ -104,6 +88,13 @@ export async function GET(request: NextRequest) {
 // POST /api/users - Create a new user
 export async function POST(request: NextRequest) {
   try {
+    const currentUser = await getCurrentUser(request);
+    if (!isAdmin(currentUser)) {
+      return NextResponse.json(
+        { error: "Admin access required" },
+        { status: 403 }
+      );
+    }
     const body = await request.json();
     const { email, name } = body;
 

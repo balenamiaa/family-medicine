@@ -24,9 +24,10 @@ export const cardTypeToQuestionType: Record<CardType, QuestionType | null> = {
 };
 
 // Map numeric difficulty to database enum
-export function numericToDifficulty(num: FrontendDifficulty): Difficulty {
-  if (num <= 2) return "EASY";
-  if (num <= 3) return "MEDIUM";
+export function numericToDifficulty(num: number): Difficulty {
+  const safe = Math.max(1, Math.min(5, Math.round(num)));
+  if (safe <= 2) return "EASY";
+  if (safe <= 3) return "MEDIUM";
   return "HARD";
 }
 
@@ -36,6 +37,7 @@ export function difficultyToNumeric(diff: Difficulty): FrontendDifficulty {
     case "EASY": return 2;
     case "MEDIUM": return 3;
     case "HARD": return 4;
+    default: return 3;
   }
 }
 
@@ -49,13 +51,17 @@ export function toFrontendCard(dbCard: {
   tags?: string[] | null;
 }) {
   const questionType = cardTypeToQuestionType[dbCard.cardType];
-  const content = dbCard.content as Record<string, unknown> | null;
+  const content = (dbCard.content as Record<string, unknown> | null) ?? {};
+  const { _difficulty, ...questionData } = content;
+  const storedDifficulty = typeof _difficulty === "number"
+    ? Math.max(1, Math.min(5, Math.round(_difficulty)))
+    : null;
 
   return {
     id: dbCard.id,
     questionType: questionType ?? dbCard.cardType.toLowerCase(),
-    questionData: content ?? {},
-    difficulty: difficultyToNumeric(dbCard.difficulty),
+    questionData,
+    difficulty: (storedDifficulty ?? difficultyToNumeric(dbCard.difficulty)) as FrontendDifficulty,
     orderIndex: dbCard.orderIndex,
     explanation: (content?.explanation as string) ?? "",
     retentionAid: (content?.retention_aid as string) ?? "",
@@ -72,14 +78,21 @@ export function toDatabaseCard(frontendData: {
   orderIndex?: number;
   tags?: string[];
 }) {
+  const difficultyValue = typeof frontendData.difficulty === "number"
+    ? Math.max(1, Math.min(5, Math.round(frontendData.difficulty)))
+    : 3;
+  const content: Record<string, unknown> = {
+    ...(frontendData.questionData ?? {}),
+    _difficulty: difficultyValue,
+  };
   const cardType = questionTypeToCardType[frontendData.questionType as QuestionType]
     ?? (frontendData.questionType.toUpperCase() as CardType);
 
   return {
     studySetId: frontendData.studySetId,
     cardType,
-    content: frontendData.questionData ?? {},
-    difficulty: numericToDifficulty((frontendData.difficulty ?? 3) as FrontendDifficulty),
+    content,
+    difficulty: numericToDifficulty(difficultyValue),
     orderIndex: frontendData.orderIndex ?? 0,
     tags: frontendData.tags ?? [],
   };

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db, studySets, studyCards, StudySetType } from "@/db";
-import { eq, desc, or, and, sql, count } from "drizzle-orm";
+import { eq, desc, or, and, count, inArray } from "drizzle-orm";
 import { getCurrentUser, canViewSet, canCreateSetOfType, isAdmin } from "@/lib/auth";
 
 // GET /api/study-sets - List study sets
@@ -66,13 +66,17 @@ export async function GET(request: NextRequest) {
     });
 
     // Get card counts in a single query
-    const cardCounts = await db
-      .select({
-        studySetId: studyCards.studySetId,
-        count: count(),
-      })
-      .from(studyCards)
-      .groupBy(studyCards.studySetId);
+    const setIds = results.map((set) => set.id);
+    const cardCounts = setIds.length > 0
+      ? await db
+        .select({
+          studySetId: studyCards.studySetId,
+          count: count(),
+        })
+        .from(studyCards)
+        .where(inArray(studyCards.studySetId, setIds))
+        .groupBy(studyCards.studySetId)
+      : [];
 
     const countMap = new Map(cardCounts.map((c) => [c.studySetId, Number(c.count)]));
 

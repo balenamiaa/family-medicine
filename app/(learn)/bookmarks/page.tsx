@@ -8,6 +8,7 @@ import {
   ProgressRing,
   BookmarkButton,
   QuestionNavigator,
+  ToastNotice,
 } from "@/components/ui";
 import { StudySetSelector, useStudySet } from "@/components/sets";
 import { useQuiz } from "@/hooks/useQuiz";
@@ -25,11 +26,11 @@ export default function BookmarksPage() {
 
   const [bookmarkedIndices, setBookmarkedIndices] = useState<number[]>([]);
   const [showConfirmClear, setShowConfirmClear] = useState(false);
-  const [refreshKey, setRefreshKey] = useState(0);
+  const [showResetToast, setShowResetToast] = useState(false);
 
   useEffect(() => {
     setBookmarkedIndices(getBookmarkedIndices(bookmarkKey));
-  }, [refreshKey, bookmarkKey]);
+  }, [bookmarkKey]);
 
   const validBookmarkedIndices = useMemo(() => {
     return bookmarkedIndices.filter((index) => index >= 0 && index < questions.length);
@@ -55,6 +56,8 @@ export default function BookmarksPage() {
     resetQuiz,
     resetSingleQuestion,
     markFeedbackGiven,
+    resetReason,
+    clearResetReason,
   } = useQuiz({
     questions,
     questionIndices: validBookmarkedIndices,
@@ -62,6 +65,19 @@ export default function BookmarksPage() {
     persistKey: progressKey,
     spacedRepetitionKey: srKey,
   });
+
+  useEffect(() => {
+    if (resetReason === "content-change") {
+      setShowResetToast(true);
+      clearResetReason();
+    }
+  }, [resetReason, clearResetReason]);
+
+  useEffect(() => {
+    if (!showResetToast) return;
+    const timer = window.setTimeout(() => setShowResetToast(false), 4500);
+    return () => window.clearTimeout(timer);
+  }, [showResetToast]);
 
   const handleClearBookmarks = () => {
     clearAllBookmarks(bookmarkKey);
@@ -71,10 +87,7 @@ export default function BookmarksPage() {
   };
 
   const handleBookmarkToggle = () => {
-    // Refresh bookmarks list after toggle
-    setTimeout(() => {
-      setRefreshKey((k) => k + 1);
-    }, 100);
+    setBookmarkedIndices(getBookmarkedIndices(bookmarkKey));
   };
 
   const handleResetQuestion = () => {
@@ -92,6 +105,14 @@ export default function BookmarksPage() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 space-y-6">
       <StudySetSelector />
+      {showResetToast && (
+        <ToastNotice
+          tone="warning"
+          title="Study set updated"
+          message="Your answers were cleared because this set changed."
+          onDismiss={() => setShowResetToast(false)}
+        />
+      )}
 
       {isLoading || isLoadingActive ? (
         <div className="card p-6 animate-pulse">

@@ -6,23 +6,31 @@ import { getCurrentUser, isAdmin } from "@/lib/auth";
 // GET /api/progress - Get cards due for review
 export async function GET(request: NextRequest) {
   try {
+    const currentUser = await getCurrentUser(request);
+    if (!currentUser) {
+      return NextResponse.json(
+        { error: "Authentication required" },
+        { status: 401 }
+      );
+    }
     const searchParams = request.nextUrl.searchParams;
     const userId = searchParams.get("userId");
     const studySetId = searchParams.get("studySetId");
     const dueOnly = searchParams.get("dueOnly") === "true";
     const limit = parseInt(searchParams.get("limit") ?? "50");
 
-    if (!userId) {
+    if (userId && userId !== currentUser.id && !isAdmin(currentUser)) {
       return NextResponse.json(
-        { error: "userId is required" },
-        { status: 400 }
+        { error: "Not authorized to view this user's progress" },
+        { status: 403 }
       );
     }
+    const resolvedUserId = userId ?? currentUser.id;
 
     const now = new Date();
 
     // Build conditions
-    const conditions = [eq(cardProgress.userId, userId)];
+    const conditions = [eq(cardProgress.userId, resolvedUserId)];
     if (dueOnly) {
       conditions.push(lte(cardProgress.nextReviewDate, now));
     }
@@ -57,11 +65,11 @@ export async function GET(request: NextRequest) {
         avgEaseFactor: avg(cardProgress.easeFactor),
       })
       .from(cardProgress)
-      .where(eq(cardProgress.userId, userId));
+      .where(eq(cardProgress.userId, resolvedUserId));
 
     // Get due count
     const dueConditions = [
-      eq(cardProgress.userId, userId),
+      eq(cardProgress.userId, resolvedUserId),
       lte(cardProgress.nextReviewDate, now),
     ];
 

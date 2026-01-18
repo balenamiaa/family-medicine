@@ -113,6 +113,7 @@ export interface SessionProgress {
   streak: number;
   maxStreak: number;
   questionStates: Record<number, QuestionState>;
+  questionSignature?: string;
 }
 
 // Type guards for question types

@@ -42,6 +42,7 @@ export const users = pgTable("users", {
 
 export const usersRelations = relations(users, ({ many }) => ({
   studySets: many(studySets),
+  savedSets: many(savedSets),
   cardProgress: many(cardProgress),
   reviewHistory: many(reviewHistory),
 }));
@@ -79,6 +80,30 @@ export const studySetsRelations = relations(studySets, ({ one, many }) => ({
     references: [users.id],
   }),
   cards: many(studyCards),
+  savedBy: many(savedSets),
+}));
+
+// Saved Study Sets table (user favorites)
+export const savedSets = pgTable("saved_sets", {
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
+  userId: text("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  studySetId: text("study_set_id").notNull().references(() => studySets.id, { onDelete: "cascade" }),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+}, (table) => [
+  uniqueIndex("saved_sets_user_set_idx").on(table.userId, table.studySetId),
+  index("saved_sets_user_idx").on(table.userId),
+  index("saved_sets_set_idx").on(table.studySetId),
+]);
+
+export const savedSetsRelations = relations(savedSets, ({ one }) => ({
+  user: one(users, {
+    fields: [savedSets.userId],
+    references: [users.id],
+  }),
+  studySet: one(studySets, {
+    fields: [savedSets.studySetId],
+    references: [studySets.id],
+  }),
 }));
 
 // Study Cards table (polymorphic with JSONB content)
@@ -173,6 +198,8 @@ export type CardProgress = typeof cardProgress.$inferSelect;
 export type NewCardProgress = typeof cardProgress.$inferInsert;
 export type ReviewHistory = typeof reviewHistory.$inferSelect;
 export type NewReviewHistory = typeof reviewHistory.$inferInsert;
+export type SavedSet = typeof savedSets.$inferSelect;
+export type NewSavedSet = typeof savedSets.$inferInsert;
 
 export type UserRole = typeof userRoleEnum.enumValues[number];
 export type StudySetType = typeof studySetTypeEnum.enumValues[number];

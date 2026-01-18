@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { TrueFalseQuestion as TFQuestion } from "@/types";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
+import { playSoundIfEnabled } from "@/lib/sounds";
 import { cn } from "@/lib/utils";
 
 interface TrueFalseQuestionProps {
@@ -13,6 +14,12 @@ interface TrueFalseQuestionProps {
 
 export function TrueFalseQuestion({ question, onAnswer, answered }: TrueFalseQuestionProps) {
   const [selected, setSelected] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    if (!answered) {
+      setSelected(null);
+    }
+  }, [answered, question.question_text, question.is_correct_true]);
 
   const handleSelect = useCallback((value: boolean) => {
     if (answered) return;
@@ -82,7 +89,10 @@ export function TrueFalseQuestion({ question, onAnswer, answered }: TrueFalseQue
           return (
             <button
               key={value.toString()}
-              onClick={() => handleSelect(value)}
+              onClick={() => {
+                playSoundIfEnabled("select");
+                handleSelect(value);
+              }}
               disabled={answered}
               className={cn(
                 "relative flex flex-col items-center justify-center gap-3 p-6 rounded-xl border-2",

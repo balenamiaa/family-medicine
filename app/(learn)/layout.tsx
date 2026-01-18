@@ -7,10 +7,9 @@ import { ModeSwitcher } from "@/components/ui";
 import { getCurrentUserFromSessionToken, isAdmin } from "@/lib/auth";
 import { SESSION_COOKIE_NAME } from "@/lib/session";
 import { StudySetProvider } from "@/components/sets";
-import { db, studySets } from "@/db";
-import { desc, eq, or } from "drizzle-orm";
-import { toFrontendCard } from "@/lib/card-utils";
-import type { StudySetDetail, StudySetSummary } from "@/components/sets/StudySetProvider";
+import { db, studySets, studyCards } from "@/db";
+import { desc, eq, or, count } from "drizzle-orm";
+import type { StudySetSummary } from "@/components/sets/StudySetProvider";
 
 interface LearnLayoutProps {
   children: ReactNode;
@@ -31,15 +30,32 @@ const getAccessibleStudySets = unstable_cache(
           eq(studySets.type, "SYSTEM")
         );
 
-    const results = await db.query.studySets.findMany({
-      where: whereConditions,
-      with: {
-        cards: {
-          columns: { id: true },
-        },
-      },
-      orderBy: [desc(studySets.updatedAt)],
-    });
+    const baseQuery = db
+      .select({
+        id: studySets.id,
+        title: studySets.title,
+        description: studySets.description,
+        type: studySets.type,
+        tags: studySets.tags,
+        createdAt: studySets.createdAt,
+        updatedAt: studySets.updatedAt,
+        cardCount: count(studyCards.id),
+      })
+      .from(studySets)
+      .leftJoin(studyCards, eq(studySets.id, studyCards.studySetId));
+
+    const query = whereConditions ? baseQuery.where(whereConditions) : baseQuery;
+    const results = await query
+      .groupBy(
+        studySets.id,
+        studySets.title,
+        studySets.description,
+        studySets.type,
+        studySets.tags,
+        studySets.createdAt,
+        studySets.updatedAt
+      )
+      .orderBy(desc(studySets.updatedAt));
 
     return results.map((set) => ({
       id: set.id,
@@ -47,45 +63,12 @@ const getAccessibleStudySets = unstable_cache(
       description: set.description,
       type: set.type,
       tags: set.tags ?? [],
-      cardCount: set.cards.length,
+      cardCount: Number(set.cardCount ?? 0),
       createdAt: set.createdAt.toISOString(),
       updatedAt: set.updatedAt.toISOString(),
     })) as StudySetSummary[];
   },
   ["learn-sets"],
-  { revalidate: 30 }
-);
-
-const getStudySetDetail = unstable_cache(
-  async (setId: string, userId: string | null, isAdminUser: boolean) => {
-    const studySet = await db.query.studySets.findFirst({
-      where: eq(studySets.id, setId),
-      with: {
-        cards: {
-          orderBy: (cards, { asc }) => [asc(cards.orderIndex)],
-        },
-      },
-    });
-
-    if (!studySet) return null;
-    if (!isAdminUser && studySet.type === "PRIVATE" && studySet.userId !== userId) {
-      return null;
-    }
-
-    const cards = studySet.cards.map(toFrontendCard);
-    return {
-      id: studySet.id,
-      title: studySet.title,
-      description: studySet.description,
-      type: studySet.type,
-      tags: studySet.tags ?? [],
-      cardCount: cards.length,
-      createdAt: studySet.createdAt.toISOString(),
-      updatedAt: studySet.updatedAt.toISOString(),
-      cards,
-    } as StudySetDetail;
-  },
-  ["learn-active-set"],
   { revalidate: 30 }
 );
 
@@ -101,14 +84,10 @@ export default async function LearnLayout({ children }: LearnLayoutProps) {
   const isAdminUser = isAdmin(user);
   const initialSets = await getAccessibleStudySets(user.id, isAdminUser);
   const fallbackSet = initialSets.find((set) => set.type === "SYSTEM") || initialSets[0] || null;
-  const initialActiveSet = fallbackSet
-    ? await getStudySetDetail(fallbackSet.id, user.id, isAdminUser)
-    : null;
 
   return (
     <StudySetProvider
       initialSets={initialSets}
-      initialActiveSet={initialActiveSet}
       initialActiveSetId={fallbackSet?.id ?? null}
     >
       <AppShell

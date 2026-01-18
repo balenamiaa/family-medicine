@@ -12,6 +12,7 @@ interface KeyboardShortcutsConfig {
   onToggleBookmark?: () => void;
   onReset?: () => void;
   onFeedback?: (quality: Quality) => void;
+  feedbackQualities?: Quality[];
   optionCount?: number;
   isAnswered?: boolean;
   canSubmit?: boolean;
@@ -30,6 +31,7 @@ export function useKeyboardShortcuts({
   onToggleBookmark,
   onReset,
   onFeedback,
+  feedbackQualities,
   optionCount = 0,
   isAnswered = false,
   canSubmit = false,
@@ -48,6 +50,7 @@ export function useKeyboardShortcuts({
     onToggleBookmark,
     onReset,
     onFeedback,
+    feedbackQualities,
     optionCount,
     isAnswered,
     canSubmit,
@@ -68,6 +71,7 @@ export function useKeyboardShortcuts({
       onToggleBookmark,
       onReset,
       onFeedback,
+      feedbackQualities,
       optionCount,
       isAnswered,
       canSubmit,
@@ -85,6 +89,7 @@ export function useKeyboardShortcuts({
     onToggleBookmark,
     onReset,
     onFeedback,
+    feedbackQualities,
     optionCount,
     isAnswered,
     canSubmit,
@@ -111,7 +116,7 @@ export function useKeyboardShortcuts({
       const num = parseInt(e.key, 10);
       if (num >= 1 && num <= Math.min(9, config.optionCount)) {
         e.preventDefault();
-        playSoundIfEnabled("click");
+        playSoundIfEnabled("select");
         config.onSelectOption(num - 1);
         return;
       }
@@ -120,10 +125,12 @@ export function useKeyboardShortcuts({
     // Number keys for post-answer feedback
     if (config.isAnswered && config.feedbackEnabled && config.onFeedback) {
       const num = parseInt(e.key, 10);
-      if (!Number.isNaN(num) && num >= 1 && num <= config.feedbackOptions) {
+      const feedbackTotal = config.feedbackQualities?.length ?? config.feedbackOptions;
+      if (!Number.isNaN(num) && num >= 1 && num <= feedbackTotal) {
         e.preventDefault();
-        playSoundIfEnabled("click");
-        config.onFeedback((num - 1) as Quality);
+        playSoundIfEnabled("select");
+        const quality = config.feedbackQualities?.[num - 1] ?? ((num - 1) as Quality);
+        config.onFeedback(quality);
         return;
       }
     }
@@ -143,7 +150,7 @@ export function useKeyboardShortcuts({
     if (e.key === "ArrowRight") {
       if (config.canGoNext && config.onNext) {
         e.preventDefault();
-        playSoundIfEnabled("navigate");
+        playSoundIfEnabled("advance");
         config.onNext();
       }
       return;
@@ -182,13 +189,13 @@ export function useKeyboardShortcuts({
     if (!config.isAnswered && config.optionCount === 2 && config.onSelectOption) {
       if (e.key === "t" || e.key === "T") {
         e.preventDefault();
-        playSoundIfEnabled("click");
+        playSoundIfEnabled("select");
         config.onSelectOption(0); // True is first
         return;
       }
       if (e.key === "f" || e.key === "F") {
         e.preventDefault();
-        playSoundIfEnabled("click");
+        playSoundIfEnabled("select");
         config.onSelectOption(1); // False is second
         return;
       }

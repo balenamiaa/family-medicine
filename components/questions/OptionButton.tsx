@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { playSoundIfEnabled } from "@/lib/sounds";
 
 interface OptionButtonProps {
   label: string;
@@ -27,11 +28,15 @@ export function OptionButton({
   const isRevealed = correct !== null && correct !== undefined;
   const isCorrectAnswer = correct === true;
   const isIncorrectSelection = selected && correct === false;
+  const handleClick = () => {
+    playSoundIfEnabled("select");
+    onClick();
+  };
 
   return (
     <button
       type="button"
-      onClick={onClick}
+      onClick={handleClick}
       disabled={disabled}
       className={cn(
         "group relative w-full text-left rounded-xl border-2 transition-all duration-200",

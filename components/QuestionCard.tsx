@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   Question,
   isMCQSingle,
@@ -72,11 +72,18 @@ export function QuestionCard({
   feedbackGiven = false,
 }: QuestionCardProps) {
   const feedbackOptions = [
-    { label: "Again", desc: "No recall", quality: 0 as Quality },
-    { label: "Hard", desc: "Partial recall", quality: 1 as Quality },
-    { label: "Almost", desc: "Close but wrong", quality: 2 as Quality },
+    { label: "Again", desc: "No recall", quality: 0 as Quality, tone: "error" as const },
+    { label: "Hard", desc: "Barely remembered", quality: 3 as Quality, tone: "warning" as const },
+    { label: "Good", desc: "Correct with effort", quality: 4 as Quality, tone: "success" as const },
+    { label: "Easy", desc: "Instant recall", quality: 5 as Quality, tone: "accent" as const },
   ];
-  const feedbackShortcutEnabled = Boolean(onFeedback) && isAnswered && isCorrect === false && !feedbackGiven;
+  const feedbackShortcutEnabled = Boolean(onFeedback) && isAnswered && !feedbackGiven;
+  const cardRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!cardRef.current) return;
+    cardRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [questionNumber, question.id]);
 
   // Play sound on answer
   useEffect(() => {
@@ -89,7 +96,7 @@ export function QuestionCard({
   const handleAnswer = useCallback((correct: boolean, answer: UserAnswer) => {
     onAnswer(correct, answer);
 
-    if (question.question_type === "written" && question.id) {
+    if (question.id) {
       void fetch("/api/progress", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -98,6 +105,7 @@ export function QuestionCard({
           correct,
           quality: correct ? 5 : 2,
         }),
+        keepalive: true,
       });
     }
   }, [onAnswer, question]);
@@ -126,6 +134,7 @@ export function QuestionCard({
     canGoPrevious,
     feedbackEnabled: feedbackShortcutEnabled,
     feedbackOptions: feedbackOptions.length,
+    feedbackQualities: feedbackOptions.map((option) => option.quality),
   });
 
   const renderQuestion = () => {
@@ -187,7 +196,7 @@ export function QuestionCard({
   };
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div ref={cardRef} className="space-y-6 animate-fade-in">
       {/* Card */}
       <div className="card p-6 md:p-8">
         {/* Header */}
@@ -227,15 +236,15 @@ export function QuestionCard({
         {/* Question content */}
         {renderQuestion()}
 
-        {onFeedback && isAnswered && isCorrect === false && (
+        {onFeedback && isAnswered && (
           <div className="mt-6 rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)]/70 p-4">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
               <div>
                 <p className="text-sm font-semibold text-[var(--text-primary)]">
-                  How close were you?
+                  Rate your recall
                 </p>
                 <p className="text-xs text-[var(--text-muted)] mt-1">
-                  This tunes the review schedule.
+                  This tunes your review schedule (Anki-style).
                 </p>
               </div>
               {feedbackGiven && (
@@ -244,19 +253,33 @@ export function QuestionCard({
                 </span>
               )}
             </div>
-            <div className="mt-3 grid gap-2 sm:grid-cols-3">
+            <div className="mt-3 grid gap-2 sm:grid-cols-4">
               {feedbackOptions.map((option, index) => (
                 <button
                   key={option.label}
-                  onClick={() => handleFeedback(option.quality)}
+                  onClick={() => {
+                    playSoundIfEnabled("select");
+                    handleFeedback(option.quality);
+                  }}
                   disabled={feedbackGiven}
                   className={cn(
                     "rounded-xl border px-3 py-2 text-left transition-all",
-                    "border-[var(--border-subtle)] hover:border-[var(--border-accent)]",
+                    option.tone === "error" && "border-[var(--error-border)]/60 bg-[var(--error-bg)] hover:border-[var(--error-border)]",
+                    option.tone === "warning" && "border-[var(--warning-border)]/60 bg-[var(--warning-bg)] hover:border-[var(--warning-border)]",
+                    option.tone === "success" && "border-[var(--success-border)]/60 bg-[var(--success-bg)] hover:border-[var(--success-border)]",
+                    option.tone === "accent" && "border-[var(--border-accent)]/60 bg-[var(--bg-accent-subtle)] hover:border-[var(--border-accent)]",
                     feedbackGiven && "opacity-60 cursor-not-allowed"
                   )}
                 >
-                  <div className="flex items-center gap-2 text-xs font-semibold text-[var(--text-primary)]">
+                  <div
+                    className={cn(
+                      "flex items-center gap-2 text-xs font-semibold",
+                      option.tone === "error" && "text-[var(--error-text)]",
+                      option.tone === "warning" && "text-[var(--warning-text)]",
+                      option.tone === "success" && "text-[var(--success-text)]",
+                      option.tone === "accent" && "text-[var(--text-accent)]"
+                    )}
+                  >
                     <kbd className="inline-flex h-5 min-w-[20px] items-center justify-center rounded bg-[var(--bg-card)] px-1 text-[10px] font-medium text-[var(--text-muted)]">
                       {index + 1}
                     </kbd>

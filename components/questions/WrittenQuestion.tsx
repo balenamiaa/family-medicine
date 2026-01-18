@@ -15,9 +15,11 @@ export function WrittenQuestion({ question, onAnswer, answered }: WrittenQuestio
   const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
-    setResponse("");
-    setRevealed(false);
-  }, [question.id, question.question_text]);
+    if (!answered) {
+      setResponse("");
+      setRevealed(false);
+    }
+  }, [answered, question.id, question.question_text]);
 
   const canEvaluate = revealed && !answered;
 

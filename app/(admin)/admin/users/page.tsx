@@ -22,10 +22,25 @@ export default function AdminUsersPage() {
   const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState<FilterRole>("ALL");
   const [search, setSearch] = useState("");
+  const [selectedUserIds, setSelectedUserIds] = useState<Set<string>>(new Set());
+  const [emailSubject, setEmailSubject] = useState("");
+  const [emailMessage, setEmailMessage] = useState("");
+  const [isSendingEmail, setIsSendingEmail] = useState(false);
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [emailSuccess, setEmailSuccess] = useState<string | null>(null);
 
   useEffect(() => {
     fetchUsers();
   }, []);
+
+  useEffect(() => {
+    if (users.length === 0) return;
+    setSelectedUserIds((prev) => {
+      const allowed = new Set(users.map((user) => user.id));
+      const next = new Set(Array.from(prev).filter((id) => allowed.has(id)));
+      return next;
+    });
+  }, [users]);
 
   const fetchUsers = async () => {
     try {
@@ -67,6 +82,30 @@ export default function AdminUsersPage() {
     }
   };
 
+  const handleNameChange = async (userId: string, nextName: string | null) => {
+    try {
+      const response = await fetch(`/api/users/${userId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: nextName }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json().catch(() => ({}));
+        throw new Error(data.error || "Failed to update name");
+      }
+
+      const updated = await response.json().catch(() => null);
+      setUsers(users.map((user) =>
+        user.id === userId
+          ? { ...user, name: updated?.name ?? nextName }
+          : user
+      ));
+    } catch (err) {
+      alert(err instanceof Error ? err.message : "Failed to update name");
+    }
+  };
+
   const filteredUsers = users.filter((user) => {
     const matchesRole = filter === "ALL" || user.role === filter;
     const matchesSearch = search === "" ||
@@ -74,6 +113,81 @@ export default function AdminUsersPage() {
       user.email.toLowerCase().includes(search.toLowerCase());
     return matchesRole && matchesSearch;
   });
+
+  const selectedUsers = users.filter((user) => selectedUserIds.has(user.id));
+  const selectedCount = selectedUsers.length;
+
+  const handleToggleSelect = (userId: string) => {
+    setEmailError(null);
+    setEmailSuccess(null);
+    setSelectedUserIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(userId)) {
+        next.delete(userId);
+      } else {
+        next.add(userId);
+      }
+      return next;
+    });
+  };
+
+  const handleToggleSelectAll = (checked: boolean, userIds: string[]) => {
+    setEmailError(null);
+    setEmailSuccess(null);
+    setSelectedUserIds((prev) => {
+      const next = new Set(prev);
+      userIds.forEach((id) => {
+        if (checked) {
+          next.add(id);
+        } else {
+          next.delete(id);
+        }
+      });
+      return next;
+    });
+  };
+
+  const handleSendEmail = async () => {
+    if (isSendingEmail) return;
+    setEmailError(null);
+    setEmailSuccess(null);
+
+    const subject = emailSubject.trim();
+    const message = emailMessage.trim();
+    const userIds = Array.from(selectedUserIds);
+
+    if (!subject || !message) {
+      setEmailError("Subject and message are required.");
+      return;
+    }
+
+    if (userIds.length === 0) {
+      setEmailError("Select at least one recipient.");
+      return;
+    }
+
+    setIsSendingEmail(true);
+    try {
+      const response = await fetch("/api/admin/email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userIds, subject, message }),
+      });
+
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to send email");
+      }
+
+      setEmailSuccess(`Sent to ${data.sent ?? userIds.length} recipients.`);
+      setEmailMessage("");
+      setSelectedUserIds(new Set());
+    } catch (err) {
+      setEmailError(err instanceof Error ? err.message : "Failed to send email");
+    } finally {
+      setIsSendingEmail(false);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -125,6 +239,141 @@ export default function AdminUsersPage() {
         </p>
       </div>
 
+      {/* Email Composer */}
+      <div className="card p-6 mb-6 relative overflow-hidden">
+        <div className="absolute -top-16 right-0 w-48 h-48 rounded-full bg-[var(--bg-accent)]/10 blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-20 left-10 w-64 h-64 rounded-full bg-[var(--success-bg)]/30 blur-3xl pointer-events-none" />
+        <div className="relative space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div>
+              <h2 className="text-sm font-semibold uppercase tracking-wider text-[var(--text-muted)]">
+                Email Users
+              </h2>
+              <p className="text-sm text-[var(--text-muted)] mt-1">
+                Send updates directly to selected users.
+              </p>
+            </div>
+            <div className="text-xs text-[var(--text-muted)]">
+              Selected: <span className="font-semibold text-[var(--text-primary)]">{selectedCount}</span>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2">
+            {selectedCount === 0 ? (
+              <span className="text-xs text-[var(--text-muted)]">
+                No recipients selected yet.
+              </span>
+            ) : (
+              <>
+                {selectedUsers.slice(0, 3).map((user) => (
+                  <span
+                    key={user.id}
+                    className="inline-flex items-center gap-1 rounded-full bg-[var(--bg-secondary)] px-3 py-1 text-xs text-[var(--text-secondary)]"
+                  >
+                    {(user.name || user.email).slice(0, 16)}
+                  </span>
+                ))}
+                {selectedCount > 3 && (
+                  <span className="text-xs text-[var(--text-muted)]">
+                    +{selectedCount - 3} more
+                  </span>
+                )}
+              </>
+            )}
+          </div>
+
+          <div className="grid gap-4">
+            <label className="text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]">
+              Subject
+              <input
+                type="text"
+                value={emailSubject}
+                onChange={(event) => {
+                  setEmailSubject(event.target.value);
+                  setEmailError(null);
+                  setEmailSuccess(null);
+                }}
+                placeholder="Upcoming study plan update"
+                className="mt-2 w-full rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-4 py-2.5 text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-[var(--border-accent)]"
+              />
+            </label>
+
+            <label className="text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]">
+              Message
+              <textarea
+                value={emailMessage}
+                onChange={(event) => {
+                  setEmailMessage(event.target.value);
+                  setEmailError(null);
+                  setEmailSuccess(null);
+                }}
+                placeholder="Share what's new, encourage progress, or give next steps."
+                rows={4}
+                className="mt-2 w-full resize-none rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-4 py-3 text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-[var(--border-accent)]"
+              />
+            </label>
+          </div>
+
+          {emailError && (
+            <div className="rounded-xl border border-[var(--error-border)] bg-[var(--error-bg)] px-4 py-3 text-sm text-[var(--error-text)]">
+              {emailError}
+            </div>
+          )}
+
+          {emailSuccess && (
+            <div className="rounded-xl border border-[var(--success-border)] bg-[var(--success-bg)] px-4 py-3 text-sm text-[var(--success-text)]">
+              {emailSuccess}
+            </div>
+          )}
+
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="text-xs text-[var(--text-muted)]">
+                Use the table checkboxes to choose recipients.
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedUserIds(new Set());
+                  setEmailError(null);
+                  setEmailSuccess(null);
+                }}
+                disabled={selectedUserIds.size === 0}
+                className={cn(
+                  "px-3 py-2 rounded-lg text-xs font-medium border border-[var(--border-subtle)]",
+                  "bg-[var(--bg-secondary)] text-[var(--text-secondary)]",
+                  "hover:bg-[var(--bg-card-hover)]",
+                  selectedUserIds.size === 0 && "opacity-60 cursor-not-allowed"
+                )}
+              >
+                Clear selection
+              </button>
+            </div>
+            <button
+              type="button"
+              onClick={handleSendEmail}
+              disabled={isSendingEmail || selectedUserIds.size === 0 || !emailSubject.trim() || !emailMessage.trim()}
+              aria-busy={isSendingEmail}
+              className={cn(
+                "inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-xs font-semibold",
+                "bg-[var(--bg-accent)] text-[var(--text-inverse)] transition-all",
+                "hover:opacity-90 active:scale-[0.98]",
+                (isSendingEmail || selectedUserIds.size === 0 || !emailSubject.trim() || !emailMessage.trim())
+                  && "opacity-60 cursor-not-allowed"
+              )}
+            >
+              {isSendingEmail && (
+                <svg className="h-3.5 w-3.5 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                </svg>
+              )}
+              Send email
+            </button>
+          </div>
+        </div>
+      </div>
+
       {/* Filters */}
       <div className="card p-4 mb-6">
         <div className="flex flex-col sm:flex-row gap-4">
@@ -170,7 +419,14 @@ export default function AdminUsersPage() {
 
       {/* User Table */}
       <div className="card overflow-hidden">
-        <UserTable users={filteredUsers} onRoleChange={handleRoleChange} />
+        <UserTable
+          users={filteredUsers}
+          onRoleChange={handleRoleChange}
+          onNameChange={handleNameChange}
+          selectedIds={selectedUserIds}
+          onToggleSelect={handleToggleSelect}
+          onToggleSelectAll={handleToggleSelectAll}
+        />
       </div>
 
       {/* Count */}

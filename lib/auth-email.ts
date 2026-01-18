@@ -1,13 +1,6 @@
-const RESEND_API_KEY = process.env.RESEND_API_KEY;
-const AUTH_EMAIL_FROM = process.env.AUTH_EMAIL_FROM;
+import { sendEmail } from "@/lib/email";
 
 export async function sendLoginCodeEmail(email: string, code: string, ttlMinutes: number) {
-  if (!RESEND_API_KEY || !AUTH_EMAIL_FROM) {
-    throw new Error(
-      "Email provider not configured. Set RESEND_API_KEY and AUTH_EMAIL_FROM."
-    );
-  }
-
   const subject = "Your MedCram sign-in code";
   const text = [
     `Hi ${email},`,
@@ -17,7 +10,6 @@ export async function sendLoginCodeEmail(email: string, code: string, ttlMinutes
     `This code expires in ${ttlMinutes} minutes. If you didn’t request it, you can ignore this email.`,
     "",
     "— MedCram",
-    AUTH_EMAIL_FROM,
   ].join("\n");
 
   const html = [
@@ -32,7 +24,7 @@ export async function sendLoginCodeEmail(email: string, code: string, ttlMinutes
     `<p style=\"margin:0 0 16px 0;font-size:14px;color:#4a4a4a;\">Hi ${email}, use the code below to finish signing in.</p>`,
     `<div style=\"background:#f2efe9;border:1px solid #e0d8cc;border-radius:12px;padding:16px;text-align:center;font-size:28px;font-weight:700;letter-spacing:4px;\">${code}</div>`,
     `<p style=\"margin:16px 0 0 0;font-size:12px;color:#6b6b6b;\">This code expires in ${ttlMinutes} minutes. If you didn’t request it, ignore this email.</p>`,
-    `<p style=\"margin:16px 0 0 0;font-size:12px;color:#6b6b6b;\">— MedCram<br>${AUTH_EMAIL_FROM}</p>`,
+    "<p style=\"margin:16px 0 0 0;font-size:12px;color:#6b6b6b;\">— MedCram</p>",
     "</td></tr>",
     "</table>",
     "</td></tr>",
@@ -41,23 +33,10 @@ export async function sendLoginCodeEmail(email: string, code: string, ttlMinutes
     "</html>",
   ].join("");
 
-  const response = await fetch("https://api.resend.com/emails", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${RESEND_API_KEY}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      from: AUTH_EMAIL_FROM,
-      to: email,
-      subject,
-      html,
-      text,
-    }),
+  await sendEmail({
+    to: email,
+    subject,
+    html,
+    text,
   });
-
-  if (!response.ok) {
-    const errorBody = await response.text();
-    throw new Error(`Failed to send login code email: ${errorBody}`);
-  }
 }

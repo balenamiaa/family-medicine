@@ -10,6 +10,7 @@ import {
   QuestionNavigator,
   SearchInput,
   KeyboardHints,
+  ToastNotice,
 } from "@/components/ui";
 import { StudySetSelector, useStudySet } from "@/components/sets";
 import { useQuiz } from "@/hooks/useQuiz";
@@ -69,6 +70,7 @@ export default function PracticePage() {
   const [showFilters, setShowFilters] = useState(false);
   const [isShuffled, setIsShuffled] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [showResetToast, setShowResetToast] = useState(false);
 
   // Search results
   const searchIndices = useMemo(() => {
@@ -104,6 +106,8 @@ export default function PracticePage() {
     resetQuiz,
     resetSingleQuestion,
     markFeedbackGiven,
+    resetReason,
+    clearResetReason,
   } = useQuiz({
     questions,
     shuffleQuestions: isShuffled,
@@ -114,6 +118,19 @@ export default function PracticePage() {
     spacedRepetitionKey: srKey,
   });
 
+  useEffect(() => {
+    if (resetReason === "content-change") {
+      setShowResetToast(true);
+      clearResetReason();
+    }
+  }, [resetReason, clearResetReason]);
+
+  useEffect(() => {
+    if (!showResetToast) return;
+    const timer = window.setTimeout(() => setShowResetToast(false), 4500);
+    return () => window.clearTimeout(timer);
+  }, [showResetToast]);
+
   // Track answered questions in stats
   const handleAnswer = (correct: boolean, answer: Parameters<typeof answerQuestion>[1]) => {
     answerQuestion(correct, answer);
@@ -123,6 +140,14 @@ export default function PracticePage() {
   const handleResetQuestion = () => {
     if (!resetSingleQuestion) return;
     resetSingleQuestion(currentIndex);
+    playSoundIfEnabled("click");
+  };
+
+  const handleResetAll = () => {
+    if (typeof window === "undefined") return;
+    const confirmed = window.confirm("Reset all answers for this set? This clears your progress.");
+    if (!confirmed) return;
+    resetQuiz();
     playSoundIfEnabled("click");
   };
 
@@ -159,9 +184,76 @@ export default function PracticePage() {
     return counts;
   }, [questions]);
 
+  const activeChips = useMemo(() => {
+    const chips: Array<{ key: string; label: string; onRemove: () => void }> = [];
+
+    if (searchQuery.trim()) {
+      chips.push({
+        key: "search",
+        label: `Search: ${searchQuery.trim()}`,
+        onRemove: () => setSearchQuery(""),
+      });
+    }
+
+    filterTypes.forEach((type) => {
+      chips.push({
+        key: `type-${type}`,
+        label: QUESTION_TYPE_LABELS[type],
+        onRemove: () => toggleTypeFilter(type),
+      });
+    });
+
+    filterDifficulty.forEach((diff) => {
+      chips.push({
+        key: `diff-${diff}`,
+        label: `Difficulty: ${DIFFICULTY_LABELS[diff]}`,
+        onRemove: () => toggleDifficultyFilter(diff),
+      });
+    });
+
+    if (isShuffled) {
+      chips.push({
+        key: "shuffle",
+        label: "Shuffled",
+        onRemove: () => {
+          resetQuiz();
+          setIsShuffled(false);
+        },
+      });
+    }
+
+    return chips;
+  }, [
+    filterDifficulty,
+    filterTypes,
+    isShuffled,
+    resetQuiz,
+    searchQuery,
+    toggleDifficultyFilter,
+    toggleTypeFilter,
+  ]);
+
+  const clearAllFilters = () => {
+    setFilterTypes([]);
+    setFilterDifficulty([]);
+    setSearchQuery("");
+    if (isShuffled) {
+      resetQuiz();
+      setIsShuffled(false);
+    }
+  };
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 space-y-6">
       <StudySetSelector />
+      {showResetToast && (
+        <ToastNotice
+          tone="warning"
+          title="Study set updated"
+          message="Your answers were cleared because this set changed."
+          onDismiss={() => setShowResetToast(false)}
+        />
+      )}
 
       {isLoading || isLoadingActive ? (
         <div className="card p-6 animate-pulse">
@@ -212,11 +304,43 @@ export default function PracticePage() {
             <KeyboardHints />
 
             {/* Search */}
-            <SearchInput
-              value={searchQuery}
-              onChange={setSearchQuery}
-              placeholder={`Search ${activeSet?.title ?? "questions"}...`}
-            />
+          <SearchInput
+            value={searchQuery}
+            onChange={setSearchQuery}
+            placeholder={`Search ${activeSet?.title ?? "questions"}...`}
+          />
+
+          {activeChips.length > 0 && (
+            <div className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)]/80 p-3">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--text-muted)]">
+                  Active
+                </span>
+                {activeChips.map((chip) => (
+                  <button
+                    key={chip.key}
+                    onClick={chip.onRemove}
+                    className={cn(
+                      "group inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium transition-all",
+                      "border-[var(--border-subtle)] bg-[var(--bg-secondary)] text-[var(--text-secondary)]",
+                      "hover:border-[var(--border-accent)] hover:bg-[var(--bg-accent-subtle)]"
+                    )}
+                  >
+                    <span>{chip.label}</span>
+                    <span className="text-[var(--text-muted)] group-hover:text-[var(--text-accent)]">
+                      ×
+                    </span>
+                  </button>
+                ))}
+                <button
+                  onClick={clearAllFilters}
+                  className="ml-auto text-xs text-[var(--text-accent)] hover:underline"
+                >
+                  Clear all
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Filter toggle */}
           <div className="flex items-center justify-between">
@@ -248,7 +372,7 @@ export default function PracticePage() {
                 Shuffle
               </button>
               <button
-                onClick={resetQuiz}
+                onClick={handleResetAll}
                 className="btn btn-ghost text-sm"
               >
                 <RotateCcw className="w-4 h-4" />

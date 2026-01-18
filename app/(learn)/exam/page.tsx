@@ -7,6 +7,7 @@ import { QuestionCard } from "@/components/QuestionCard";
 import {
   ProgressRing,
   QuestionNavigator,
+  ToastNotice,
 } from "@/components/ui";
 import { StudySetSelector, useStudySet } from "@/components/sets";
 import { useQuiz } from "@/hooks/useQuiz";
@@ -53,6 +54,7 @@ export default function ExamPage() {
   const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
   const [showToolbar, setShowToolbar] = useState(true);
   const [resetQuestion, setResetQuestion] = useState<number | null>(null);
+  const [showResetToast, setShowResetToast] = useState(false);
 
   // Generate random question indices for exam
   const generateExamQuestions = useCallback(() => {
@@ -101,6 +103,8 @@ export default function ExamPage() {
     goToQuestion,
     resetQuiz,
     resetSingleQuestion,
+    resetReason,
+    clearResetReason,
   } = useQuiz({
     questions,
     questionIndices: selectedIndices,
@@ -108,6 +112,19 @@ export default function ExamPage() {
     persistKey: progressKey,
     spacedRepetitionKey: srKey,
   });
+
+  useEffect(() => {
+    if (resetReason === "content-change") {
+      setShowResetToast(true);
+      clearResetReason();
+    }
+  }, [resetReason, clearResetReason]);
+
+  useEffect(() => {
+    if (!showResetToast) return;
+    const timer = window.setTimeout(() => setShowResetToast(false), 4500);
+    return () => window.clearTimeout(timer);
+  }, [showResetToast]);
 
   // Track answers in stats
   const handleAnswer = (correct: boolean, answer: Parameters<typeof answerQuestion>[1]) => {
@@ -227,6 +244,57 @@ export default function ExamPage() {
       .sort((a, b) => b.count - a.count);
   }, [topicCounts]);
 
+  const activeExamChips = useMemo(() => {
+    const chips: Array<{ key: string; label: string; onRemove: () => void }> = [];
+
+    config.questionTypes.forEach((type) => {
+      chips.push({
+        key: `type-${type}`,
+        label: QUESTION_TYPE_LABELS[type],
+        onRemove: () =>
+          setConfig((c) => ({
+            ...c,
+            questionTypes: c.questionTypes.filter((t) => t !== type),
+          })),
+      });
+    });
+
+    config.difficulties.forEach((diff) => {
+      chips.push({
+        key: `diff-${diff}`,
+        label: `Difficulty: ${DIFFICULTY_LABELS[diff]}`,
+        onRemove: () =>
+          setConfig((c) => ({
+            ...c,
+            difficulties: c.difficulties.filter((d) => d !== diff),
+          })),
+      });
+    });
+
+    config.selectedTopics.forEach((topic) => {
+      chips.push({
+        key: `topic-${topic}`,
+        label: `Tag: ${topic}`,
+        onRemove: () =>
+          setConfig((c) => ({
+            ...c,
+            selectedTopics: c.selectedTopics.filter((t) => t !== topic),
+          })),
+      });
+    });
+
+    return chips;
+  }, [config.difficulties, config.questionTypes, config.selectedTopics]);
+
+  const clearExamFilters = () => {
+    setConfig((c) => ({
+      ...c,
+      questionTypes: [],
+      difficulties: [],
+      selectedTopics: [],
+    }));
+  };
+
   // Timer urgency level
   const timerUrgency = useMemo(() => {
     const percentage = timeRemaining / (config.timeLimit * 60);
@@ -237,6 +305,14 @@ export default function ExamPage() {
 
   return (
     <div className="min-h-[80vh]">
+      {showResetToast && (
+        <ToastNotice
+          tone="warning"
+          title="Study set updated"
+          message="Your answers were cleared because this set changed."
+          onDismiss={() => setShowResetToast(false)}
+        />
+      )}
       {/* Running State - Command Bar */}
       <AnimatePresence>
         {examState === "running" && showToolbar && (
@@ -587,6 +663,43 @@ export default function ExamPage() {
                 </div>
               </div>
             </motion.div>
+
+            {activeExamChips.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.25 }}
+                className="rounded-2xl border border-[var(--border-subtle)] bg-[var(--bg-card)]/80 p-4"
+              >
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--text-muted)]">
+                    Active Filters
+                  </span>
+                  {activeExamChips.map((chip) => (
+                    <button
+                      key={chip.key}
+                      onClick={chip.onRemove}
+                      className={cn(
+                        "group inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium transition-all",
+                        "border-[var(--border-subtle)] bg-[var(--bg-secondary)] text-[var(--text-secondary)]",
+                        "hover:border-[var(--border-accent)] hover:bg-[var(--bg-accent-subtle)]"
+                      )}
+                    >
+                      <span>{chip.label}</span>
+                      <span className="text-[var(--text-muted)] group-hover:text-[var(--text-accent)]">
+                        ×
+                      </span>
+                    </button>
+                  ))}
+                  <button
+                    onClick={clearExamFilters}
+                    className="ml-auto text-xs text-[var(--text-accent)] hover:underline"
+                  >
+                    Clear all
+                  </button>
+                </div>
+              </motion.div>
+            )}
 
             {/* Start Button */}
             <motion.div

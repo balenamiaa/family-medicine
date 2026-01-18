@@ -34,7 +34,10 @@ export function KeyboardHints({ className, compact = false }: KeyboardHintsProps
           <kbd className="px-1 py-0.5 bg-[var(--bg-secondary)] rounded text-[10px]">1-5</kbd> Select
         </span>
         <span>
-          <kbd className="px-1 py-0.5 bg-[var(--bg-secondary)] rounded text-[10px]">1-3</kbd> Feedback
+          <kbd className="px-1 py-0.5 bg-[var(--bg-secondary)] rounded text-[10px]">1-4</kbd> Feedback
+        </span>
+        <span>
+          <kbd className="px-1 py-0.5 bg-[var(--bg-secondary)] rounded text-[10px]">A-Z</kbd> Match
         </span>
         <span>
           <kbd className="px-1 py-0.5 bg-[var(--bg-secondary)] rounded text-[10px]">Enter</kbd> Submit
@@ -76,9 +79,9 @@ export function KeyboardHints({ className, compact = false }: KeyboardHintsProps
             </div>
             <div className="flex items-center gap-2">
               <kbd className="px-1.5 py-0.5 bg-[var(--bg-card)] border border-[var(--border-subtle)] rounded text-xs font-mono">
-                1-3
+                1-4
               </kbd>
-              <span className="text-[var(--text-secondary)]">Feedback (after incorrect)</span>
+              <span className="text-[var(--text-secondary)]">Feedback (after answer)</span>
             </div>
             <div className="flex items-center gap-2">
               <kbd className="px-1.5 py-0.5 bg-[var(--bg-card)] border border-[var(--border-subtle)] rounded text-xs font-mono">
@@ -91,6 +94,12 @@ export function KeyboardHints({ className, compact = false }: KeyboardHintsProps
                 ← →
               </kbd>
               <span className="text-[var(--text-secondary)]">Navigate</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <kbd className="px-1.5 py-0.5 bg-[var(--bg-card)] border border-[var(--border-subtle)] rounded text-xs font-mono">
+                A-Z
+              </kbd>
+              <span className="text-[var(--text-secondary)]">Match options (EMQ)</span>
             </div>
             <div className="flex items-center gap-2">
               <kbd className="px-1.5 py-0.5 bg-[var(--bg-card)] border border-[var(--border-subtle)] rounded text-xs font-mono">

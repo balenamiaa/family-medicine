@@ -14,6 +14,61 @@ import { recordAnswer } from "@/lib/spacedRepetition";
 const STORAGE_KEY = "medcram_progress";
 const PRACTICE_STORAGE_KEY = "medcram_practice_progress";
 
+function hashSignature(input: string): string {
+  let hash = 5381;
+  for (let i = 0; i < input.length; i += 1) {
+    hash = (hash * 33) ^ input.charCodeAt(i);
+  }
+  return (hash >>> 0).toString(36);
+}
+
+function buildQuestionSignature(
+  items: Array<{ question: Question; originalIndex: number }>
+): string {
+  return items
+    .map(({ question, originalIndex }) => {
+      const parts: string[] = [question.question_type, String(originalIndex)];
+      if (question.id !== undefined && question.id !== null) {
+        parts.push(`id:${question.id}`);
+      }
+      parts.push(`diff:${question.difficulty}`);
+      if ("question_text" in question) {
+        parts.push(question.question_text);
+      }
+      if ("instructions" in question) {
+        parts.push(question.instructions);
+      }
+      if ("options" in question) {
+        parts.push(question.options.join("|"));
+      }
+      if ("premises" in question) {
+        parts.push(question.premises.join("|"));
+      }
+      if ("correct_index" in question) {
+        parts.push(`correct:${question.correct_index}`);
+      }
+      if ("correct_indices" in question) {
+        parts.push(`corrects:${question.correct_indices.join(",")}`);
+      }
+      if ("is_correct_true" in question) {
+        parts.push(`is_true:${question.is_correct_true}`);
+      }
+      if ("matches" in question) {
+        parts.push(`matches:${question.matches.map(([a, b]) => `${a}-${b}`).join(",")}`);
+      }
+      if ("answers" in question) {
+        parts.push(`answers:${question.answers.join("|")}`);
+      }
+      if ("correct_answer" in question) {
+        parts.push(`correct_answer:${question.correct_answer}`);
+      }
+      parts.push(question.explanation ?? "");
+      parts.push(question.retention_aid ?? "");
+      return `q:${hashSignature(parts.join("|"))}`;
+    })
+    .join("|");
+}
+
 interface UseQuizOptions {
   questions: Question[];
   shuffleQuestions?: boolean;
@@ -56,9 +111,11 @@ interface UseQuizReturn {
   resetSingleQuestion: (index: number) => void;
   shuffleRemaining: () => void;
   markFeedbackGiven: () => void;
+  resetReason: "content-change" | null;
+  clearResetReason: () => void;
 }
 
-function createInitialProgress(): SessionProgress {
+function createInitialProgress(questionSignature: string): SessionProgress {
   return {
     currentIndex: 0,
     answered: 0,
@@ -66,6 +123,7 @@ function createInitialProgress(): SessionProgress {
     streak: 0,
     maxStreak: 0,
     questionStates: {},
+    questionSignature,
   };
 }
 
@@ -78,6 +136,8 @@ export function useQuiz({
   persistKey = PRACTICE_STORAGE_KEY,
   spacedRepetitionKey,
 }: UseQuizOptions): UseQuizReturn {
+  const [resetReason, setResetReason] = useState<"content-change" | null>(null);
+
   // Filter questions based on type and difficulty, or use provided indices
   const filteredQuestionData = useMemo(() => {
     // If questionIndices is explicitly provided (even if empty), use only those indices
@@ -101,6 +161,11 @@ export function useQuiz({
     return result;
   }, [allQuestions, filterTypes, filterDifficulty, questionIndices]);
 
+  const questionSignature = useMemo(
+    () => buildQuestionSignature(filteredQuestionData),
+    [filteredQuestionData]
+  );
+
   // Generate a cache key based on filters to separate progress for different filter combinations
   const filterCacheKey = useMemo(() => {
     if (questionIndices !== undefined) {
@@ -118,21 +183,25 @@ export function useQuiz({
   });
 
   // Session progress state - load from localStorage
+  const isStoredProgressValid = useCallback((stored: SessionProgress | null): stored is SessionProgress => {
+    if (!stored) return false;
+    if (stored.questionSignature !== questionSignature) return false;
+    const maxStoredIndex = Math.max(
+      stored.currentIndex,
+      ...Object.keys(stored.questionStates).map(Number).filter((n) => !isNaN(n)),
+      0
+    );
+    return maxStoredIndex < filteredQuestionData.length;
+  }, [questionSignature, filteredQuestionData.length]);
+
   const [progress, setProgress] = useState<SessionProgress>(() => {
-    if (typeof window === "undefined") return createInitialProgress();
+    if (typeof window === "undefined") return createInitialProgress(questionSignature);
 
     const stored = getStoredValue<SessionProgress | null>(filterCacheKey, null);
-    if (stored) {
-      // Validate that stored progress is compatible with current question set
-      const maxStoredIndex = Math.max(
-        stored.currentIndex,
-        ...Object.keys(stored.questionStates).map(Number)
-      );
-      if (maxStoredIndex < filteredQuestionData.length) {
-        return stored;
-      }
+    if (isStoredProgressValid(stored)) {
+      return stored;
     }
-    return createInitialProgress();
+    return createInitialProgress(questionSignature);
   });
 
   // Re-shuffle when filteredQuestionData changes
@@ -146,19 +215,17 @@ export function useQuiz({
     if (typeof window === "undefined") return;
 
     const stored = getStoredValue<SessionProgress | null>(filterCacheKey, null);
-    if (stored) {
-      const maxStoredIndex = Math.max(
-        stored.currentIndex,
-        ...Object.keys(stored.questionStates).map(Number).filter(n => !isNaN(n)),
-        0
-      );
-      if (maxStoredIndex < filteredQuestionData.length) {
-        setProgress(stored);
-        return;
-      }
+    if (stored && stored.questionSignature !== questionSignature) {
+      setResetReason("content-change");
+      setProgress(createInitialProgress(questionSignature));
+      return;
     }
-    setProgress(createInitialProgress());
-  }, [filterCacheKey, filteredQuestionData.length]);
+    if (isStoredProgressValid(stored)) {
+      setProgress(stored);
+      return;
+    }
+    setProgress(createInitialProgress(questionSignature));
+  }, [filterCacheKey, filteredQuestionData.length, isStoredProgressValid, questionSignature]);
 
   // Save progress to localStorage whenever it changes
   useEffect(() => {
@@ -267,14 +334,19 @@ export function useQuiz({
       : filteredQuestionData.map((_, i) => i);
 
     setQuestionOrder(newOrder);
-    const newProgress = createInitialProgress();
+    const newProgress = createInitialProgress(questionSignature);
     setProgress(newProgress);
+    setResetReason(null);
 
     // Clear from localStorage
     if (typeof window !== "undefined") {
       setStoredValue(filterCacheKey, newProgress);
     }
-  }, [filteredQuestionData, shuffleQuestions, filterCacheKey]);
+  }, [filteredQuestionData, shuffleQuestions, filterCacheKey, questionSignature]);
+
+  const clearResetReason = useCallback(() => {
+    setResetReason(null);
+  }, []);
 
   // Reset a single question to allow re-answering
   const resetSingleQuestion = useCallback((index: number) => {
@@ -339,5 +411,7 @@ export function useQuiz({
     resetSingleQuestion,
     shuffleRemaining,
     markFeedbackGiven,
+    resetReason,
+    clearResetReason,
   };
 }

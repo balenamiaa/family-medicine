@@ -14,6 +14,7 @@ interface Card {
 interface CardListProps {
   cards: Card[];
   selectedCardId: string | null;
+  dirtyCardIds?: Set<string>;
   onSelect: (cardId: string) => void;
   onDelete: (cardId: string) => void;
   onDuplicate: (cardId: string) => void;
@@ -45,6 +46,7 @@ function getCardPreviewText(card: Card): string {
 export function CardList({
   cards,
   selectedCardId,
+  dirtyCardIds,
   onSelect,
   onDelete,
   onDuplicate,
@@ -61,17 +63,19 @@ export function CardList({
 
   return (
     <div className={cn("space-y-2", className)}>
-      {cards.map((card, index) => (
-        <div
-          key={card.id}
-          onClick={() => onSelect(card.id)}
-          className={cn(
-            "group flex items-center gap-3 p-3 rounded-xl border transition-all cursor-pointer",
-            selectedCardId === card.id
-              ? "border-[var(--border-accent)] bg-[var(--bg-accent-subtle)]"
-              : "border-[var(--border-subtle)] hover:border-[var(--border-default)] hover:bg-[var(--bg-secondary)]"
-          )}
-        >
+      {cards.map((card, index) => {
+        const isDirty = dirtyCardIds?.has(card.id);
+        return (
+          <div
+            key={card.id}
+            onClick={() => onSelect(card.id)}
+            className={cn(
+              "group flex items-center gap-3 p-3 rounded-xl border transition-all cursor-pointer",
+              selectedCardId === card.id
+                ? "border-[var(--border-accent)] bg-[var(--bg-accent-subtle)]"
+                : "border-[var(--border-subtle)] hover:border-[var(--border-default)] hover:bg-[var(--bg-secondary)]"
+            )}
+          >
           {/* Order controls */}
           <div className="flex flex-col gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
             <button
@@ -120,6 +124,11 @@ export function CardList({
               <span className="text-xs text-[var(--text-muted)]">
                 {DIFFICULTY_LABELS[card.difficulty]}
               </span>
+              {isDirty && (
+                <span className="text-[10px] px-2 py-0.5 rounded-full border border-[var(--warning-border)] bg-[var(--warning-bg)] text-[var(--warning-text)] font-semibold uppercase tracking-wide">
+                  Unsaved
+                </span>
+              )}
             </div>
             <p className="text-sm text-[var(--text-primary)] truncate">
               {getCardPreviewText(card)}
@@ -153,8 +162,9 @@ export function CardList({
               </svg>
             </button>
           </div>
-        </div>
-      ))}
+          </div>
+        );
+      })}
     </div>
   );
 }

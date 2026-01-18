@@ -20,7 +20,7 @@ const modes: Mode[] = [
         <path strokeLinecap="round" strokeLinejoin="round" d="M3 7h6m-6 5h6m-6 5h6M15 7h6m-6 5h6m-6 5h6" />
       </svg>
     ),
-    description: "Browse study sets",
+    description: "Saved study sets",
   },
   {
     name: "Practice",

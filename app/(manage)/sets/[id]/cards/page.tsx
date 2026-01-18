@@ -38,7 +38,7 @@ export default function CardEditorPage() {
   const [error, setError] = useState<string | null>(null);
   const [showNewCard, setShowNewCard] = useState(false);
   const [newCardType, setNewCardType] = useState<QuestionType | null>(null);
-  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [dirtyCardIds, setDirtyCardIds] = useState<Set<string>>(new Set());
 
   // Fetch study set with cards
   useEffect(() => {
@@ -53,6 +53,7 @@ export default function CardEditorPage() {
       const data = await response.json();
       setStudySet(data);
       setCards(data.cards || []);
+      setDirtyCardIds(new Set());
       if (data.cards?.length > 0) {
         setSelectedCardId(data.cards[0].id);
       }
@@ -64,6 +65,26 @@ export default function CardEditorPage() {
   };
 
   const selectedCard = cards.find((c) => c.id === selectedCardId);
+  const dirtyCount = dirtyCardIds.size;
+  const isSelectedDirty = selectedCardId ? dirtyCardIds.has(selectedCardId) : false;
+
+  const markDirty = useCallback((cardId: string) => {
+    setDirtyCardIds((prev) => {
+      if (prev.has(cardId)) return prev;
+      const next = new Set(prev);
+      next.add(cardId);
+      return next;
+    });
+  }, []);
+
+  const clearDirty = useCallback((cardId: string) => {
+    setDirtyCardIds((prev) => {
+      if (!prev.has(cardId)) return prev;
+      const next = new Set(prev);
+      next.delete(cardId);
+      return next;
+    });
+  }, []);
 
   // Create new card
   const createCard = async () => {
@@ -98,37 +119,61 @@ export default function CardEditorPage() {
 
   // Update card
   const updateCard = useCallback(async (cardId: string, updates: Partial<Card>) => {
-    setHasUnsavedChanges(true);
+    markDirty(cardId);
 
     // Optimistic update
     setCards((prev) =>
       prev.map((c) => (c.id === cardId ? { ...c, ...updates } : c))
     );
-  }, []);
+  }, [markDirty]);
+
+  const persistCard = useCallback(async (cardId: string) => {
+    const card = cards.find((c) => c.id === cardId);
+    if (!card) return false;
+
+    const response = await fetch(`/api/cards/${cardId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        questionData: card.questionData,
+        difficulty: card.difficulty,
+      }),
+    });
+
+    if (!response.ok) throw new Error("Failed to save card");
+    return true;
+  }, [cards]);
 
   // Save card to server
   const saveCard = async (cardId: string) => {
-    const card = cards.find((c) => c.id === cardId);
-    if (!card) return;
-
     setIsSaving(true);
     try {
-      const response = await fetch(`/api/cards/${cardId}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          questionData: card.questionData,
-          difficulty: card.difficulty,
-        }),
-      });
-
-      if (!response.ok) throw new Error("Failed to save card");
-      setHasUnsavedChanges(false);
+      const ok = await persistCard(cardId);
+      if (ok) clearDirty(cardId);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to save");
     } finally {
       setIsSaving(false);
     }
+  };
+
+  const saveAllCards = async () => {
+    if (dirtyCardIds.size === 0) return;
+    setIsSaving(true);
+    let lastError: string | null = null;
+    const ids = Array.from(dirtyCardIds);
+    for (const id of ids) {
+      try {
+        const ok = await persistCard(id);
+        if (ok) clearDirty(id);
+      } catch (err) {
+        lastError = err instanceof Error ? err.message : "Failed to save some cards";
+      }
+    }
+    if (lastError) {
+      setError(lastError);
+    }
+    setIsSaving(false);
   };
 
   // Delete card
@@ -144,6 +189,7 @@ export default function CardEditorPage() {
 
       const newCards = cards.filter((c) => c.id !== cardId);
       setCards(newCards);
+      clearDirty(cardId);
 
       if (selectedCardId === cardId) {
         setSelectedCardId(newCards[0]?.id || null);
@@ -349,15 +395,52 @@ export default function CardEditorPage() {
             {cards.length} {cards.length === 1 ? "card" : "cards"} in this set
           </p>
         </div>
-        <div className="flex gap-2">
-          {hasUnsavedChanges && selectedCardId && (
-            <button
-              onClick={() => saveCard(selectedCardId)}
-              disabled={isSaving}
-              className="btn btn-primary"
-            >
-              {isSaving ? "Saving..." : "Save Changes"}
-            </button>
+        <div className="flex flex-wrap items-center gap-2">
+          {dirtyCount > 0 && (
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="inline-flex items-center gap-1 rounded-full border border-[var(--warning-border)] bg-[var(--warning-bg)] px-2.5 py-1 text-xs font-medium text-[var(--warning-text)]">
+                Unsaved {dirtyCount}
+              </span>
+              {isSelectedDirty && selectedCardId && (
+                <button
+                  onClick={() => saveCard(selectedCardId)}
+                  disabled={isSaving}
+                  className="btn btn-primary"
+                  aria-busy={isSaving}
+                >
+                  <span className="flex items-center gap-2">
+                    {isSaving && (
+                      <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                      </svg>
+                    )}
+                    <span>Save Card</span>
+                  </span>
+                </button>
+              )}
+              {(dirtyCount > 1 || !isSelectedDirty) && (
+                <button
+                  onClick={saveAllCards}
+                  disabled={isSaving}
+                  className={cn(
+                    "btn",
+                    isSelectedDirty ? "btn-ghost" : "btn-primary"
+                  )}
+                  aria-busy={isSaving}
+                >
+                  <span className="flex items-center gap-2">
+                    {isSaving && (
+                      <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                      </svg>
+                    )}
+                    <span>Save All</span>
+                  </span>
+                </button>
+              )}
+            </div>
           )}
           <Link
             href={`/sets/${params.id}/import`}
@@ -406,8 +489,17 @@ export default function CardEditorPage() {
                   "btn btn-primary flex-1",
                   (!newCardType || isSaving) && "opacity-50 cursor-not-allowed"
                 )}
+                aria-busy={isSaving}
               >
-                {isSaving ? "Creating..." : "Create Card"}
+                <span className="flex items-center justify-center gap-2">
+                  {isSaving && (
+                    <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24" aria-hidden="true">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    </svg>
+                  )}
+                  <span>Create Card</span>
+                </span>
               </button>
               <button
                 onClick={() => {
@@ -431,6 +523,7 @@ export default function CardEditorPage() {
           <CardList
             cards={cards}
             selectedCardId={selectedCardId}
+            dirtyCardIds={dirtyCardIds}
             onSelect={setSelectedCardId}
             onDelete={deleteCard}
             onDuplicate={duplicateCard}
@@ -447,6 +540,11 @@ export default function CardEditorPage() {
                   <span className="px-3 py-1 rounded-lg bg-[var(--bg-accent-subtle)] text-sm font-medium text-[var(--text-accent)]">
                     {QUESTION_TYPE_LABELS[selectedCard.questionType]}
                   </span>
+                  {isSelectedDirty && (
+                    <span className="text-xs px-2 py-1 rounded-full border border-[var(--warning-border)] bg-[var(--warning-bg)] text-[var(--warning-text)] font-semibold uppercase tracking-wide">
+                      Unsaved
+                    </span>
+                  )}
                 </div>
 
                 {/* Difficulty selector */}

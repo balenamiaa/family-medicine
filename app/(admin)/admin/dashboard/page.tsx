@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import { LayoutGrid, Pencil } from "lucide-react";
 import { StatsOverview, UserTable } from "@/components/admin";
 import { StudySetTypeBadge } from "@/components/sets";
 import { cn } from "@/lib/utils";
@@ -171,20 +172,22 @@ export default function AdminDashboard() {
                     </span>
                   </div>
                 </div>
-                <Link
-                  href={`/sets/${set.id}`}
-                  className="p-2 rounded-lg hover:bg-[var(--bg-secondary)] transition-colors"
-                >
-                  <svg
-                    className="w-4 h-4 text-[var(--text-muted)]"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
+                <div className="flex items-center gap-1">
+                  <Link
+                    href={`/sets/${set.id}`}
+                    className="p-2 rounded-lg hover:bg-[var(--bg-secondary)] transition-colors"
+                    title="Edit set details"
                   >
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
-                </Link>
+                    <Pencil className="w-4 h-4 text-[var(--text-muted)]" strokeWidth={2} />
+                  </Link>
+                  <Link
+                    href={`/sets/${set.id}/cards`}
+                    className="p-2 rounded-lg hover:bg-[var(--bg-secondary)] transition-colors"
+                    title="Edit cards"
+                  >
+                    <LayoutGrid className="w-4 h-4 text-[var(--text-muted)]" strokeWidth={2} />
+                  </Link>
+                </div>
               </div>
             ))}
           </div>

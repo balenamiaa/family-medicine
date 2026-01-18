@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useImperativeHandle, forwardRef } from "react";
+import { useState, useCallback, useImperativeHandle, forwardRef, useEffect } from "react";
 import { MCQSingleQuestion, MCQMultiQuestion } from "@/types";
 import { OptionButton } from "./OptionButton";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
@@ -27,6 +27,12 @@ export const MCQQuestion = forwardRef<MCQQuestionRef, MCQQuestionProps>(function
     : [(question as MCQSingleQuestion).correct_index];
 
   const [selectedIndices, setSelectedIndices] = useState<number[]>([]);
+
+  useEffect(() => {
+    if (!answered) {
+      setSelectedIndices([]);
+    }
+  }, [answered, question.question_text, question.options, question.question_type]);
 
   const handleSelect = useCallback((index: number) => {
     if (answered) return;

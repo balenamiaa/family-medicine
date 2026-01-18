@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { QuestionCard } from "@/components/QuestionCard";
-import { ProgressRing } from "@/components/ui";
+import { ProgressRing, ToastNotice } from "@/components/ui";
 import { StudySetSelector, useStudySet } from "@/components/sets";
 import { startSession, recordQuestionAnswered } from "@/lib/stats";
 import { playSoundIfEnabled } from "@/lib/sounds";
@@ -28,6 +28,7 @@ export default function ReviewPage() {
 
   const [srData, setSrData] = useState<SpacedRepetitionData | null>(null);
   const [showConfirmClear, setShowConfirmClear] = useState(false);
+  const [showResetToast, setShowResetToast] = useState(false);
   // Lock the review indices at session start to prevent question changes mid-session
   const [sessionIndices, setSessionIndices] = useState<number[] | null>(null);
 
@@ -72,6 +73,8 @@ export default function ReviewPage() {
     resetQuiz,
     resetSingleQuestion,
     markFeedbackGiven,
+    resetReason,
+    clearResetReason,
   } = useQuiz({
     questions,
     questionIndices: reviewQuestionIndices,
@@ -85,6 +88,19 @@ export default function ReviewPage() {
     if (!activeSet?.id) return;
     startSession(statsKey);
   }, [activeSet?.id, statsKey]);
+
+  useEffect(() => {
+    if (resetReason === "content-change") {
+      setShowResetToast(true);
+      clearResetReason();
+    }
+  }, [resetReason, clearResetReason]);
+
+  useEffect(() => {
+    if (!showResetToast) return;
+    const timer = window.setTimeout(() => setShowResetToast(false), 4500);
+    return () => window.clearTimeout(timer);
+  }, [showResetToast]);
 
   // Refresh data after answering
   const handleAnswer = (correct: boolean, answer: any) => {
@@ -143,6 +159,14 @@ export default function ReviewPage() {
   return (
     <div className="max-w-6xl mx-auto px-4 py-8 space-y-6">
       <StudySetSelector />
+      {showResetToast && (
+        <ToastNotice
+          tone="warning"
+          title="Study set updated"
+          message="Your answers were cleared because this set changed."
+          onDismiss={() => setShowResetToast(false)}
+        />
+      )}
 
       {isLoading || isLoadingActive ? (
         <div className="card p-6 animate-pulse">

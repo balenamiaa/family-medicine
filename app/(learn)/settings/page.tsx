@@ -29,6 +29,10 @@ export default function SettingsPage() {
   const [showClearConfirm, setShowClearConfirm] = useState<string | null>(null);
   const [clearSuccess, setClearSuccess] = useState<string | null>(null);
   const [isSigningOut, setIsSigningOut] = useState(false);
+  const [displayName, setDisplayName] = useState("");
+  const [isSavingName, setIsSavingName] = useState(false);
+  const [nameError, setNameError] = useState<string | null>(null);
+  const [nameSaved, setNameSaved] = useState(false);
 
   useEffect(() => {
     async function fetchUser() {
@@ -47,7 +51,15 @@ export default function SettingsPage() {
     fetchUser();
   }, []);
 
+  useEffect(() => {
+    if (user) {
+      setDisplayName(user.name ?? "");
+    }
+  }, [user?.id, user?.name]);
+
   const isAdmin = user?.role === "ADMIN";
+  const currentName = user?.name ?? "";
+  const isNameDirty = Boolean(user) && displayName.trim() !== currentName;
 
   const handleClearData = (type: string) => {
     switch (type) {
@@ -88,6 +100,43 @@ export default function SettingsPage() {
     }
   };
 
+  const handleSaveName = async () => {
+    if (!user || isSavingName) return;
+    const trimmedName = displayName.trim();
+    if (!trimmedName) {
+      setNameError("Name cannot be empty.");
+      return;
+    }
+    if (!isNameDirty) {
+      setNameError(null);
+      setNameSaved(false);
+      return;
+    }
+
+    setIsSavingName(true);
+    setNameError(null);
+    try {
+      const response = await fetch(`/api/users/${user.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: trimmedName }),
+      });
+
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to update name");
+      }
+
+      setUser(data);
+      setDisplayName(data.name ?? "");
+      setNameSaved(true);
+    } catch (error) {
+      setNameError(error instanceof Error ? error.message : "Failed to update name");
+    } finally {
+      setIsSavingName(false);
+    }
+  };
+
   return (
     <div className="max-w-2xl mx-auto px-4 py-8">
       <motion.div
@@ -116,39 +165,90 @@ export default function SettingsPage() {
               <div className="h-4 bg-[var(--bg-secondary)] rounded w-1/2" />
             </div>
           ) : user ? (
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[var(--bg-accent)] to-[var(--success-border)] flex items-center justify-center text-white font-bold text-lg">
-                {user.name?.[0]?.toUpperCase() || user.email?.[0]?.toUpperCase() || "U"}
-              </div>
-              <div>
-                <div className="font-medium text-[var(--text-primary)]">
-                  {user.name || "Anonymous User"}
+            <div>
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[var(--bg-accent)] to-[var(--success-border)] flex items-center justify-center text-white font-bold text-lg">
+                  {user.name?.[0]?.toUpperCase() || user.email?.[0]?.toUpperCase() || "U"}
                 </div>
-                <div className="text-sm text-[var(--text-muted)]">
-                  {user.email}
-                </div>
-                {isAdmin && (
-                  <span className="inline-flex items-center gap-1 mt-1 px-2 py-0.5 rounded-full bg-[var(--bg-accent-subtle)] text-[var(--text-accent)] text-xs font-medium">
-                    <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                    </svg>
-                    Administrator
-                  </span>
-                )}
-                <button
-                  onClick={handleSignOut}
-                  disabled={isSigningOut}
-                  className={cn(
-                    "mt-3 inline-flex items-center gap-2 rounded-lg border border-[var(--border-subtle)] px-3 py-1.5 text-xs font-medium text-[var(--text-secondary)] transition-colors",
-                    "hover:bg-[var(--bg-card-hover)]",
-                    isSigningOut && "opacity-60 cursor-not-allowed"
+                <div>
+                  <div className="font-medium text-[var(--text-primary)]">
+                    {user.name || "Anonymous User"}
+                  </div>
+                  <div className="text-sm text-[var(--text-muted)]">
+                    {user.email}
+                  </div>
+                  {isAdmin && (
+                    <span className="inline-flex items-center gap-1 mt-1 px-2 py-0.5 rounded-full bg-[var(--bg-accent-subtle)] text-[var(--text-accent)] text-xs font-medium">
+                      <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                      </svg>
+                      Administrator
+                    </span>
                   )}
-                >
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1" />
-                  </svg>
-                  Sign out
-                </button>
+                  <button
+                    onClick={handleSignOut}
+                    disabled={isSigningOut}
+                    className={cn(
+                      "mt-3 inline-flex items-center gap-2 rounded-lg border border-[var(--border-subtle)] px-3 py-1.5 text-xs font-medium text-[var(--text-secondary)] transition-colors",
+                      "hover:bg-[var(--bg-card-hover)]",
+                      isSigningOut && "opacity-60 cursor-not-allowed"
+                    )}
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h6a2 2 0 012 2v1" />
+                    </svg>
+                    Sign out
+                  </button>
+                </div>
+              </div>
+
+              <div className="mt-6 border-t border-[var(--border-subtle)] pt-4">
+                <div className="flex flex-col sm:flex-row sm:items-end gap-3">
+                  <label className="flex-1 text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]">
+                    Display name
+                    <input
+                      type="text"
+                      value={displayName}
+                      onChange={(event) => {
+                        setDisplayName(event.target.value);
+                        setNameError(null);
+                        setNameSaved(false);
+                      }}
+                      placeholder="Your name"
+                      className="mt-2 w-full rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-secondary)] px-4 py-2.5 text-[var(--text-primary)] placeholder:text-[var(--text-muted)] focus:border-[var(--border-accent)]"
+                    />
+                  </label>
+                  <button
+                    type="button"
+                    onClick={handleSaveName}
+                    disabled={isSavingName || !displayName.trim() || !isNameDirty}
+                    aria-busy={isSavingName}
+                    className={cn(
+                      "inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-xs font-semibold",
+                      "bg-[var(--bg-accent)] text-[var(--text-inverse)] transition-all",
+                      "hover:opacity-90 active:scale-[0.98]",
+                      (isSavingName || !displayName.trim()) && "opacity-60 cursor-not-allowed"
+                    )}
+                  >
+                    {isSavingName && (
+                      <svg className="h-3.5 w-3.5 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                      </svg>
+                    )}
+                    Save name
+                  </button>
+                </div>
+                {nameError && (
+                  <p className="mt-2 text-xs text-[var(--error-text)]">
+                    {nameError}
+                  </p>
+                )}
+                {nameSaved && !nameError && (
+                  <p className="mt-2 text-xs text-[var(--success-text)]">
+                    Name updated.
+                  </p>
+                )}
               </div>
             </div>
           ) : (
@@ -268,8 +368,7 @@ export default function SettingsPage() {
             About
           </h2>
           <div className="space-y-2 text-sm text-[var(--text-secondary)]">
-            <p><strong>MedCram</strong> - Medical Exam Preparation</p>
-            <p>Built with Next.js, React, and Tailwind CSS</p>
+            <p><strong>MedCram</strong> - hate for medicine</p>
           </div>
         </div>
       </motion.div>
