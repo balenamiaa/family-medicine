@@ -23,9 +23,10 @@ function createConnection() {
   }
 
   const conn = postgres(connectionString, {
-    max: 10,
-    idle_timeout: 20,
+    max: 2, // Reduced for serverless - each function is isolated
+    idle_timeout: 10, // Shorter timeout for serverless
     connect_timeout: 10,
+    prepare: false, // Required for Neon/Vercel serverless
   });
 
   if (process.env.NODE_ENV !== "production") {

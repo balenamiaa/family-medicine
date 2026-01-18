@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db, studySets, StudySetType } from "@/db";
-import { eq, desc, or, and } from "drizzle-orm";
+import { db, studySets, studyCards, StudySetType } from "@/db";
+import { eq, desc, or, and, sql, count } from "drizzle-orm";
 import { getCurrentUser, canViewSet, canCreateSetOfType, isAdmin } from "@/lib/auth";
 
 // GET /api/study-sets - List study sets
@@ -54,16 +54,27 @@ export async function GET(request: NextRequest) {
       }
     }
 
+    // Use subquery for card count instead of fetching all cards (N+1 fix)
     const results = await db.query.studySets.findMany({
       where: whereConditions,
       with: {
-        cards: true,
         user: {
           columns: { id: true, name: true, email: true },
         },
       },
       orderBy: [desc(studySets.updatedAt)],
     });
+
+    // Get card counts in a single query
+    const cardCounts = await db
+      .select({
+        studySetId: studyCards.studySetId,
+        count: count(),
+      })
+      .from(studyCards)
+      .groupBy(studyCards.studySetId);
+
+    const countMap = new Map(cardCounts.map((c) => [c.studySetId, Number(c.count)]));
 
     // Filter results based on view permissions and add card count
     const studySetsList = results
@@ -74,14 +85,17 @@ export async function GET(request: NextRequest) {
         description: set.description,
         type: set.type,
         tags: set.tags,
-        cardCount: set.cards.length,
+        cardCount: countMap.get(set.id) ?? 0,
         createdAt: set.createdAt,
         updatedAt: set.updatedAt,
         userId: set.userId,
         user: set.user,
       }));
 
-    return NextResponse.json({ studySets: studySetsList });
+    const response = NextResponse.json({ studySets: studySetsList });
+    // Add cache headers for better performance
+    response.headers.set("Cache-Control", "private, s-maxage=10, stale-while-revalidate=30");
+    return response;
   } catch (error) {
     console.error("Failed to fetch study sets:", error);
     return NextResponse.json(

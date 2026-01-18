@@ -65,11 +65,13 @@ export default function ReviewPage() {
     correctCount,
     isAnswered,
     isCorrect,
+    isFeedbackGiven,
     answerQuestion,
     nextQuestion,
     previousQuestion,
     resetQuiz,
     resetSingleQuestion,
+    markFeedbackGiven,
   } = useQuiz({
     questions,
     questionIndices: reviewQuestionIndices,
@@ -88,10 +90,8 @@ export default function ReviewPage() {
   const handleAnswer = (correct: boolean, answer: any) => {
     answerQuestion(correct, answer);
     recordQuestionAnswered(correct, 0, statsKey); // Streak not tracked in review mode
-    // Refresh SR data after a short delay
-    setTimeout(() => {
-      setSrData(getStoredData(srKey));
-    }, 100);
+    // Refresh SR data immediately (no setTimeout to avoid race conditions)
+    setSrData(getStoredData(srKey));
   };
 
   const handleResetQuestion = () => {
@@ -103,6 +103,7 @@ export default function ReviewPage() {
   const handleFeedback = (quality: Quality) => {
     if (currentQuestionIndex < 0) return;
     overrideLastReviewQuality(currentQuestionIndex, quality, srKey);
+    markFeedbackGiven();
     setSrData(getStoredData(srKey));
   };
 
@@ -262,6 +263,7 @@ export default function ReviewPage() {
                   onReset={handleResetQuestion}
                   bookmarkStorageKey={bookmarkKey}
                   onFeedback={handleFeedback}
+                  feedbackGiven={isFeedbackGiven}
                 />
               )}
             </>
